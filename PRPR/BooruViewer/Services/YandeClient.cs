@@ -125,6 +125,8 @@ namespace PRPR.BooruViewer.Services
             var s = $"authenticity_token={token}post_id={postId}&left={rect.Left}&right={rect.Right}&top={rect.Top}&bottom={rect.Bottom}&commit=Set+avatar";
 
             var uri = $"https://yande.re/user/set_avatar/{postId}";
+
+            // TODO: implement setting avatar
         }
 
 
@@ -193,7 +195,7 @@ namespace PRPR.BooruViewer.Services
 
         public static async Task SubmitComment()
         {
-
+            // TODO: submit the comment to the server
         }
         
 

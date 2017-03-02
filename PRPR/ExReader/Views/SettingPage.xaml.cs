@@ -56,16 +56,9 @@ namespace PRPR.ExReader.Views
 
 
 
-        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
 
-            }
         }
 
 

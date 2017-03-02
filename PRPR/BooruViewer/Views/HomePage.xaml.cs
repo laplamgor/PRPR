@@ -451,20 +451,6 @@ Ex
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterRatioFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
         }
-
-        private async void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await TagDataBase.DownloadLatestTagDBAsync();
-
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
-
         
 
         private void SearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)

@@ -21,7 +21,7 @@ namespace PRPR.BooruViewer.Services
         public static async Task SetLockScreen(Post post, Rect cropRect)
         {
             Uri urlToDownload;
-            if (false) // This is mobile
+            if (false) // TODO: detect whether the device is a phone
             {
                 // Only select file smaller than 2MB as the system required
                 if (post.FileSize <= 2000000)
@@ -66,7 +66,7 @@ namespace PRPR.BooruViewer.Services
         public static async Task SetWallPaper(Post post)
         {
             Uri urlToDownload;
-            if (false) // This is mobile
+            if (false) // TODO: detect whether the device is a phone
             {
                 // Only select file smaller than 2MB as the system required
                 if (post.FileSize <= 2000000)

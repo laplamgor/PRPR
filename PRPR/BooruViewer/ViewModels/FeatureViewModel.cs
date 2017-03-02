@@ -80,7 +80,7 @@ namespace PRPR.BooruViewer.ViewModels
         
         private async Task UpdateFeatureCharacters()
         {
-            
+            // TODO: update the feature characters region in a effient way
         }
 
         private IEnumerable<KeyValuePair<string, TagSummary>> GetAllTags(IEnumerable<Post> posts)

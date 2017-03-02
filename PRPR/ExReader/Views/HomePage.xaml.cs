@@ -147,31 +147,7 @@ namespace PRPR.ExReader.Views
         }
 
 
-
-
-        private async void Grid_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-
-        }
-
-        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            
-        }
-
-        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                //var p = await Posts.DownloadPostsAsync(1, "https://yande.re/post.xml?");
-                //var p = Post.ReadFromXml(Post.test);
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
+        
 
         private void ScrollingHost_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {

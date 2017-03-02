@@ -139,9 +139,6 @@
     <Compile Include="BooruViewer\Views\SettingWallpaperPage.xaml.cs">
       <DependentUpon>SettingWallpaperPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BooruViewer\Views\TestPage.xaml.cs">
-      <DependentUpon>TestPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Common\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\FileSizeConverter.cs" />
     <Compile Include="Common\Converters\RandomGrayConverter.cs" />
@@ -255,9 +252,6 @@
     <Compile Include="BooruViewer\Views\LockScreenPreviewPage.xaml.cs">
       <DependentUpon>LockScreenPreviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BooruViewer\Views\SearchView.xaml.cs">
-      <DependentUpon>SearchView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -310,10 +304,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BooruViewer\Views\SettingWallpaperPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BooruViewer\Views\TestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -382,10 +372,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BooruViewer\Views\LockScreenPreviewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BooruViewer\Views\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

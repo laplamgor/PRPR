@@ -57,27 +57,6 @@ namespace PRPR.ExReader.Services
             ExSettings.Current.ECookie = "";
         }
 
-
-        public async Task SignInAsync(string id, string password)
-        {
-            try
-            {
-                var handler = new HttpClientHandler { AllowAutoRedirect = true };
-                HttpClient client = new HttpClient(handler);
-
-
-                var response = await client.GetByteArrayAsync("http://exhentai.org/");
-                var s =  Encoding.UTF8.GetString(response, 0, response.Length);
-
-                
-                //return await client.GetStringAsync(uri);
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
-
         
 
 
@@ -239,26 +218,7 @@ namespace PRPR.ExReader.Services
                 throw new Exception("Login Error");
             }
         }
-
-        private static async Task<string> CheckCookieForAccess(string manberid, string passhash)
-        {
-            HttpWebRequest webRequest = WebRequest.CreateHttp("http://exhentai.org/");
-            webRequest.Headers["Cookie"] = manberid + ";" + passhash;
-            string imgCookie = "";
-            using (HttpWebResponse webResponse = await webRequest.GetResponseAsync() as HttpWebResponse)
-            {
-                if (webResponse.ContentType == "image/gif")
-                {
-                    throw new Exception("No Access");
-                }
-                imgCookie = webResponse.Headers["Set-Cookie"];
-            }
-            string igneousRegexPattern = @"igneous=([^;]*)";
-            var igneousRegex = Match(imgCookie, igneousRegexPattern);
-            var igneous = igneousRegex.Value;
-            return igneousRegex.Success ? igneous : "igneous=";
-        }
-
+        
         public static string CheckForMemberID(string cookie)
         {
             string memberidRegexPattern = @"ipb_member_id=([^;]*)";

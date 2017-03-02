@@ -61,22 +61,8 @@ namespace PRPR.ExReader.Views
 
         private bool isFirstLoad = true;
 
-        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //if (isFirstLoad)
-            //{
-            //    isFirstLoad = false;
-
-            //    try
-            //    {
-            //        GalleryListViewModel.Key = "";
-            //        await GalleryListViewModel.Load();
-            //    }
-            //    catch (Exception ex)
-            //    {
-
-            //    }
-            //}
 
         }
 

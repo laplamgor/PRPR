@@ -80,6 +80,11 @@ namespace PRPR.BooruViewer.Views
         {
             (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(SettingLockscreenPage));
         }
+
+        private void ListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(AboutPage));
+        }
     }
 }
  

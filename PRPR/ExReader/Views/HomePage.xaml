@@ -230,8 +230,7 @@
                       IsItemClickEnabled="True"
                       HorizontalAlignment="Right"
                       ScrollViewer.VerticalScrollMode="Disabled"
-                      RequestedTheme="Light"
-                      ItemClick="ListView_ItemClick">
+                      RequestedTheme="Light">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemTab}">
                         <Setter Property="BorderBrush" Value="#FF222222"/>

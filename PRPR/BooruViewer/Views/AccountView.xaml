@@ -154,9 +154,9 @@
                     </Grid>
                 </ListViewItem>
 
-                <ListViewItem HorizontalContentAlignment="Stretch">
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="About (not yet)" VerticalAlignment="Center"/>
+                        <TextBlock Text="About" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
