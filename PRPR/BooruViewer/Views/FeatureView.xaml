@@ -1,0 +1,1077 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PRPR.BooruViewer.Views"
+    xmlns:controls="using:PRPR.BooruViewer.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:control="using:PRPR.ExReader.Views.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
+    xmlns:Converters="using:PRPR.BooruViewer.Converters"
+    x:Class="PRPR.BooruViewer.Views.FeatureView"
+    mc:Ignorable="d"
+    d:DesignHeight="4000"
+    d:DesignWidth="1440"
+    Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Converters:TagNameConverter x:Key="TagNameConverter"/>
+        <DataTemplate x:Key="FretureChar">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.Column="0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/8c/28/8c286b4371a11606417a0f84fd837724.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Grid.Column="1">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/33/5b/335b1a0e19b9dfedd7827b3858de6acc.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Grid.Column="2">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/13/1c/131c1c5287fea28ede727ca2911a978f.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Grid.Column="3">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/cb/03/cb037421e1f35b3b1a85d36133e598dc.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle Grid.ColumnSpan="4">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF000000" Offset="1"/>
+                            <GradientStop Color="#70000000" Offset="0.666"/>
+                            <GradientStop Color="#70808080" Offset="0.333"/>
+                            <GradientStop Color="#A0808080"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <Ellipse  x:Name="Char0"  Height="160" Width="160" Stroke="Black" StrokeThickness="1"  Margin="0" HorizontalAlignment="Center">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="https://yande.re/data/avatars/108708.jpg?1464225941" Stretch="UniformToFill" AlignmentY="Top"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Text="#Akatsuki_(Kancolle)" Margin="12"  Style="{Binding Style, ElementName=Tag0Text}"  VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="Top3ButtonStyle" BasedOn="{StaticResource ButtonStyleNoColor}" TargetType="Button">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        </Style>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <ViewModels:FeatureViewModel/>
+    </UserControl.DataContext>
+
+    <StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+
+            <VisualStateGroup x:Name="TopsGridLayoout">
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Top1.(Grid.Column)" Value="0"/>
+                        <Setter Target="Top1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Top1.(Grid.ColumnSpan)" Value="4"/>
+                        <Setter Target="Top1.(Grid.RowSpan)" Value="6"/>
+
+                        <Setter Target="Top2.(Grid.Column)" Value="4"/>
+                        <Setter Target="Top2.(Grid.Row)" Value="0"/>
+                        <Setter Target="Top2.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Top2.(Grid.RowSpan)" Value="3"/>
+
+                        <Setter Target="Top3.(Grid.Column)" Value="4"/>
+                        <Setter Target="Top3.(Grid.Row)" Value="3"/>
+                        <Setter Target="Top3.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Top3.(Grid.RowSpan)" Value="3"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Top1.(Grid.Column)" Value="0"/>
+                        <Setter Target="Top1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Top1.(Grid.ColumnSpan)" Value="6"/>
+                        <Setter Target="Top1.(Grid.RowSpan)" Value="4"/>
+
+                        <Setter Target="Top2.(Grid.Column)" Value="0"/>
+                        <Setter Target="Top2.(Grid.Row)" Value="4"/>
+                        <Setter Target="Top2.(Grid.ColumnSpan)" Value="3"/>
+                        <Setter Target="Top2.(Grid.RowSpan)" Value="2"/>
+
+                        <Setter Target="Top3.(Grid.Column)" Value="3"/>
+                        <Setter Target="Top3.(Grid.Row)" Value="4"/>
+                        <Setter Target="Top3.(Grid.ColumnSpan)" Value="3"/>
+                        <Setter Target="Top3.(Grid.RowSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="TopsSize">
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1280" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TopTodayHeader.Margin" Value="48,4"/>
+                        <Setter Target="TopTodayHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+                        <Setter Target="TagsHeader.Margin" Value="48,4"/>
+                        <Setter Target="TagsHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+                        <Setter Target="CharHeader.Margin" Value="48,4"/>
+                        <Setter Target="CharHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+
+                        <Setter Target="Tag0Text.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+
+                        <Setter Target="TodayGrid.Height" Value="640"/>
+                        <Setter Target="TodayGrid.Padding" Value="48,0"/>
+
+
+                        <Setter Target="Tags.Margin" Value="48,4"/>
+
+
+                        <Setter Target="Tags0.Padding" Value="6"/>
+                        <Setter Target="Tags1.Padding" Value="6"/>
+                        <Setter Target="Tags2.Padding" Value="6"/>
+                        <Setter Target="Tags3.Padding" Value="6"/>
+                        <Setter Target="Tags4.Padding" Value="6"/>
+                        <Setter Target="Tags5.Padding" Value="6"/>
+
+                        <Setter Target="Top1.Margin" Value="6"/>
+                        <Setter Target="Top2.Margin" Value="6"/>
+                        <Setter Target="Top3.Margin" Value="6"/>
+
+                        <Setter Target="Char.Margin" Value="0,6"/>
+                        <Setter Target="Char0Grid.Margin" Value="0,6"/>
+                        <Setter Target="Char1Grid.Margin" Value="0,6"/>
+                        <Setter Target="Char2Grid.Margin" Value="0,6"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TopTodayHeader.Margin" Value="12,4"/>
+                        <Setter Target="TopTodayHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+                        <Setter Target="TagsHeader.Margin" Value="12,4"/>
+                        <Setter Target="TagsHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+                        <Setter Target="CharHeader.Margin" Value="12,4"/>
+                        <Setter Target="CharHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
+
+                        <Setter Target="Tag0Text.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+
+
+                        <Setter Target="TodayGrid.Height" Value="560"/>
+                        <Setter Target="TodayGrid.Padding" Value="12,0"/>
+
+
+                        <Setter Target="Tags.Margin" Value="6,4"/>
+
+                        <Setter Target="Tags0.Padding" Value="4"/>
+                        <Setter Target="Tags1.Padding" Value="4"/>
+                        <Setter Target="Tags2.Padding" Value="4"/>
+                        <Setter Target="Tags3.Padding" Value="4"/>
+                        <Setter Target="Tags4.Padding" Value="4"/>
+                        <Setter Target="Tags5.Padding" Value="4"/>
+
+                        <Setter Target="Top1.Margin" Value="4"/>
+                        <Setter Target="Top2.Margin" Value="4"/>
+                        <Setter Target="Top3.Margin" Value="4"/>
+
+                        <Setter Target="Char.Margin" Value="0,4"/>
+                        <Setter Target="Char0Grid.Margin" Value="0,4"/>
+                        <Setter Target="Char1Grid.Margin" Value="0,4"/>
+                        <Setter Target="Char2Grid.Margin" Value="0,4"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TopTodayHeader.Margin" Value="12,4"/>
+                        <Setter Target="TopTodayHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Setter Target="TagsHeader.Margin" Value="12,4"/>
+                        <Setter Target="TagsHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Setter Target="CharHeader.Margin" Value="12,4"/>
+                        <Setter Target="CharHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+
+                        <Setter Target="Tag0Text.Style" Value="{StaticResource BodyTextBlockStyle}"/>
+
+                        <Setter Target="TodayGrid.Height" Value="560"/>
+                        <Setter Target="TodayGrid.Padding" Value="12,0"/>
+
+                        <Setter Target="Tags.Margin" Value="6,4"/>
+
+                        <Setter Target="Tags0.Padding" Value="2"/>
+                        <Setter Target="Tags1.Padding" Value="2"/>
+                        <Setter Target="Tags2.Padding" Value="2"/>
+                        <Setter Target="Tags3.Padding" Value="2"/>
+                        <Setter Target="Tags4.Padding" Value="2"/>
+                        <Setter Target="Tags5.Padding" Value="2"/>
+
+                        <Setter Target="Top1.Margin" Value="2"/>
+                        <Setter Target="Top2.Margin" Value="2"/>
+                        <Setter Target="Top3.Margin" Value="2"/>
+
+                        <Setter Target="Char.Margin" Value="0,2"/>
+                        <Setter Target="Char0Grid.Margin" Value="0,2"/>
+                        <Setter Target="Char1Grid.Margin" Value="0,2"/>
+                        <Setter Target="Char2Grid.Margin" Value="0,2"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TopTodayHeader.Margin" Value="2,4"/>
+                        <Setter Target="TopTodayHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Setter Target="TagsHeader.Margin" Value="2,4"/>
+                        <Setter Target="TagsHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Setter Target="CharHeader.Margin" Value="2,4"/>
+                        <Setter Target="CharHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+
+                        <Setter Target="Tag0Text.Style" Value="{StaticResource BodyTextBlockStyle}"/>
+
+                        <Setter Target="TodayGrid.Height" Value="468"/>
+                        <Setter Target="TodayGrid.Padding" Value="2,0"/>
+
+                        <Setter Target="Tags.Margin" Value="2,4"/>
+
+
+                        <Setter Target="Tags0.Padding" Value="2"/>
+                        <Setter Target="Tags1.Padding" Value="2"/>
+                        <Setter Target="Tags2.Padding" Value="2"/>
+                        <Setter Target="Tags3.Padding" Value="2"/>
+                        <Setter Target="Tags4.Padding" Value="2"/>
+                        <Setter Target="Tags5.Padding" Value="2"/>
+
+
+                        <Setter Target="Top1.Margin" Value="2"/>
+                        <Setter Target="Top2.Margin" Value="2"/>
+                        <Setter Target="Top3.Margin" Value="2"/>
+
+                        <Setter Target="Char.Margin" Value="0,2"/>
+                        <Setter Target="Char0Grid.Margin" Value="0,2"/>
+                        <Setter Target="Char1Grid.Margin" Value="0,2"/>
+                        <Setter Target="Char2Grid.Margin" Value="0,2"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TopTodayHeader.Margin" Value="2,4"/>
+                        <Setter Target="TopTodayHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Setter Target="TagsHeader.Margin" Value="2,4"/>
+                        <Setter Target="TagsHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Setter Target="CharHeader.Margin" Value="2,4"/>
+                        <Setter Target="CharHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
+
+                        <Setter Target="Tag0Text.Style" Value="{StaticResource BodyTextBlockStyle}"/>
+
+                        <Setter Target="TodayGrid.Height" Value="348"/>
+                        <Setter Target="TodayGrid.Padding" Value="2,0"/>
+
+                        <Setter Target="Tags.Margin" Value="2,4"/>
+
+
+                        <Setter Target="Tags0.Padding" Value="2"/>
+                        <Setter Target="Tags1.Padding" Value="2"/>
+                        <Setter Target="Tags2.Padding" Value="2"/>
+                        <Setter Target="Tags3.Padding" Value="2"/>
+                        <Setter Target="Tags4.Padding" Value="2"/>
+                        <Setter Target="Tags5.Padding" Value="2"/>
+
+
+                        <Setter Target="Top1.Margin" Value="2"/>
+                        <Setter Target="Top2.Margin" Value="2"/>
+                        <Setter Target="Top3.Margin" Value="2"/>
+
+                        <Setter Target="Char.Margin" Value="0,2"/>
+                        <Setter Target="Char0Grid.Margin" Value="0,2"/>
+                        <Setter Target="Char1Grid.Margin" Value="0,2"/>
+                        <Setter Target="Char2Grid.Margin" Value="0,2"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+
+
+            <VisualStateGroup x:Name="TagsGridLayoout">
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.ColumnDefinitions[3].Width" Value="*"/>
+                        <Setter Target="Tags.ColumnDefinitions[2].Width" Value="*"/>
+
+                        <Setter Target="Tags0.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Tags0.(Grid.RowSpan)" Value="2"/>
+
+                        <Setter Target="Tags1.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tags1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags1.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Tags1.(Grid.RowSpan)" Value="2"/>
+
+                        <Setter Target="Tags2.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags2.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags2.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags2.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags3.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags3.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags4.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tags4.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags4.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags4.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags5.(Grid.Column)" Value="3"/>
+                        <Setter Target="Tags5.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags5.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags5.(Grid.RowSpan)" Value="1"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                        <Setter Target="Tags.ColumnDefinitions[3].Width" Value="0"/>
+                        <Setter Target="Tags.ColumnDefinitions[2].Width" Value="*"/>
+
+                        <Setter Target="Tags0.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Tags0.(Grid.RowSpan)" Value="2"/>
+
+                        <Setter Target="Tags1.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tags1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags1.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags1.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags2.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags2.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags2.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags2.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags3.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags3.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags4.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tags4.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags4.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags4.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags5.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tags5.(Grid.Row)" Value="1"/>
+                        <Setter Target="Tags5.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags5.(Grid.RowSpan)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.ColumnDefinitions[3].Width" Value="0"/>
+                        <Setter Target="Tags.ColumnDefinitions[2].Width" Value="0"/>
+
+                        <Setter Target="Tags0.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags0.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags1.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tags1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags1.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags1.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags2.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags2.(Grid.Row)" Value="1"/>
+                        <Setter Target="Tags2.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags2.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags3.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.Row)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags4.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags4.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags4.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags4.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags5.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tags5.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags5.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags5.(Grid.RowSpan)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="TagsSize">
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1280" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.RowDefinitions[0].Height" Value="220"/>
+                        <Setter Target="Tags.RowDefinitions[1].Height" Value="220"/>
+                        <Setter Target="Tags.RowDefinitions[2].Height" Value="260"/>
+
+                        <Setter Target="Char0.Height" Value="180"/>
+                        <Setter Target="Char0.Width" Value="180"/>
+                        <Setter Target="Char1.Height" Value="180"/>
+                        <Setter Target="Char1.Width" Value="180"/>
+                        <Setter Target="Char2.Height" Value="180"/>
+                        <Setter Target="Char2.Width" Value="180"/>
+
+                        <Setter Target="Char0.Margin" Value="0,12"/>
+                        <Setter Target="Char1.Margin" Value="0,12"/>
+                        <Setter Target="Char2.Margin" Value="0,12"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="960" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.RowDefinitions[0].Height" Value="200"/>
+                        <Setter Target="Tags.RowDefinitions[1].Height" Value="200"/>
+                        <Setter Target="Tags.RowDefinitions[2].Height" Value="240"/>
+
+
+                        <Setter Target="Char0.Height" Value="160"/>
+                        <Setter Target="Char0.Width" Value="160"/>
+                        <Setter Target="Char1.Height" Value="160"/>
+                        <Setter Target="Char1.Width" Value="160"/>
+                        <Setter Target="Char2.Height" Value="160"/>
+                        <Setter Target="Char2.Width" Value="160"/>
+
+                        <Setter Target="Char0.Margin" Value="0,12"/>
+                        <Setter Target="Char1.Margin" Value="0,12"/>
+                        <Setter Target="Char2.Margin" Value="0,12"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.RowDefinitions[0].Height" Value="180"/>
+                        <Setter Target="Tags.RowDefinitions[1].Height" Value="180"/>
+                        <Setter Target="Tags.RowDefinitions[2].Height" Value="200"/>
+
+                        <Setter Target="Char0.Height" Value="140"/>
+                        <Setter Target="Char0.Width" Value="140"/>
+                        <Setter Target="Char1.Height" Value="140"/>
+                        <Setter Target="Char1.Width" Value="140"/>
+                        <Setter Target="Char2.Height" Value="140"/>
+                        <Setter Target="Char2.Width" Value="140"/>
+
+                        <Setter Target="Char0.Margin" Value="0,8"/>
+                        <Setter Target="Char1.Margin" Value="0,8"/>
+                        <Setter Target="Char2.Margin" Value="0,8"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.RowDefinitions[0].Height" Value="180"/>
+                        <Setter Target="Tags.RowDefinitions[1].Height" Value="180"/>
+                        <Setter Target="Tags.RowDefinitions[2].Height" Value="180"/>
+
+                        <Setter Target="Char0.Height" Value="120"/>
+                        <Setter Target="Char0.Width" Value="120"/>
+                        <Setter Target="Char1.Height" Value="120"/>
+                        <Setter Target="Char1.Width" Value="120"/>
+                        <Setter Target="Char2.Height" Value="120"/>
+                        <Setter Target="Char2.Width" Value="120"/>
+
+                        <Setter Target="Char0.Margin" Value="0,4"/>
+                        <Setter Target="Char1.Margin" Value="0,4"/>
+                        <Setter Target="Char2.Margin" Value="0,4"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.RowDefinitions[0].Height" Value="152"/>
+                        <Setter Target="Tags.RowDefinitions[1].Height" Value="152"/>
+                        <Setter Target="Tags.RowDefinitions[2].Height" Value="152"/>
+
+                        <Setter Target="Char0.Height" Value="80"/>
+                        <Setter Target="Char0.Width" Value="80"/>
+                        <Setter Target="Char1.Height" Value="80"/>
+                        <Setter Target="Char1.Width" Value="80"/>
+                        <Setter Target="Char2.Height" Value="80"/>
+                        <Setter Target="Char2.Width" Value="80"/>
+
+                        <Setter Target="Char0.Margin" Value="0,4"/>
+                        <Setter Target="Char1.Margin" Value="0,4"/>
+                        <Setter Target="Char2.Margin" Value="0,4"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+        </VisualStateManager.VisualStateGroups>
+
+
+        <Grid Margin="2"/>
+
+        <!--TOP TODAY-->
+        <StackPanel>
+
+            <Grid Margin="0,4">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#80808080" Offset="0.5"/>
+                        <GradientStop Color="#FF000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock x:Name="TopTodayHeader" Text="本日熱門" Margin="24,0" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0"/>
+            </Grid>
+            <Grid x:Name="TodayGrid" Height="640" Padding="42,0,42,6" Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="Top1" DataContext="{Binding TopToday[0]}" Click="Top3_Click"
+                        Margin="6,6,6,6" Grid.RowSpan="2" Style="{StaticResource Top3ButtonStyle}" >
+                    <Button.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </Button.Transitions>
+                    <Border BorderBrush="DimGray" BorderThickness="1">
+                        <!--<controls:ImageCropper ImageSource="https://files.yande.re/sample/6272989beba5f65292a789303634ccd0/yande.re%20370690%20sample%20bikini%20cleavage%20re_zero_kara_hajimeru_isekai_seikatsu%20rem_%28re_zero%29%20swimsuits.jpg" ProxySource="https://assets.yande.re/data/preview/62/72/6272989beba5f65292a789303634ccd0.jpg"/>-->
+                        <controls:ImageCropper ImageSource="{Binding SampleUrl}" ProxySource="{Binding PreviewUrl}"/>
+                    </Border>
+                </Button>
+
+
+
+                <Button x:Name="Top2" DataContext="{Binding TopToday[1]}" Click="Top3_Click"
+                        Margin="6,6,6,6" Grid.Row="0" Grid.Column="1" Style="{StaticResource Top3ButtonStyle}">
+                    <Button.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </Button.Transitions>
+                    <Border BorderBrush="DimGray" BorderThickness="1">
+                        <controls:ImageCropper ImageSource="{Binding SampleUrl}" ProxySource="{Binding PreviewUrl}"/>
+                        <!--<Image Source="{Binding SampleUrl}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Center" CacheMode="BitmapCache"/>-->
+                    </Border>
+                </Button>
+
+                <Button x:Name="Top3" DataContext="{Binding TopToday[2]}" Click="Top3_Click"
+                        Grid.Row="1" Grid.Column="1" Margin="6,6,6,6" Style="{StaticResource Top3ButtonStyle}" >
+                    <Button.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </Button.Transitions>
+                    <Border BorderBrush="DimGray" BorderThickness="1">
+                        <controls:ImageCropper ImageSource="{Binding SampleUrl}" ProxySource="{Binding PreviewUrl}"/>
+                        <!--<Image Source="{Binding SampleUrl}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Center" CacheMode="BitmapCache"/>-->
+                    </Border>
+                </Button>
+                
+            </Grid>
+        </StackPanel>
+
+        <Grid Margin="16"/>
+
+        <!--Tags-->
+        <Grid x:Name="FeaturedTag" Margin="0,24" Visibility="Visible">
+            <StackPanel>
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#80808080" Offset="0.5"/>
+                            <GradientStop Color="#FF000000" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TextBlock x:Name="TagsHeader" Text="推薦標籤" Margin="24,12" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0" Foreground="White"/>
+                </Grid>
+
+                <Grid x:Name="Tags" Margin="36,0,36,0" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="240"/>
+                        <RowDefinition Height="240"/>
+                        <RowDefinition Height="240"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="Tags0" DataContext="{Binding Tags[0]}" Click="Tags6_Click"
+                            Style="{StaticResource Top3ButtonStyle}">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                        <Grid>
+                            <Rectangle Fill="DarkGray" Margin="0,4,0,4" Width="4" HorizontalAlignment="Right"/>
+
+                            <!--<Grid BorderBrush="Gray" Margin="0,0,4,0" BorderThickness="1">
+                                <controls:ImageCropper ImageSource="{Binding TopPost.SampleUrl}" ProxySource="{Binding TopPost.PreviewUrl}"/>
+                            </Grid>-->
+                            
+                            <Rectangle Stroke="DimGray" Margin="0,0,4,0" StrokeThickness="1" CacheMode="BitmapCache">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding TopPost.SampleUrl}" Stretch="UniformToFill" AlignmentY="Top" AlignmentX="Center"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Grid VerticalAlignment="Bottom" Margin="1,12,6,12" HorizontalAlignment="Left">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                        <GradientStop Color="#7F000000" Offset="0.400"/>
+                                        <GradientStop/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+
+                                <TextBlock x:Name="Tag0Text" Text="{Binding Name, Converter={StaticResource TagNameConverter}}" 
+                                           Foreground="White" Margin="6,0,24,0" Style="{StaticResource BodyTextBlockStyle}"/>
+                            </Grid>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="Tags1" DataContext="{Binding Tags[1]}" Click="Tags6_Click"
+                            Style="{StaticResource Top3ButtonStyle}">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                        <Grid>
+                            <Rectangle Fill="DarkGray" Margin="0,4,0,4" Width="4" HorizontalAlignment="Right"/>
+
+                            <!--<Grid BorderBrush="Gray" Margin="0,0,4,0" BorderThickness="1">
+                                <controls:ImageCropper ImageSource="{Binding TopPost.SampleUrl}" ProxySource="{Binding TopPost.PreviewUrl}"/>
+                            </Grid>-->
+                            <Rectangle Stroke="DimGray" Margin="0,0,4,0" StrokeThickness="1" CacheMode="BitmapCache">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding TopPost.SampleUrl}"  Stretch="UniformToFill" AlignmentY="Top" AlignmentX="Center"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Grid VerticalAlignment="Bottom" Margin="1,12,6,12" HorizontalAlignment="Left">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                        <GradientStop Color="#7F000000" Offset="0.394"/>
+                                        <GradientStop/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <TextBlock Text="{Binding Name, Converter={StaticResource TagNameConverter}}" Foreground="White" Margin="6,0,24,0"  Style="{Binding Style, ElementName=Tag0Text}"/>
+                            </Grid>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="Tags2" DataContext="{Binding Tags[2]}" Click="Tags6_Click"
+                            Style="{StaticResource Top3ButtonStyle}">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                        <Grid>
+                            <Rectangle Fill="DarkGray" Margin="0,4,0,4" Width="4" HorizontalAlignment="Right"/>
+
+                            <!--<Grid BorderBrush="Gray" Margin="0,0,4,0" BorderThickness="1">
+                                <controls:ImageCropper ImageSource="{Binding TopPost.PreviewUrl}" ProxySource="{Binding TopPost.PreviewUrl}"/>
+                            </Grid>-->
+                            <Rectangle Stroke="DimGray" Margin="0,0,4,0" StrokeThickness="1">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding TopPost.PreviewUrl}" Stretch="UniformToFill" AlignmentY="Top" AlignmentX="Center"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            
+                            <Grid VerticalAlignment="Bottom" Margin="1,12,6,12" HorizontalAlignment="Left">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                        <GradientStop Color="#7F000000" Offset="0.4"/>
+                                        <GradientStop/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <TextBlock Text="{Binding Name, Converter={StaticResource TagNameConverter}}" Foreground="White" Margin="6,0,24,0"  Style="{Binding Style, ElementName=Tag0Text}"/>
+                            </Grid>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="Tags3" DataContext="{Binding Tags[3]}" Click="Tags6_Click"
+                            Style="{StaticResource Top3ButtonStyle}">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                        <Grid>
+                            <Rectangle Fill="DarkGray" Margin="0,4,0,4" Width="4" HorizontalAlignment="Right"/>
+                            <!--<Grid BorderBrush="Gray" Margin="0,0,4,0" BorderThickness="1">
+                                <controls:ImageCropper ImageSource="{Binding TopPost.PreviewUrl}" ProxySource="{Binding TopPost.PreviewUrl}"/>
+                            </Grid>-->
+                            <Rectangle Stroke="DimGray" Margin="0,0,4,0" StrokeThickness="1">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding TopPost.PreviewUrl}" Stretch="UniformToFill" AlignmentY="Top" AlignmentX="Center"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Grid VerticalAlignment="Bottom" Margin="1,12,6,12" HorizontalAlignment="Left">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                        <GradientStop Color="#7F000000" Offset="0.4"/>
+                                        <GradientStop/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <TextBlock Text="{Binding Name, Converter={StaticResource TagNameConverter}}" Foreground="White" Margin="6,0,24,0"  Style="{Binding Style, ElementName=Tag0Text}"/>
+                            </Grid>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="Tags4" DataContext="{Binding Tags[4]}" Click="Tags6_Click"
+                            Style="{StaticResource Top3ButtonStyle}">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                        <Grid>
+                            <Rectangle Fill="DarkGray" Margin="0,4,0,4" Width="4" HorizontalAlignment="Right"/>
+                            <!--<Grid BorderBrush="Gray" Margin="0,0,4,0" BorderThickness="1">
+                                <controls:ImageCropper ImageSource="{Binding TopPost.PreviewUrl}" ProxySource="{Binding TopPost.PreviewUrl}"/>
+                            </Grid>-->
+                            <Rectangle Stroke="DimGray" Margin="0,0,4,0" StrokeThickness="1">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding TopPost.PreviewUrl}" Stretch="UniformToFill" AlignmentY="Top" AlignmentX="Center"/>
+
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Grid VerticalAlignment="Bottom" Margin="1,12,6,12" HorizontalAlignment="Left">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                        <GradientStop Color="#7F000000" Offset="0.4"/>
+                                        <GradientStop/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <TextBlock Text="{Binding Name, Converter={StaticResource TagNameConverter}}" Foreground="White" Margin="6,0,24,0"  Style="{Binding Style, ElementName=Tag0Text}"/>
+                            </Grid>
+                        </Grid>
+                    </Button>
+
+
+                    <Button x:Name="Tags5" DataContext="{Binding Tags[5]}" Click="Tags6_Click"
+                            Style="{StaticResource Top3ButtonStyle}">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                        <Grid>
+                            <Rectangle Fill="DarkGray" Margin="0,4,0,4" Width="4" HorizontalAlignment="Right"/>
+                            <!--<Grid BorderBrush="Gray" Margin="0,0,4,0" BorderThickness="1">
+                                <controls:ImageCropper ImageSource="{Binding TopPost.PreviewUrl}" ProxySource="{Binding TopPost.PreviewUrl}"/>
+                            </Grid>-->
+                            <Rectangle Stroke="DimGray" Margin="0,0,4,0" StrokeThickness="1">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding TopPost.PreviewUrl}" Stretch="UniformToFill" AlignmentY="Top" AlignmentX="Center"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Grid VerticalAlignment="Bottom" Margin="1,12,6,12" HorizontalAlignment="Left">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                                        <GradientStop Color="#7F000000" Offset="0.4"/>
+                                        <GradientStop/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <TextBlock Text="{Binding Name, Converter={StaticResource TagNameConverter}}" Foreground="White" Margin="6,0,24,0"  Style="{Binding Style, ElementName=Tag0Text}"/>
+                            </Grid>
+
+                        </Grid>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid Margin="12"/>
+
+
+
+        <!--Char-->
+        <Grid x:Name="Char" Margin="0,0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                    <GradientStop Color="#80808080" Offset="0.5"/>
+                    <GradientStop Color="#FF000000" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <!--<Rectangle Opacity="0.66">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://yande.re/data/avatars/272680.jpg?1472232305" Stretch="UniformToFill" AlignmentY="Center"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Fill="#20000000"/>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="{Binding Converter={StaticResource TransparentColorConverter}, Source={StaticResource SystemChromeMediumColor}}" Offset="0.5"/>
+                        <GradientStop Color="#FF000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>-->
+
+            <TextBlock x:Name="CharHeader" Text="Featured Character (Not finished)" Margin="24,24" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0" Foreground="White"/>
+        </Grid>
+
+        <!--Tags-->
+        <Grid x:Name="Char0Grid" Margin="0,6" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--<controls:ImageCropper Grid.Column="0" ImageSource="https://assets.yande.re/data/preview/8c/28/8c286b4371a11606417a0f84fd837724.jpg"/>-->
+            <Rectangle Grid.Column="0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/8c/28/8c286b4371a11606417a0f84fd837724.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <!--<controls:ImageCropper Grid.Column="1" ImageSource="https://assets.yande.re/data/preview/33/5b/335b1a0e19b9dfedd7827b3858de6acc.jpg"/>-->
+            <Rectangle Grid.Column="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/33/5b/335b1a0e19b9dfedd7827b3858de6acc.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <!--<controls:ImageCropper Grid.Column="2" ImageSource="https://assets.yande.re/data/preview/13/1c/131c1c5287fea28ede727ca2911a978f.jpg"/>-->
+            <Rectangle Grid.Column="2">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/13/1c/131c1c5287fea28ede727ca2911a978f.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <!--<controls:ImageCropper Grid.Column="3" ImageSource="https://assets.yande.re/data/preview/cb/03/cb037421e1f35b3b1a85d36133e598dc.jpg"/>-->
+            <Rectangle Grid.Column="3">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/cb/03/cb037421e1f35b3b1a85d36133e598dc.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle Grid.ColumnSpan="4">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FF000000" Offset="1"/>
+                        <GradientStop Color="#80000000" Offset="0.666"/>
+                        <GradientStop Color="#80000000" Offset="0.333"/>
+                        <GradientStop Color="#FF000000"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Ellipse  x:Name="Char0"  Height="160" Width="160" Stroke="Black" StrokeThickness="1"  Margin="0" HorizontalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://yande.re/data/avatars/108708.jpg?1464225941" Stretch="UniformToFill" AlignmentY="Top"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Text="#Akatsuki_(Kancolle)" Margin="12"  Style="{Binding Style, ElementName=Tag0Text}"  VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!--Tags-->
+        <Grid x:Name="Char1Grid" Margin="0,6" Visibility="Visible">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Column="0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/6b/dd/6bdd2257578a81349510847d7fa00c7f.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Column="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/2d/79/2d799ba1c11eba24de1b3c0a4c1bd6f4.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Column="2">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/ff/50/ff5070e208e3ae23c9e79ddc519d7bf2.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Column="3">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/30/8e/308e18ef2fe49ce561b88e430782b946.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.ColumnSpan="4">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FF000000" Offset="1"/>
+                        <GradientStop Color="#80000000" Offset="0.666"/>
+                        <GradientStop Color="#80000000" Offset="0.333"/>
+                        <GradientStop Color="#FF000000"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Ellipse  x:Name="Char1"  Height="160" Width="160" Stroke="Black" StrokeThickness="1"  Margin="0" HorizontalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://yande.re/data/avatars/272680.jpg?1472232305" Stretch="UniformToFill" AlignmentY="Top"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Text="#Rem_(Re_Zero)" Margin="12"  Style="{Binding Style, ElementName=Tag0Text}"  VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+
+
+
+        <!--Tags-->
+        <Grid x:Name="Char2Grid" Margin="0,6" Visibility="Visible">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Column="0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/da/2f/da2f44435e97c06153f1576f0bc9b1be.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Column="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/21/5a/215a68c1be31940e9a55e5be3bb847b1.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Column="2">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/20/9b/209b23e09118cb6deee6ab60f2c76d58.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Column="3">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="https://assets.yande.re/data/preview/96/0a/960ab6cef59e0d9363e6c59ed1ecd86e.jpg" Stretch="UniformToFill" AlignmentY="Top"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle Grid.ColumnSpan="4">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FF000000" Offset="1"/>
+                        <GradientStop Color="#80000000" Offset="0.666"/>
+                        <GradientStop Color="#80000000" Offset="0.333"/>
+                        <GradientStop Color="#FF000000"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <StackPanel Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Ellipse x:Name="Char2" Height="160" Width="160" Stroke="Black" StrokeThickness="1"  Margin="0" HorizontalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://files.yande.re/sample/fdb682955c789d03e8ef98efeafc86f5/yande.re%20329394%20sample%20breast_hold%20cleavage%20kaga_%28kancolle%29%20kantai_collection%20nian%20no_bra%20open_shirt%20thighhighs.jpg" Stretch="UniformToFill" AlignmentY="Top">
+                            <ImageBrush.Transform>
+                                <CompositeTransform ScaleX="2.5" ScaleY="2.5" TranslateX="-80" TranslateY="-65"/>
+                            </ImageBrush.Transform>
+                        </ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Text="#Kaga_(Kancolle)"  Margin="12"  Style="{Binding Style, ElementName=Tag0Text}"  VerticalAlignment="Center"/>
+
+            </StackPanel>
+        </Grid>
+
+
+
+
+
+
+
+
+
+
+
+        <Grid Margin="12"/>
+
+
+
+
+
+
+
+    </StackPanel>
+</UserControl>

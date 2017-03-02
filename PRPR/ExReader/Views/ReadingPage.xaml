@@ -1,0 +1,159 @@
+﻿<Page
+    x:Class="PRPR.ExReader.Views.ReadingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PRPR.ExReader.Views"
+    xmlns:converters="using:PRPR.ExReader.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:PRPR.ExReader.ViewModels"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required"
+    x:Name="CurrentReadingPage"
+    RequestedTheme="Dark">
+
+    <Page.DataContext>
+        <viewmodel:ReadingViewModel/>
+    </Page.DataContext>
+
+    <Page.Resources>
+        <converters:BoolToFlowDirection x:Key="BoolToFlowDirection"/>
+    </Page.Resources>
+    
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="OverlayStates">
+                <VisualState x:Name="NoOverlay">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="Buttons" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0:0:0.2" To="0"/>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Buttons" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="ButtonsOnly">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="Buttons" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0:0:0.2" To="1"/>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Buttons" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+
+
+        <FlipView x:Name="flipView" ItemsSource="{Binding Images}" SelectedIndex="{Binding CurrentImageIndex, Mode=TwoWay}" 
+                  FlowDirection="{Binding StartFromRightToLeft, Converter={StaticResource BoolToFlowDirection}, Source={StaticResource ExSettings}}">
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="OutterGrid">
+                        <ScrollViewer SizeChanged="ScrollViewer_SizeChanged" 
+                                      VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                      
+                                      ZoomMode="Enabled" MinZoomFactor="1" HorizontalScrollBarVisibility="Auto" 
+                                      VerticalScrollBarVisibility="Auto" 
+                                      DoubleTapped="ScrollViewer_DoubleTapped"  Tapped="ScrollViewer_Tapped"
+                                      DataContextChanged="ScrollViewer_DataContextChanged"
+                                      Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                            <Grid x:Name="rootGrid" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.Resources>
+                                    <MenuFlyout x:Name="MenuFlyout">
+                                        <MenuFlyoutItem x:Uid="/Reading/CopyFlyoutItem" Text="Copy" Click="CopyMenuFlyoutItem_Click"/>
+                                        <!--<MenuFlyoutItem x:Uid="/Reading/SaveFlyoutItem" Text="Save picture as" Click="SaveMenuFlyoutItem_Click"/>-->
+                                    </MenuFlyout>
+                                </Grid.Resources>
+                                
+                                <Image Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                       Source="{Binding Thumb}" 
+                                       RightTapped="Image_RightTapped" Holding="Image_Holding" 
+                                       FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"/>
+                                <Image Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                       Source="{Binding ImageSource}"
+                                       RightTapped="Image_RightTapped" Holding="Image_Holding" 
+                                       FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"/>
+
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+
+        </FlipView>
+
+        <Grid x:Name="dummyGrid" Margin="0" HorizontalAlignment="Left"/>
+        
+        <!--Buttons-->
+        <Grid x:Name="Buttons"
+              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0">
+
+            <!--Button fade background-->
+            <Grid IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="132" Opacity="0.75">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" ColorInterpolationMode="ScRgbLinearInterpolation">
+                        <GradientStop Offset="0"/>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#BF000000" Offset="0.866025403784439"/>
+                        <GradientStop Color="#80000000" Offset="0.707106781186548"/>
+                        <GradientStop Color="#3F000000" Offset="0.5"/>
+                        <GradientStop Color="#19000000" Offset="0.3162277660168379"/>
+                        <GradientStop Color="#06000000" Offset="0.153093108923949"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+            </Grid>
+
+
+            <Grid x:Name="MainButtons" VerticalAlignment="Bottom" Margin="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Height="48" Width="48" IsEnabled="False"
+                         ToolTipService.ToolTip="Save" Style="{StaticResource ButtonStyleNoBorder}">
+                    
+                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <SymbolIcon Symbol="Refresh"/>
+                    </Grid>
+                </Button>
+
+                <Slider Grid.Column="1" VerticalAlignment="Center" TickPlacement="None" 
+                        Value="{Binding CurrentImageIndexOneBased, Mode=TwoWay}"
+                        Minimum="1"
+                  FlowDirection="{Binding StartFromRightToLeft, Converter={StaticResource BoolToFlowDirection}, Source={StaticResource ExSettings}}"
+                        Maximum="{Binding Gallery.FileCount}"
+                        LargeChange="1" TickFrequency="1">
+                </Slider>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding CurrentImageIndexOneBased}"/>
+                    <TextBlock Text="/"/>
+                    <TextBlock Text="{Binding Gallery.FileCount}" />
+                </StackPanel>
+
+                <Button Grid.Column="3" Height="48" Width="48" IsEnabled="False"
+                         ToolTipService.ToolTip="Save" Style="{StaticResource ButtonStyleNoBorder}">
+                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <SymbolIcon Symbol="Play"/>
+                    </Grid>
+                </Button>
+
+            </Grid>
+        </Grid>
+
+
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Background="Gray" HorizontalAlignment="Right">
+            <TextBlock Text="{Binding CurrentImageIndexOneBased}"/>
+            <TextBlock Text="/"/>
+            <TextBlock Text="{Binding Images.Count}" />
+        </StackPanel>
+    </Grid>
+</Page>

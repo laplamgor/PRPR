@@ -1,0 +1,35 @@
+﻿<UserControl x:Name="userControl"
+    x:Class="PRPR.BooruViewer.Views.Controls.ImageCropper"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PRPR.BooruViewer.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="80"
+    d:DesignWidth="80"
+    SizeChanged="UserControl_SizeChanged">
+
+    <Grid>
+
+
+        <ScrollViewer x:Name="Resizer" Loaded="Resizer_Loaded"
+                  HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled" 
+                  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" 
+                  IsHitTestVisible="False" Unloaded="Resizer_Unloaded">
+
+            <Image x:Name="InnerImage" Loaded="InnerImage_Loaded"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                   Source="{Binding ImageSource, ElementName=userControl}"
+                   Stretch="None" ImageOpened="InnerImage_ImageOpened" Unloaded="InnerImage_Unloaded">
+            </Image>
+
+        </ScrollViewer>
+
+        <Image x:Name="ProxyImage" Loaded="ProxyImage_Loaded" SizeChanged="ProxyImage_SizeChanged"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0"
+                   Source="{Binding ProxySource, ElementName=userControl}"
+                   Stretch="None" ImageOpened="ProxyImage_ImageOpened" Unloaded="ProxyImage_Unloaded">
+        </Image>
+    </Grid>
+</UserControl>

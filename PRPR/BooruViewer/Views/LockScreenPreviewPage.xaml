@@ -1,0 +1,139 @@
+﻿<Page
+    x:Class="PRPR.BooruViewer.Views.LockScreenPreviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PRPR.BooruViewer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <ViewModels:LockScreenPreviewViewModel/>
+    </Page.DataContext>
+
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1930" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="PreviewTextBlock.FontSize" Value="158"/>
+                        <Setter Target="PreviewTextBlocks.Margin" Value="64,0,0,268"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1380" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="PreviewTextBlock.FontSize" Value="128"/>
+                        <Setter Target="PreviewTextBlocks.Margin" Value="28,0,0,184"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="PreviewTextBlock.FontSize" Value="96"/>
+                        <Setter Target="PreviewTextBlocks.Margin" Value="20,0,0,140"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="PreviewTextBlock.FontSize" Value="72"/>
+                        <Setter Target="PreviewTextBlocks.Margin" Value="20,0,0,112"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+
+        <Grid x:Name="SetLockScreenPreview" Grid.Row="1" Visibility="Visible">
+
+            <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="True" Width="40" Height="40"/>
+
+            <ScrollViewer x:Name="SetLockScreenPreViewScrollViewer"  
+                          SizeChanged="ScrollViewer_SizeChanged_1"
+                          VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center"
+                          IsScrollInertiaEnabled="True"
+                          HorizontalAlignment="Stretch" 
+                          ZoomMode="Enabled" MinZoomFactor="1"  
+                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollMode="Auto" VerticalScrollMode="Auto"
+                          
+                          Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+
+                    <Image x:Name="SetLockScreenPreviewImage" Stretch="Uniform" SizeChanged="Image_SizeChanged" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Post.JpegUrl}"/>
+
+                </Grid>
+            </ScrollViewer>
+            <Rectangle Fill="Black" Opacity="0.2" IsHitTestVisible="False"/>
+            <StackPanel x:Name="PreviewTextBlocks" Orientation="Horizontal"  Margin="20,0,0,112" VerticalAlignment="Bottom">
+                <TextBlock x:Name="PreviewTextBlock" Foreground="White" IsHitTestVisible="False" Text="9"  FontSize="72" IsTextScaleFactorEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="TrimToBaseline" VerticalAlignment="Bottom"/>
+                <TextBlock  Foreground="White" IsHitTestVisible="False" Text=":" FontSize="{Binding FontSize, ElementName=PreviewTextBlock}" IsTextScaleFactorEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="Tight" VerticalAlignment="Center" />
+                <TextBlock Foreground="White" IsHitTestVisible="False" VerticalAlignment="Bottom" Text="28" FontSize="{Binding FontSize, ElementName=PreviewTextBlock}" IsTextScaleFactorEnabled="False"  FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="TrimToBaseline"/>
+            </StackPanel>
+        </Grid>
+
+
+
+        <Border CornerRadius="32" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <!--<Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.5">
+                    <GradientStop Color="{ThemeResource SystemAltLowColor}" Offset="0"/>
+                    <GradientStop Color="{ThemeResource SystemAltLowColor}" Offset="0.5"/>
+                    <GradientStop Color="{ThemeResource SystemAltLowColor}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>-->
+
+            <Border CornerRadius="32" Padding="4">
+                <!--<Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.30">
+                        <GradientStop Color="{ThemeResource SystemBaseMediumLowColor}" Offset="0"/>
+                        <GradientStop Color="{ThemeResource SystemBaseMediumColor}" Offset="0.5"/>
+                        <GradientStop Color="{ThemeResource SystemBaseMediumLowColor}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>-->
+                <StackPanel Orientation="Horizontal">
+
+                    <StackPanel x:Name="SetLockScreenButtons" Orientation="Horizontal">
+                        <Button Height="48" Width="48" 
+                                Click="AcceptButton_Click" 
+                                ToolTipService.ToolTip="Accept" Style="{StaticResource ButtonStyleRound}">
+                            <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <SymbolIcon Symbol="Accept"/>
+                            </Grid>
+                        </Button>
+
+                        <Button Height="48" Width="48" 
+                                Style="{StaticResource ButtonStyleRound}"
+                                Click="CancelButton_Click"
+                                ToolTipService.ToolTip="Cancel">
+                            <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <SymbolIcon Symbol="Cancel"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+
+            </Border>
+
+        </Border>
+
+
+    </Grid>
+</Page>

@@ -1,0 +1,640 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PRPR.ExReader.Views"
+    xmlns:controls="using:PRPR.ExReader.Views.Controls"
+    xmlns:CommonControls="using:PRPR.Common.Views.Controls"
+    xmlns:CommonConverters="using:PRPR.Common.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:PRPR.ExReader.ViewModels"
+    xmlns:Converters="using:PRPR.ExReader.Converters"
+    x:Class="PRPR.ExReader.Views.GalleryListView"
+    mc:Ignorable="d"
+    d:DesignHeight="500"
+    d:DesignWidth="330"
+    Loaded="UserControl_Loaded"
+    RequestedTheme="Dark">  
+
+
+    <UserControl.Resources>
+        <Converters:CategoryColorConverter x:Key="CategoryColorConverter"/>
+        <CommonConverters:RandomGrayConverter x:Key="RandomGrayConverter"/>
+
+        <DataTemplate x:Key="ItemTemplate360">
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Row="0" Grid.RowSpan="2"  Fill="Gray"/>
+                <Border Grid.Row="0" Grid.RowSpan="2" BorderThickness="0" Margin="0,0,0,0" VerticalAlignment="Stretch"
+                        BorderBrush="{ThemeResource ToolTipBorderThemeBrush}">
+                    <Image Source="{Binding Thumb}"
+                                   Width="108" Height="128"
+                                   Stretch="UniformToFill"
+                                   />
+                </Border>
+
+
+                <Rectangle Grid.Row="1" Margin="0,-12,0,0">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="#00000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="108">
+                    <TextBlock Text="{Binding Title}"  Padding="2,0"
+                               TextWrapping="WrapWholeWords" MaxLines="2" Height="40" VerticalAlignment="Top"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Background="Black">
+
+                        <TextBlock Text="{Binding Rating}" Foreground="#FFFF8B00"   Margin="6,0,0,0"
+                               TextWrapping="NoWrap" VerticalAlignment="Center"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               />
+                        <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" />
+
+
+
+                        <TextBlock Text="{Binding FileCount}"  Margin="6,0,0,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   />
+                        <SymbolIcon Symbol="Page"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="ItemTemplate550">
+            <Grid Margin="2,2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="144"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="16"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Row="0" Grid.RowSpan="2"  Fill="Gray"/>
+                <Border Grid.Row="0" Grid.RowSpan="2" BorderThickness="0" Margin="0,0,0,0" VerticalAlignment="Stretch"
+                        BorderBrush="{ThemeResource ToolTipBorderThemeBrush}">
+                    <Image Source="{Binding Thumb}"
+                                   Width="150" Height="176"
+                                   Stretch="UniformToFill"
+                                   />
+                </Border>
+
+
+                <Rectangle Grid.Row="1" Margin="0,-16,0,0">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="#00000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="150">
+                    <TextBlock Text="{Binding Title}"  Padding="2,0"
+                               TextWrapping="WrapWholeWords" MaxLines="2" Height="40" VerticalAlignment="Top"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Background="Black">
+
+                        <TextBlock Text="{Binding Rating}" Foreground="#FFFF8B00"   Margin="6,0,0,0"
+                               TextWrapping="NoWrap" VerticalAlignment="Center"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               />
+                        <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" />
+
+                        <TextBlock Text="{Binding FileCount}"  Margin="6,0,0,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   />
+                        <SymbolIcon Symbol="Page"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="ItemTemplate840">
+            <Grid Margin="4,4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.Row="0" Grid.RowSpan="2"  Fill="Gray"/>
+                <Border Grid.Row="0" Grid.RowSpan="2" BorderThickness="0" Margin="0,0,0,0" VerticalAlignment="Stretch"
+                        BorderBrush="{ThemeResource ToolTipBorderThemeBrush}">
+                    <Image Source="{Binding Thumb}"
+                                   Width="200" Height="220"
+                                   Stretch="UniformToFill"
+                                   />
+                </Border>
+
+                <Rectangle Grid.Row="1" Margin="0,-20,0,0">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="#00000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="200">
+                    <TextBlock Text="{Binding Title}"  Padding="4,0"
+                               TextWrapping="WrapWholeWords" MaxLines="3" Height="60" VerticalAlignment="Top"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Background="Black">
+
+                        <TextBlock Text="{Binding Rating}" Foreground="#FFFF8B00"   Margin="6,0,0,0"
+                               TextWrapping="NoWrap" VerticalAlignment="Center"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               />
+                        <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" />
+
+                        <TextBlock Text="{Binding FileCount}"  Margin="6,0,0,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   />
+                        <SymbolIcon Symbol="Page"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+
+
+
+        <Flyout Placement="Bottom" x:Key="FilterMainFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyleNoMarginPadding}">
+
+            <StackPanel Width="300">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="-56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="MinRatingFlyoutItem_Tapped">
+                    <Grid>
+                        <TextBlock Text="評分下限" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="36,15,0,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="CategoryFlyoutItem_Tapped">
+                    <Grid>
+                        <TextBlock Text="分類" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="36,15,0,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="LanguageFlyoutItem_Tapped">
+                    <Grid>
+                        <TextBlock Text="排除語言" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="36,15,0,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+                <!--<MenuFlyoutSubItem Text="Rating" IsHitTestVisible="False" Tapped="MenuFlyoutSubItem_Tapped" >
+                                        <MenuFlyoutSubItem Text="Hi"/>
+                                    </MenuFlyoutSubItem>-->
+            </StackPanel>
+
+        </Flyout>
+
+
+        <Flyout Placement="Bottom" x:Key="FilterMinRatingFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyleNoMarginPadding}">
+            <StackPanel Width="300" Padding="12,0,12,12">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
+                    <Grid>
+                        <TextBlock Margin="36,0,0,0" Text="評分下限" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Left"
+                                  Glyph="&#xE0E2;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="0,15,12,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+
+                <StackPanel DataContext="{Binding GalleryFilter}">
+                    <Slider Value="{Binding MinRating, Mode=TwoWay}" Minimum="1" Maximum="5" TickFrequency="1" SmallChange="0.5" StepFrequency="0.5" LargeChange="1"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Flyout>
+
+
+
+        <Flyout Placement="Bottom" x:Key="FilterCategoryFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyleNoMarginPadding}">
+            <StackPanel Width="300" Padding="12,0,12,12">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
+                    <Grid>
+                        <TextBlock Margin="36,0,0,0" Text="Category" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Left"
+                                  Glyph="&#xE0E2;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="0,15,12,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+
+                <StackPanel DataContext="{Binding SearchConfig}">
+                    <CheckBox Content="Doujinshi" IsChecked="{Binding Doujinshi, Mode=TwoWay}"/>
+                    <CheckBox Content="Manga" IsChecked="{Binding Manga, Mode=TwoWay}"/>
+                    <CheckBox Content="Artist CG" IsChecked="{Binding ArtistCG, Mode=TwoWay}"/>
+                    <CheckBox Content="Game CG" IsChecked="{Binding GameCG, Mode=TwoWay}"/>
+                    <CheckBox Content="Western" IsChecked="{Binding Western, Mode=TwoWay}"/>
+                    <CheckBox Content="Non-H" IsChecked="{Binding NonH, Mode=TwoWay}"/>
+                    <CheckBox Content="Image Set" IsChecked="{Binding ImageSet, Mode=TwoWay}"/>
+                    <CheckBox Content="Cosplay" IsChecked="{Binding Cosplay, Mode=TwoWay}"/>
+                    <CheckBox Content="AsianPorn" IsChecked="{Binding AsianPorn, Mode=TwoWay}"/>
+                    <CheckBox Content="Misc" IsChecked="{Binding Misc, Mode=TwoWay}"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Flyout>
+
+
+
+        <Flyout Placement="Bottom" x:Key="FilterLanguageFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyleNoMarginPadding}">
+
+            <StackPanel Width="300" Padding="12,0,12,12">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
+                    <Grid>
+                        <TextBlock Margin="36,0,0,0" Text="排除語言" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Left"
+                                  Glyph="&#xE0E2;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="0,15,12,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+
+                <Grid DataContext="{Binding Config}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Origin" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Translate" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Text="Rewrite" VerticalAlignment="Center"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Japanese" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="False" IsEnabled="False"/>
+                    <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding ExcludedJapaneseTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="{Binding ExcludedJapaneseRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="English" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding ExcludedEnglishOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding ExcludedEnglishTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="2" Grid.Column="3" IsChecked="{Binding ExcludedEnglishRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Chinese" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding ExcludedChineseOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{Binding ExcludedChineseTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="3" Grid.Column="3" IsChecked="{Binding ExcludedChineseRewrite, Mode=TwoWay}"/>
+
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Dutch" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding ExcludedDutchOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="4" Grid.Column="2" IsChecked="{Binding ExcludedDutchTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="4" Grid.Column="3" IsChecked="{Binding ExcludedDutchRewrite, Mode=TwoWay}"/>
+
+
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="French" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding ExcludedFrenchOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="5" Grid.Column="2" IsChecked="{Binding ExcludedFrenchTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="5" Grid.Column="3" IsChecked="{Binding ExcludedFrenchRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="German" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding ExcludedGermanOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="6" Grid.Column="2" IsChecked="{Binding ExcludedGermanTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="6" Grid.Column="3" IsChecked="{Binding ExcludedGermanRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="Hungarian" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding ExcludedHungarianOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="7" Grid.Column="2" IsChecked="{Binding ExcludedHungarianTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="7" Grid.Column="3" IsChecked="{Binding ExcludedHungarianRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="Italian" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding ExcludedItalianOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="8" Grid.Column="2" IsChecked="{Binding ExcludedItalianTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="8" Grid.Column="3" IsChecked="{Binding ExcludedItalianRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Text="Korean" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding ExcludedKoreanOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="9" Grid.Column="2" IsChecked="{Binding ExcludedKoreanTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="9" Grid.Column="3" IsChecked="{Binding ExcludedKoreanRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="10" Grid.Column="0" Text="Polish" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding ExcludedPolishOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="10" Grid.Column="2" IsChecked="{Binding ExcludedPolishTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="10" Grid.Column="3" IsChecked="{Binding ExcludedPolishRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="11" Grid.Column="0" Text="Portuguese" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="11" Grid.Column="1" IsChecked="{Binding ExcludedPortugueseOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="11" Grid.Column="2" IsChecked="{Binding ExcludedPortugueseTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="11" Grid.Column="3" IsChecked="{Binding ExcludedPortugueseRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="12" Grid.Column="0" Text="Russian" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding ExcludedRussianOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="12" Grid.Column="2" IsChecked="{Binding ExcludedRussianTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="12" Grid.Column="3" IsChecked="{Binding ExcludedRussianRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="13" Grid.Column="0" Text="Spanish" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="13" Grid.Column="1" IsChecked="{Binding ExcludedSpanishOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="13" Grid.Column="2" IsChecked="{Binding ExcludedSpanishTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="13" Grid.Column="3" IsChecked="{Binding ExcludedSpanishRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="14" Grid.Column="0" Text="Thai" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="14" Grid.Column="1" IsChecked="{Binding ExcludedThaiOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="14" Grid.Column="2" IsChecked="{Binding ExcludedThaiTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="14" Grid.Column="3" IsChecked="{Binding ExcludedThaiRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="15" Grid.Column="0" Text="Vietnamese" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="15" Grid.Column="1" IsChecked="{Binding ExcludedVietnameseOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="15" Grid.Column="2" IsChecked="{Binding ExcludedVietnameseTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="15" Grid.Column="3" IsChecked="{Binding ExcludedVietnameseRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="16" Grid.Column="0" Text="NotApplicable" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="16" Grid.Column="1" IsChecked="{Binding ExcludedNotApplicableOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="16" Grid.Column="2" IsChecked="{Binding ExcludedNotApplicableTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="16" Grid.Column="3" IsChecked="{Binding ExcludedNotApplicableRewrite, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="17" Grid.Column="0" Text="Other" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Row="17" Grid.Column="1" IsChecked="{Binding ExcludedOtherOriginal, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="17" Grid.Column="2" IsChecked="{Binding ExcludedOtherTranslated, Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="17" Grid.Column="3" IsChecked="{Binding ExcludedOtherRewrite, Mode=TwoWay}"/>
+                </Grid>
+            </StackPanel>
+
+        </Flyout>
+
+    </UserControl.Resources>
+
+
+
+
+
+
+    <UserControl.DataContext>
+        <viewmodel:GalleryListViewModel/>
+    </UserControl.DataContext>
+
+
+
+
+
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+
+
+
+
+
+
+        <CommonControls:ImageWall x:Name="BrowseWall" Grid.Row="1" Background="Transparent"
+                                    HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0"
+                                  DataContext="{Binding GalleryList}">
+            <CommonControls:ImageWall.ItemTemplate>
+                <DataTemplate>
+                    <UserControl>
+                        <Grid x:Name="ImageGrid" Height="{Binding DisplayHeight}" Width="{Binding DisplayWidth}" BorderThickness="0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="500" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="ImageGrid.Padding" Value="6"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="ImageGrid.Padding" Value="2"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ImageStates">
+                                    <VisualState x:Name="ImageNotLoaded">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0" To="0"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="ImageLoaded">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0:0:0.2" To="1"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Rectangle x:Name="Back" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Stretch="UniformToFill" Fill="{Binding Converter={StaticResource RandomGrayConverter}}"/>
+
+                            <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" BorderThickness="0" BorderBrush="#FF222222">
+                                <Image Stretch="UniformToFill" Source="{Binding ItemSource.Thumb}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                            </Border>
+
+                            <!--<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4">
+
+                                <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
+                                    <SymbolIcon.RenderTransform>
+                                        <CompositeTransform ScaleX="2" ScaleY="2"/>
+                                    </SymbolIcon.RenderTransform>
+                                </SymbolIcon>
+
+                                <TextBlock Text="{Binding ItemSource.Rating}" Foreground="#FFFFFFFF"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   />
+                            </Grid>-->
+                            
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="20" Margin="0,0,0,0">
+
+                                <StackPanel.Background>
+                                    <SolidColorBrush Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}"/>
+                                </StackPanel.Background>
+
+
+                                <TextBlock Text="{Binding ItemSource.FileCount}"  Margin="4,0,0,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   />
+                                <TextBlock Text="p"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   />
+                                <!--<SymbolIcon Symbol="Page2"/>-->
+                            </StackPanel>
+
+
+
+
+                            <!--<Grid VerticalAlignment="Bottom">
+                                <Rectangle Opacity="0.6">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}" Offset="0.75"/>
+                                            <GradientStop Color="#88888888" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <controls:BackDrop x:Name="BackgroundBackDrop" BlurAmount="2" d:IsHidden="True"/>
+                                <TextBlock Text="{Binding ItemSource.Title}" 
+                                           Padding="2,0" TextAlignment="Center"
+                                           TextWrapping="WrapWholeWords" MaxLines="3" Height="36" LineHeight="12" Margin="0,2,0,2"
+                                           VerticalAlignment="Top" FontSize="12" LineStackingStrategy="BlockLineHeight"
+                               />
+                            </Grid>-->
+
+                        </Grid>
+                    </UserControl>
+                </DataTemplate>
+            </CommonControls:ImageWall.ItemTemplate>
+        </CommonControls:ImageWall>
+
+        <!--<GridView x:Name="SearchResultsListView" Grid.Row="1" Visibility="Collapsed"
+                  ItemsSource="{Binding GalleryList}" 
+                  IsItemClickEnabled="True" ItemClick="ListView_ItemClick" 
+                  ItemTemplate="{StaticResource ItemTemplate550}" 
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                  ShowsScrollingPlaceholders="False"
+                  RequestedTheme="Dark">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal"  HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>-->
+
+
+
+
+
+        <Grid Grid.Row="0" Height="48" 
+                      BorderThickness="0,0,0,1" 
+                      BorderBrush="#FF444444" 
+                      Background="#FF222222" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--<Button Grid.Column="1">
+                <Button.Flyout>
+                    
+                </Button.Flyout>
+            </Button>-->
+
+            <AppBarButton x:Name="FilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Flyout="{StaticResource FilterMainFlyout}"/>
+
+
+            <AutoSuggestBox x:Name="SearchKeyTextBox" Grid.Column="1"
+                            Text="{Binding Key, Mode=TwoWay}" PlaceholderText="Search" VerticalAlignment="Center" Margin="8,0" QuerySubmitted="SearchKeyTextBox_QuerySubmitted" QueryIcon="Find" />
+        </Grid>
+
+    </Grid>
+</UserControl>
