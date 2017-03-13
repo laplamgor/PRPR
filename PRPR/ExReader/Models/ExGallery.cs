@@ -257,11 +257,13 @@ namespace PRPR.ExReader.Models
 
         private static string ReadThumb(HtmlDocument htmlDocument)
         {
-            var c = htmlDocument.DocumentNode.SelectSingleNode(".//div[@id='gd1']//img");
+            var c = htmlDocument.DocumentNode.SelectSingleNode(".//div[@id='gd1']/div");
             
             if (c != null)
             {
-                return c.GetAttributeValue("src", null); ;
+                var style =  c.GetAttributeValue("style", null);
+                //"width:250px; height:353px; background:transparent url(https://exhentai.org/t/a3/63/a363ea02289a6962ae410a5590d8b40358084e2f-6644941-1600-2255-png_250.jpg) 0 0 no-repeat"
+                return style.Split('(')[1].Split(')')[0];
             }
             else
             {
