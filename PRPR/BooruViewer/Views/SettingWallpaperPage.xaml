@@ -1,11 +1,193 @@
 ﻿<Page
-    x:Class="PRPR.BooruViewer.Views.SettingWallpaperPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
+    x:Class="PRPR.BooruViewer.Views.SettingWallpaperPage"
     mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <Flyout Placement="Bottom" x:Key="FilterMainFlyout">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <StackPanel Width="300">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="-56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="MenuFlyoutSubItem_Tapped">
+                    <Grid>
+                        <TextBlock Text="評級" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="36,15,0,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped">
+                    <Grid>
+                        <TextBlock Text="長闊比" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="36,15,0,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterHiddenPostsListViewItem_Tapped">
+                    <Grid>
+                        <TextBlock Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="36,15,0,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+            </StackPanel>
+        </Flyout>
+
+        <Flyout Placement="Bottom" x:Key="FilterRatingFlyout">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+
+            <StackPanel Width="300" Padding="12,0,12,12">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
+                    <Grid>
+                        <TextBlock Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Left"
+                                  Glyph="&#xE0E2;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="0,15,12,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+                <CheckBox Content="Safe" IsChecked="{Binding WallpaperPostFilter.IsFilterSafe, Mode=TwoWay}" 
+                          IsEnabled="{Binding WallpaperPostFilter.IsFilterSafeUnlocked}"/>
+                <CheckBox Content="Questionable" IsChecked="{Binding WallpaperPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
+                          IsEnabled="{Binding WallpaperPostFilter.IsFilterQuestionableUnlocked}"/>
+                <CheckBox Content="Explicit" IsChecked="{Binding WallpaperPostFilter.IsFilterExplicit, Mode=TwoWay}"
+                          IsEnabled="{Binding WallpaperPostFilter.IsFilterExplicitUnlocked}"/>
+                <TextBlock Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
+            </StackPanel>
+
+        </Flyout>
+
+        <Flyout Placement="Bottom" x:Key="FilterRatioFlyout">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+
+
+            <StackPanel Width="300" Padding="12,0,12,12">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
+                    <Grid>
+                        <TextBlock Margin="36,0,0,0" Text="長闊比" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Left"
+                Glyph="&#xE0E2;"
+                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                FontSize="12"
+                AutomationProperties.AccessibilityView="Raw"
+                Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                Margin="0,15,12,17" 
+                MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+                <CheckBox Content="Horizontal" IsChecked="{Binding WallpaperPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
+                          IsEnabled="{Binding WallpaperPostFilter.IsFilterHorizontalUnlocked}"/>
+                <CheckBox Content="Vertical" IsChecked="{Binding WallpaperPostFilter.IsFilterVertical, Mode=TwoWay}"
+                          IsEnabled="{Binding WallpaperPostFilter.IsFilterVerticalUnlocked}"/>
+                <TextBlock Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
+            </StackPanel>
+        </Flyout>
+
+        <Flyout Placement="Bottom" x:Key="FilterHiddenFlyout">
+
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+
+
+            <StackPanel Width="300" Padding="12,0,12,12">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
+                    <Grid>
+                        <TextBlock Margin="36,0,0,0" Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Left"
+                                  Glyph="&#xE0E2;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="0,15,12,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+                <ToggleSwitch Header="顯示被隱藏的圖片" IsOn="{Binding WallpaperPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
+                <TextBlock Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Flyout>
+    </Page.Resources>
+
+
+    <Page.DataContext>
+        <ViewModels:SettingWallpaperViewModel/>
+    </Page.DataContext>
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -21,8 +203,14 @@
             <ScrollViewer Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
                 <StackPanel Padding="12,0">
                     <TextBlock Text="搜索標籤:"/>
-                    <TextBox x:Name="TileTextBox"  Text="{Binding WallpaperUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. wallpaper score:50.. order:random rating:s"/>
+                    <TextBox x:Name="TileTextBox"  Text="{Binding WallpaperUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. wallpaper score:50.. order:random"/>
 
+                    <Button x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Filter" Margin="0,0,4,0"/>
+                            <TextBlock Text="Filter"/>
+                        </StackPanel>
+                    </Button>
 
 
                     <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
@@ -56,7 +244,7 @@
 
 
                     <TextBlock Text="自動剪裁:"/>
-                    <ComboBox x:Name="CropMethodComboBox" SelectedIndex="{Binding WallpaperUpdateTaskCropMethodIndex, Source={StaticResource YandeSettings}, Mode=TwoWay}">
+                    <ComboBox x:Name="CropMethodComboBox" SelectedIndex="{Binding WallpaperUpdateTaskCropMethodIndex, Mode=TwoWay, Source={StaticResource YandeSettings}}">
                         <ComboBoxItem Content="無剪裁" Tag="應用不預先剪裁原圖並由系統決定顯示效果。適合經常旋轉屏幕的平板用戶。也適合同時使用不同長闊比的多屏台式機用戶"/>
                         <ComboBoxItem Content="頂部置中" Tag="原圖太高時去掉底部；原圖太寬時去掉左右兩側。適用於臉蛋辨識經常認錯東西的場合(例如bikini)"/>
                         <ComboBoxItem Content="置中" Tag="原圖太高時去掉上下兩側；原圖太寬時去掉左右兩側。適用於純風景圖標籤(例如landscape)"/>

@@ -194,6 +194,7 @@
             </Setter>
         </Style>
 
+        
         <Flyout Placement="Bottom" x:Key="FilterMainFlyout">
             <Flyout.FlyoutPresenterStyle>
                 <Style TargetType="FlyoutPresenter">
@@ -251,12 +252,9 @@
                     </Grid>
                 </ListViewItem>
             </StackPanel>
-
         </Flyout>
-        
 
         <Flyout Placement="Bottom" x:Key="FilterRatingFlyout">
-
             <Flyout.FlyoutPresenterStyle>
                 <Style TargetType="FlyoutPresenter">
                     <Setter Property="Padding" Value="0"/>
@@ -264,14 +262,12 @@
                 </Style>
             </Flyout.FlyoutPresenterStyle>
 
-
             <StackPanel Width="300" Padding="12,0,12,12">
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromHorizontalOffset="56"/>
                     </TransitionCollection>
                 </StackPanel.Transitions>
-
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
                         <TextBlock Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
@@ -298,7 +294,6 @@
         </Flyout>
 
         <Flyout Placement="Bottom" x:Key="FilterRatioFlyout">
-
             <Flyout.FlyoutPresenterStyle>
                 <Style TargetType="FlyoutPresenter">
                     <Setter Property="Padding" Value="0"/>
@@ -535,7 +530,7 @@
                 </Grid>
 
                 <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
-                    <local:FeatureView x:Name="FeaetureView"/>
+                    <local:FeatureView x:Name="FeatureView"/>
                 </ScrollViewer>
 
             </Grid>

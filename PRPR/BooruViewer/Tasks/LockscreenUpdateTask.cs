@@ -3,6 +3,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
+using PRPR.Common;
 using PRPR.Common.Models.Global;
 using PRPR.Common.Services;
 using System;
@@ -24,31 +25,37 @@ namespace PRPR.BooruViewer.Tasks
         
         public static async Task RunAsync()
         {
-            var y = YandeSettings.Current;
-            var a = AppSettings.Current;
-            var key = y.LockscreenUpdateTaskSearchKey;
-            var shuffle = y.LockscreenUpdateTaskShuffleCount;
+            var yandeSettings = YandeSettings.Current;
+            var appSettings = AppSettings.Current;
+            var key = yandeSettings.LockscreenUpdateTaskSearchKey;
+            var shuffle = yandeSettings.LockscreenUpdateTaskShuffleCount;
+            var filter = yandeSettings.LockscreenPostFilter;
 
-            var old = y.LockscreenUpdateTaskCurrentImageFileUri;
-            y.LockscreenUpdateTaskCurrentImageID = "";
+            var old = yandeSettings.LockscreenUpdateTaskCurrentImageFileUri;
+            yandeSettings.LockscreenUpdateTaskCurrentImageID = "";
 
             try
             {
                 // Search for posts
                 var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(key) }");
 
+                var filteredPosts = new FilteredCollection<Post, Posts>(posts, filter);
+                
+                // Unset the previous lockscreen, so that the image file is no longer in use
+                yandeSettings.LockscreenUpdateTaskCurrentImageID = "";
+
                 // Set Lockscreen
-                var result = await AnimePersonalization.SetBackgroundImageAsync(posts, shuffle, y.LockscreenUpdateTaskCropMethod, a.ScreenSize, true);
+                var result = await AnimePersonalization.SetBackgroundImageAsync(filteredPosts, shuffle, yandeSettings.LockscreenUpdateTaskCropMethod, appSettings.ScreenSize, true);
 
                 // Notice the app that the wallpapaer was changed
-                y.LockscreenUpdateTaskCurrentImageID = result;
+                yandeSettings.LockscreenUpdateTaskCurrentImageID = result;
 
                 // Motice user about the change
-                BigImageToast(result, y.LockscreenUpdateTaskCurrentImageFileUri, y.AvatarUri);
+                BigImageToast(result, yandeSettings.LockscreenUpdateTaskCurrentImageFileUri, yandeSettings.AvatarUri);
             }
             catch (Exception ex)
             {
-                y.LockscreenUpdateTaskCurrentImageID = old;
+                yandeSettings.LockscreenUpdateTaskCurrentImageID = old;
                 ToastService.ToastDebug("Cannot Update Lockscreen", ex.StackTrace);
                 ToastService.ToastDebug("Cannot Update Lockscreen", ex.Message);
             }

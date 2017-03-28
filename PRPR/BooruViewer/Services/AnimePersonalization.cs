@@ -2,6 +2,7 @@
 using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Views.Controls;
+using PRPR.Common;
 using PRPR.Common.Models.Global;
 using PRPR.Common.Services;
 using System;
@@ -34,7 +35,7 @@ namespace PRPR.BooruViewer.Services
             TileUpdateManager.CreateTileUpdaterForApplication().Clear();
         }
 
-        public static async Task SetTileAsync(Posts posts)
+        public static async Task SetTileAsync(FilteredCollection<Post, Posts> posts)
         {
             List<string> faces = new List<string>();
             int postPointer = 0;
@@ -81,7 +82,7 @@ namespace PRPR.BooruViewer.Services
             }
         }
         
-        public static async Task<string> SetBackgroundImageAsync(Posts posts, uint postShuffle, CropMethod method, Size screenSize, bool isLockscreen)
+        public static async Task<string> SetBackgroundImageAsync(FilteredCollection<Post, Posts> posts, uint postShuffle, CropMethod method, Size screenSize, bool isLockscreen)
         {
             var folderName = isLockscreen ? LOCKSCREEN_FOLDER_NAME : WALLPAPER_FOLDER_NAME;
 
@@ -90,7 +91,7 @@ namespace PRPR.BooruViewer.Services
 
             var post = await GetPostAtAsync(posts, pointer);
             var previewBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(post.PreviewUrl));
-            var jpegBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(post.JpegUrl));
+            var jpegBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(post.SampleUrl));
 
 
             var imageFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
@@ -102,7 +103,7 @@ namespace PRPR.BooruViewer.Services
 
 
             // Crop the image
-            var imageSize = new Size(post.JpegWidth, post.JpegHeight);
+            var imageSize = new Size(post.SampleWidth, post.SampleHeight);
             await CropImageFile(imageFile, imageSize, method, screenSize, previewBuffer);
 
             if (UserProfilePersonalizationSettings.IsSupported())
@@ -234,7 +235,7 @@ namespace PRPR.BooruViewer.Services
             
         }
 
-        private static async Task<Post> GetPostAtAsync(Posts posts, int postPointer)
+        private static async Task<Post> GetPostAtAsync(FilteredCollection<Post, Posts> posts, int postPointer)
         {
             while ((postPointer >= posts.Count) && (posts.HasMoreItems))
             {

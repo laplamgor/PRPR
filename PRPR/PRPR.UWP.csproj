@@ -118,6 +118,8 @@
     <Compile Include="BooruViewer\Tasks\WallpaperUndoTask.cs" />
     <Compile Include="BooruViewer\Tasks\WallpaperUpdateTask.cs" />
     <Compile Include="BooruViewer\ViewModels\FeatureViewModel.cs" />
+    <Compile Include="BooruViewer\ViewModels\SettingLockscreenViewModel.cs" />
+    <Compile Include="BooruViewer\ViewModels\SettingWallpaperViewModel.cs" />
     <Compile Include="BooruViewer\Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

@@ -1,1 +1,1 @@
-C:\Users\lapla\Dropbox\apps\PRPR\PRPR\AppPackages\PRPR.UWP_0.42.9.0\PRPR.UWP_0.42.9.0_x86_arm.appxbundle
+C:\Users\lapla\Dropbox\apps\PRPR\PRPR\AppPackages\PRPR.UWP_0.43.0.0\PRPR.UWP_0.43.0.0_x86_arm.appxbundle

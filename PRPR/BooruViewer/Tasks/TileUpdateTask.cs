@@ -1,6 +1,7 @@
 ﻿using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
+using PRPR.Common;
 using PRPR.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,11 @@ namespace PRPR.BooruViewer.Tasks
             try
             {
                 var cost = BackgroundWorkCost.CurrentBackgroundWorkCost;
-                var p = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(YandeSettings.Current.TileUpdateTaskSearchKey) }");
-                await AnimePersonalization.SetTileAsync(p);
+                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(YandeSettings.Current.TileUpdateTaskSearchKey) }");
+
+                var filteredPosts = new FilteredCollection<Post, Posts>(posts, new PostFilter());
+
+                await AnimePersonalization.SetTileAsync(filteredPosts);
             }
             catch (Exception ex)
             {
