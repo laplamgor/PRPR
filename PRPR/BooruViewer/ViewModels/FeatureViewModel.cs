@@ -17,15 +17,7 @@ namespace PRPR.BooruViewer.ViewModels
         public ObservableCollection<Post> TopToday { get; } = new ObservableCollection<Post>();
 
         public ObservableCollection<FeaturedTag> Tags { get; } = new ObservableCollection<FeaturedTag>();
-
-        public ObservableCollection<FeaturedCharacter> Characters
-        {
-            get
-            {
-                return null;
-            }
-        }
-        
+                
         public async Task Update()
         {
             // Download the last 24 hr tags
@@ -46,8 +38,7 @@ namespace PRPR.BooruViewer.ViewModels
             var tags = GetAllTags(x);
 
             await UpdateFeatureTags(tags);
-
-            await UpdateFeatureCharacters();
+            
         }
 
         private void UpdateTop3(IEnumerable<Post> posts)
@@ -77,11 +68,7 @@ namespace PRPR.BooruViewer.ViewModels
                 Tags.Add(new FeaturedTag() {Name = item.Key, TopPost = item.Value.Posts.OrderBy(o => float.Parse(o.Score) / o.TagItems.Count).First() });
             }
         }
-        
-        private async Task UpdateFeatureCharacters()
-        {
-            // TODO: update the feature characters region in a effient way
-        }
+
 
         private IEnumerable<KeyValuePair<string, TagSummary>> GetAllTags(IEnumerable<Post> posts)
         {

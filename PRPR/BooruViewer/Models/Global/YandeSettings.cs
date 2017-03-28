@@ -143,6 +143,126 @@ namespace PRPR.BooruViewer.Models.Global
             AddOrUpdateValue(nameof(SearchPostFilter), s, false);
         }
 
+
+
+
+        private PostFilter _wallpaperPostFilter = null;
+
+        public PostFilter WallpaperPostFilter
+        {
+            get
+            {
+                if (_wallpaperPostFilter == null)
+                {
+                    var s = GetValueOrDefault<string>(GetCallerName(), null, false);
+                    if (s != null)
+                    {
+                        _wallpaperPostFilter = SerializationService.DeserializeFromString<PostFilter>(s);
+                    }
+                    else
+                    {
+                        _wallpaperPostFilter = new PostFilter();
+                    }
+
+                    _wallpaperPostFilter.PropertyChanged += WallpaperPostFilter_PropertyChanged;
+                }
+
+                return _wallpaperPostFilter;
+            }
+            set
+            {
+                if (_wallpaperPostFilter != null)
+                {
+                    // Old handler
+                    _wallpaperPostFilter.PropertyChanged -= WallpaperPostFilter_PropertyChanged;
+                }
+
+                if (value != null)
+                {
+                    // Add new handler
+                    value.PropertyChanged += WallpaperPostFilter_PropertyChanged;
+                }
+                else
+                {
+                    // WTF
+                }
+
+
+
+                var s = SerializationService.SerializeToString(value);
+                AddOrUpdateValue(GetCallerName(), s, false);
+            }
+        }
+
+        private void WallpaperPostFilter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var s = SerializationService.SerializeToString(_wallpaperPostFilter);
+            AddOrUpdateValue(nameof(WallpaperPostFilter), s, false);
+        }
+
+
+
+
+        private PostFilter _lockscreenPostFilter = null;
+
+        public PostFilter LockscreenPostFilter
+        {
+            get
+            {
+                if (_lockscreenPostFilter == null)
+                {
+                    var s = GetValueOrDefault<string>(GetCallerName(), null, false);
+                    if (s != null)
+                    {
+                        _lockscreenPostFilter = SerializationService.DeserializeFromString<PostFilter>(s);
+                    }
+                    else
+                    {
+                        _lockscreenPostFilter = new PostFilter();
+                    }
+
+                    _lockscreenPostFilter.PropertyChanged += LockscreenPostFilter_PropertyChanged;
+                }
+
+                return _lockscreenPostFilter;
+            }
+            set
+            {
+                if (_lockscreenPostFilter != null)
+                {
+                    // Old handler
+                    _lockscreenPostFilter.PropertyChanged -= LockscreenPostFilter_PropertyChanged;
+                }
+
+                if (value != null)
+                {
+                    // Add new handler
+                    value.PropertyChanged += LockscreenPostFilter_PropertyChanged;
+                }
+                else
+                {
+                    // WTF
+                }
+
+
+
+                var s = SerializationService.SerializeToString(value);
+                AddOrUpdateValue(GetCallerName(), s, false);
+            }
+        }
+
+        private void LockscreenPostFilter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var s = SerializationService.SerializeToString(_lockscreenPostFilter);
+            AddOrUpdateValue(nameof(LockscreenPostFilter), s, false);
+        }
+
+
+
+
+
+
+
         public bool TileUpdateTaskEnabled
         {
             get
@@ -356,7 +476,7 @@ namespace PRPR.BooruViewer.Models.Global
         {
             get
             {
-                return GetValueOrDefault<string>(GetCallerName(), "rating:s", false);
+                return GetValueOrDefault<string>(GetCallerName(), "", false);
             }
             set
             {
@@ -538,7 +658,7 @@ namespace PRPR.BooruViewer.Models.Global
         {
             get
             {
-                return GetValueOrDefault<string>(GetCallerName(), "rating:s", false);
+                return GetValueOrDefault<string>(GetCallerName(), "", false);
             }
             set
             {

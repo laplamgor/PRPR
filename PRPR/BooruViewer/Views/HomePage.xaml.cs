@@ -96,6 +96,14 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[29 March 2017] v0.43.0
+Yandere
+- 自動刷新鎖屏、壁紙加上過濾設置
+- 修正一些自動刷新不了的問題
+Ex
+- 修正解析封面縮圖失敗
+"
+,
 @"[3 Feb 2017] v0.42.0
 Yandere
 - 沒有改動
@@ -396,7 +404,6 @@ Ex
         
         private void MenuFlyoutSubItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterRatingFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
         }
@@ -436,7 +443,7 @@ Ex
         {
             try
             {
-                await FeaetureView.FeatureViewModel.Update();
+                await FeatureView.FeatureViewModel.Update();
             }
             catch (Exception ex)
             {
@@ -447,7 +454,6 @@ Ex
 
         private void ListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterRatioFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
         }
@@ -546,7 +552,6 @@ Ex
 
         private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 //await Task.Delay(200);
@@ -559,7 +564,6 @@ Ex
 
         private void FilterHiddenPostsListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterHiddenFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
         }

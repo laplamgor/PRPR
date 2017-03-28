@@ -1,5 +1,6 @@
 ﻿using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Services;
+using PRPR.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,9 +36,12 @@ namespace PRPR.BooruViewer.Views
         {
             try
             {
-                var p = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(TileTextBox.Text) }");
+                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(TileTextBox.Text) }");
 
-                await AnimePersonalization.SetTileAsync(p);
+
+                var filteredPosts = new FilteredCollection<Post, Posts>(posts, new PostFilter());
+
+                await AnimePersonalization.SetTileAsync(filteredPosts);
             }
             catch (Exception ex)
             {
