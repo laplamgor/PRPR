@@ -75,7 +75,7 @@ namespace PRPR.Common.Models
         {
             get
             {
-                return ItemsSource != null && (ItemsSource as ISupportIncrementalLoading).HasMoreItems;
+                return ItemsSource != null && ((ItemsSource as ISupportIncrementalLoading).HasMoreItems || this.Sum(o => o.Count) < ItemsSource.Count);
             }
         }
 
@@ -96,7 +96,7 @@ namespace PRPR.Common.Models
             {
                 // Load some new posts
                 var rowOldCount = this.Count;
-                var oldCount = this.ItemsSource.Count();
+                var oldCount = this.Sum(o => o.Count);
                 await (ItemsSource as ISupportIncrementalLoading).LoadMoreItemsAsync(count);
                 var itemsNotInAnyRow = ItemsSource.Skip(oldCount);
 

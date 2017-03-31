@@ -81,21 +81,16 @@ namespace PRPR.ExReader.Models
 
 
         public ObservableCollection<ExComment> Comments { get; } = new ObservableCollection<ExComment>();
-
+        
 
         public async Task LoadAllItemsAsync()
         {
-
-            for (int i = CurrentPageNumber + 1; i <= Count; i++)
-            {
-
-            }
-
             while (this.PageCount != this.CurrentPageNumber)
             {
                 await LoadMoreItemsAsync(new CancellationToken(), 0);
             }
         }
+
 
 
 

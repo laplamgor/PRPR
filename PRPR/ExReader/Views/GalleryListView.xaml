@@ -597,21 +597,6 @@
             </CommonControls:ImageWall.ItemTemplate>
         </CommonControls:ImageWall>
 
-        <!--<GridView x:Name="SearchResultsListView" Grid.Row="1" Visibility="Collapsed"
-                  ItemsSource="{Binding GalleryList}" 
-                  IsItemClickEnabled="True" ItemClick="ListView_ItemClick" 
-                  ItemTemplate="{StaticResource ItemTemplate550}" 
-                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
-                  ShowsScrollingPlaceholders="False"
-                  RequestedTheme="Dark">
-            <GridView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsWrapGrid Orientation="Horizontal"  HorizontalAlignment="Center"/>
-                </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-        </GridView>-->
-
-
 
 
 

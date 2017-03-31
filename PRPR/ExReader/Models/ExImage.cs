@@ -45,16 +45,18 @@ namespace PRPR.ExReader.Models
 
         public async Task LoadFromInternetAsync()
         {
+            if (String.IsNullOrEmpty(_imageSource))
+            {
+                try
+                {
+                    // Get page html
+                    var htmlSource = await ExClient.GetStringWithExCookie($"{this.Link}");
+                    this.ImageSource = GetImageUriFromHtml(htmlSource);
+                }
+                catch (Exception ex)
+                {
 
-            try
-            {
-                // Get page html
-                var htmlSource = await ExClient.GetStringWithExCookie($"{this.Link}");
-                this.ImageSource = GetImageUriFromHtml(htmlSource);
-            }
-            catch (Exception ex)
-            {
-                
+                }
             }
         }
 
