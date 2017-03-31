@@ -43,9 +43,8 @@ namespace PRPR.BooruViewer.Views
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-
-
         }
+
         #region NavigationHelper
 
         private NavigationHelper navigationHelper;
@@ -83,7 +82,6 @@ namespace PRPR.BooruViewer.Views
 
             // Reset the scroll and zoom of the image
             ImageScrollViewer.ZoomToFactor(1);
-            //var r = ImageScrollViewer.ChangeView(0, 0, 1, false);
 
             try
             {
@@ -132,7 +130,6 @@ namespace PRPR.BooruViewer.Views
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-
             await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/post/show/{ImageViewModel.Post.Id}"));
         }
 
@@ -145,6 +142,7 @@ namespace PRPR.BooruViewer.Views
 
 
 
+        
 
 
 
@@ -152,73 +150,20 @@ namespace PRPR.BooruViewer.Views
 
 
 
-
-
-
-
-
-
-
-
-        private async Task SaveImageFileAsync(string fileUri, string fileExtension)
-        {
-
-            var savePicker = new FileSavePicker()
-            {
-                SuggestedStartLocation = PickerLocationId.PicturesLibrary
-            };
-            string type = $".{fileExtension}";
-            savePicker.FileTypeChoices.Add(type, new List<string>() { type });
-            savePicker.SuggestedFileName = GetFileName(fileUri);
-            
-            StorageFile file = await savePicker.PickSaveFileAsync();
-            var imageBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(fileUri));
-
-
-            if (file != null)
-            {
-                CachedFileManager.DeferUpdates(file);
-                await FileIO.WriteBufferAsync(file, imageBuffer);
-                FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-
-                if (status != FileUpdateStatus.Complete)
-                {
-                    await new MessageDialog("File " + file.Name + " couldn't be saved.").ShowAsync();
-                }
-            }
-        }
-
-        private static string GetFileName(string uri)
-        {
-            var output = uri;
-            if (output.LastIndexOf('/') >= 0)
-            {
-                output = output.Substring(output.LastIndexOf('/'));
-            }
-            if (output.LastIndexOf('0') >= 0)
-            {
-                output = output.Substring(0, output.LastIndexOf('.'));
-            }
-            return WebUtility.UrlDecode(output);
-        }
 
         private async void DownloadSampleButton_Click(object sender, RoutedEventArgs e)
         {
-            //await Windows.System.Launcher.LaunchUriAsync(new Uri($"{ImageViewModel.Post.SampleUrl}"));
-            await SaveImageFileAsync(ImageViewModel.Post.SampleUrl, "jpg");
+            await ImageViewModel.SaveImageFileAsync(PostImageVersion.Sample);
         }
 
         private async void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            //await Windows.System.Launcher.LaunchUriAsync(new Uri($"{ImageViewModel.Post.FileUrl}"));
-            await SaveImageFileAsync(ImageViewModel.Post.FileUrl, ImageViewModel.Post.FileExtension);
+            await ImageViewModel.SaveImageFileAsync(PostImageVersion.Source);
         }
 
         private async void DownloadJpegButton_Click(object sender, RoutedEventArgs e)
         {
-            //await Windows.System.Launcher.LaunchUriAsync(new Uri($"{ImageViewModel.Post.JpegUrl}"));
-            await SaveImageFileAsync(ImageViewModel.Post.JpegUrl, "jpg");
-
+            await ImageViewModel.SaveImageFileAsync(PostImageVersion.Jpeg);
         }
 
 
@@ -235,7 +180,6 @@ namespace PRPR.BooruViewer.Views
             try
             {
                 await PersonalizationHelper.SetWallPaper(this.ImageViewModel.Post);
-
             }
             catch (Exception ex)
             {
@@ -248,41 +192,25 @@ namespace PRPR.BooruViewer.Views
         private void SetLockScreenButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LockScreenPreviewPage), this.ImageViewModel.Post.ToXml());
-              
         }
+
+
+
 
         private async void FavoriteButton_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
-
                 await ImageViewModel.Favorite();
             }
             catch (Exception ex)
             {
                 
             }
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         private async void UnfavoriteButton_Click(object sender, RoutedEventArgs e)
         {
-
-
             await ImageViewModel.Unfavorite();
         }
 
@@ -308,7 +236,6 @@ namespace PRPR.BooruViewer.Views
 
         private void JpegImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-
             var b =VisualStateManager.GoToState(CurrentImagePage, "High", true);
             Debug.WriteLine("JpegImage_ImageOpened");
         }
@@ -512,6 +439,51 @@ namespace PRPR.BooruViewer.Views
             }
 
         }
-        
+
+
+
+
+        private async void CopyPreviewMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            await ImageViewModel.CopyImagesAsync(PostImageVersion.Preview);
+        }
+
+        private async void CopySampleMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            await ImageViewModel.CopyImagesAsync(PostImageVersion.Sample);
+        }
+
+        private async void CopyJpegMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            await ImageViewModel.CopyImagesAsync(PostImageVersion.Jpeg);
+        }
+
+        private async void CopySourceMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            await ImageViewModel.CopyImagesAsync(PostImageVersion.Source);
+        }
+
+        private void Image_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+
+            dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
+            x.ShowAt(dummyGrid);
+
+            e.Handled = true;
+        }
+
+        private void Image_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+
+                dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
+                x.ShowAt(dummyGrid);
+
+                e.Handled = true;
+            }
+        }
     }
 }

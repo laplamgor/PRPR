@@ -1,5 +1,6 @@
 ﻿using Microsoft.QueryStringDotNET;
 using PRPR.Common;
+using PRPR.Common.Services;
 using PRPR.ExReader.Models;
 using PRPR.ExReader.Services;
 using PRPR.ExReader.ViewModels;
@@ -217,28 +218,9 @@ namespace PRPR.ExReader.Views
 
                 var hc = new HttpClient();
                 imageBuffer = await hc.GetBufferAsync(new Uri(source));
-                
             }
 
-
-            var clipboardType = typeof(DataPackage).GetTypeInfo().Assembly.GetType("Windows.ApplicationModel.DataTransfer.Clipboard");
-            if (clipboardType != null)
-            {
-                var dataPackage = new DataPackage();
-                using (var imageStream = imageBuffer.AsStream().AsRandomAccessStream())
-                {
-                    // Decode the image
-                    var imageDecoder = await BitmapDecoder.CreateAsync(imageStream);
-
-                    // Re-encode the image at 50% width and height
-                    var inMemoryStream = new InMemoryRandomAccessStream();
-                    var imageEncoder = await BitmapEncoder.CreateForTranscodingAsync(inMemoryStream, imageDecoder);
-                    await imageEncoder.FlushAsync();
-
-                    dataPackage.SetBitmap(RandomAccessStreamReference.CreateFromStream(inMemoryStream));
-                    Clipboard.SetContent(dataPackage);
-                }
-            }
+            await ClipboardService.CopyImageAsync(imageBuffer);
         }
 
         //private void SaveMenuFlyoutItem_Click(object sender, RoutedEventArgs e)

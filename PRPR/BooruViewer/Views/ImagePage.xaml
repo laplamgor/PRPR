@@ -341,6 +341,21 @@
         
         <!--Image viewport-->
         <Grid x:Name="MainPreview" Grid.Row="1">
+
+            <Grid.Resources>
+                <MenuFlyout x:Name="MenuFlyout">
+                    <MenuFlyoutSubItem Text="Copy">
+                        <MenuFlyoutItem Text="Preview" Click="CopyPreviewMenuFlyoutItem_Click"/>
+                        <MenuFlyoutItem Text="Sample" Click="CopySampleMenuFlyoutItem_Click"/>
+                        <MenuFlyoutItem Text="Jpeg" Click="CopyJpegMenuFlyoutItem_Click"/>
+                        <MenuFlyoutItem Text="Source" Click="CopySourceMenuFlyoutItem_Click" Visibility="{Binding Post.IsJpeg, Converter={StaticResource BooleanToInvisibilityConverter}}"/>
+                    </MenuFlyoutSubItem>
+                    <!--<MenuFlyoutItem x:Uid="/Reading/SaveFlyoutItem" Text="Save picture as" Click="SaveMenuFlyoutItem_Click"/>-->
+                </MenuFlyout>
+            </Grid.Resources>
+
+
+
             <ScrollViewer x:Name="ImageScrollViewer" SizeChanged="ScrollViewer_SizeChanged" 
                           VerticalContentAlignment="Center" 
                           HorizontalContentAlignment="Center"
@@ -353,9 +368,9 @@
                           
                           
                           Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
-                <Grid x:Name="Images" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-
+                <Grid x:Name="Images" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                      FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"
+                      RightTapped="Image_RightTapped" Holding="Image_Holding">
 
                     <Image x:Name="PreviewImage" Stretch="Uniform" 
                            VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -371,6 +386,10 @@
                            Source="{Binding Post.JpegUrl}"
                            Opacity="0"
                            Visibility="Collapsed" ImageOpened="JpegImage_ImageOpened"/>
+
+
+
+                    <Grid x:Name="dummyGrid" Margin="0" HorizontalAlignment="Left"/>
                 </Grid>
             </ScrollViewer>
         </Grid>

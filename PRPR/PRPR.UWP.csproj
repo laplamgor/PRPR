@@ -154,6 +154,7 @@
     <Compile Include="Common\Models\ImageWallRow.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\Services\ClipboardService.cs" />
     <Compile Include="Common\Services\SerializationService.cs" />
     <Compile Include="Common\Services\ToastService.cs" />
     <Compile Include="Common\SuspensionManager.cs" />

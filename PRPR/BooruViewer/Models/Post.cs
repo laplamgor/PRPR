@@ -232,4 +232,13 @@ width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" fram
             }
         }
     }
+
+
+    public enum PostImageVersion
+    {
+        Preview,
+        Sample,
+        Jpeg,
+        Source
+    }
 }
