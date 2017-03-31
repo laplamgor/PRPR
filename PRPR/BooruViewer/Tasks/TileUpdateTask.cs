@@ -23,12 +23,23 @@ namespace PRPR.BooruViewer.Tasks
         {
             var d = taskInstance.GetDeferral();
 
+            await RunAsync();
+
+            d.Complete();
+        }
+
+        public static async Task RunAsync()
+        {
+            var yandeSettings = YandeSettings.Current;
+            var key = yandeSettings.TileUpdateTaskSearchKey;
+            var filter = yandeSettings.TilePostFilter;
+            
             try
             {
                 var cost = BackgroundWorkCost.CurrentBackgroundWorkCost;
-                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(YandeSettings.Current.TileUpdateTaskSearchKey) }");
+                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(key) }");
 
-                var filteredPosts = new FilteredCollection<Post, Posts>(posts, new PostFilter());
+                var filteredPosts = new FilteredCollection<Post, Posts>(posts, filter);
 
                 await AnimePersonalization.SetTileAsync(filteredPosts);
             }
@@ -37,8 +48,6 @@ namespace PRPR.BooruViewer.Tasks
                 ToastService.ToastDebug("Cannot Update Tile", ex.StackTrace);
                 ToastService.ToastDebug("Cannot Update Tile", ex.Message);
             }
-
-            d.Complete();
         }
     }
 }

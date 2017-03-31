@@ -260,6 +260,64 @@ namespace PRPR.BooruViewer.Models.Global
 
 
 
+        private PostFilter _tilePostFilter = null;
+
+        public PostFilter TilePostFilter
+        {
+            get
+            {
+                if (_tilePostFilter == null)
+                {
+                    var s = GetValueOrDefault<string>(GetCallerName(), null, false);
+                    if (s != null)
+                    {
+                        _tilePostFilter = SerializationService.DeserializeFromString<PostFilter>(s);
+                    }
+                    else
+                    {
+                        _tilePostFilter = new PostFilter();
+                    }
+
+                    _tilePostFilter.PropertyChanged += TilePostFilter_PropertyChanged;
+                }
+
+                return _tilePostFilter;
+            }
+            set
+            {
+                if (_tilePostFilter != null)
+                {
+                    // Old handler
+                    _tilePostFilter.PropertyChanged -= TilePostFilter_PropertyChanged;
+                }
+
+                if (value != null)
+                {
+                    // Add new handler
+                    value.PropertyChanged += TilePostFilter_PropertyChanged;
+                }
+                else
+                {
+                    // WTF
+                }
+
+
+
+                var s = SerializationService.SerializeToString(value);
+                AddOrUpdateValue(GetCallerName(), s, false);
+            }
+        }
+
+        private void TilePostFilter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var s = SerializationService.SerializeToString(_tilePostFilter);
+            AddOrUpdateValue(nameof(TilePostFilter), s, false);
+        }
+
+
+
+
+
 
 
 

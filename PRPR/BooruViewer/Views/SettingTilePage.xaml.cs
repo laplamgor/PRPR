@@ -53,5 +53,36 @@ namespace PRPR.BooruViewer.Views
         {
             AnimePersonalization.ResetTile();
         }
+
+
+        private void FilterReturnItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterMainFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterMainFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+        private void ListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterRatioFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+        private void MenuFlyoutSubItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterRatingFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+        private void FilterHiddenPostsListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterHiddenFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
     }
 }

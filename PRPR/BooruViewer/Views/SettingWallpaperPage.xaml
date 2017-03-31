@@ -202,7 +202,7 @@
         <Grid Grid.Row="1">
             <ScrollViewer Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
                 <StackPanel Padding="12,0">
-                    <TextBlock Text="搜索標籤:"/>
+                    <TextBlock Text="搜索標籤："/>
                     <TextBox x:Name="TileTextBox"  Text="{Binding WallpaperUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. wallpaper score:50.. order:random"/>
 
                     <Button x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
@@ -214,11 +214,11 @@
 
 
                     <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
-                        <TextBlock Text="換圖間隔:" VerticalAlignment="Center"/>
+                        <TextBlock Text="換圖間隔：" VerticalAlignment="Center"/>
                         <TextBox Text="{Binding WallpaperUpdateTaskTimeSpan, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="15-1440"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
                         <TextBlock Text="分鐘" VerticalAlignment="Center"/>
 
-                        <Button Content="Recommend a time span for this search key" Click="Button_Click_1" Margin="24,0,0,0"/>
+                        <Button Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
                     </StackPanel>
 
                     <TextBlock MaxWidth="500" Margin="0,24,0,0" Text="如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙" HorizontalAlignment="Left" TextWrapping="Wrap"/>
