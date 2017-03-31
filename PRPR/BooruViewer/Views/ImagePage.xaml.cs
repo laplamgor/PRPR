@@ -82,7 +82,7 @@ namespace PRPR.BooruViewer.Views
             Debug.WriteLine("NavigationHelper_LoadState");
 
             // Reset the scroll and zoom of the image
-            ImageScrollViewer.ChangeView(null, null, 1.0f, true);//.ZoomToFactor(1);
+            ImageScrollViewer.ZoomToFactor(1);
             //var r = ImageScrollViewer.ChangeView(0, 0, 1, false);
 
             try
@@ -163,8 +163,10 @@ namespace PRPR.BooruViewer.Views
         private async Task SaveImageFileAsync(string fileUri, string fileExtension)
         {
 
-            var savePicker = new FileSavePicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            var savePicker = new FileSavePicker()
+            {
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary
+            };
             string type = $".{fileExtension}";
             savePicker.FileTypeChoices.Add(type, new List<string>() { type });
             savePicker.SuggestedFileName = GetFileName(fileUri);

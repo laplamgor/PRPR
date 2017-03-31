@@ -350,6 +350,8 @@
                           HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
                           DoubleTapped="ImageScrollViewer_DoubleTapped"  Tapped="MainPreview_Tapped"
                           
+                          
+                          
                           Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
                 <Grid x:Name="Images" HorizontalAlignment="Center" VerticalAlignment="Center">
 

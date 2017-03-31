@@ -222,7 +222,7 @@
 
                     
                     
-                    <ToggleSwitch Header="定期後台自動刷迎磁貼" 
+                    <ToggleSwitch Header="定期後台自動刷新磁貼" 
                                   IsOn="{Binding TileUpdateTaskEnabled, Mode=TwoWay, Source={StaticResource YandeSettings}}"/>
 
                     <StackPanel Orientation="Horizontal">

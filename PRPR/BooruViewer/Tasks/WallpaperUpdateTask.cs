@@ -66,12 +66,13 @@ namespace PRPR.BooruViewer.Tasks
 
         public static void BigImageToast(string id, string imageUri, string avatarUri)
         {
-            ToastContent toastContent = new ToastContent();
-            toastContent.Launch = "Toast";
-
-            toastContent.Actions = new ToastActionsCustom()
+            ToastContent toastContent = new ToastContent()
             {
-                Buttons =
+                Launch = "Toast",
+
+                Actions = new ToastActionsCustom()
+                {
+                    Buttons =
                 {
                     new ToastButton("Favorite", new QueryString()
                     {
@@ -90,13 +91,13 @@ namespace PRPR.BooruViewer.Tasks
 
                     new ToastButton("Dismiss", "dismiss") { ActivationType = ToastActivationType.Protocol },
                 }
-            };
+                },
 
-            toastContent.Visual = new ToastVisual()
-            {
-                BindingGeneric = new ToastBindingGeneric()
+                Visual = new ToastVisual()
                 {
-                    Children =
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
                     {
                         new AdaptiveText()
                         {
@@ -118,27 +119,27 @@ namespace PRPR.BooruViewer.Tasks
                         //},
                     },
 
-                    HeroImage = new ToastGenericHeroImage()
-                    {
-                        Source = imageUri
-                    },
+                        HeroImage = new ToastGenericHeroImage()
+                        {
+                            Source = imageUri
+                        },
 
-                    Attribution = new ToastGenericAttributionText()
-                    {
-                        Text = "prpr"
-                    },
+                        Attribution = new ToastGenericAttributionText()
+                        {
+                            Text = "prpr"
+                        },
 
-                    AppLogoOverride = new ToastGenericAppLogo()
-                    {
-                        Source = "Assets/Square44x44Logo.targetsize-256_altform-unplated.png",// avatarUri,
-                        HintCrop = ToastGenericAppLogoCrop.None,
-                        
-                    },
+                        AppLogoOverride = new ToastGenericAppLogo()
+                        {
+                            Source = "Assets/Square44x44Logo.targetsize-256_altform-unplated.png",// avatarUri,
+                            HintCrop = ToastGenericAppLogoCrop.None,
 
-                    
+                        },
+
+
+                    }
                 }
             };
-
             ToastNotification toast = new ToastNotification(toastContent.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }

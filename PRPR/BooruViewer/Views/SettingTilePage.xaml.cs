@@ -1,5 +1,6 @@
 ﻿using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Services;
+using PRPR.BooruViewer.Tasks;
 using PRPR.Common;
 using System;
 using System.Collections.Generic;
@@ -34,19 +35,7 @@ namespace PRPR.BooruViewer.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(TileTextBox.Text) }");
-
-
-                var filteredPosts = new FilteredCollection<Post, Posts>(posts, new PostFilter());
-
-                await AnimePersonalization.SetTileAsync(filteredPosts);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await TileUpdateTask.RunAsync();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
