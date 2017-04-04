@@ -15,56 +15,6 @@
     Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Converters:TagNameConverter x:Key="TagNameConverter"/>
-        <DataTemplate x:Key="FretureChar">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Rectangle Grid.Column="0">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/8c/28/8c286b4371a11606417a0f84fd837724.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <Rectangle Grid.Column="1">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/33/5b/335b1a0e19b9dfedd7827b3858de6acc.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <Rectangle Grid.Column="2">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/13/1c/131c1c5287fea28ede727ca2911a978f.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <Rectangle Grid.Column="3">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="https://assets.yande.re/data/preview/cb/03/cb037421e1f35b3b1a85d36133e598dc.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Top"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-
-                <Rectangle Grid.ColumnSpan="4">
-                    <Rectangle.Fill>
-                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                            <GradientStop Color="#FF000000" Offset="1"/>
-                            <GradientStop Color="#70000000" Offset="0.666"/>
-                            <GradientStop Color="#70808080" Offset="0.333"/>
-                            <GradientStop Color="#A0808080"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <StackPanel Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Ellipse  x:Name="Char0"  Height="160" Width="160" Stroke="Black" StrokeThickness="1"  Margin="0" HorizontalAlignment="Center">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="https://yande.re/data/avatars/108708.jpg?1464225941" Stretch="UniformToFill" AlignmentY="Top"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <TextBlock Text="#Akatsuki_(Kancolle)" Margin="12"  Style="{Binding Style, ElementName=Tag0Text}"  VerticalAlignment="Center"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
 
         <Style x:Key="Top3ButtonStyle" BasedOn="{StaticResource ButtonStyleNoColor}" TargetType="Button">
             <Setter Property="Padding" Value="0"/>
@@ -138,8 +88,6 @@
                         <Setter Target="TopTodayHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
                         <Setter Target="TagsHeader.Margin" Value="48,4"/>
                         <Setter Target="TagsHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
-                        <Setter Target="CharHeader.Margin" Value="48,4"/>
-                        <Setter Target="CharHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
 
                         <Setter Target="Tag0Text.Style" Value="{StaticResource TitleTextBlockStyle}"/>
 
@@ -160,11 +108,6 @@
                         <Setter Target="Top1.Margin" Value="6"/>
                         <Setter Target="Top2.Margin" Value="6"/>
                         <Setter Target="Top3.Margin" Value="6"/>
-
-                        <Setter Target="Char.Margin" Value="0,6"/>
-                        <Setter Target="Char0Grid.Margin" Value="0,6"/>
-                        <Setter Target="Char1Grid.Margin" Value="0,6"/>
-                        <Setter Target="Char2Grid.Margin" Value="0,6"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -177,8 +120,6 @@
                         <Setter Target="TopTodayHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
                         <Setter Target="TagsHeader.Margin" Value="12,4"/>
                         <Setter Target="TagsHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
-                        <Setter Target="CharHeader.Margin" Value="12,4"/>
-                        <Setter Target="CharHeader.Style" Value="{StaticResource TitleTextBlockStyle}"/>
 
                         <Setter Target="Tag0Text.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
 
@@ -199,11 +140,6 @@
                         <Setter Target="Top1.Margin" Value="4"/>
                         <Setter Target="Top2.Margin" Value="4"/>
                         <Setter Target="Top3.Margin" Value="4"/>
-
-                        <Setter Target="Char.Margin" Value="0,4"/>
-                        <Setter Target="Char0Grid.Margin" Value="0,4"/>
-                        <Setter Target="Char1Grid.Margin" Value="0,4"/>
-                        <Setter Target="Char2Grid.Margin" Value="0,4"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -216,8 +152,6 @@
                         <Setter Target="TopTodayHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
                         <Setter Target="TagsHeader.Margin" Value="12,4"/>
                         <Setter Target="TagsHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
-                        <Setter Target="CharHeader.Margin" Value="12,4"/>
-                        <Setter Target="CharHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
 
                         <Setter Target="Tag0Text.Style" Value="{StaticResource BodyTextBlockStyle}"/>
 
@@ -236,11 +170,6 @@
                         <Setter Target="Top1.Margin" Value="2"/>
                         <Setter Target="Top2.Margin" Value="2"/>
                         <Setter Target="Top3.Margin" Value="2"/>
-
-                        <Setter Target="Char.Margin" Value="0,2"/>
-                        <Setter Target="Char0Grid.Margin" Value="0,2"/>
-                        <Setter Target="Char1Grid.Margin" Value="0,2"/>
-                        <Setter Target="Char2Grid.Margin" Value="0,2"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -255,8 +184,6 @@
                         <Setter Target="TopTodayHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
                         <Setter Target="TagsHeader.Margin" Value="2,4"/>
                         <Setter Target="TagsHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
-                        <Setter Target="CharHeader.Margin" Value="2,4"/>
-                        <Setter Target="CharHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
 
                         <Setter Target="Tag0Text.Style" Value="{StaticResource BodyTextBlockStyle}"/>
 
@@ -277,11 +204,6 @@
                         <Setter Target="Top1.Margin" Value="2"/>
                         <Setter Target="Top2.Margin" Value="2"/>
                         <Setter Target="Top3.Margin" Value="2"/>
-
-                        <Setter Target="Char.Margin" Value="0,2"/>
-                        <Setter Target="Char0Grid.Margin" Value="0,2"/>
-                        <Setter Target="Char1Grid.Margin" Value="0,2"/>
-                        <Setter Target="Char2Grid.Margin" Value="0,2"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -295,8 +217,6 @@
                         <Setter Target="TopTodayHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
                         <Setter Target="TagsHeader.Margin" Value="2,4"/>
                         <Setter Target="TagsHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
-                        <Setter Target="CharHeader.Margin" Value="2,4"/>
-                        <Setter Target="CharHeader.Style" Value="{StaticResource SubtitleTextBlockStyle}"/>
 
                         <Setter Target="Tag0Text.Style" Value="{StaticResource BodyTextBlockStyle}"/>
 
@@ -318,10 +238,6 @@
                         <Setter Target="Top2.Margin" Value="2"/>
                         <Setter Target="Top3.Margin" Value="2"/>
 
-                        <Setter Target="Char.Margin" Value="0,2"/>
-                        <Setter Target="Char0Grid.Margin" Value="0,2"/>
-                        <Setter Target="Char1Grid.Margin" Value="0,2"/>
-                        <Setter Target="Char2Grid.Margin" Value="0,2"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -459,17 +375,6 @@
                         <Setter Target="Tags.RowDefinitions[0].Height" Value="220"/>
                         <Setter Target="Tags.RowDefinitions[1].Height" Value="220"/>
                         <Setter Target="Tags.RowDefinitions[2].Height" Value="260"/>
-
-                        <Setter Target="Char0.Height" Value="180"/>
-                        <Setter Target="Char0.Width" Value="180"/>
-                        <Setter Target="Char1.Height" Value="180"/>
-                        <Setter Target="Char1.Width" Value="180"/>
-                        <Setter Target="Char2.Height" Value="180"/>
-                        <Setter Target="Char2.Width" Value="180"/>
-
-                        <Setter Target="Char0.Margin" Value="0,12"/>
-                        <Setter Target="Char1.Margin" Value="0,12"/>
-                        <Setter Target="Char2.Margin" Value="0,12"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -480,18 +385,6 @@
                         <Setter Target="Tags.RowDefinitions[0].Height" Value="200"/>
                         <Setter Target="Tags.RowDefinitions[1].Height" Value="200"/>
                         <Setter Target="Tags.RowDefinitions[2].Height" Value="240"/>
-
-
-                        <Setter Target="Char0.Height" Value="160"/>
-                        <Setter Target="Char0.Width" Value="160"/>
-                        <Setter Target="Char1.Height" Value="160"/>
-                        <Setter Target="Char1.Width" Value="160"/>
-                        <Setter Target="Char2.Height" Value="160"/>
-                        <Setter Target="Char2.Width" Value="160"/>
-
-                        <Setter Target="Char0.Margin" Value="0,12"/>
-                        <Setter Target="Char1.Margin" Value="0,12"/>
-                        <Setter Target="Char2.Margin" Value="0,12"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -502,17 +395,6 @@
                         <Setter Target="Tags.RowDefinitions[0].Height" Value="180"/>
                         <Setter Target="Tags.RowDefinitions[1].Height" Value="180"/>
                         <Setter Target="Tags.RowDefinitions[2].Height" Value="200"/>
-
-                        <Setter Target="Char0.Height" Value="140"/>
-                        <Setter Target="Char0.Width" Value="140"/>
-                        <Setter Target="Char1.Height" Value="140"/>
-                        <Setter Target="Char1.Width" Value="140"/>
-                        <Setter Target="Char2.Height" Value="140"/>
-                        <Setter Target="Char2.Width" Value="140"/>
-
-                        <Setter Target="Char0.Margin" Value="0,8"/>
-                        <Setter Target="Char1.Margin" Value="0,8"/>
-                        <Setter Target="Char2.Margin" Value="0,8"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -523,17 +405,6 @@
                         <Setter Target="Tags.RowDefinitions[0].Height" Value="180"/>
                         <Setter Target="Tags.RowDefinitions[1].Height" Value="180"/>
                         <Setter Target="Tags.RowDefinitions[2].Height" Value="180"/>
-
-                        <Setter Target="Char0.Height" Value="120"/>
-                        <Setter Target="Char0.Width" Value="120"/>
-                        <Setter Target="Char1.Height" Value="120"/>
-                        <Setter Target="Char1.Width" Value="120"/>
-                        <Setter Target="Char2.Height" Value="120"/>
-                        <Setter Target="Char2.Width" Value="120"/>
-
-                        <Setter Target="Char0.Margin" Value="0,4"/>
-                        <Setter Target="Char1.Margin" Value="0,4"/>
-                        <Setter Target="Char2.Margin" Value="0,4"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -545,18 +416,6 @@
                         <Setter Target="Tags.RowDefinitions[0].Height" Value="152"/>
                         <Setter Target="Tags.RowDefinitions[1].Height" Value="152"/>
                         <Setter Target="Tags.RowDefinitions[2].Height" Value="152"/>
-
-                        <Setter Target="Char0.Height" Value="80"/>
-                        <Setter Target="Char0.Width" Value="80"/>
-                        <Setter Target="Char1.Height" Value="80"/>
-                        <Setter Target="Char1.Width" Value="80"/>
-                        <Setter Target="Char2.Height" Value="80"/>
-                        <Setter Target="Char2.Width" Value="80"/>
-
-                        <Setter Target="Char0.Margin" Value="0,4"/>
-                        <Setter Target="Char1.Margin" Value="0,4"/>
-                        <Setter Target="Char2.Margin" Value="0,4"/>
-
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
