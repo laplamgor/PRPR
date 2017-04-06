@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.BooruViewer.Views"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -24,10 +25,16 @@
                 <TextBlock Text=""/>
                 
 
-                <TextBlock Text="原碼："/>
+                <TextBlock Text="原碼(Github)："/>
                 <HyperlinkButton NavigateUri="https://github.com/laplamgor/KancolleVPN">
                     <TextBlock Text="GitHub"/>
                 </HyperlinkButton>
+
+
+                <toolkit:WrapPanel>
+                    <TextBlock Text="hihi"/>
+                    <TextBlock Text=" on9"/>
+                </toolkit:WrapPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

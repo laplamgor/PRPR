@@ -6,6 +6,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:control="using:PRPR.ExReader.Views.Controls"
+    xmlns:wp="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
@@ -28,12 +29,16 @@
 
         <DataTemplate x:Key="TagButtonTemplate">
             <Button Style="{StaticResource ButtonStyleNoColor}" Margin="2,0" Click="TagButton_Click">
-                <StackPanel Padding="8" Orientation="Horizontal" Margin="0,2">
+                <StackPanel Padding="4" Orientation="Horizontal" Margin="0,2">
                     <StackPanel.Background>
                         <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
                     </StackPanel.Background>
-                    <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}"/>
-                    <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
+                    <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}" RenderTransformOrigin="0.5,0.5" >
+                        <SymbolIcon.RenderTransform>
+                            <CompositeTransform ScaleX="0.75" ScaleY="0.75"/>
+                        </SymbolIcon.RenderTransform>
+                    </SymbolIcon>
+                    <TextBlock Text="{Binding Name}" Margin="2,0" FontSize="12" TextLineBounds="TrimToBaseline"/>
                 </StackPanel>
             </Button>
         </DataTemplate>
@@ -611,7 +616,9 @@
                     </PivotItem.Header>
                     <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto" Padding="12,0"
                                   Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
-                        <RichTextBlock x:Name="TagsWrapBlock" Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged" IsTextSelectionEnabled="False"/>
+
+                        <wp:WrapPanel x:Name="TagsWrapPanel" Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged">
+                        </wp:WrapPanel>
                     </ScrollViewer>
                 </PivotItem>
 

@@ -5,10 +5,11 @@
     "Microsoft.ApplicationInsights.PersistenceChannel": "1.0.0",
     "Microsoft.ApplicationInsights.WindowsApps": "1.0.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
-    "Microsoft.Toolkit.Uwp.Notifications": "1.0.0",
-    "Microsoft.Toolkit.Uwp.UI.Animations": "1.0.0",
+    "Microsoft.Toolkit.Uwp.Notifications": "1.4.1",
+    "Microsoft.Toolkit.Uwp.UI.Animations": "1.4.1",
+    "Microsoft.Toolkit.Uwp.UI.Controls": "1.4.1",
     "QueryString.NET": "1.0.0",
-    "Win2D.uwp": "1.18.0"
+    "Win2D.uwp": "1.20.0"
   },
   "frameworks": {
     "uap10.0": {}
