@@ -142,6 +142,7 @@
     <Compile Include="BooruViewer\Views\SettingWallpaperPage.xaml.cs">
       <DependentUpon>SettingWallpaperPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\Controls\RotateContentControl.cs" />
     <Compile Include="Common\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\FileSizeConverter.cs" />
     <Compile Include="Common\Converters\RandomGrayConverter.cs" />
@@ -378,6 +379,10 @@
     <Page Include="BooruViewer\Views\LockScreenPreviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup />
