@@ -133,8 +133,8 @@ namespace PRPR.ExReader.Views
         private void ScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var scrollViewer = (sender as ScrollViewer);
-            (scrollViewer.Content as Grid).Height = e.NewSize.Height;
-            (scrollViewer.Content as Grid).Width = e.NewSize.Width;
+            (scrollViewer.Content as FrameworkElement).MaxHeight = e.NewSize.Height;
+            (scrollViewer.Content as FrameworkElement).MaxWidth = e.NewSize.Width;
         }
 
         private void BitmapImage_DownloadProgress(object sender, DownloadProgressEventArgs e)
@@ -181,7 +181,8 @@ namespace PRPR.ExReader.Views
         {
             // Reset the zoom if the image is changed
             var scrollViewer = (sender as ScrollViewer);
-            scrollViewer.ChangeView(null, null, 1, true);
+            // Reset the scroll and zoom of the image
+            scrollViewer.ZoomToFactor(1);
         }
 
         private void Image_RightTapped(object sender, RightTappedRoutedEventArgs e)

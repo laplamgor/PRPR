@@ -346,26 +346,7 @@ namespace PRPR.BooruViewer.Views
                 }
             }
         }
-
-        void RefreshTagsWrapBlock(RichTextBlock tagsWrapBlock)
-        {
-            tagsWrapBlock.Blocks.Clear();
-            var groupedTags = this.ImageViewModel.Post.TagItems.GroupBy(o => o.Type);
-            foreach (var group in groupedTags)
-            {
-                var p = new Paragraph();
-
-                var gOrdered = group.OrderBy(o => o.Name.Length);
-                //var zipped = gOrdered.Take(gOrdered.Count() / 2).Zip(gOrdered.Skip(gOrdered.Count() / 2).Reverse(), (f, s) => new List<TagDetail>() { f, s }).SelectMany(i => i);
-                foreach (var item in gOrdered)
-                {
-                    var button = new ContentControl() { ContentTemplate = this.Resources["TagButtonTemplate"] as DataTemplate, DataContext = item };
-                    var i = new InlineUIContainer() { Child = button };
-                    p.Inlines.Add(i);
-                }
-                tagsWrapBlock.Blocks.Add(p);
-            }
-        }
+        
         
         private void TagButton_Click(object sender, RoutedEventArgs e)
         {

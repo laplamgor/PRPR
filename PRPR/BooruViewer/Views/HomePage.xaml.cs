@@ -96,12 +96,12 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
-@"[4 April 2017] v0.44.1
+@"[9 April 2017] v0.45.0
 Yandere
-- 自動刷新磁貼加上過濾設置
-- 右邊可複製圖片到剪貼版
+- 修正Bugs
 Ex
-- 修正進入讀閱頁再返回後目錄加載不了
+- 修正Bugs
+- 新介面
 "
 ,
 @"[29 March 2017] v0.43.0

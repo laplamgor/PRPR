@@ -599,7 +599,8 @@
                     <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto" Padding="12,0"
                                   Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
 
-                        <wp:WrapPanel x:Name="TagsWrapPanel" Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged">
+                        <wp:WrapPanel x:Name="TagsWrapPanel" d:IsHidden="true"
+                                      Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged">
                         </wp:WrapPanel>
                     </ScrollViewer>
                 </PivotItem>

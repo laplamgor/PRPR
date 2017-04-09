@@ -55,10 +55,14 @@
                 <DataTemplate>
                     <Grid x:Name="OutterGrid">
                         <ScrollViewer SizeChanged="ScrollViewer_SizeChanged" 
-                                      VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                      VerticalContentAlignment="Center" 
+                                      HorizontalContentAlignment="Center"
                                       
                                       ZoomMode="Enabled" MinZoomFactor="1" HorizontalScrollBarVisibility="Auto" 
                                       VerticalScrollBarVisibility="Auto" 
+                                      
+                          HorizontalAlignment="Stretch" 
+                          HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled"
                                       DoubleTapped="ScrollViewer_DoubleTapped"  Tapped="ScrollViewer_Tapped"
                                       DataContextChanged="ScrollViewer_DataContextChanged"
                                       Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
@@ -69,12 +73,14 @@
                                         <!--<MenuFlyoutItem x:Uid="/Reading/SaveFlyoutItem" Text="Save picture as" Click="SaveMenuFlyoutItem_Click"/>-->
                                     </MenuFlyout>
                                 </Grid.Resources>
-                                
-                                <Image Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+
+                                <Image Stretch="Uniform" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"
                                        Source="{Binding Thumb}" 
                                        RightTapped="Image_RightTapped" Holding="Image_Holding" 
                                        FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"/>
-                                <Image Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                <Image Stretch="Uniform" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"
                                        Source="{Binding ImageSource}"
                                        RightTapped="Image_RightTapped" Holding="Image_Holding" 
                                        FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"/>
