@@ -15,6 +15,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Shapes;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using Windows.Web.Http.Headers;
 
 namespace PRPR.BooruViewer.Services
 {
@@ -30,6 +31,7 @@ namespace PRPR.BooruViewer.Services
 
             return CryptographicBuffer.EncodeToHexString(bufferHash);
         }
+
         private static async Task<string> GetAuthenticityToken()
         {
             try
@@ -69,6 +71,7 @@ namespace PRPR.BooruViewer.Services
                 return "";
             }
         }
+
         private static async Task<VoteType> GetVoteAsync(int postId, string userName, string passwordHash)
         {
             HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://yande.re/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}");
@@ -88,6 +91,7 @@ namespace PRPR.BooruViewer.Services
                 }
             }
         }
+
         public static async Task VoteAsync(int postId, string userName, string passwordHash, VoteType score)
         {
             HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://yande.re/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}&score={(int)score}");
@@ -105,9 +109,7 @@ namespace PRPR.BooruViewer.Services
                 }
             }
         }
-
         
-
         private static Rect Normalize(Size imageSize, Rect cropRect)
         {
             return new Rect(
@@ -132,46 +134,38 @@ namespace PRPR.BooruViewer.Services
 
         public static async Task<bool> SignInAsync(string userName, string password)
         {
-
             try
             {
                 string id = null;
-
-
                 var token = await GetAuthenticityToken();
 
                 string requestBody = $"authenticity_token={token}&url=&user%5Bname%5D={userName}&user%5Bpassword%5D={password}&commit=Login";
+                
 
-                byte[] data = Encoding.UTF8.GetBytes(requestBody);
-                HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://yande.re/user/authenticate");
-                loginRequest.CookieContainer = new CookieContainer();
-                loginRequest.Method = "POST";
-                loginRequest.ContentType = "application/x-www-form-urlencoded";
-                loginRequest.Headers["Host"] = "yande.re";
-                loginRequest.Headers["Referer"] = "https://yande.re/user/login";
-                using (Stream stream = await loginRequest.GetRequestStreamAsync())
+                
+                var httpClient = new Windows.Web.Http.HttpClient(new HttpBaseProtocolFilter());
+                var message = new Windows.Web.Http.HttpRequestMessage(
+                    new Windows.Web.Http.HttpMethod("POST"),
+                    new Uri($"https://yande.re/user/authenticate"))
                 {
-                    await stream.WriteAsync(data, 0, data.Length);
-                }
-                using (HttpWebResponse logResponse = (HttpWebResponse)(await loginRequest.GetResponseAsync()))
+                    Content = new HttpStringContent(requestBody)
+                };
+                message.Content.Headers.ContentType = new HttpMediaTypeHeaderValue("application/x-www-form-urlencoded");
+                var response = await httpClient.SendRequestAsync(message);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                
+                var start = responseString.IndexOf("/user/show/") + "/user/show/".Length;
+                if (start < 11)
                 {
-                    using (Stream stream = logResponse.GetResponseStream())
-                    {
-                        StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-                        string responseString = reader.ReadToEnd();
-
-                        var x = logResponse.Cookies;
-
-
-                        var start = responseString.IndexOf("/user/show/") + "/user/show/".Length;
-                        if (start < 11)
-                        {
-                            return false;
-                        }
-                        var end = responseString.IndexOf("\">My Profile<", start);
-                        id = responseString.Substring(start, end - start);
-                    }
+                    YandeSettings.Current.UserID = id;
+                    YandeSettings.Current.UserName = userName;
+                    YandeSettings.Current.PasswordHash = HashPassword(password);
+                    return false;
                 }
+                var end = responseString.IndexOf("\">My Profile<", start);
+                id = responseString.Substring(start, end - start);
+
 
                 
                 YandeSettings.Current.UserID = id;
@@ -185,20 +179,19 @@ namespace PRPR.BooruViewer.Services
             }
         }
 
+        
         public static void SignOut()
         {
             YandeSettings.Current.UserID = null;
             YandeSettings.Current.UserName = null;
             YandeSettings.Current.PasswordHash = null;
         }
-
-
+        
         public static async Task SubmitComment()
         {
             // TODO: submit the comment to the server
         }
         
-
         public static async Task AddFavoriteAsync(int postId)
         {
             await VoteAsync(postId, YandeSettings.Current.UserName, YandeSettings.Current.PasswordHash, VoteType.Favorite);
@@ -212,10 +205,7 @@ namespace PRPR.BooruViewer.Services
         public static async Task<bool> CheckFavorited(int postId)
         {
             return (await GetVoteAsync(postId, YandeSettings.Current.UserName, YandeSettings.Current.PasswordHash)) == VoteType.Favorite;
-
-        }
-
-        
+        }        
     }
 
 

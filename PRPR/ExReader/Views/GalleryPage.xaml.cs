@@ -126,8 +126,7 @@ namespace PRPR.ExReader.Views
 
             GalleryViewModel.IsFavorited = true;
 
-            FavoriteAppBarButton.Flyout.Hide();
-
+            FavoriteButton.Flyout.Hide();
         }
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
@@ -313,6 +312,106 @@ namespace PRPR.ExReader.Views
         private void TestAppBarButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        bool DetailPanelExtended = false;
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (DetailPanelExtended)
+            {
+                DetailPanelExtended = false;
+            }
+            else
+            {
+                DetailPanelExtended = true;
+            }
+
+            UpdateDetailPanelState(true);
+        }
+
+        private async void RotatedHeader_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
+
+        bool isLeft = false;
+        private void WidthStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            if (e.NewState == Width480Height0 || e.NewState == Width700)
+            {
+                // Left
+                isLeft = true;
+            }
+            else
+            {
+                // Bottom
+                isLeft = false;
+            }
+
+            UpdateDetailPanelState(true);
+        }
+
+
+
+        void UpdateDetailPanelState(bool useTransitions)
+        {
+            bool b = false;
+            if (isLeft)
+            {
+                if (DetailPanelExtended)
+                {
+                    b = VisualStateManager.GoToState(CurrentGalleryPage, "LeftExtended", useTransitions);
+                }
+                else
+                {
+                    b = VisualStateManager.GoToState(CurrentGalleryPage, "LeftCollapsed", useTransitions);
+                }
+            }
+            else
+            {
+                if (DetailPanelExtended)
+                {
+                    b = VisualStateManager.GoToState(CurrentGalleryPage, "BottomExtended", useTransitions);
+                }
+                else
+                {
+                    b = VisualStateManager.GoToState(CurrentGalleryPage, "BottomCollapsed", useTransitions);
+                }
+            }
+            Debug.WriteLine($"left={isLeft};Extended={DetailPanelExtended};b={b}");
+        }
+
+        private void CurrentGalleryPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            var currentState = GetCurrentState("WidthStates");
+            if (currentState == Width480Height0 || currentState == Width700)
+            {
+                // Left
+                isLeft = true;
+            }
+            else
+            {
+                // Bottom
+                isLeft = false;
+            }
+
+            UpdateDetailPanelState(true);
+        }
+
+        public VisualState GetCurrentState(string stateGroupName)
+        {
+            VisualStateGroup stateGroup1 = null;
+
+            IList<VisualStateGroup> list = VisualStateManager.GetVisualStateGroups(VisualTreeHelper.GetChild(this, 0) as FrameworkElement);
+
+            foreach (var v in list)
+                if (v.Name == stateGroupName)
+                {
+                    stateGroup1 = v;
+                    break;
+                }
+
+            return stateGroup1.CurrentState;
         }
     }
 

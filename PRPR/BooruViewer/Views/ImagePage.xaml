@@ -57,8 +57,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
 
@@ -159,10 +159,6 @@
 
             <VisualStateGroup x:Name="OverlayStates">
                 <VisualState x:Name="NoOverlay">
-                    <VisualState.Setters>
-                        <Setter Target="Root.RowDefinitions[2].Height" Value="Auto"/>
-                        <Setter Target="Root.ColumnDefinitions[1].Width" Value="Auto"/>
-                    </VisualState.Setters>
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="Buttons" Storyboard.TargetProperty="Opacity"
                                                      Duration="0:0:0.2" To="0"/>
@@ -191,10 +187,6 @@
                     </Storyboard>
                 </VisualState>
                 <VisualState x:Name="ButtonsOnly">
-                    <VisualState.Setters>
-                        <Setter Target="Root.RowDefinitions[2].Height" Value="Auto"/>
-                        <Setter Target="Root.ColumnDefinitions[1].Width" Value="Auto"/>
-                    </VisualState.Setters>
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="Buttons" Storyboard.TargetProperty="Opacity"
                                                      Duration="0:0:0.2" To="1"/>
@@ -224,10 +216,6 @@
                     </Storyboard>
                 </VisualState>
                 <VisualState x:Name="Details">
-                    <VisualState.Setters>
-                        <Setter Target="Root.RowDefinitions[2].Height" Value="Auto"/>
-                        <Setter Target="Root.ColumnDefinitions[1].Width" Value="Auto"/>
-                    </VisualState.Setters>
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="Buttons" Storyboard.TargetProperty="Opacity"
                                                      Duration="0:0:0.2" To="1"/>
@@ -267,7 +255,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="DetailBlock.(Grid.Row)" Value="1"/>
-                        <Setter Target="DetailBlock.(Grid.Column)" Value="1"/>
+                        <Setter Target="DetailBlock.(Grid.Column)" Value="0"/>
                         <Setter Target="DetailBlock.Width" Value="0"/>
                         <Setter Target="DetailBlock.Height" Value="Auto"/>
                     </VisualState.Setters>
@@ -279,7 +267,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="DetailBlock.(Grid.Row)" Value="2"/>
-                        <Setter Target="DetailBlock.(Grid.Column)" Value="0"/>
+                        <Setter Target="DetailBlock.(Grid.Column)" Value="1"/>
                         <Setter Target="DetailBlock.Width" Value="Auto"/>
                         <Setter Target="DetailBlock.Height" Value="0"/>
                     </VisualState.Setters>
@@ -291,7 +279,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="DetailBlock.(Grid.Row)" Value="1"/>
-                        <Setter Target="DetailBlock.(Grid.Column)" Value="1"/>
+                        <Setter Target="DetailBlock.(Grid.Column)" Value="0"/>
                         <Setter Target="DetailBlock.Width" Value="0"/>
                         <Setter Target="DetailBlock.Height" Value="Auto"/>
                     </VisualState.Setters>
@@ -304,7 +292,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="DetailBlock.(Grid.Row)" Value="2"/>
-                        <Setter Target="DetailBlock.(Grid.Column)" Value="0"/>
+                        <Setter Target="DetailBlock.(Grid.Column)" Value="1"/>
 
                         <Setter Target="DetailBlock.Width" Value="Auto"/>
                         <Setter Target="DetailBlock.Height" Value="0"/>
@@ -324,12 +312,6 @@
                     </Image.Source>
                 </Image>
             </Grid>
-            <!--<Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{Binding Post.PreviewUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
-                </Rectangle.Fill>
-            </Rectangle>-->
-            
             <control:BackDrop x:Name="BackgroundBackDrop" BlurAmount="2" TintColor="#90000010"
                               d:IsHidden="True"
                               Loaded="BackgroundBackDrop_Loaded"/>
@@ -345,7 +327,7 @@
         </Grid>
         
         <!--Image viewport-->
-        <Grid x:Name="MainPreview" Grid.Row="1">
+        <Grid x:Name="MainPreview" Grid.Row="1" Grid.Column="1">
 
             <Grid.Resources>
                 <MenuFlyout x:Name="MenuFlyout">
@@ -401,7 +383,7 @@
 
 
         <!--Buttons-->
-        <Grid x:Name="Buttons" Grid.Row="1"
+        <Grid x:Name="Buttons" Grid.Row="1" Grid.Column="1"
               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0">
             
             <!--Button fade background-->
@@ -533,8 +515,8 @@
         </Grid>
 
         <!--Details-->
-        <Grid x:Name="DetailBlock" Grid.Row="2" Visibility="Visible" Background="Black" Height="0" Width="0">
-            <Pivot MinWidth="320" MinHeight="320">
+        <Grid x:Name="DetailBlock" Grid.Row="2" Grid.Column="0" Visibility="Visible" Background="Black" Height="0" Width="0">
+            <Pivot MinWidth="320" MinHeight="320" HorizontalAlignment="Right">
                 
                 <PivotItem Margin="0">
                     <PivotItem.Header>

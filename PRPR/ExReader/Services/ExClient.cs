@@ -11,6 +11,9 @@ using Windows.UI.Xaml.Controls;
 using static System.Text.RegularExpressions.Regex;
 using System.Diagnostics;
 using Windows.UI.Core;
+using Windows.Web.Http.Filters;
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 
 namespace PRPR.ExReader.Services
 {
@@ -62,35 +65,32 @@ namespace PRPR.ExReader.Services
 
         public static async Task<string> GetStringWithExCookie(string uriString, string uconfig = "")
         {
-            using (var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip | DecompressionMethods.None, UseCookies = false, })
-            using (var client = new HttpClient(handler))
-            {
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add("Cookie", await GetExCookieAsync(uconfig));
-                client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
-                var str = await client.GetStringAsync(uriString);
-                return str;
-            }
+            var client = new Windows.Web.Http.HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Cookie", await GetExCookieAsync(uconfig));
+            client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
+            var str = await client.GetStringAsync(new Uri(uriString));
+            return str;
         }
 
         
+
+
         private static async Task GetECookie(string username, string password)
         {
             string requestBody = $"UserName={username}&PassWord={password}&CookieDate=1";
-            byte[] data = Encoding.UTF8.GetBytes(requestBody);
-            HttpWebRequest loginRequest = WebRequest.CreateHttp("https://forums.e-hentai.org/index.php?act=Login&CODE=01");
-            loginRequest.Method = "POST";
-            loginRequest.ContentType = "application/x-www-form-urlencoded";
-            using (Stream stream = await loginRequest.GetRequestStreamAsync())
+            
+            var httpClient = new Windows.Web.Http.HttpClient(new HttpBaseProtocolFilter());
+            var message = new Windows.Web.Http.HttpRequestMessage(
+                new Windows.Web.Http.HttpMethod("POST"),
+                new Uri("https://forums.e-hentai.org/index.php?act=Login&CODE=01"))
             {
-                await stream.WriteAsync(data, 0, data.Length);
-            }
-            string eCookie = null;
-            using (HttpWebResponse logResponse = (HttpWebResponse)(await loginRequest.GetResponseAsync()))
-            {
-                eCookie = logResponse.Headers["Set-Cookie"];
-            }
-
+                Content = new HttpStringContent(requestBody)
+            };
+            message.Content.Headers.ContentType = new HttpMediaTypeHeaderValue("application/x-www-form-urlencoded");
+            var response = await httpClient.SendRequestAsync(message);
+            
+            string eCookie = response.Headers["Set-Cookie"];
             if (eCookie.IndexOf("expires=") >= 0)
             {
 
@@ -112,7 +112,7 @@ namespace PRPR.ExReader.Services
                 throw new Exception("Cannot login");
             }
         }
-
+        
 
 
         public static async Task AddToFavorite(string gid, string token, int favcat, string favnote = "")
@@ -194,13 +194,10 @@ namespace PRPR.ExReader.Services
 
             }
 
-
             string manberid = CheckForMemberID(ExSettings.Current.ECookie);
             string passhash = CheckForPassHash(ExSettings.Current.ECookie);
-            //string igneous = await CheckCookieForAccess(manberid, passhash);
 
-
-            var _exCookie = $"ipb_member_id={manberid};" + passhash + ";" + $"uconfig={uconfig};";
+            var _exCookie = $"ipb_member_id={manberid}; " + passhash + "; " + $"uconfig={uconfig};";
             return _exCookie;
 
         }

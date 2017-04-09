@@ -6,12 +6,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="using:PRPR.ExReader.ViewModels"
     xmlns:CommonControls="using:PRPR.Common.Views.Controls"
+    xmlns:CommonControl="using:PRPR.Common.Controls"
     
     xmlns:Converters="using:PRPR.ExReader.Converters"
     x:Class="PRPR.ExReader.Views.GalleryPage"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
-    RequestedTheme="Dark">
+    RequestedTheme="Dark"
+    Loaded="CurrentGalleryPage_Loaded"
+    x:Name="CurrentGalleryPage">
 
 
 
@@ -192,15 +195,92 @@
 
         <DataTemplate x:Key="TagButtonTemplate">
             <Button Style="{StaticResource ButtonStyleNoColor}" Margin="2,0" Click="TagButton_Click">
-                <StackPanel Padding="8" Orientation="Horizontal" Margin="0,2">
+                <StackPanel Padding="4" Orientation="Horizontal" Margin="0,2">
                     <StackPanel.Background>
                         <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
                     </StackPanel.Background>
-                    <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}"/>
-                    <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
+                    <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}" RenderTransformOrigin="0.5,0.5" >
+                        <SymbolIcon.RenderTransform>
+                            <CompositeTransform ScaleX="0.75" ScaleY="0.75"/>
+                        </SymbolIcon.RenderTransform>
+                    </SymbolIcon>
+                    <TextBlock Text="{Binding Name}" Margin="2,0" FontSize="12" TextLineBounds="TrimToBaseline"/>
                 </StackPanel>
             </Button>
         </DataTemplate>
+        <Style x:Key="ButtonStyleCircle" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"/>
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlDisabledChromeDisabledLowBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="FocusVisualMargin" Value="-3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="RootGrid" Background="{TemplateBinding Background}" CornerRadius="24" BorderThickness="{TemplateBinding BorderThickness}"  BorderBrush="{TemplateBinding BorderBrush}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlForegroundChromeHighBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundChromeWhiteBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundChromeWhiteBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Page.DataContext>
@@ -208,8 +288,9 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
+            <!--<VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1280" />
@@ -242,304 +323,515 @@
                         <Setter Target="GalleryWall.Padding" Value="4,0"/>
                     </VisualState.Setters>
                 </VisualState>
+            </VisualStateGroup>-->
+
+            <VisualStateGroup x:Name="DetailPanelStates">
+                <VisualState x:Name="LeftCollapsed">
+                    <VisualState.Setters>
+                        <Setter Target="DetailPanel.Height" Value="Auto"/>
+                        <!--<Setter Target="Root.ColumnDefinitions[0].Width" Value="64"/>-->
+                    </VisualState.Setters>
+                    <Storyboard>
+
+                        <DoubleAnimation Storyboard.TargetName="FoldSignTransform" Storyboard.TargetProperty="Rotation"
+                                                         Duration="0:0:0.33" To="0" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        
+                        
+                        <DoubleAnimation Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Width"
+                                                         Duration="0:0:0.33" From="320" To="64" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        
+                        
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="1" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+
+
+                        <DoubleAnimation Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="0" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.33" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+                    </Storyboard>
+                </VisualState>
+
+
+                <VisualState x:Name="LeftExtended">
+                    <VisualState.Setters>
+                        <!--<Setter Target="Root.ColumnDefinitions[0].Width" Value="320"/>-->
+                        <Setter Target="DetailPanel.Height" Value="Auto"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+
+                        <DoubleAnimation Storyboard.TargetName="FoldSignTransform" Storyboard.TargetProperty="Rotation"
+                                                         Duration="0:0:0.33" To="180" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        
+                        <DoubleAnimation Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Width"
+                                                         Duration="0:0:0.33" From="64" To="320" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        
+                        
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        
+                        <DoubleAnimation Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="0" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.33" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="1" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+
+                    </Storyboard>
+
+                </VisualState>
+
+
+                <VisualState x:Name="BottomCollapsed">
+                    <VisualState.Setters>
+                        <Setter Target="DetailPanel.Width" Value="Auto"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="FoldSignTransform" Storyboard.TargetProperty="Rotation"
+                                                         Duration="0:0:0.33" To="270" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <DoubleAnimation Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Height"
+                                                         Duration="0:0:0.33" From="400" To="40" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+
+                        <DoubleAnimation Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="0" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.33" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+
+
+                        <DoubleAnimation Storyboard.TargetName="ButtonsStack" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="1" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonsStack" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+
+                <VisualState x:Name="BottomExtended">
+                    <VisualState.Setters>
+                        <Setter Target="DetailPanel.Width" Value="Auto"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="FoldSignTransform" Storyboard.TargetProperty="Rotation"
+                                                         Duration="0:0:0.33" To="90" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Height"
+                                                         Duration="0:0:0.33" From="40" To="400" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        
+                        <DoubleAnimation Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="1" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+
+                        <DoubleAnimation Storyboard.TargetName="ButtonsStack" Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.33" To="0" EnableDependentAnimation="True">
+                            <DoubleAnimation.EasingFunction>
+                                <CircleEase EasingMode="EaseOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonsStack" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.33" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+
+                </VisualState>
             </VisualStateGroup>
 
-            <VisualStateGroup>
-                <VisualState>
+
+
+            <VisualStateGroup x:Name="WidthStates" CurrentStateChanged="WidthStates_CurrentStateChanged">
+                <VisualState x:Name="Width700">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600" />
+                        <AdaptiveTrigger MinWindowWidth="700"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TabListView.Margin" Value="0,0,12,0"/>
-                        <Setter Target="DetailsTextBlock.Visibility" Value="Visible"/>
-                        <Setter Target="PicturesTextBlock.Visibility" Value="Visible"/>
-                        <Setter Target="CommentsTextBlock.Visibility" Value="Visible"/>
+                        <!--Left-->
+                        <Setter Target="DetailPanel.(Grid.Row)" Value="0"/>
+                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="DetailPanel.HorizontalAlignment" Value="Left"/>
+                        
+                        <Setter Target="DetailPanelButton.Margin" Value="0,60,-24,0"/>
+
+                        <Setter Target="MainPanel.(Grid.Column)" Value="1"/>
+
+                        <Setter Target="ButtonsStack.Margin" Value="0,0,-30,0"/>
+                        <Setter Target="ButtonsStack.Orientation" Value="Vertical"/>
+                        <Setter Target="ButtonsStack.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState>
+
+                <VisualState x:Name="Width480Height500">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <AdaptiveTrigger MinWindowWidth="450" MinWindowHeight="500"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TabListView.Margin" Value="0"/>
-                        <Setter Target="DetailsTextBlock.Visibility" Value="Collapsed"/>
-                        <Setter Target="PicturesTextBlock.Visibility" Value="Collapsed"/>
-                        <Setter Target="CommentsTextBlock.Visibility" Value="Collapsed"/>
+                        <!--Bottom-->
+                        <Setter Target="DetailPanel.(Grid.Row)" Value="1"/>
+                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="DetailPanel.HorizontalAlignment" Value="Stretch"/>
+
+
+                        <Setter Target="DetailPanelButton.Margin" Value="0,-24,20,0"/>
+
+
+                        <Setter Target="MainPanel.(Grid.Column)" Value="0"/>
+
+                        <Setter Target="ButtonsStack.Margin" Value="0,-24,0,-0"/>
+                        <Setter Target="ButtonsStack.Orientation" Value="Horizontal"/>
+                        <Setter Target="ButtonsStack.HorizontalAlignment" Value="Center"/>
+                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Width480Height0">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="450" MinWindowHeight="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--Left-->
+                        <Setter Target="DetailPanel.(Grid.Row)" Value="0"/>
+                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="DetailPanel.HorizontalAlignment" Value="Left"/>
+
+                        <Setter Target="DetailPanelButton.Margin" Value="0,60,-24,0"/>
+
+                        <Setter Target="MainPanel.(Grid.Column)" Value="1"/>
+
+                        <Setter Target="ButtonsStack.Margin" Value="0,0,-30,0"/>
+                        <Setter Target="ButtonsStack.Orientation" Value="Vertical"/>
+                        <Setter Target="ButtonsStack.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--Bottom-->
+                        <Setter Target="DetailPanel.(Grid.Row)" Value="1"/>
+                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="DetailPanel.HorizontalAlignment" Value="Stretch"/>
+
+                        <Setter Target="DetailPanelButton.Margin" Value="0,-24,20,0"/>
+                        
+                        
+                        <Setter Target="MainPanel.(Grid.Column)" Value="0"/>
+
+                        <Setter Target="ButtonsStack.Margin" Value="0,-24,0,-0"/>
+                        <Setter Target="ButtonsStack.Orientation" Value="Horizontal"/>
+                        <Setter Target="ButtonsStack.HorizontalAlignment" Value="Center"/>
+                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
+
+                        
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid>
+
+        <Grid x:Name="Root">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
+            <Grid x:Name="MainPanel" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="2">
+                <CommonControls:ImageWall x:Name="GalleryWall" Background="Transparent" DataContext="{Binding GalleryImages}"
+                            HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0">
+
+                    <CommonControls:ImageWall.ItemTemplate>
+                        <DataTemplate>
+                            <UserControl>
+                                <Grid Height="{Binding DisplayHeight}" Width="{Binding DisplayWidth}" BorderThickness="0" >
+
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="500" />
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter Target="Back.Margin" Value="6"/>
+                                                    <Setter Target="Image.Margin" Value="6"/>
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState>
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter Target="Back.Margin" Value="2"/>
+                                                    <Setter Target="Image.Margin" Value="2"/>
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="ImageStates">
+                                            <VisualState x:Name="ImageNotLoaded">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
+                                                Duration="0" To="0"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="ImageLoaded">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
+                                                Duration="0:0:0.2" To="1"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
 
 
 
+                                    <Rectangle x:Name="Back" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Stretch="UniformToFill" Margin="2" Fill="Transparent"/>
 
-            <Grid Grid.Row="0" 
-                  Margin="0,-40,0,0" Padding="0,40,0,0" BorderBrush="White">
-                <Grid.Background>
-                    <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
-                </Grid.Background>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <ScrollViewer HorizontalContentAlignment="Stretch"  VerticalAlignment="Bottom" Height="48"
-                              HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" >
-                    <TextBlock Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding Gallery.Title, Converter={StaticResource ShortTitleConverter}}" Foreground="White"/>
-                </ScrollViewer>
-
-                <ListView x:Name="TabListView" SelectionMode="Single" 
-                          Grid.Column="1"
-                      SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}"
-                      IsItemClickEnabled="True"
-                      HorizontalAlignment="Right"
-                      ScrollViewer.VerticalScrollMode="Disabled"
-                          RequestedTheme="Light"
-                      ItemClick="TabListView_ItemClick">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemTab}">
-                            <Setter Property="BorderBrush" Value="#FF222222"/>
-                            <Setter Property="Foreground" Value="#FFFFFFFF"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsStackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <SymbolIcon Symbol="Pictures" Width="48" />
-                        <TextBlock x:Name="PicturesTextBlock"  Text="圖片" Margin="0,0,16,0"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal">
-                        <SymbolIcon Symbol="Library" Width="48" />
-                        <TextBlock x:Name="DetailsTextBlock"  Text="詳情" Margin="0,0,16,0"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <SymbolIcon Symbol="Comment" Width="48" />
-                        <TextBlock x:Name="CommentsTextBlock" Text="評論" Margin="0,0,16,0"/>
-                    </StackPanel>
-                </ListView>
+                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2" Opacity="0" BorderThickness="1">
+                                        <Border.BorderBrush>
+                                            <SolidColorBrush Color="#FF222222"/>
+                                        </Border.BorderBrush>
+                                        <Image Stretch="UniformToFill" Source="{Binding ItemSource.Thumb}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                    </Border>
+                                </Grid>
+                            </UserControl>
+                        </DataTemplate>
+                    </CommonControls:ImageWall.ItemTemplate>
+                </CommonControls:ImageWall>
             </Grid>
 
-            <FlipView Grid.Row="1" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" Style="{StaticResource FlipViewStyle1}">
+
+            <Grid x:Name="DetailPanel" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                <Grid.Background>
+                    <SolidColorBrush Color="{ThemeResource SystemChromeMediumLowColor}"/>
+                </Grid.Background>
+                <ScrollViewer x:Name="FullDetails" Padding="12,0"  MinWidth="320" 
+                              Visibility="Collapsed"
+                              Style="{StaticResource ScrollViewerStyleNiceScrollBar}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        
+                        <TextBlock Text="標題"  Foreground="Gray" Margin="0,64,0,0"/>
+                        <TextBlock Text="{Binding Gallery.Title}" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="日語標題"  Foreground="Gray" Margin="0,24,0,0"/>
+                        <TextBlock Text="{Binding Gallery.JapaneseTitle}" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="評分"  Foreground="Gray" Margin="0,24,0,0"/>
+                        <TextBlock Text="{Binding Gallery.Rating}"/>
+
+                        <TextBlock Text="語言"  Foreground="Gray" Margin="0,24,0,0"/>
+                        <TextBlock Text="{Binding Gallery.Language}"/>
+
+                        <TextBlock Text="頁數"  Foreground="Gray" Margin="0,24,0,0"/>
+                        <TextBlock Text="{Binding Gallery.FileCount}"/>
+
+                        <TextBlock  Text="標籤"  Foreground="Gray" Margin="0,24,0,0"/>
+                        <RichTextBlock x:Name="TagsWrapBlock" DataContext="{Binding Gallery.Tags}" 
+                                       Margin="0,0,0,20"
+                                       Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged" IsTextSelectionEnabled="False"/>
 
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    </StackPanel>
+                </ScrollViewer>
 
-                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                    BorderThickness="0,0,0,1" 
-                    BorderBrush="#FF444444"
-                    Background="#FF222222">
-                    </Grid>
+                <CommonControl:RotateContentControl x:Name="RotatedHeader" Direction="Up" HorizontalAlignment="Right" 
+                                                    VerticalAlignment="Top" Margin="0,120,0,0"
+                                                    Tapped="RotatedHeader_Tapped">
+                    <TextBlock Text="{Binding Gallery.Title, Converter={StaticResource ShortTitleConverter}}" 
+                               FontSize="30" TextAlignment="Right" Height="48" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextWrapping="NoWrap">
+                    </TextBlock>
+                </CommonControl:RotateContentControl>
 
+                <Button x:Name="DetailPanelButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="0,60,-24,-0" Click="Button_Click_2" Style="{StaticResource ButtonStyleCircle}">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE974;" RenderTransformOrigin="0.5,0.5">
+                        <TextBlock.RenderTransform>
+                            <CompositeTransform x:Name="FoldSignTransform" Rotation="0"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Button>
 
-                    <CommonControls:ImageWall x:Name="GalleryWall" Grid.Row="1" Background="Transparent" DataContext="{Binding GalleryImages}"
-                                    HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0">
+                <StackPanel x:Name="ButtonsStack" HorizontalAlignment="Right" Orientation="Horizontal">
 
-                        <CommonControls:ImageWall.ItemTemplate>
-                            <DataTemplate>
-                                <UserControl>
-                                    <Grid Height="{Binding DisplayHeight}" Width="{Binding DisplayWidth}" BorderThickness="0" >
+                    <Button x:Name="DownloadButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" Click="AppBarButton_Click" Style="{StaticResource ButtonStyleCircle}">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE105;"/>
+                    </Button>
+                    <Button x:Name="UnfavoriteButton" 
+                            HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
+                            Style="{StaticResource ButtonStyleCircle}"
+                            Visibility="{Binding IsFavorited, Converter={StaticResource BooleanToVisibilityConverter}}" Click="Button_Click_1">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE00B;"/>
+                    </Button>
 
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup>
-                                                <VisualState>
-                                                    <VisualState.StateTriggers>
-                                                        <AdaptiveTrigger MinWindowWidth="500" />
-                                                    </VisualState.StateTriggers>
-                                                    <VisualState.Setters>
-                                                        <Setter Target="Back.Margin" Value="6"/>
-                                                        <Setter Target="Image.Margin" Value="6"/>
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                                <VisualState>
-                                                    <VisualState.StateTriggers>
-                                                        <AdaptiveTrigger MinWindowWidth="0" />
-                                                    </VisualState.StateTriggers>
-                                                    <VisualState.Setters>
-                                                        <Setter Target="Back.Margin" Value="2"/>
-                                                        <Setter Target="Image.Margin" Value="2"/>
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                            <VisualStateGroup x:Name="ImageStates">
-                                                <VisualState x:Name="ImageNotLoaded">
-                                                    <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="0"/>
-                                                    </Storyboard>
-                                                </VisualState>
-                                                <VisualState x:Name="ImageLoaded">
-                                                    <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.2" To="1"/>
-                                                    </Storyboard>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-
-
-
-                                        <Rectangle x:Name="Back" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       Stretch="UniformToFill" Margin="2" Fill="Transparent"/>
-
-                                        <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2" Opacity="0" BorderThickness="1">
-                                            <Border.BorderBrush>
-                                                <SolidColorBrush Color="#FF222222"/>
-                                            </Border.BorderBrush>
-                                            <Image Stretch="UniformToFill" Source="{Binding ItemSource.Thumb}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                                        </Border>
-                                    </Grid>
-                                </UserControl>
-                            </DataTemplate>
-                        </CommonControls:ImageWall.ItemTemplate>
-                    </CommonControls:ImageWall>
-
-
-                    <!--<GridView x:Name="ImageGridView" ItemsSource="{Binding Gallery}" Grid.Row="1" Visibility="Collapsed"
-                              HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
-                        <GridView.ItemContainerTransitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition IsStaggeringEnabled="False"/>
-                            </TransitionCollection>
-                        </GridView.ItemContainerTransitions>
-
-
-                        <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Image Source="{Binding Thumb}" MaxHeight="120" MaxWidth="120"/>
-                                </Grid>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-
-
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsWrapGrid Orientation="Horizontal"  HorizontalAlignment="Center"/>
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                    </GridView>-->
-                </Grid>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                    BorderThickness="0,0,0,1" 
-                    BorderBrush="#FF444444"
-                    Background="#FF222222">
-                    </Grid>
-
-                    <ScrollViewer Padding="12,0" Grid.Row="1" Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
-
-                        <StackPanel >
-
-
-
-                            <Image Height="200" Source="{Binding Gallery.Thumb}" Margin="0,12,0,0"/>
-
-                            <TextBlock Text="標題"  Foreground="Gray" Margin="0,24,0,0"/>
-                            <TextBlock Text="{Binding Gallery.Title}" TextWrapping="Wrap"/>
-
-                            <TextBlock Text="日語標題"  Foreground="Gray" Margin="0,24,0,0"/>
-                            <TextBlock Text="{Binding Gallery.JapaneseTitle}" TextWrapping="Wrap"/>
-
-                            <TextBlock Text="評分"  Foreground="Gray" Margin="0,24,0,0"/>
-                            <TextBlock Text="{Binding Gallery.Rating}"/>
-
-                            <TextBlock Text="語言"  Foreground="Gray" Margin="0,24,0,0"/>
-                            <TextBlock Text="{Binding Gallery.Language}"/>
-
-                            <TextBlock Text="頁數"  Foreground="Gray" Margin="0,24,0,0"/>
-                            <TextBlock Text="{Binding Gallery.FileCount}"/>
-
-                            <TextBlock  Text="標籤"  Foreground="Gray" Margin="0,24,0,0"/>
-                            <RichTextBlock x:Name="TagsWrapBlock" DataContext="{Binding Gallery.Tags}"  Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged" IsTextSelectionEnabled="False"/>
-
-
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
-
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                    BorderThickness="0,0,0,1" 
-                    BorderBrush="#FF444444"
-                    Background="#FF222222">
-                    </Grid>
-
-                    <ListView ItemsSource="{Binding Gallery.Comments}" Grid.Row="1" Style="{StaticResource ListViewStyleNiceScrollBar}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel HorizontalAlignment="Left" Margin="0,6">
-                                    <TextBlock Text="{Binding Author}" HorizontalAlignment="Left" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                    <TextBlock Text="{Binding Content}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                    <Button x:Name="FavoriteButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
+                            Visibility="{Binding IsFavorited, Converter={StaticResource BooleanToInvisibilityConverter}}"
+                            Style="{StaticResource ButtonStyleCircle}">
+                        <Button.Flyout>
+                            <Flyout>
+                                <StackPanel>
+                                    <ComboBox x:Name="FavoriteCatalogComboBox" SelectedIndex="0">
+                                        <TextBlock Text="0"/>
+                                        <TextBlock Text="1"/>
+                                        <TextBlock Text="2"/>
+                                        <TextBlock Text="3"/>
+                                        <TextBlock Text="4"/>
+                                        <TextBlock Text="5"/>
+                                        <TextBlock Text="6"/>
+                                        <TextBlock Text="7"/>
+                                        <TextBlock Text="8"/>
+                                        <TextBlock Text="9"/>
+                                    </ComboBox>
+                                    <TextBox x:Name="FavoriteNoteTextBox" PlaceholderText="Favorite Note" Margin="0,12"/>
+                                    <Button Content="Add Favorite" Click="Button_Click"/>
                                 </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-            </FlipView>
+                            </Flyout>
+                        </Button.Flyout>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE006;"/>
+                    </Button>
+                    <Button x:Name="CommentButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
+                            Style="{StaticResource ButtonStyleCircle}">
 
-
-            <CommandBar Grid.Row="2">
-                <!--<AppBarButton Icon="Globe" Label="Test" Click="TestAppBarButton_Click"/>-->
-                <AppBarButton Icon="Download" Label="Save as" Click="AppBarButton_Click"/>
-
-                <AppBarButton x:Name="UnfavoriteAppBarButton" Icon="SolidStar" Label="Unfavorite" Visibility="{Binding IsFavorited, Converter={StaticResource BooleanToVisibilityConverter}}" Click="Button_Click_1" AllowFocusOnInteraction="True"/>
-
-                <AppBarButton x:Name="FavoriteAppBarButton" Icon="OutlineStar" Label="Favorite" Visibility="{Binding IsFavorited, Converter={StaticResource BooleanToInvisibilityConverter}}" AllowFocusOnInteraction="True">
-                    <AppBarButton.Flyout>
-                        <Flyout>
-                            <StackPanel>
-                                <ComboBox x:Name="FavoriteCatalogComboBox" SelectedIndex="0">
-                                    <TextBlock Text="0"/>
-                                    <TextBlock Text="1"/>
-                                    <TextBlock Text="2"/>
-                                    <TextBlock Text="3"/>
-                                    <TextBlock Text="4"/>
-                                    <TextBlock Text="5"/>
-                                    <TextBlock Text="6"/>
-                                    <TextBlock Text="7"/>
-                                    <TextBlock Text="8"/>
-                                    <TextBlock Text="9"/>
-                                </ComboBox>
-                                <TextBox x:Name="FavoriteNoteTextBox" PlaceholderText="Favorite Note" Margin="0,12"/>
-                                <Button Content="Add Favorite" Click="Button_Click"/>
-                            </StackPanel>
-                        </Flyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
-            </CommandBar>
+                        <Button.Flyout>
+                            <Flyout Placement="Full">
+                                <ListView ItemsSource="{Binding Gallery.Comments}" 
+                                          Width="300"
+                                          Style="{StaticResource ListViewStyleNiceScrollBar}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel HorizontalAlignment="Left" Margin="0,6">
+                                                <TextBlock Text="{Binding Author}" HorizontalAlignment="Left" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                                <TextBlock Text="{Binding Content}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Flyout>
+                        </Button.Flyout>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE134;"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Grid>
 
+        <!--<Grid x:Name="CommentPanel">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
+                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
+                    BorderThickness="0,0,0,1" 
+                    BorderBrush="#FF444444"
+                    Background="#FF222222">
+                    </Grid>
+
+                    
+                </Grid>-->
 
     </Grid>
+
 </Page>

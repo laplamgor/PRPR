@@ -180,7 +180,7 @@ namespace PRPR.ExReader.Models
                 try
                 {
                     // Get page html
-                    htmlString = await ExClient.GetStringWithExCookie($"{link}?p={pagenumber - 1}", "ts_l");
+                    htmlString = await ExClient.GetStringWithExCookie($"{link}?p={pagenumber - 1}&inline_set=ts_l", "dm_t-ts_l");
                 }
                 catch (HttpRequestException ex)
                 {
@@ -432,7 +432,6 @@ namespace PRPR.ExReader.Models
         {
             // background-position:-16px -21px; opacity:1; margin-top:2px
             var style = node.SelectSingleNode(".//div[starts-with(@class,'id43')]").GetAttributeValue("style", null);
-            Debug.WriteLine(style);
             var splited = style.Split(';');
             var numbers = splited[0].Replace("background-position:", "").Replace("px", ",").Split(',');
 
@@ -456,13 +455,13 @@ namespace PRPR.ExReader.Models
             {
                 if (String.IsNullOrEmpty(Thumb))
                 {
-                    return 0;
+                    return 100;
                 }
                 else
                 {
                     //http://37.48.116.168/1c/fc/1cfcf82cc3ff1c7903cbaf474e6647c906ee46e6-396324-800-800-jpg_l.jpg
                     var splited = Thumb.Split('-');
-                    int w = 0;
+                    int w = 100;
                     if (splited.Length >= 4)
                     {
                         int.TryParse(splited[splited.Length - 3], out w);
@@ -478,13 +477,13 @@ namespace PRPR.ExReader.Models
             {
                 if (String.IsNullOrEmpty(Thumb))
                 {
-                    return 0;
+                    return 100;
                 }
                 else
                 {
                     //http://37.48.116.168/1c/fc/1cfcf82cc3ff1c7903cbaf474e6647c906ee46e6-396324-800-800-jpg_l.jpg
                     var splited = Thumb.Split('-');
-                    int h = 0;
+                    int h = 100;
                     if (splited.Length >= 4)
                     {
                         int.TryParse(splited[splited.Length - 2], out h);
