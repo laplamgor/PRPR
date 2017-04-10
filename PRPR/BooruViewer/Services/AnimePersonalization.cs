@@ -163,6 +163,8 @@ namespace PRPR.BooruViewer.Services
                     else
                     {
                         // No face detected, fall back crop
+                        var cropRect = CropBitmap.GetTopMiddleCropRect(imageSize, screenSize);
+                        await CropBitmap.GetCroppedBitmapAsync(imageFile, cropRect, 1.0);
                     }
                     break;
                 default:
