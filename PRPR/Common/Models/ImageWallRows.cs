@@ -23,14 +23,7 @@ namespace PRPR.Common.Models
         }
 
         #endregion
-
-        public Type t
-        {
-            get
-            {
-                return typeof(T);
-            }
-        }
+        
 
         // Posts part
         private ObservableCollection<T> _itemsSource = null;
@@ -75,9 +68,13 @@ namespace PRPR.Common.Models
         {
             get
             {
-                return ItemsSource != null && ((ItemsSource as ISupportIncrementalLoading).HasMoreItems || this.Sum(o => o.Count) < ItemsSource.Count);
+                return ItemsSource != null && 
+                    ((ItemsSource as ISupportIncrementalLoading).HasMoreItems || this.Sum(o => o.Count) < ItemsSource.Count);
             }
         }
+
+        
+
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
@@ -86,7 +83,6 @@ namespace PRPR.Common.Models
         
         async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
-
             if (RowHeight == 0)
             {
                 return new LoadMoreItemsResult { Count = 0 };
@@ -187,9 +183,6 @@ namespace PRPR.Common.Models
 
     public interface IImageWallRows
     {
-        Type t { get; }
-
-
         object GetSource();
 
         void Resize();

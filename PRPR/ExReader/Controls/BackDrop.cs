@@ -12,7 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 
-namespace PRPR.ExReader.Views.Controls
+namespace PRPR.ExReader.Controls
 {
     public class BackDrop : Control
     {

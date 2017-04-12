@@ -73,6 +73,10 @@ namespace PRPR.ExReader.Views
             {
                 return this.DataContext as GalleryViewModel;
             }
+            set
+            {
+                this.DataContext = value;
+            }
         }
 
 
@@ -82,11 +86,15 @@ namespace PRPR.ExReader.Views
             {
                 if (GalleryViewModel.Gallery == null || GalleryViewModel.Gallery.Count == 0 || (e.NavigationParameter as string) != GalleryViewModel.Gallery?.Link)
                 {
+                    this.GalleryViewModel = new GalleryViewModel();
+
                     this.GalleryViewModel.Gallery = await ExGallery.DownloadGalleryAsync(e.NavigationParameter as string, 1, 3);
 
 
-                    var f = new ImageWallRows<ExGalleryImageListItem>();
-                    f.ItemsSource = this.GalleryViewModel.Gallery;
+                    var f = new ImageWallRows<ExGalleryImageListItem>()
+                    {
+                        ItemsSource = this.GalleryViewModel.Gallery
+                    };
                     this.GalleryViewModel.GalleryImages = f;
                     //GalleryWall.DataContext = f;
                 }
@@ -108,13 +116,12 @@ namespace PRPR.ExReader.Views
             App.Current.Resources["Gallery"] = this.GalleryViewModel.Gallery;
 
             var clicked = (ImageWallItem<ExGalleryImageListItem>)(e.ClickedItem);
-            
 
-            var q = new QueryString();
-            q.Add("link", this.GalleryViewModel.Gallery.Link);
-            q.Add("page", $"{this.GalleryViewModel.GalleryImages.ItemsSource.IndexOf(clicked.ItemSource)}");
-            
-
+            var q = new QueryString
+            {
+                { "link", this.GalleryViewModel.Gallery.Link },
+                { "page", $"{this.GalleryViewModel.GalleryImages.ItemsSource.IndexOf(clicked.ItemSource)}" }
+            };
             this.Frame.Navigate(typeof(ReadingPage), q.ToString());
         }
 
@@ -182,7 +189,6 @@ namespace PRPR.ExReader.Views
                 var p = new Paragraph();
 
                 var gOrdered = group.OrderBy(o => o.Name.Length);
-                //var zipped = gOrdered.Take(gOrdered.Count() / 2).Zip(gOrdered.Skip(gOrdered.Count() / 2).Reverse(), (f, s) => new List<TagDetail>() { f, s }).SelectMany(i => i);
                 foreach (var item in gOrdered)
                 {
                     var button = new ContentControl() { ContentTemplate = this.Resources["TagButtonTemplate"] as DataTemplate, DataContext = item };
@@ -224,12 +230,7 @@ namespace PRPR.ExReader.Views
             VisualStateManager.GoToState(c, "ImageLoaded", true);
         }
 
-
-
-
-
-
-
+        
 
         const string EX_GALLERIES_FOLDER_NAME = "Gallery";
 
@@ -237,82 +238,23 @@ namespace PRPR.ExReader.Views
         {
             if (this.GalleryViewModel?.Gallery == null)
             {
+                await new MessageDialog("Please wait until the page is loaded.", "Download failed").ShowAsync();
                 return;
             }
-
-
+            
 
             var savePicker = new FolderPicker();
-            //savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             savePicker.FileTypeFilter.Add("*");
             var galleryParentFolder = await savePicker.PickSingleFolderAsync();
-            if (galleryParentFolder == null)
+            if (galleryParentFolder != null)
             {
-                return;
+                var galleryFolder = await galleryParentFolder.CreateFolderAsync(this.GalleryViewModel.Gallery.Gid, CreationCollisionOption.OpenIfExists);
+                
+                await this.GalleryViewModel.StartGalleryDownloadAsync(galleryFolder);
+                await new MessageDialog("You can exit the app now. There will be a toast notification when all downloads are finished.", "Download started").ShowAsync();
             }
-            var galleryFolder = await galleryParentFolder.CreateFolderAsync(this.GalleryViewModel.Gallery.Gid, CreationCollisionOption.OpenIfExists);
-            //var galleriesFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(EX_GALLERIES_FOLDER_NAME, CreationCollisionOption.OpenIfExists);
-            //var galleryFolder = await galleriesFolder.CreateFolderAsync(this.GalleryViewModel.Gallery.Gid, CreationCollisionOption.OpenIfExists);
-
-
-
-
-
-
-            // Download image list
-            await this.GalleryViewModel.Gallery.LoadAllItemsAsync();
-
-
-            BackgroundTransferCompletionGroup completionGroup = new BackgroundTransferCompletionGroup();
-
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-            builder.Name = "DownloadFinished";
-            builder.SetTrigger(completionGroup.Trigger);
-            BackgroundTaskRegistration taskRegistration = builder.Register();
-
-            BackgroundDownloader downloader = new BackgroundDownloader(completionGroup);
-            downloader.TransferGroup = BackgroundTransferGroup.CreateGroup($"{this.GalleryViewModel.Gallery.Gid}");
-            downloader.TransferGroup.TransferBehavior = BackgroundTransferBehavior.Parallel;
-            
-
-            // Create tasks and file for each pic
-            StorageFile[] files = new StorageFile[this.GalleryViewModel.Gallery.Count];
-            foreach (var image in this.GalleryViewModel.Gallery)
-            {
-                files[this.GalleryViewModel.Gallery.IndexOf(image)] = await galleryFolder.CreateFileAsync($"{this.GalleryViewModel.Gallery.IndexOf(image) + 1}.jpg", CreationCollisionOption.ReplaceExisting);
-            }
-
-            // Get the image uri and download data for each pic
-            List<Task> getImageUriTasks = new List<Task>();
-            var gallery = this.GalleryViewModel.Gallery;
-            foreach (var image in gallery)
-            {
-                getImageUriTasks.Add(Download(image, files[gallery.IndexOf(image)], downloader));
-            }
-            await Task.WhenAll(getImageUriTasks);
-
-            
-            downloader.CompletionGroup.Enable();
-            
-            await new MessageDialog("You can exit the app now. There will be a toast notification when all downloads are finished.", "Download started").ShowAsync();
         }
 
-        private async Task Download(ExGalleryImageListItem image, StorageFile file, BackgroundDownloader downloader)
-        {
-            Debug.WriteLine(image.Link);
-            
-            var htmlSource = await ExClient.GetStringWithExCookie($"{image.Link}");
-            Uri uri = new Uri(ExImage.GetImageUriFromHtml(htmlSource));
-            DownloadOperation download = downloader.CreateDownload(uri, file);
-
-            //Task<DownloadOperation> startTask = download.StartAsync().AsTask();
-            download.StartAsync();
-        }
-
-        private void TestAppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         bool DetailPanelExtended = false;
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -328,11 +270,7 @@ namespace PRPR.ExReader.Views
 
             UpdateDetailPanelState(true);
         }
-
-        private async void RotatedHeader_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-        }
+        
 
         bool isLeft = false;
         private void WidthStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)

@@ -131,7 +131,6 @@ namespace PRPR.Common.Views.Controls
                         int currentRowMidItemIndex = 0;
                         if (currentRow != -1)
                         {
-                            var t = (RowsListView.ItemsSource as IImageWallRows).t;
                             currentRowMidItemIndex = (RowsListView.ItemsSource as IEnumerable<object>).Take(currentRow).Sum(o => (o as IEnumerable<object>).Count());
                             currentRowMidItemIndex += ((dynamic)RowsListView.ItemsSource)[currentRow].Count / 2;
                         }
@@ -171,8 +170,6 @@ namespace PRPR.Common.Views.Controls
                         int currentRowMidItemIndex = 0;
                         if (currentRow != -1)
                         {
-                            var t = (RowsListView.ItemsSource as IImageWallRows).t;
-                            
                             currentRowMidItemIndex = (RowsListView.ItemsSource as IEnumerable<object>).Take(currentRow).Sum(o => (o as IEnumerable<object>).Count());
                             if (currentRow + 1 <= (RowsListView.ItemsSource as IList).Count)
                             {

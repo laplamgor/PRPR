@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRPR.ExReader.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -22,7 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace PRPR.ExReader.Views.Controls
+namespace PRPR.ExReader.Controls
 {
     public sealed partial class CustomTitleBar : UserControl, INotifyPropertyChanged
     {

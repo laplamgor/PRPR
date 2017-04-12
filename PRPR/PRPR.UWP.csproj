@@ -127,7 +127,7 @@
     <Compile Include="BooruViewer\Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BooruViewer\Views\Controls\ImageCropper.xaml.cs">
+    <Compile Include="BooruViewer\Controls\ImageCropper.xaml.cs">
       <DependentUpon>ImageCropper.xaml</DependentUpon>
     </Compile>
     <Compile Include="BooruViewer\Views\SettingLockscreenPage.xaml.cs">
@@ -170,6 +170,7 @@
     <Compile Include="ExReader\Models\ExDownload.cs" />
     <Compile Include="ExReader\Models\ExGalleryFilter.cs" />
     <Compile Include="ExReader\Models\Global\ExDownloads.cs" />
+    <Compile Include="ExReader\Services\GalleryDownloader.cs" />
     <Compile Include="ExReader\Tasks\GalleryDownloadTask.cs" />
     <Compile Include="ExReader\Models\ExComment.cs" />
     <Compile Include="ExReader\Models\ExConfig.cs" />
@@ -192,15 +193,14 @@
     <Compile Include="ExReader\Views\AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExReader\Views\Controls\BackDrop.cs" />
-    <Compile Include="ExReader\Views\Controls\CustomTitleBar.xaml.cs">
+    <Compile Include="ExReader\Controls\BackDrop.cs" />
+    <Compile Include="ExReader\Controls\CustomTitleBar.xaml.cs">
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExReader\Views\Controls\LoginContentDialog.xaml.cs">
+    <Compile Include="ExReader\Controls\LoginContentDialog.xaml.cs">
       <DependentUpon>LoginContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExReader\Views\Controls\NavMenuListView.cs" />
-    <Compile Include="ExReader\Views\Controls\PageHeader.xaml.cs">
+    <Compile Include="ExReader\Controls\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExReader\Views\FavoriteListView.xaml.cs">
@@ -244,7 +244,7 @@
     <Compile Include="BooruViewer\Views\ConceptPage.xaml.cs">
       <DependentUpon>ConceptPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BooruViewer\Views\Controls\CompositionImage.cs" />
+    <Compile Include="BooruViewer\Controls\CompositionImage.cs" />
     <Compile Include="BooruViewer\Views\FeatureView.xaml.cs">
       <DependentUpon>FeatureView.xaml</DependentUpon>
     </Compile>
@@ -292,7 +292,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BooruViewer\Views\Controls\ImageCropper.xaml">
+    <Page Include="BooruViewer\Controls\ImageCropper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,15 +320,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExReader\Views\Controls\CustomTitleBar.xaml">
+    <Page Include="ExReader\Controls\CustomTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExReader\Views\Controls\LoginContentDialog.xaml">
+    <Page Include="ExReader\Controls\LoginContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExReader\Views\Controls\PageHeader.xaml">
+    <Page Include="ExReader\Controls\PageHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

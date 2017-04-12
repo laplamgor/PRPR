@@ -27,6 +27,7 @@ using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.Storage.Pickers;
 using System.Net;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -338,10 +339,13 @@ namespace PRPR.BooruViewer.Views
             foreach (var group in groupedTags)
             {
                 var gOrdered = group.OrderBy(o => o.Name.Length);
-                //var zipped = gOrdered.Take(gOrdered.Count() / 2).Zip(gOrdered.Skip(gOrdered.Count() / 2).Reverse(), (f, s) => new List<TagDetail>() { f, s }).SelectMany(i => i);
                 foreach (var item in gOrdered)
                 {
-                    var button = new ContentControl() { ContentTemplate = this.Resources["TagButtonTemplate"] as DataTemplate, DataContext = item };
+                    var button = new ContentControl() {
+                        ContentTemplate = this.Resources["TagButtonTemplate"] as DataTemplate,
+                        DataContext = item,
+                        Transitions = new TransitionCollection { new RepositionThemeTransition() }
+                    };
                     tagsWrapPanel.Children.Add(button);
                 }
             }

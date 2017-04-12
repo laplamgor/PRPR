@@ -1,4 +1,4 @@
-﻿using PRPR.ExReader.Views.Controls;
+﻿using PRPR.ExReader.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;

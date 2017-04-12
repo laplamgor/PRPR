@@ -1,5 +1,5 @@
 ﻿using PRPR.ExReader.Models.Global;
-using PRPR.ExReader.Views.Controls;
+using PRPR.ExReader.Controls;
 using System;
 using System.ComponentModel;
 using System.IO;

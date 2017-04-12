@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 
-namespace PRPR.BooruViewer.Views.Controls
+namespace PRPR.BooruViewer.Controls
 {
 
     public sealed class CompositionImage : Control

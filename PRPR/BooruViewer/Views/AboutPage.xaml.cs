@@ -1,5 +1,8 @@
-﻿using System;
+﻿using PRPR.BooruViewer.Models;
+using PRPR.Common;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,6 +28,53 @@ namespace PRPR.BooruViewer.Views
         public AboutPage()
         {
             this.InitializeComponent();
+            this.navigationHelper = new NavigationHelper(this);
+            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
+            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
         }
+
+        #region NavigationHelper
+
+        private NavigationHelper navigationHelper;
+        public NavigationHelper NavigationHelper
+        {
+            get { return this.navigationHelper; }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedFrom(e);
+        }
+
+        #endregion
+
+
+
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+
+            // Download the last 24 hr tags
+            var p = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=rating:s");
+            var dayBefore = p.First().created_at - 3600 * 24 * 1;
+            while (p.Last().created_at >= dayBefore)
+            {
+                await p.LoadMoreItemsAsync(100);
+            }
+            var x = p.Where(o => o.created_at >= dayBefore);
+
+            
+        }
+
+
+        private async void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+
+        }
+
     }
 }

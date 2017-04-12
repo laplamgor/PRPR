@@ -132,12 +132,7 @@
                            ItemContainerStyle="{StaticResource ListViewItemStyleNoBackground}" 
                            ItemTemplate="{Binding Path=ItemTemplate, ElementName=Wall}"
                            >
-                        <!--<ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Margin" Value="0"/>
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>-->
+                        
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal" />

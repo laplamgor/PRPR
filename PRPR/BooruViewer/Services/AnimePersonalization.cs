@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
-using PRPR.BooruViewer.Views.Controls;
+using PRPR.BooruViewer.Controls;
 using PRPR.Common;
 using PRPR.Common.Models.Global;
 using PRPR.Common.Services;

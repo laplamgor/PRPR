@@ -4,7 +4,7 @@ using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
 using PRPR.BooruViewer.ViewModels;
-using PRPR.BooruViewer.Views.Controls;
+using PRPR.BooruViewer.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

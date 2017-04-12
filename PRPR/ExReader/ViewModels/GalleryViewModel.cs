@@ -1,12 +1,18 @@
 ﻿using PRPR.Common.Models;
 using PRPR.ExReader.Models;
+using PRPR.ExReader.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
+using Windows.Networking.BackgroundTransfer;
+using Windows.Storage;
+using Windows.UI.Popups;
 
 namespace PRPR.ExReader.ViewModels
 {
@@ -85,6 +91,15 @@ namespace PRPR.ExReader.ViewModels
                 _selectedViewIndex = value;
                 NotifyPropertyChanged(nameof(SelectedViewIndex));
             }
+        }
+
+
+
+
+
+        public async Task StartGalleryDownloadAsync(StorageFolder galleryFolder)
+        {
+            await GalleryDownloader.StartGalleryDownloadAsync(this.Gallery, galleryFolder);
         }
     }
 }
