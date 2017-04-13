@@ -25,9 +25,6 @@
                     <Button Content="Login" Click="LoginButton_Click" Margin="4,4" HorizontalAlignment="Center"/>
                     <HyperlinkButton Content="Register" Margin="4,4" NavigateUri="https://yande.re/user/signup"/>
                 </StackPanel>
-                
-
-                <!--<Button Content="Update Tag DB" Click="Button_Click_2"  Margin="0,4"/>-->
             </StackPanel>
 
 
@@ -67,8 +64,6 @@
                 
                 <TextBlock x:Name="YandeUserNameTextBlock" HorizontalAlignment="Center"
                            Text="{Binding UserName,Source={StaticResource YandeSettings}}" Margin="0,0,0,4"/>
-                <!--<Button Content="Logout" Click="LogoutButton_Click" Margin="0,4" HorizontalAlignment="Center"/>-->
-
             </StackPanel>
         </StackPanel>
 
@@ -154,9 +149,9 @@
                     </Grid>
                 </ListViewItem>
 
-                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped">
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped" RightTapped="ListViewItem_RightTapped">
                     <Grid>
-                        <TextBlock Text="About" VerticalAlignment="Center"/>
+                        <TextBlock Text="關於" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"

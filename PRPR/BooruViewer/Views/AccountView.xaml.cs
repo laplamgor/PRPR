@@ -85,6 +85,11 @@ namespace PRPR.BooruViewer.Views
         {
             (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(AboutPage));
         }
+
+        private void ListViewItem_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(ExReader.Views.HomePage));
+        }
     }
 }
  
