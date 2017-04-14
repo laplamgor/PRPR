@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PRPR</RootNamespace>
     <AssemblyName>PRPR</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>zh-Hant</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
@@ -142,6 +142,8 @@
     <Compile Include="BooruViewer\Views\SettingWallpaperPage.xaml.cs">
       <DependentUpon>SettingWallpaperPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\Controls\CustomItemsControl.cs" />
+    <Compile Include="Common\Controls\JustifiedWrapPanel.cs" />
     <Compile Include="Common\Controls\RotateContentControl.cs" />
     <Compile Include="Common\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\FileSizeConverter.cs" />

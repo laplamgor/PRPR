@@ -41,6 +41,68 @@
         </ScrollViewer>
 
         <Grid Grid.Row="2">
+
+            <ScrollViewer>
+                <CommonControl:JustifiedWrapPanel>
+                    <Button Content="Thisisaverylongtext" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                    <Button Content="Thisisaverylongtext222" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                    <Button Content="Thisisaverylongtext3333333" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                    <Button Content="Thisisaverylongtext4444444444444" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                    <Button Content="Thisisaverylongtext5555555555555555555555" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                    <Button Content="Thisisaverylongtext6666666666666" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                    <Button Content="Thisisaverylongtext77777777" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                    <Button Content="Thisisaverylongtext88" HorizontalAlignment="Stretch">
+                        <Button.Transitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition/>
+                            </TransitionCollection>
+                        </Button.Transitions>
+                    </Button>
+                </CommonControl:JustifiedWrapPanel>
+            </ScrollViewer>
+            
         </Grid>
 
 

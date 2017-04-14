@@ -96,6 +96,14 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[14 April 2017] v0.45.0
+Yandere
+- 修正Bugs
+Ex
+- 修正Bugs
+- 新介面
+"
+,
 @"[9 April 2017] v0.45.0
 Yandere
 - 修正Bugs
