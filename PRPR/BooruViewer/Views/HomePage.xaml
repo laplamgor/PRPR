@@ -494,9 +494,7 @@
                     </Grid.Transitions>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
-
                         <Button  Padding="12,0" VerticalAlignment="Stretch">
-
                             <StackPanel >
                                 <TextBlock Text="{x:Bind AppVersion}"/>
                                 <TextBlock Text="更新日誌"/>
@@ -522,7 +520,6 @@
                                 </Flyout>
                             </Button.Flyout>
                         </Button>
-                        <!--<TextBlock Text="請用電郵或Ｑ群反饋&#x0a;只試用不反饋請卸載" VerticalAlignment="Center" Margin="12,0"/>-->
                     </StackPanel>
 
 

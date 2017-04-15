@@ -130,7 +130,7 @@ namespace PRPR.ExReader.Models
 
         public DateTime Published { get; set; }
 
-        public int PreferredWidth
+        public double PreferredWidth
         {
             get
             {
@@ -142,16 +142,16 @@ namespace PRPR.ExReader.Models
                 {
                     //https://exhentai.org/t/84/a4/84a4f79496beaee4fde47184604e864ccddbf9f0-639417-2560-3629-jpg_l.jpg
                     string numbers = Thumb.Split('-')[2];
-                    if (int.Parse(numbers) == 0)
+                    if (double.Parse(numbers) == 0)
                     {
 
                     }
-                    return int.Parse(numbers) / 10;
+                    return double.Parse(numbers) / 10;
                 }
             }
         }
 
-        public int PreferredHeight
+        public double PreferredHeight
         {
             get
             {
@@ -162,11 +162,11 @@ namespace PRPR.ExReader.Models
                 else
                 {
                     string numbers = Thumb.Split('-')[3];
-                    if (int.Parse(numbers) == 0)
+                    if (double.Parse(numbers) == 0)
                     {
 
                     }
-                    return int.Parse(numbers) / 10;
+                    return double.Parse(numbers) / 10;
                 }
             }
         }
@@ -449,7 +449,7 @@ namespace PRPR.ExReader.Models
 
         
 
-        public int PreferredWidth
+        public double PreferredWidth
         {
             get
             {
@@ -461,17 +461,17 @@ namespace PRPR.ExReader.Models
                 {
                     //http://37.48.116.168/1c/fc/1cfcf82cc3ff1c7903cbaf474e6647c906ee46e6-396324-800-800-jpg_l.jpg
                     var splited = Thumb.Split('-');
-                    int w = 100;
+                    double w = 100;
                     if (splited.Length >= 4)
                     {
-                        int.TryParse(splited[splited.Length - 3], out w);
+                        double.TryParse(splited[splited.Length - 3], out w);
                     }
                     return w;
                 }
             }
         }
 
-        public int PreferredHeight
+        public double PreferredHeight
         {
             get
             {
@@ -483,10 +483,10 @@ namespace PRPR.ExReader.Models
                 {
                     //http://37.48.116.168/1c/fc/1cfcf82cc3ff1c7903cbaf474e6647c906ee46e6-396324-800-800-jpg_l.jpg
                     var splited = Thumb.Split('-');
-                    int h = 100;
+                    double h = 100;
                     if (splited.Length >= 4)
                     {
-                        int.TryParse(splited[splited.Length - 2], out h);
+                        double.TryParse(splited[splited.Length - 2], out h);
                     }
                     return h;
                 }

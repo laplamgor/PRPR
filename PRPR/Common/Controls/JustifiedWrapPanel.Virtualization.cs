@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace PRPR.Common.Controls
 {
-    public class CustomItemsControl
+    public partial class JustifiedWrapPanel
     {
 
 
@@ -107,36 +107,34 @@ namespace PRPR.Common.Controls
         //{
 
         //}
-        
-
-
-
-        object ItemsSource { get; set; }
-
-        DataTemplate ItemTemplate { get; set; }
-
-        Style ItemContainerStyle { get; set; }
-
-
-
-
-
 
         List<ContentControl> RecycledContainers = new List<ContentControl>();
 
         List<ContentControl> Containers = new List<ContentControl>();
 
 
+
         void RecycleItem(object item)
         {
             var container = ContainerFromItem(item);
-            ClearContainerForItem(container, item);
-            Containers.Remove(container as ContentControl);
-            RecycledContainers.Add(container as ContentControl);
+            if (container != null)
+            {
+                ClearContainerForItem(container, item);
+                Containers.Remove(container as ContentControl);
+                Children.Remove(container as ContentControl);
+                RecycledContainers.Add(container as ContentControl);
+            }
         }
 
         void RealizeItem(object item)
         {
+            // Check if already realized
+            if (ContainerFromItem(item) != null)
+            {
+                return;
+            }
+
+
             ContentControl container;
             if (IsItemItsOwnContainer(item))
             {
@@ -149,16 +147,31 @@ namespace PRPR.Common.Controls
                 {
                     container = RecycledContainers.First();
                     RecycledContainers.Remove(container);
+                    if (container == null)
+                    {
+                        // TODO: debug
+                    }
                 }
                 else
                 {
                     container = (ContentControl)GetContainerForItem();
+                    if (container == null)
+                    {
+                        // TODO: debug
+                    }
                 }
+            }
+
+            if (container == null)
+            {
+                // TODO: debug
+                return;
             }
 
 
             PrepareContainerForItem(container, item);
             Containers.Add(container);
+            Children.Add(container);
         }
     }
 }

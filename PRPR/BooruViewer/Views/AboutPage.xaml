@@ -1,5 +1,4 @@
 ﻿<Page
-    x:Class="PRPR.BooruViewer.Views.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.BooruViewer.Views"
@@ -7,7 +6,13 @@
     xmlns:CommonControl="using:PRPR.Common.Controls" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
+    x:Class="PRPR.BooruViewer.Views.AboutPage"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <ViewModels:AboutViewModel/>
+    </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -25,7 +30,7 @@
                 <TextBlock Text="作者："/>
                 <TextBlock Text="laplamgor"/>
                 <TextBlock Text=""/>
-                
+
 
                 <TextBlock Text="原碼(Github)："/>
                 <HyperlinkButton NavigateUri="https://github.com/laplamgor/KancolleVPN">
@@ -43,8 +48,37 @@
         <Grid Grid.Row="2">
 
             <ScrollViewer>
-                <CommonControl:JustifiedWrapPanel>
-                    <Button Content="Thisisaverylongtext" HorizontalAlignment="Stretch">
+                <CommonControl:JustifiedWrapPanel ItemsSource="{Binding TestPosts}">
+                    <CommonControl:JustifiedWrapPanel.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="100" BorderThickness="0">
+
+                                <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="#FF222222"/>
+                                    </Border.BorderBrush>
+                                    <Image Stretch="UniformToFill" Source="{Binding PreviewUrl}" HorizontalAlignment="Stretch" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </CommonControl:JustifiedWrapPanel.ItemTemplate>
+                    <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                        <Style TargetType="ContentControl">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+                            <Setter Property="Transitions">
+                                <Setter.Value>
+                                    <TransitionCollection>
+                                        <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                                    </TransitionCollection>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+
+                    <!--<Button Content="Thisisaverylongtext" HorizontalAlignment="Stretch">
                         <Button.Transitions>
                             <TransitionCollection>
                                 <RepositionThemeTransition/>
@@ -99,10 +133,12 @@
                                 <RepositionThemeTransition/>
                             </TransitionCollection>
                         </Button.Transitions>
-                    </Button>
+                    </Button>-->
+                    
+                    
                 </CommonControl:JustifiedWrapPanel>
             </ScrollViewer>
-            
+
         </Grid>
 
 

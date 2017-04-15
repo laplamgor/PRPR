@@ -46,7 +46,7 @@ namespace PRPR.Common.Models
             }
         }
 
-        public int PreferredWidth
+        public double PreferredWidth
         {
             get
             {
@@ -54,7 +54,7 @@ namespace PRPR.Common.Models
             }
         }
 
-        public int PreferredHeight
+        public double PreferredHeight
         {
             get
             {
@@ -75,12 +75,12 @@ namespace PRPR.Common.Models
 
     public interface IImageWallItemImage
     {
-        int PreferredWidth
+        double PreferredWidth
         {
             get;
         }
 
-        int PreferredHeight
+        double PreferredHeight
         {
             get;
         }

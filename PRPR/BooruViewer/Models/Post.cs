@@ -216,7 +216,7 @@ width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" fram
             }
         }
 
-        public int PreferredWidth
+        public double PreferredWidth
         {
             get
             {
@@ -224,7 +224,7 @@ width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" fram
             }
         }
 
-        public int PreferredHeight
+        public double PreferredHeight
         {
             get
             {

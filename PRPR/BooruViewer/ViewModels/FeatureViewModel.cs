@@ -38,7 +38,6 @@ namespace PRPR.BooruViewer.ViewModels
             var tags = GetAllTags(x);
 
             await UpdateFeatureTags(tags);
-            
         }
 
         private void UpdateTop3(IEnumerable<Post> posts)

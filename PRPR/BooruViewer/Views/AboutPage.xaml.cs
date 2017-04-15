@@ -1,4 +1,5 @@
 ﻿using PRPR.BooruViewer.Models;
+using PRPR.BooruViewer.ViewModels;
 using PRPR.Common;
 using System;
 using System.Collections.Generic;
@@ -54,27 +55,28 @@ namespace PRPR.BooruViewer.Views
         #endregion
 
 
+        AboutViewModel AboutViewModel
+        {
+            get
+            {
+                return this.DataContext as AboutViewModel;
+            }
+        }
+
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
 
-            // Download the last 24 hr tags
-            var p = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=rating:s");
-            var dayBefore = p.First().created_at - 3600 * 24 * 1;
-            while (p.Last().created_at >= dayBefore)
-            {
-                await p.LoadMoreItemsAsync(100);
-            }
-            var x = p.Where(o => o.created_at >= dayBefore);
-
-            
+            await AboutViewModel.LoadTestDataAsync();
         }
 
 
-        private async void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
 
         }
 
+
+        
     }
 }
