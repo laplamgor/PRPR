@@ -127,41 +127,7 @@ namespace PRPR.BooruViewer.Controls
                 SetValue(ImageSourceProperty, value);
             }
         }
-
-        //private static void OnProxyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    try
-        //    {
-
-        //        ImageCropper imageCropper = d as ImageCropper;
-        //        String s = e.NewValue as String;
-        //        if (s != String.Empty)
-        //        {
-        //            imageCropper.ProxySource = s;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //}
-        //private static void OnImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    try
-        //    {
-
-        //        ImageCropper imageCropper = d as ImageCropper; //null checks omitted
-        //        String s = e.NewValue as String; //null checks omitted
-        //        if (s != String.Empty)
-        //        {
-        //            imageCropper.ImageSource = s;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-                
-        //    }
-        //}
+        
 
         public static readonly DependencyProperty ProxySourceProperty =
             DependencyProperty.Register(nameof(ProxySource), typeof(string), typeof(ImageCropper), null);// new PropertyMetadata(null, new PropertyChangedCallback(OnProxyChanged)));
@@ -213,7 +179,7 @@ namespace PRPR.BooruViewer.Controls
             {
                 return;
             }
-
+            
             // Detect
             var factor = 1.05;
             var min = 3;
@@ -222,8 +188,7 @@ namespace PRPR.BooruViewer.Controls
             c = new AnimeFaceDetector();
             BitmapDecoder bd = await BitmapDecoder.CreateAsync(proxyResult.AsStream().AsRandomAccessStream());
             BitmapFrame bf = await bd.GetFrameAsync(0);
-            
-            
+
             try
             {
                 var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
@@ -233,8 +198,6 @@ namespace PRPR.BooruViewer.Controls
             {
 
             }
-
-            
         }
 
 

@@ -25,13 +25,15 @@ namespace PRPR.Common.Controls
 
         public static void OnItemSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as JustifiedWrapPanel).InvalidateMeasure();
-            (d as JustifiedWrapPanel).InvalidateArrange();
+            var p = (d as JustifiedWrapPanel);
+            p.CheckParentUpdate();
+            p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.ParentScrollViewer.DesiredSize.Width);
+            p.InvalidateMeasure();
+            p.InvalidateArrange();
         }
 
-
-
-
+        
+        
 
 
         public DataTemplate ItemTemplate
@@ -42,6 +44,7 @@ namespace PRPR.Common.Controls
 
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(JustifiedWrapPanel), new PropertyMetadata(null));
+
 
 
 
@@ -56,6 +59,28 @@ namespace PRPR.Common.Controls
 
 
 
+
+        
+        public double RowHeight
+        {
+            get { return (double)GetValue(RowHeightProperty); }
+            set { SetValue(RowHeightProperty, value); }
+        }
+
+        public static readonly DependencyProperty RowHeightProperty =
+            DependencyProperty.Register(nameof(RowHeight), typeof(double), typeof(JustifiedWrapPanel), new PropertyMetadata(100.0, OnRowHeightChanged));
+
+        public static void OnRowHeightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var p = (d as JustifiedWrapPanel);
+            p.CheckParentUpdate();
+            if (p.ParentScrollViewer != null)
+            {
+                p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.ParentScrollViewer.DesiredSize.Width);
+                p.InvalidateMeasure();
+                p.InvalidateArrange();
+            }
+        }
 
 
 
@@ -84,27 +109,13 @@ namespace PRPR.Common.Controls
             }
         }
 
-        public double RowHeight = 100;
 
-        private ScrollViewer ParentScrollViewer = null;
+        public ScrollViewer ParentScrollViewer = null;
 
         protected override Size MeasureOverride(Size availableSize)
         {
             // Update the parent ScrollViewer
-            if (ParentScrollViewer != (this.Parent as ScrollViewer))
-            {
-                if (ParentScrollViewer != null)
-                {
-                    ParentScrollViewer.ViewChanging -= ParentScrollViewer_ViewChanging;
-                }
-                ParentScrollViewer = (this.Parent as ScrollViewer);
-                if (ParentScrollViewer != null)
-                {
-                    ParentScrollViewer.ViewChanging += ParentScrollViewer_ViewChanging;
-                }
-            }
-            
-
+            CheckParentUpdate();
 
             var totalMeasure = new UvMeasure();
             var parentMeasure = new UvMeasure(availableSize.Width, availableSize.Height);
@@ -176,6 +187,33 @@ namespace PRPR.Common.Controls
             return new Size(totalMeasure.X, totalMeasure.Y);
         }
 
+        private void CheckParentUpdate()
+        {
+            if (ParentScrollViewer != (Parent as ScrollViewer))
+            {
+                if (ParentScrollViewer != null)
+                {
+                    ParentScrollViewer.ViewChanging -= ParentScrollViewer_ViewChanging;
+                    ParentScrollViewer.SizeChanged -= ParentScrollViewer_SizeChanged;
+                }
+                ParentScrollViewer = (this.Parent as ScrollViewer);
+                if (ParentScrollViewer != null)
+                {
+                    ParentScrollViewer.ViewChanging += ParentScrollViewer_ViewChanging;
+                    ParentScrollViewer.SizeChanged += ParentScrollViewer_SizeChanged;
+                }
+            }
+        }
+
+        private void ParentScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // TODO: handle oriendation
+            var top = (sender as ScrollViewer).HorizontalOffset;
+
+            UpdateActiveRange((sender as ScrollViewer).VerticalOffset, (sender as ScrollViewer).ViewportHeight, e.NewSize.Width, 0.6);
+            InvalidateMeasure();
+            InvalidateArrange();
+        }
 
         private int FirstActive = -1;
         private int LastActive = -1;
@@ -200,12 +238,7 @@ namespace PRPR.Common.Controls
                 {
                     if (position.Y < activeTop) // Cannot see this row within active window
                     {
-                        FirstActive = (ItemsSource as IList).IndexOf(child) + 1;
-                    }
-
-                    if (position.Y < activeTop)
-                    {
-                        LastActive = (ItemsSource as IList).IndexOf(child) - 1;
+                        FirstActive = (ItemsSource as IList).IndexOf(child);
                     }
 
                     var childWidth = (child as IImageWallItemImage).PreferredWidth / (child as IImageWallItemImage).PreferredHeight * RowHeight;
@@ -241,12 +274,7 @@ namespace PRPR.Common.Controls
             // TODO: handle oriendation
             var top = e.FinalView.HorizontalOffset;
 
-
-            UpdateActiveRange(e.FinalView.VerticalOffset, (sender as ScrollViewer).ViewportHeight, (sender as ScrollViewer).DesiredSize.Width, 1);
-            Debug.WriteLine($"Range = {FirstActive}-{LastActive}");
-
-
-            // TODO: select the range of active items to be realized
+            UpdateActiveRange(e.FinalView.VerticalOffset, (sender as ScrollViewer).ViewportHeight, (sender as ScrollViewer).DesiredSize.Width, 0.6);
             InvalidateMeasure();
             InvalidateArrange();
         }

@@ -48,10 +48,10 @@
         <Grid Grid.Row="2">
 
             <ScrollViewer>
-                <CommonControl:JustifiedWrapPanel ItemsSource="{Binding TestPosts}">
+                <CommonControl:JustifiedWrapPanel ItemsSource="{Binding TestPosts}" RowHeight="300">
                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="100" BorderThickness="0">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
 
                                 <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1">
                                     <Border.BorderBrush>
@@ -77,65 +77,6 @@
                             </Setter>
                         </Style>
                     </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-
-                    <!--<Button Content="Thisisaverylongtext" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>
-                    <Button Content="Thisisaverylongtext222" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>
-                    <Button Content="Thisisaverylongtext3333333" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>
-                    <Button Content="Thisisaverylongtext4444444444444" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>
-                    <Button Content="Thisisaverylongtext5555555555555555555555" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>
-                    <Button Content="Thisisaverylongtext6666666666666" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>
-                    <Button Content="Thisisaverylongtext77777777" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>
-                    <Button Content="Thisisaverylongtext88" HorizontalAlignment="Stretch">
-                        <Button.Transitions>
-                            <TransitionCollection>
-                                <RepositionThemeTransition/>
-                            </TransitionCollection>
-                        </Button.Transitions>
-                    </Button>-->
-                    
-                    
                 </CommonControl:JustifiedWrapPanel>
             </ScrollViewer>
 

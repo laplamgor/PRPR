@@ -35,7 +35,7 @@ namespace PRPR.BooruViewer.ViewModels
 
         public async Task LoadTestDataAsync()
         {
-            TestPosts = await Posts.DownloadPostsAsync(1, $"https:{""}//yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+order:vote");
+            TestPosts = await Posts.DownloadPostsAsync(1, $"https:{""}//yande.re/post.xml?tags=rating:s");
         }
     }
 }

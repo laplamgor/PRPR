@@ -66,7 +66,8 @@ namespace PRPR
         {
             e.Handled = false;
 
-            ToastService.ToastDebug("應用閃退，請聯絡開發者", e.Exception.Message);
+            ToastService.ToastDebug("應用閃退StackTrace", e.Exception.StackTrace);
+            ToastService.ToastDebug("應用閃退Exception", e.Exception.Message);
 
         }
 

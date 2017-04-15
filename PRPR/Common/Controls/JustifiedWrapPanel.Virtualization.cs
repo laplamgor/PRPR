@@ -10,15 +10,6 @@ namespace PRPR.Common.Controls
 {
     public partial class JustifiedWrapPanel
     {
-
-
-
-
-
-
-
-
-
         bool IsItemItsOwnContainer(object item)
         {
             return item is ContentControl && (item as ContentControl).Content == item;
