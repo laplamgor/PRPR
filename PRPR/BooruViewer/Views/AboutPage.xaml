@@ -33,7 +33,7 @@
 
 
                 <TextBlock Text="原碼(Github)："/>
-                <HyperlinkButton NavigateUri="https://github.com/laplamgor/KancolleVPN">
+                <HyperlinkButton NavigateUri="https://github.com/laplamgor/PRPR">
                     <TextBlock Text="GitHub"/>
                 </HyperlinkButton>
 
