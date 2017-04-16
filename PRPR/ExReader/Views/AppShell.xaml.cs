@@ -50,7 +50,7 @@ namespace PRPR.ExReader.Views
             }
 
             // Setting the minimum size of the app :P
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Height = 640, Width = 340 });
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Height = 340, Width = 340 });
 
 
             this.Loaded += (sender, args) =>
