@@ -22,13 +22,13 @@ namespace PRPR.ExReader.Models
         string x = "http://exhentai.org/?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=loli&f_apply=Apply+Filter";
 
 
-        private bool _doujinshi = true;
-        private bool _manga = true;
-        private bool _artistCG = true;
+        private bool _doujinshi = false;
+        private bool _manga = false;
+        private bool _artistCG = false;
         private bool _gameCG = false;
         private bool _western = false;
-        private bool _nonH = false;
-        private bool _imageSet = true;
+        private bool _nonH = true;
+        private bool _imageSet = false;
         private bool _cosplay = false;
         private bool _asianPorn = false;
         private bool _misc = false;
