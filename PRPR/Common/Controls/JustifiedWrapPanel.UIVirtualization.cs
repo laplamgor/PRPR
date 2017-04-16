@@ -138,18 +138,10 @@ namespace PRPR.Common.Controls
                 {
                     container = RecycledContainers.First();
                     RecycledContainers.Remove(container);
-                    if (container == null)
-                    {
-                        // TODO: debug
-                    }
                 }
                 else
                 {
                     container = (ContentControl)GetContainerForItem();
-                    if (container == null)
-                    {
-                        // TODO: debug
-                    }
                 }
             }
 

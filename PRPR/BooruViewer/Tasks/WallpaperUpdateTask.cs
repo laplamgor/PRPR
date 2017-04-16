@@ -53,7 +53,8 @@ namespace PRPR.BooruViewer.Tasks
                 yandeSettings.WallpaperUpdateTaskCurrentImageID = result;
 
                 // Motice user about the change
-                BigImageToast(result, yandeSettings.WallpaperUpdateTaskCurrentImageFileUri, yandeSettings.AvatarUri);
+                // TODO: need opt out settings
+                //BigImageToast(result, yandeSettings.WallpaperUpdateTaskCurrentImageFileUri, yandeSettings.AvatarUri);
             }
             catch (Exception ex)
             {

@@ -28,7 +28,9 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel Padding="12,0">
                 <TextBlock Text="作者："/>
-                <TextBlock Text="laplamgor"/>
+                <HyperlinkButton NavigateUri="mailto:laplamgor2@gmail.com">
+                    <TextBlock Text="laplamgor"/>
+                </HyperlinkButton>
                 <TextBlock Text=""/>
 
 
@@ -36,18 +38,26 @@
                 <HyperlinkButton NavigateUri="https://github.com/laplamgor/PRPR">
                     <TextBlock Text="GitHub"/>
                 </HyperlinkButton>
+                <TextBlock Text=""/>
 
+                <TextBlock Text="QQ群："/>
+                <RichTextBlock IsTextSelectionEnabled="True">
+                    <Paragraph>
+                        <Run Text="387526263"/>
+                    </Paragraph>
+                </RichTextBlock>
+                <TextBlock Text=""/>
 
-                <toolkit:WrapPanel>
-                    <TextBlock Text="hihi"/>
-                    <TextBlock Text=" on9"/>
-                </toolkit:WrapPanel>
+                <TextBlock Text="歡迎回報BUG或提出改善建議"/>
+                <TextBlock Text=""/>
+
+                <TextBlock Text=""/>
             </StackPanel>
         </ScrollViewer>
 
         <Grid Grid.Row="2">
 
-            <ScrollViewer>
+            <ScrollViewer Visibility="Collapsed">
                 <CommonControl:JustifiedWrapPanel ItemsSource="{Binding TestPosts}" RowHeight="300">
                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                         <DataTemplate>

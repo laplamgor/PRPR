@@ -89,14 +89,6 @@ namespace PRPR.ExReader.Views
                     this.GalleryViewModel = new GalleryViewModel();
 
                     this.GalleryViewModel.Gallery = await ExGallery.DownloadGalleryAsync(e.NavigationParameter as string, 1, 3);
-
-
-                    var f = new ImageWallRows<ExGalleryImageListItem>()
-                    {
-                        ItemsSource = this.GalleryViewModel.Gallery
-                    };
-                    this.GalleryViewModel.GalleryImages = f;
-                    //GalleryWall.DataContext = f;
                 }
             }
             catch (Exception ex)
@@ -109,22 +101,7 @@ namespace PRPR.ExReader.Views
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
         }
-
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            // Navigate to image page
-            App.Current.Resources["Gallery"] = this.GalleryViewModel.Gallery;
-
-            var clicked = (ImageWallItem<ExGalleryImageListItem>)(e.ClickedItem);
-
-            var q = new QueryString
-            {
-                { "link", this.GalleryViewModel.Gallery.Link },
-                { "page", $"{this.GalleryViewModel.GalleryImages.ItemsSource.IndexOf(clicked.ItemSource)}" }
-            };
-            this.Frame.Navigate(typeof(ReadingPage), q.ToString());
-        }
-
+        
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -350,6 +327,21 @@ namespace PRPR.ExReader.Views
                 }
 
             return stateGroup1.CurrentState;
+        }
+
+        private void GridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var item = (ExGalleryImageListItem)(sender as FrameworkElement).DataContext;
+
+            // Navigate to image page
+            App.Current.Resources["Gallery"] = this.GalleryViewModel.Gallery;
+            
+            var q = new QueryString
+            {
+                { "link", this.GalleryViewModel.Gallery.Link },
+                { "page", $"{this.GalleryViewModel.Gallery.IndexOf(item)}" }
+            };
+            this.Frame.Navigate(typeof(ReadingPage), q.ToString());
         }
     }
 

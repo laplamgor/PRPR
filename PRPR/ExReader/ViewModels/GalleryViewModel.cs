@@ -44,24 +44,7 @@ namespace PRPR.ExReader.ViewModels
                 NotifyPropertyChanged(nameof(IsFavorited));
             }
         }
-
-        private ImageWallRows<ExGalleryImageListItem> _galleryImages = null;
-
-        public ImageWallRows<ExGalleryImageListItem> GalleryImages
-        {
-            get
-            {
-                return _galleryImages;
-            }
-
-            set
-            {
-                _galleryImages = value;
-                NotifyPropertyChanged(nameof(GalleryImages));
-                NotifyPropertyChanged(nameof(IsFavorited));
-            }
-        }
-
+        
 
         public bool IsFavorited
         {

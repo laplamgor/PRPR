@@ -329,7 +329,7 @@
                 <VisualState x:Name="LeftCollapsed">
                     <VisualState.Setters>
                         <Setter Target="DetailPanel.Height" Value="Auto"/>
-                        <!--<Setter Target="Root.ColumnDefinitions[0].Width" Value="64"/>-->
+                        <Setter Target="Root.ColumnDefinitions[0].Width" Value="64"/>
                     </VisualState.Setters>
                     <Storyboard>
 
@@ -379,7 +379,7 @@
 
                 <VisualState x:Name="LeftExtended">
                     <VisualState.Setters>
-                        <!--<Setter Target="Root.ColumnDefinitions[0].Width" Value="320"/>-->
+                        <Setter Target="Root.ColumnDefinitions[0].Width" Value="320"/>
                         <Setter Target="DetailPanel.Height" Value="Auto"/>
                     </VisualState.Setters>
                     <Storyboard>
@@ -545,7 +545,6 @@
                     <VisualState.Setters>
                         <!--Left-->
                         <Setter Target="DetailPanel.(Grid.Row)" Value="0"/>
-                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="1"/>
                         <Setter Target="DetailPanel.HorizontalAlignment" Value="Left"/>
                         
                         <Setter Target="DetailPanelButton.Margin" Value="0,60,-24,0"/>
@@ -555,7 +554,8 @@
                         <Setter Target="ButtonsStack.Margin" Value="0,0,-30,0"/>
                         <Setter Target="ButtonsStack.Orientation" Value="Vertical"/>
                         <Setter Target="ButtonsStack.HorizontalAlignment" Value="Right"/>
-                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
+
+                        <Setter Target="ItemsWrapPanel.RowHeight" Value="300"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -566,7 +566,6 @@
                     <VisualState.Setters>
                         <!--Bottom-->
                         <Setter Target="DetailPanel.(Grid.Row)" Value="1"/>
-                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="DetailPanel.HorizontalAlignment" Value="Stretch"/>
 
 
@@ -578,7 +577,8 @@
                         <Setter Target="ButtonsStack.Margin" Value="0,-24,0,-0"/>
                         <Setter Target="ButtonsStack.Orientation" Value="Horizontal"/>
                         <Setter Target="ButtonsStack.HorizontalAlignment" Value="Center"/>
-                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
+
+                        <Setter Target="ItemsWrapPanel.RowHeight" Value="150"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -589,7 +589,6 @@
                     <VisualState.Setters>
                         <!--Left-->
                         <Setter Target="DetailPanel.(Grid.Row)" Value="0"/>
-                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="1"/>
                         <Setter Target="DetailPanel.HorizontalAlignment" Value="Left"/>
 
                         <Setter Target="DetailPanelButton.Margin" Value="0,60,-24,0"/>
@@ -599,7 +598,10 @@
                         <Setter Target="ButtonsStack.Margin" Value="0,0,-30,0"/>
                         <Setter Target="ButtonsStack.Orientation" Value="Vertical"/>
                         <Setter Target="ButtonsStack.HorizontalAlignment" Value="Right"/>
-                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
+
+
+                        <Setter Target="ItemsWrapPanel.RowHeight" Value="150"/>
+                        
                     </VisualState.Setters>
                 </VisualState>
 
@@ -611,7 +613,6 @@
                     <VisualState.Setters>
                         <!--Bottom-->
                         <Setter Target="DetailPanel.(Grid.Row)" Value="1"/>
-                        <Setter Target="DetailPanel.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="DetailPanel.HorizontalAlignment" Value="Stretch"/>
 
                         <Setter Target="DetailPanelButton.Margin" Value="0,-24,20,0"/>
@@ -622,9 +623,8 @@
                         <Setter Target="ButtonsStack.Margin" Value="0,-24,0,-0"/>
                         <Setter Target="ButtonsStack.Orientation" Value="Horizontal"/>
                         <Setter Target="ButtonsStack.HorizontalAlignment" Value="Center"/>
-                        <Setter Target="ButtonsStack.VerticalAlignment" Value="Bottom"/>
 
-                        
+                        <Setter Target="ItemsWrapPanel.RowHeight" Value="150"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -642,67 +642,41 @@
             </Grid.RowDefinitions>
 
             <Grid x:Name="MainPanel" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="2">
-                <CommonControls:ImageWall x:Name="GalleryWall" Background="Transparent" DataContext="{Binding GalleryImages}"
-                            HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0">
-
-                    <CommonControls:ImageWall.ItemTemplate>
-                        <DataTemplate>
-                            <UserControl>
-                                <Grid Height="{Binding DisplayHeight}" Width="{Binding DisplayWidth}" BorderThickness="0" >
-
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup>
-                                            <VisualState>
-                                                <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="500" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Target="Back.Margin" Value="6"/>
-                                                    <Setter Target="Image.Margin" Value="6"/>
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState>
-                                                <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Target="Back.Margin" Value="2"/>
-                                                    <Setter Target="Image.Margin" Value="2"/>
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                        <VisualStateGroup x:Name="ImageStates">
-                                            <VisualState x:Name="ImageNotLoaded">
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                Duration="0" To="0"/>
-                                                </Storyboard>
-                                            </VisualState>
-                                            <VisualState x:Name="ImageLoaded">
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                Duration="0:0:0.2" To="1"/>
-                                                </Storyboard>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
 
 
-
-                                    <Rectangle x:Name="Back" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Stretch="UniformToFill" Margin="2" Fill="Transparent"/>
-
-                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2" Opacity="0" BorderThickness="1">
+                <ScrollViewer Style="{StaticResource ScrollViewerStyleNiceScrollBar}" >
+                    <CommonControl:JustifiedWrapPanel x:Name="ItemsWrapPanel" ItemsSource="{Binding Gallery}" RowHeight="300" Margin="4">
+                        <CommonControl:JustifiedWrapPanel.ItemTemplate>
+                            <DataTemplate>
+                                <GridViewItem HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Tapped="GridViewItem_Tapped" >
+                                    <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1">
                                         <Border.BorderBrush>
                                             <SolidColorBrush Color="#FF222222"/>
                                         </Border.BorderBrush>
-                                        <Image Stretch="UniformToFill" Source="{Binding ItemSource.Thumb}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                        <Image Stretch="UniformToFill" Source="{Binding Thumb}" VerticalAlignment="Stretch" />
                                     </Border>
-                                </Grid>
-                            </UserControl>
-                        </DataTemplate>
-                    </CommonControls:ImageWall.ItemTemplate>
-                </CommonControls:ImageWall>
+                                </GridViewItem>
+                            </DataTemplate>
+                        </CommonControl:JustifiedWrapPanel.ItemTemplate>
+                        <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="Transitions">
+                                    <Setter.Value>
+                                        <TransitionCollection>
+                                            <AddDeleteThemeTransition/>
+                                            <EntranceThemeTransition/>
+                                            <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                                        </TransitionCollection>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                    </CommonControl:JustifiedWrapPanel>
+                </ScrollViewer>
             </Grid>
 
 
@@ -714,7 +688,7 @@
                               Visibility="Collapsed"
                               Style="{StaticResource ScrollViewerStyleNiceScrollBar}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <StackPanel>
-                        
+
                         <TextBlock Text="標題"  Foreground="Gray" Margin="0,64,0,0"/>
                         <TextBlock Text="{Binding Gallery.Title}" TextWrapping="Wrap"/>
 
@@ -740,9 +714,9 @@
                 </ScrollViewer>
 
                 <CommonControl:RotateContentControl x:Name="RotatedHeader" Direction="Up" HorizontalAlignment="Right" 
-                                                    VerticalAlignment="Top" Margin="0,120,0,0">
+                                                    VerticalAlignment="Center" Margin="0,0,0,0">
                     <TextBlock Text="{Binding Gallery.Title, Converter={StaticResource ShortTitleConverter}}" 
-                               FontSize="30" TextAlignment="Right" Height="48" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextWrapping="NoWrap">
+                               FontSize="28" TextAlignment="Center" Height="48" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextWrapping="NoWrap">
                     </TextBlock>
                 </CommonControl:RotateContentControl>
 
@@ -754,7 +728,7 @@
                     </TextBlock>
                 </Button>
 
-                <StackPanel x:Name="ButtonsStack" HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel x:Name="ButtonsStack" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Orientation="Horizontal">
 
                     <Button x:Name="DownloadButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" Click="AppBarButton_Click" Style="{StaticResource ButtonStyleCircle}">
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE105;"/>
@@ -815,22 +789,6 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
-        <!--<Grid x:Name="CommentPanel">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                    BorderThickness="0,0,0,1" 
-                    BorderBrush="#FF444444"
-                    Background="#FF222222">
-                    </Grid>
-
-                    
-                </Grid>-->
-
     </Grid>
 
 </Page>

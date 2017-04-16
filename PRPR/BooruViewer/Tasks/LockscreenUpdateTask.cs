@@ -51,7 +51,8 @@ namespace PRPR.BooruViewer.Tasks
                 yandeSettings.LockscreenUpdateTaskCurrentImageID = result;
 
                 // Motice user about the change
-                BigImageToast(result, yandeSettings.LockscreenUpdateTaskCurrentImageFileUri, yandeSettings.AvatarUri);
+                // TODO: need opt out settings
+                //BigImageToast(result, yandeSettings.LockscreenUpdateTaskCurrentImageFileUri, yandeSettings.AvatarUri);
             }
             catch (Exception ex)
             {
