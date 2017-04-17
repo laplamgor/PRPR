@@ -212,8 +212,10 @@ namespace PRPR.ExReader.Models
             }
 
             var l = new ExGallery() { Link = link };
-            HtmlDocument htmlDocument = new HtmlDocument();
-            htmlDocument.OptionFixNestedTags = true;
+            HtmlDocument htmlDocument = new HtmlDocument()
+            {
+                OptionFixNestedTags = true
+            };
             htmlDocument.LoadHtml(htmlSource);
             try
             {
@@ -417,14 +419,15 @@ namespace PRPR.ExReader.Models
         public static ExGallery GetGalleryListItemFromNode(HtmlNode node)
         {
 
-            var g = new ExGallery();
-
-            g.Title = WebUtility.HtmlDecode(node.SelectSingleNode(".//div[@class='id2']/a").InnerText);
-            g.Link = node.SelectSingleNode(".//div[@class='id2']/a").GetAttributeValue("href", null);
-            g.FileCount = int.Parse(node.SelectSingleNode(".//div[@class='id42']").InnerText.Replace(" files", ""));
-            g.Category = node.SelectSingleNode(".//div[@class='id41']").GetAttributeValue("title", "");
-            g.Thumb = node.SelectSingleNode(".//div[@class='id3']//img").GetAttributeValue("src", null);
-            g.Rating = GetRatingFromStars(node);
+            var g = new ExGallery()
+            {
+                Title = WebUtility.HtmlDecode(node.SelectSingleNode(".//div[@class='id2']/a").InnerText),
+                Link = node.SelectSingleNode(".//div[@class='id2']/a").GetAttributeValue("href", null),
+                FileCount = int.Parse(node.SelectSingleNode(".//div[@class='id42']").InnerText.Replace(" files", "")),
+                Category = node.SelectSingleNode(".//div[@class='id41']").GetAttributeValue("title", ""),
+                Thumb = node.SelectSingleNode(".//div[@class='id3']//img").GetAttributeValue("src", null),
+                Rating = GetRatingFromStars(node)
+            };
             return g;
         }
 

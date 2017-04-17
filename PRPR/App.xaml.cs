@@ -75,8 +75,7 @@ namespace PRPR
         {
             var d = e.GetDeferral();
 
-            AppShell shell = Window.Current.Content as AppShell;
-            if (shell != null && shell.AppFrame.CanGoBack)
+            if (Window.Current.Content is AppShell shell && shell.AppFrame.CanGoBack)
             {
                 try
                 {
@@ -89,7 +88,7 @@ namespace PRPR
                 }
             }
 
-            
+
             d.Complete();
         }
 
@@ -249,8 +248,7 @@ namespace PRPR
 
             // Handle the launch from a toast
             var queryString = QueryString.Parse(e.Arguments);
-            string action = null;
-            if (queryString.TryGetValue("action", out action))
+            if (queryString.TryGetValue("action", out string action))
             {
                 switch (action)
                 {
@@ -262,7 +260,7 @@ namespace PRPR
                 }
             }
 
-            
+
 
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 

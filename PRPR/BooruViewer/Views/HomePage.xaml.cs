@@ -280,8 +280,10 @@ Ex
 
                     if (HomeViewModel.BrowsePosts == null)
                     {
-                        var s = new ImageWallRows<Post>();
-                        s.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                        var s = new ImageWallRows<Post>()
+                        {
+                            ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
+                        };
                         HomeViewModel.BrowsePosts = s;
                     }
                     else
@@ -309,9 +311,11 @@ Ex
                 {
                     this.HomeViewModel.Posts = new Posts();
                 }
-                
-                var s = new ImageWallRows<Post>();
-                s.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+
+                var s = new ImageWallRows<Post>()
+                {
+                    ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
+                };
                 HomeViewModel.BrowsePosts = s;
             }
 
@@ -327,8 +331,10 @@ Ex
                 {
                     
                 }
-                var f = new ImageWallRows<Post>();
-                f.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
+                var f = new ImageWallRows<Post>()
+                {
+                    ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter)
+                };
                 FavoriteWall.DataContext = f;
             }
         }
@@ -449,9 +455,11 @@ Ex
                 {
                     return;
                 }
-                
-                var f = new ImageWallRows<Post>();
-                f.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
+
+                var f = new ImageWallRows<Post>()
+                {
+                    ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter)
+                };
                 FavoriteWall.DataContext = f;
             }
         }

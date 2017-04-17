@@ -447,11 +447,11 @@
                         <ItemsStackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <StackPanel Tag="Feature" Orientation="Horizontal">
+                <StackPanel Tag="精選" Orientation="Horizontal">
                     <SymbolIcon Symbol="Home" Width="48" />
                     <TextBlock x:Name="FeatureTextBlock" Text="精選" Margin="0,0,16,0"/>
                 </StackPanel>
-                <StackPanel Tag="Browse" Orientation="Horizontal">
+                <StackPanel Tag="瀏覽" Orientation="Horizontal">
                     <SymbolIcon Symbol="BrowsePhotos" Width="48" RenderTransformOrigin="0.5,0.5" >
                         <SymbolIcon.RenderTransform>
                             <CompositeTransform TranslateY="3"/>
@@ -459,11 +459,11 @@
                     </SymbolIcon>
                     <TextBlock x:Name="BrowseTextBlock" Text="瀏覽" Margin="0,0,16,0"/>
                 </StackPanel>
-                <StackPanel Tag="Favorite" Orientation="Horizontal">
+                <StackPanel Tag="收藏" Orientation="Horizontal">
                     <SymbolIcon Symbol="OutlineStar" Width="48" />
                     <TextBlock x:Name="FavoriteTextBlock"  Text="收藏" Margin="0,0,16,0"/>
                 </StackPanel>
-                <StackPanel Tag="More" Orientation="Horizontal">
+                <StackPanel Tag="更多" Orientation="Horizontal">
                     <SymbolIcon Symbol="More" Width="48" />
                     <TextBlock x:Name="MoreTextBlock" Text="更多" Margin="0,0,16,0"/>
                 </StackPanel>
