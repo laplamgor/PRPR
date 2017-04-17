@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -154,7 +155,23 @@ namespace PRPR.Common.Controls
 
             PrepareContainerForItem(container, item);
             Containers.Add(container);
+            
             Children.Add(container);
+        }
+
+        void RecycleAll()
+        {
+            this.Children.Clear();
+            while (Containers.Count != 0)
+            {
+                var container = Containers.First();
+                if (container != null)
+                {
+                    ClearContainerForItem(container, container.Content);
+                    Containers.Remove(container as ContentControl);
+                    RecycledContainers.Add(container as ContentControl);
+                }
+            }
         }
     }
 }

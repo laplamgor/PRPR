@@ -19,7 +19,6 @@ namespace PRPR.Common.Controls
             {
                 if (ParentScrollViewer.VerticalOffset > ParentScrollViewer.ScrollableHeight - 2 * ParentScrollViewer.ViewportHeight)
                 {
-                    Debug.WriteLine("Need more !");
                     await LoadMoreItemsAsync();
                 }
             }
@@ -29,7 +28,7 @@ namespace PRPR.Common.Controls
         {
             // Usually load as many as current viewport has
 			// So it just prepares for about one more visible window
-            await LoadMoreItemsAsync((uint)Containers.Count);
+            await LoadMoreItemsAsync(Math.Max((uint)Containers.Count, 10));
 		}
 
         async Task LoadMoreItemsAsync(uint count)
@@ -51,6 +50,7 @@ namespace PRPR.Common.Controls
 
 							// When new items are add, must recheck the realization
                             UpdateActiveRange(ParentScrollViewer.VerticalOffset, ParentScrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right);
+                            Debug.WriteLine($"LoadMoreItemsAsync");
                             InvalidateMeasure();
                             InvalidateArrange();
                         }

@@ -26,10 +26,18 @@ namespace PRPR.Common.Controls
         public static async void OnItemSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var p = (d as JustifiedWrapPanel);
+
+            if (e.OldValue is IList itemsSource)
+            {
+                p.RecycleAll();
+            }
+
+
             p.CheckParentUpdate();
             if (p.ParentScrollViewer != null)
             {
                 p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right);
+                Debug.WriteLine($"OnItemSourceChanged: New Range {p.FirstActive} ~ {p.LastActive}");
                 p.InvalidateMeasure();
                 p.InvalidateArrange();
                 await p.CheckNeedMoreItemAsync();
@@ -149,13 +157,23 @@ namespace PRPR.Common.Controls
         private int FirstActive = -1;
         private int LastActive = -1;
         
-        void UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, double activeWindowScale = 6)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="visibleTop"></param>
+        /// <param name="visibleHeight"></param>
+        /// <param name="parentWidth"></param>
+        /// <param name="activeWindowScale"></param>
+        /// <returns>Whether the range is updated</returns>
+        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, double activeWindowScale = 4)
         {
             var visibleCenter = visibleTop + visibleHeight / 2.0;
             var halfVisibleWindowsSize = (activeWindowScale / 2.0) * visibleHeight;
             var activeTop = visibleCenter - halfVisibleWindowsSize - RowHeight;
             var activeBottom = visibleCenter + halfVisibleWindowsSize;
 
+            var oldFirst = FirstActive;
+            var oldLast = LastActive;
 
             FirstActive = -1;
             if (ItemsSource is IList)
@@ -188,7 +206,7 @@ namespace PRPR.Common.Controls
                         {
                             // Last row is the last active
                             LastActive = (ItemsSource as IList).IndexOf(child) - 1;
-                            return;
+                            return oldFirst != FirstActive || oldLast != LastActive;
                         }
                     }
                     else
@@ -200,6 +218,12 @@ namespace PRPR.Common.Controls
 
                 LastActive = (ItemsSource as IList).Count - 1;
             }
+            else
+            {
+                FirstActive = LastActive = - 1;
+            }
+
+            return oldFirst != FirstActive || oldLast != LastActive;
         }
 
         private async void ParentScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
@@ -210,11 +234,14 @@ namespace PRPR.Common.Controls
 
             var scrollViewer = (sender as ScrollViewer);
 
-            UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right);
+            if (UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right))
+            {
+                Debug.WriteLine($"ParentScrollViewer_ViewChanging: {e.NextView.VerticalOffset} | New Range {FirstActive} ~ {LastActive}");
 
-            Debug.WriteLine($"New Range {FirstActive} ~ {LastActive}");
-            InvalidateMeasure();
-            InvalidateArrange();
+                InvalidateMeasure();
+                InvalidateArrange();
+            }
+
             await CheckNeedMoreItemAsync();
         }
 
@@ -331,6 +358,7 @@ namespace PRPR.Common.Controls
                     rowWidth += itemWidth;
                 }
             }
+
 
             ArrangeRow(currentRow, new Rect(0, currentY, finalSize.Width, RowHeight), true);
 
