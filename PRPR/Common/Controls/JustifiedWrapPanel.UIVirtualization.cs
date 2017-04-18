@@ -111,14 +111,6 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items)
             {
-                foreach (var item in Containers)
-                {
-                    if (true)
-                    {
-
-                    }
-                }
-
                 var itemsToRealize = new List<object>();
                 for (int i = FirstActive; i <= LastActive; i++)
                 {
@@ -128,7 +120,7 @@ namespace PRPR.Common.Controls
                 var reusableContainers = new List<ContentControl>();
                 foreach (var container in Containers)
                 {
-                    if (!itemsToRealize.Contains(container.Content))
+                    if (itemsToRealize.Contains(container.Content))
                     {
                         itemsToRealize.Remove(container.Content);
                     }

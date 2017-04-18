@@ -678,7 +678,7 @@
                                         <TransitionCollection>
                                             <!--<AddDeleteThemeTransition/>-->
                                             <!--<EntranceThemeTransition/>-->
-                                            <RepositionThemeTransition IsStaggeringEnabled="True"/>
+                                            <!--<RepositionThemeTransition IsStaggeringEnabled="False"/>-->
                                         </TransitionCollection>
                                     </Setter.Value>
                                 </Setter>

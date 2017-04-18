@@ -361,20 +361,6 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items)
             {
-                //var b = DateTime.Now;
-                //for (int i = 0; i < items.Count; i++)
-                //{
-                //    if (i >= FirstActive && i <= LastActive)
-                //    {
-                //        RealizeItem(items[i]);
-                //    }
-                //    else
-                //    {
-                //        RecycleItem(items[i]);
-                //    }
-                //}
-                //Debug.WriteLine("ArrangeOverride RealizeItem" + DateTime.Now.Subtract(b));
-
                 foreach (IImageWallItemImage item in items)
                 {
                     var itemWidth = ScaledWidth(item, RowHeight);
