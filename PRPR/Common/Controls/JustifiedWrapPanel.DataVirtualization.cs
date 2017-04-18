@@ -48,11 +48,14 @@ namespace PRPR.Common.Controls
                         {
                             loaded += (await items.LoadMoreItemsAsync(count)).Count;
 
-							// When new items are add, must recheck the realization
-                            UpdateActiveRange(ParentScrollViewer.VerticalOffset, ParentScrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, true);
+                            // When new items are add, must recheck the realization
+                            if (UpdateActiveRange(ParentScrollViewer.VerticalOffset, ParentScrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, true))
+                            {
+                                RevirtualizeAll();
+                            }
                             Debug.WriteLine($"LoadMoreItemsAsync");
-                            InvalidateMeasure();
-                            InvalidateArrange();
+                            //InvalidateMeasure();
+                            //InvalidateArrange();
                         }
                         catch (Exception ex)
                         {

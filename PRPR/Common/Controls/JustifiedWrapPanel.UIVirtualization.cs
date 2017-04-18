@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -104,7 +105,64 @@ namespace PRPR.Common.Controls
 
         List<ContentControl> Containers = new List<ContentControl>();
 
+        void RevirtualizeAll()
+        {
 
+
+            if (ItemsSource is IList items)
+            {
+                foreach (var item in Containers)
+                {
+                    if (true)
+                    {
+
+                    }
+                }
+
+                var itemsToRealize = new List<object>();
+                for (int i = FirstActive; i <= LastActive; i++)
+                {
+                    itemsToRealize.Add(items[i]);
+                }
+
+                var reusableContainers = new List<ContentControl>();
+                foreach (var container in Containers)
+                {
+                    if (!itemsToRealize.Contains(container.Content))
+                    {
+                        itemsToRealize.Remove(container.Content);
+                    }
+                    else
+                    {
+                        reusableContainers.Add(container);
+                    }
+                }
+
+                // Reuse some container without full recycle and realize
+                // As many as possible
+                while (reusableContainers.Count != 0 && itemsToRealize.Count != 0)
+                {
+                    var container = reusableContainers.First();
+                    var item = itemsToRealize.First();
+                    container.Content = item;
+
+                    reusableContainers.Remove(container);
+                    itemsToRealize.Remove(item);
+                }
+
+
+                // Recycle / Realize the rest
+                foreach (var container in reusableContainers)
+                {
+                    RecycleItem(container.Content);
+                }
+                foreach (var item in itemsToRealize)
+                {
+                    RealizeItem(item);
+                }
+            }
+
+        }
 
         void RecycleItem(object item)
         {

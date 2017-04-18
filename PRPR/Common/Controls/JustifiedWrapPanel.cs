@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -38,8 +39,9 @@ namespace PRPR.Common.Controls
             {
                 p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right, true);
                 Debug.WriteLine($"OnItemSourceChanged: New Range {p.FirstActive} ~ {p.LastActive}");
-                p.InvalidateMeasure();
-                p.InvalidateArrange();
+                p.RevirtualizeAll();
+                //p.InvalidateMeasure();
+                //p.InvalidateArrange();
                 await p.CheckNeedMoreItemAsync();
             }
         }
@@ -89,8 +91,9 @@ namespace PRPR.Common.Controls
             if (p.ParentScrollViewer != null)
             {
                 p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right, true);
-                p.InvalidateMeasure();
-                p.InvalidateArrange();
+                p.RevirtualizeAll();
+                //p.InvalidateMeasure();
+                //p.InvalidateArrange();
                 await p.CheckNeedMoreItemAsync();
             }
         }
@@ -162,9 +165,9 @@ namespace PRPR.Common.Controls
             if (UpdateActiveRange(scrollViewer.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
             {
                 Debug.WriteLine($"ParentScrollViewer_ViewChanging: {scrollViewer.VerticalOffset} | New Range {FirstActive} ~ {LastActive}");
-
-                InvalidateMeasure();
-                InvalidateArrange();
+                RevirtualizeAll();
+                //InvalidateMeasure();
+                //InvalidateArrange();
             }
 
             await CheckNeedMoreItemAsync();
@@ -175,9 +178,12 @@ namespace PRPR.Common.Controls
             // TODO: handle oriendation
             var top = (sender as ScrollViewer).HorizontalOffset;
 
-            UpdateActiveRange((sender as ScrollViewer).VerticalOffset, (sender as ScrollViewer).ViewportHeight, e.NewSize.Width - this.Margin.Left - this.Margin.Right, true);
-            InvalidateMeasure();
-            InvalidateArrange();
+            if (UpdateActiveRange((sender as ScrollViewer).VerticalOffset, (sender as ScrollViewer).ViewportHeight, e.NewSize.Width - this.Margin.Left - this.Margin.Right, true))
+            {
+                RevirtualizeAll();
+            }
+            //InvalidateMeasure();
+            //InvalidateArrange();
             await CheckNeedMoreItemAsync();
         }
 
@@ -193,7 +199,7 @@ namespace PRPR.Common.Controls
         /// <param name="layoutChanged"></param>
         /// <param name="activeWindowScale"></param>
         /// <returns>Whether the range is updated</returns>
-        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, bool layoutChanged, double activeWindowScale = 4)
+        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, bool layoutChanged, double activeWindowScale = 3)
         {
             var visibleCenter = visibleTop + visibleHeight / 2.0;
             var halfVisibleWindowsSize = (activeWindowScale / 2.0) * visibleHeight;
@@ -233,7 +239,7 @@ namespace PRPR.Common.Controls
 
                    
 
-                    bool newRow = position.X + childWidth > parentWidth;
+                    bool newRow = position.X + childWidth > parentWidth && (position.Y != 0 || position.X != 0);
                     if (newRow)
                     {
                         // next row!
@@ -273,8 +279,8 @@ namespace PRPR.Common.Controls
             if (UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
             {
                 Debug.WriteLine($"ParentScrollViewer_ViewChanging: {e.NextView.VerticalOffset} | New Range {FirstActive} ~ {LastActive}");
-
-                InvalidateMeasure();  // Fuck this shit
+                RevirtualizeAll();
+                //InvalidateMeasure();
                 //InvalidateArrange();
             }
 
@@ -285,6 +291,7 @@ namespace PRPR.Common.Controls
 
         protected override Size MeasureOverride(Size availableSize)
         {
+            Debug.WriteLine("MeasureOverride");
             // Update the parent ScrollViewer
             CheckParentUpdate();
 
@@ -296,27 +303,24 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items)
             {
-                var b = DateTime.Now;
-                for (int i = 0; i < items.Count; i++)
-                {
-                    if (i >= FirstActive && i <= LastActive)
-                    {
-                        RealizeItem(items[i]);
-                    }
-                    else
-                    {
-                        RecycleItem(items[i]);
-                    }
-                }
-                Debug.WriteLine("MeasureOverride RealizeItem" + DateTime.Now.Subtract(b));
-
+                //for (int i = 0; i < items.Count; i++)
+                //{
+                //    if (i >= FirstActive && i <= LastActive)
+                //    {
+                //        RealizeItem(items[i]);
+                //    }
+                //    else
+                //    {
+                //        RecycleItem(items[i]);
+                //    }
+                //}
 
                 foreach (IImageWallItemImage item in items)
                 {
                     var itemWidth = ScaledWidth(item, RowHeight);
 
 
-                    bool newRow = itemWidth + rowWidth > availableSize.Width;
+                    bool newRow = itemWidth + rowWidth > availableSize.Width && (currentY != 0 || rowWidth!=0);
                     if (newRow)
                     {
                         // Process previous row
@@ -376,7 +380,7 @@ namespace PRPR.Common.Controls
                     var itemWidth = ScaledWidth(item, RowHeight);
 
 
-                    bool newRow = itemWidth + rowWidth > finalSize.Width;
+                    bool newRow = itemWidth + rowWidth > finalSize.Width && (currentY != 0 || rowWidth != 0);
                     if (newRow)
                     {
                         // Process previous row

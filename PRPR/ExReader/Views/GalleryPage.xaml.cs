@@ -252,7 +252,7 @@ namespace PRPR.ExReader.Views
         bool isLeft = false;
         private void WidthStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            if (e.NewState == Width480Height0 || e.NewState == Width700)
+            if (e.NewState == Width560Height0 || e.NewState == Width700)
             {
                 // Left
                 isLeft = true;
@@ -299,7 +299,7 @@ namespace PRPR.ExReader.Views
         private void CurrentGalleryPage_Loaded(object sender, RoutedEventArgs e)
         {
             var currentState = GetCurrentState("WidthStates");
-            if (currentState == Width480Height0 || currentState == Width700)
+            if (currentState == Width560Height0 || currentState == Width700)
             {
                 // Left
                 isLeft = true;
