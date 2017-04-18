@@ -476,7 +476,7 @@
                 <StaticResource ResourceKey="FlipViewStyle1"/>
             </FlipView.Style>
             <!--Feature-->
-            <Grid>
+            <Grid x:Name="FeatureRoot">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>

@@ -38,7 +38,7 @@ namespace PRPR.BooruViewer.Controls
             if (InnerImage.ActualWidth != 0)
             {
                 // Apply crop
-                UpdatePosition(true);
+                UpdatePosition();
             }
             
         }
@@ -49,7 +49,7 @@ namespace PRPR.BooruViewer.Controls
             if (InnerImage.ActualWidth != 0)
             {
                 // Apply crop
-                UpdatePosition(false);
+                UpdatePosition();
             }
         }
 
@@ -65,12 +65,12 @@ namespace PRPR.BooruViewer.Controls
                 _rects = value;
 
                 // Apply crop
-                UpdatePosition(false);
+                UpdatePosition();
             }
         }
 
 
-        void UpdatePosition(bool isAnimated)
+        void UpdatePosition()
         {
             var imageSize = new Size(InnerImage.ActualWidth, InnerImage.ActualHeight);
             var targetSize = new Size(this.ActualWidth, this.ActualHeight);
@@ -92,7 +92,7 @@ namespace PRPR.BooruViewer.Controls
                 var s = Resizer.ChangeView(cropRect.Left * targetSize.Width / cropRect.Width,
                     cropRect.Top * targetSize.Width / cropRect.Width,
                     Convert.ToSingle(targetSize.Width / cropRect.Width),
-                    true//!isAnimated
+                    true
                     );
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace PRPR.BooruViewer.Controls
             if (InnerImage.ActualWidth != 0)
             {
                 // Cal crop
-                UpdatePosition(true);
+                UpdatePosition();
             }
         }
 
@@ -210,8 +210,7 @@ namespace PRPR.BooruViewer.Controls
 
             ImageLoaded = true;
             
-            // Smooth zoom
-            UpdatePosition(false);
+            UpdatePosition();
         }
         
         private void InnerImage_Unloaded(object sender, RoutedEventArgs e)
@@ -230,7 +229,7 @@ namespace PRPR.BooruViewer.Controls
 
             ProxyLoaded = true;
             
-            UpdatePosition(false);
+            UpdatePosition();
         }
 
         private void ProxyImage_Unloaded(object sender, RoutedEventArgs e)
@@ -249,7 +248,7 @@ namespace PRPR.BooruViewer.Controls
         {
             ResizerLoaded = true;
             
-            UpdatePosition(false);
+            UpdatePosition();
         }
 
         private void Resizer_Unloaded(object sender, RoutedEventArgs e)
@@ -259,7 +258,7 @@ namespace PRPR.BooruViewer.Controls
 
         private void ProxyImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            UpdatePosition(false);
+            UpdatePosition();
         }
     }
 }
