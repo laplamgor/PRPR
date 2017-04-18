@@ -27,8 +27,8 @@ namespace PRPR.Common.Controls
         async Task LoadMoreItemsAsync()
         {
             // Usually load as many as current viewport has
-			// So it just prepares for about one more visible window
-            await LoadMoreItemsAsync(Math.Max((uint)Containers.Count, 10));
+			// So it just prepares for about one half active window
+            await LoadMoreItemsAsync(Math.Max((uint)Containers.Count / 2, 10));
 		}
 
         async Task LoadMoreItemsAsync(uint count)
@@ -49,7 +49,7 @@ namespace PRPR.Common.Controls
                             loaded += (await items.LoadMoreItemsAsync(count)).Count;
 
 							// When new items are add, must recheck the realization
-                            UpdateActiveRange(ParentScrollViewer.VerticalOffset, ParentScrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right);
+                            UpdateActiveRange(ParentScrollViewer.VerticalOffset, ParentScrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, true);
                             Debug.WriteLine($"LoadMoreItemsAsync");
                             InvalidateMeasure();
                             InvalidateArrange();

@@ -7,6 +7,7 @@
     xmlns:viewmodel="using:PRPR.ExReader.ViewModels"
     xmlns:CommonControls="using:PRPR.Common.Views.Controls"
     xmlns:CommonControl="using:PRPR.Common.Controls"
+    xmlns:model="using:PRPR.ExReader.Models"
     
     xmlns:Converters="using:PRPR.ExReader.Converters"
     x:Class="PRPR.ExReader.Views.GalleryPage"
@@ -647,19 +648,20 @@
                 <ScrollViewer Style="{StaticResource ScrollViewerStyleNiceScrollBar}" >
                     <CommonControl:JustifiedWrapPanel x:Name="ItemsWrapPanel" ItemsSource="{Binding Gallery}" RowHeight="300" Margin="4">
                         <CommonControl:JustifiedWrapPanel.ItemTemplate>
-                            <DataTemplate>
-                                <GridViewItem HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Tapped="GridViewItem_Tapped" >
+                            <DataTemplate x:DataType="model:ExGalleryImageListItem">
+                                <GridViewItem x:Name="gridViewItem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Tapped="GridViewItem_Tapped" >
                                     <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1">
                                         <Border.BorderBrush>
                                             <SolidColorBrush Color="#FF222222"/>
                                         </Border.BorderBrush>
-                                        <Image Stretch="UniformToFill" Source="{Binding Thumb}" VerticalAlignment="Stretch" />
+                                        <Image Stretch="UniformToFill" Source="{x:Bind Thumb}" VerticalAlignment="Stretch" />
                                     </Border>
                                 </GridViewItem>
                             </DataTemplate>
                         </CommonControl:JustifiedWrapPanel.ItemTemplate>
                         <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
                             <Style TargetType="ContentControl">
+                                <Setter Property="TabNavigation" Value="Once"></Setter>
                                 <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                                 <Setter Property="VerticalAlignment" Value="Stretch"></Setter>

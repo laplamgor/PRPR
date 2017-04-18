@@ -463,7 +463,6 @@
                         </TransitionCollection>
                     </Button.Transitions>
                     <Border BorderBrush="DimGray" BorderThickness="1">
-                        <!--<controls:ImageCropper ImageSource="https://files.yande.re/sample/6272989beba5f65292a789303634ccd0/yande.re%20370690%20sample%20bikini%20cleavage%20re_zero_kara_hajimeru_isekai_seikatsu%20rem_%28re_zero%29%20swimsuits.jpg" ProxySource="https://assets.yande.re/data/preview/62/72/6272989beba5f65292a789303634ccd0.jpg"/>-->
                         <controls:ImageCropper ImageSource="{Binding SampleUrl}" ProxySource="{Binding PreviewUrl}"/>
                     </Border>
                 </Button>
@@ -479,7 +478,6 @@
                     </Button.Transitions>
                     <Border BorderBrush="DimGray" BorderThickness="1">
                         <controls:ImageCropper ImageSource="{Binding SampleUrl}" ProxySource="{Binding PreviewUrl}"/>
-                        <!--<Image Source="{Binding SampleUrl}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Center" CacheMode="BitmapCache"/>-->
                     </Border>
                 </Button>
 
@@ -492,7 +490,6 @@
                     </Button.Transitions>
                     <Border BorderBrush="DimGray" BorderThickness="1">
                         <controls:ImageCropper ImageSource="{Binding SampleUrl}" ProxySource="{Binding PreviewUrl}"/>
-                        <!--<Image Source="{Binding SampleUrl}" Stretch="UniformToFill" VerticalAlignment="Stretch" HorizontalAlignment="Center" CacheMode="BitmapCache"/>-->
                     </Border>
                 </Button>
                 

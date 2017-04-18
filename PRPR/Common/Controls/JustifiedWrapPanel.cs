@@ -36,7 +36,7 @@ namespace PRPR.Common.Controls
             p.CheckParentUpdate();
             if (p.ParentScrollViewer != null)
             {
-                p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right);
+                p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right, true);
                 Debug.WriteLine($"OnItemSourceChanged: New Range {p.FirstActive} ~ {p.LastActive}");
                 p.InvalidateMeasure();
                 p.InvalidateArrange();
@@ -88,7 +88,7 @@ namespace PRPR.Common.Controls
             p.CheckParentUpdate();
             if (p.ParentScrollViewer != null)
             {
-                p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right);
+                p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right, true);
                 p.InvalidateMeasure();
                 p.InvalidateArrange();
                 await p.CheckNeedMoreItemAsync();
@@ -131,16 +131,43 @@ namespace PRPR.Common.Controls
             {
                 if (ParentScrollViewer != null)
                 {
+                    //ParentScrollViewer.ViewChanged -= ParentScrollViewer_ViewChanged;
                     ParentScrollViewer.ViewChanging -= ParentScrollViewer_ViewChanging;
                     ParentScrollViewer.SizeChanged -= ParentScrollViewer_SizeChanged;
+
+
                 }
                 ParentScrollViewer = (this.Parent as ScrollViewer);
                 if (ParentScrollViewer != null)
                 {
+                    //ParentScrollViewer.ViewChanged += ParentScrollViewer_ViewChanged;
                     ParentScrollViewer.ViewChanging += ParentScrollViewer_ViewChanging;
                     ParentScrollViewer.SizeChanged += ParentScrollViewer_SizeChanged;
                 }
             }
+        }
+
+        private async void ParentScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (!e.IsIntermediate)
+            {
+                return;
+            }
+
+            var scrollViewer = (sender as ScrollViewer);
+
+            var top = scrollViewer.HorizontalOffset;
+
+
+            if (UpdateActiveRange(scrollViewer.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
+            {
+                Debug.WriteLine($"ParentScrollViewer_ViewChanging: {scrollViewer.VerticalOffset} | New Range {FirstActive} ~ {LastActive}");
+
+                InvalidateMeasure();
+                InvalidateArrange();
+            }
+
+            await CheckNeedMoreItemAsync();
         }
 
         private async void ParentScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -148,7 +175,7 @@ namespace PRPR.Common.Controls
             // TODO: handle oriendation
             var top = (sender as ScrollViewer).HorizontalOffset;
 
-            UpdateActiveRange((sender as ScrollViewer).VerticalOffset, (sender as ScrollViewer).ViewportHeight, e.NewSize.Width - this.Margin.Left - this.Margin.Right);
+            UpdateActiveRange((sender as ScrollViewer).VerticalOffset, (sender as ScrollViewer).ViewportHeight, e.NewSize.Width - this.Margin.Left - this.Margin.Right, true);
             InvalidateMeasure();
             InvalidateArrange();
             await CheckNeedMoreItemAsync();
@@ -156,16 +183,17 @@ namespace PRPR.Common.Controls
 
         private int FirstActive = -1;
         private int LastActive = -1;
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="visibleTop"></param>
         /// <param name="visibleHeight"></param>
         /// <param name="parentWidth"></param>
+        /// <param name="layoutChanged"></param>
         /// <param name="activeWindowScale"></param>
         /// <returns>Whether the range is updated</returns>
-        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, double activeWindowScale = 4)
+        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, bool layoutChanged, double activeWindowScale = 4)
         {
             var visibleCenter = visibleTop + visibleHeight / 2.0;
             var halfVisibleWindowsSize = (activeWindowScale / 2.0) * visibleHeight;
@@ -188,6 +216,15 @@ namespace PRPR.Common.Controls
                     if (position.Y < activeTop) // Cannot see this row within active window
                     {
                         FirstActive = (ItemsSource as IList).IndexOf(child);
+                    }
+                    else // The FirstActive is found and confirmed
+                    {
+                        if (!layoutChanged && oldFirst == FirstActive)
+                        {
+                            // If the layout has not changed and we found that the top is unchanged,
+                            // We immedately conclude that bottom is not changed too
+                            return false;
+                        }
                     }
 
                     var childImage = (child as IImageWallItemImage);
@@ -229,17 +266,16 @@ namespace PRPR.Common.Controls
         private async void ParentScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             // Update the active range
-            // TODO: handle oriendation
             var top = e.FinalView.HorizontalOffset;
 
             var scrollViewer = (sender as ScrollViewer);
 
-            if (UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right))
+            if (UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
             {
                 Debug.WriteLine($"ParentScrollViewer_ViewChanging: {e.NextView.VerticalOffset} | New Range {FirstActive} ~ {LastActive}");
 
-                InvalidateMeasure();
-                InvalidateArrange();
+                InvalidateMeasure();  // Fuck this shit
+                //InvalidateArrange();
             }
 
             await CheckNeedMoreItemAsync();
@@ -260,6 +296,7 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items)
             {
+                var b = DateTime.Now;
                 for (int i = 0; i < items.Count; i++)
                 {
                     if (i >= FirstActive && i <= LastActive)
@@ -271,7 +308,8 @@ namespace PRPR.Common.Controls
                         RecycleItem(items[i]);
                     }
                 }
-                
+                Debug.WriteLine("MeasureOverride RealizeItem" + DateTime.Now.Subtract(b));
+
 
                 foreach (IImageWallItemImage item in items)
                 {
@@ -319,17 +357,19 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items)
             {
-                for (int i = 0; i < items.Count; i++)
-                {
-                    if (i >= FirstActive && i <= LastActive)
-                    {
-                        RealizeItem(items[i]);
-                    }
-                    else
-                    {
-                        RecycleItem(items[i]);
-                    }
-                }
+                //var b = DateTime.Now;
+                //for (int i = 0; i < items.Count; i++)
+                //{
+                //    if (i >= FirstActive && i <= LastActive)
+                //    {
+                //        RealizeItem(items[i]);
+                //    }
+                //    else
+                //    {
+                //        RecycleItem(items[i]);
+                //    }
+                //}
+                //Debug.WriteLine("ArrangeOverride RealizeItem" + DateTime.Now.Subtract(b));
 
                 foreach (IImageWallItemImage item in items)
                 {
