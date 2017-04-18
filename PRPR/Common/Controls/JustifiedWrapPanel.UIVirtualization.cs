@@ -29,8 +29,8 @@ namespace PRPR.Common.Controls
                 if (element is ContentControl container)
                 {
                     container.Content = null;
-                    container.ContentTemplate = null;
                     container.Style = null;
+                    container.ContentTemplate = null;
                 }
             }
         }
@@ -42,8 +42,8 @@ namespace PRPR.Common.Controls
                 if (element is ContentControl container)
                 {
                     container.Content = item;
-                    container.ContentTemplate = ItemTemplate;
                     container.Style = ItemContainerStyle;
+                    container.ContentTemplate = ItemTemplate;
                 }
             }
         }
@@ -105,10 +105,12 @@ namespace PRPR.Common.Controls
 
         List<ContentControl> Containers = new List<ContentControl>();
 
+
+        /// <summary>
+        /// Update the virtualization state of all items after changes. Done with optimization.
+        /// </summary>
         void RevirtualizeAll()
         {
-
-
             if (ItemsSource is IList items)
             {
                 var itemsToRealize = new List<object>();
@@ -130,30 +132,35 @@ namespace PRPR.Common.Controls
                     }
                 }
 
-                // Reuse some container without full recycle and realize
-                // As many as possible
-                while (reusableContainers.Count != 0 && itemsToRealize.Count != 0)
-                {
-                    var container = reusableContainers.First();
-                    var item = itemsToRealize.First();
-                    container.Content = item;
+                //// Reuse some container without full recycle and realize
+                //// So we do not need to remove a container from Children set and then add one.
+                //while (reusableContainers.Count != 0 && itemsToRealize.Count != 0)
+                //{
+                //    var container = reusableContainers.First();
+                //    var item = itemsToRealize.First();
+                //    container.Style = null;
+                //    container.Content = item;
+                //    container.Style = ItemContainerStyle;
 
-                    reusableContainers.Remove(container);
-                    itemsToRealize.Remove(item);
-                }
-
+                //    reusableContainers.Remove(container);
+                //    itemsToRealize.Remove(item);
+                //}
 
                 // Recycle / Realize the rest
-                foreach (var container in reusableContainers)
-                {
-                    RecycleItem(container.Content);
-                }
+                // It is the case where the number or active containers is changed
                 foreach (var item in itemsToRealize)
                 {
                     RealizeItem(item);
                 }
+                foreach (var container in reusableContainers)
+                {
+                    RecycleItem(container.Content);
+                }
             }
 
+            // Although the Children set (containers) may bot be added/removed in this method,
+            // they may still represent another item and therefore need a new size and position
+            InvalidateMeasure();
         }
 
         void RecycleItem(object item)

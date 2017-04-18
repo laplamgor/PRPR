@@ -134,7 +134,6 @@ namespace PRPR.Common.Controls
             {
                 if (ParentScrollViewer != null)
                 {
-                    //ParentScrollViewer.ViewChanged -= ParentScrollViewer_ViewChanged;
                     ParentScrollViewer.ViewChanging -= ParentScrollViewer_ViewChanging;
                     ParentScrollViewer.SizeChanged -= ParentScrollViewer_SizeChanged;
 
@@ -143,36 +142,12 @@ namespace PRPR.Common.Controls
                 ParentScrollViewer = (this.Parent as ScrollViewer);
                 if (ParentScrollViewer != null)
                 {
-                    //ParentScrollViewer.ViewChanged += ParentScrollViewer_ViewChanged;
                     ParentScrollViewer.ViewChanging += ParentScrollViewer_ViewChanging;
                     ParentScrollViewer.SizeChanged += ParentScrollViewer_SizeChanged;
                 }
             }
         }
-
-        private async void ParentScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            if (!e.IsIntermediate)
-            {
-                return;
-            }
-
-            var scrollViewer = (sender as ScrollViewer);
-
-            var top = scrollViewer.HorizontalOffset;
-
-
-            if (UpdateActiveRange(scrollViewer.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
-            {
-                Debug.WriteLine($"ParentScrollViewer_ViewChanging: {scrollViewer.VerticalOffset} | New Range {FirstActive} ~ {LastActive}");
-                RevirtualizeAll();
-                //InvalidateMeasure();
-                //InvalidateArrange();
-            }
-
-            await CheckNeedMoreItemAsync();
-        }
-
+        
         private async void ParentScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             // TODO: handle oriendation
@@ -186,6 +161,23 @@ namespace PRPR.Common.Controls
             //InvalidateArrange();
             await CheckNeedMoreItemAsync();
         }
+        private async void ParentScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            // Update the active range
+            var top = e.FinalView.HorizontalOffset;
+
+            var scrollViewer = (sender as ScrollViewer);
+
+            if (UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
+            {
+                Debug.WriteLine($"ParentScrollViewer_ViewChanging: New Range {FirstActive} ~ {LastActive}");
+                RevirtualizeAll();
+            }
+
+            await CheckNeedMoreItemAsync();
+        }
+
+
 
         private int FirstActive = -1;
         private int LastActive = -1;
@@ -199,7 +191,7 @@ namespace PRPR.Common.Controls
         /// <param name="layoutChanged"></param>
         /// <param name="activeWindowScale"></param>
         /// <returns>Whether the range is updated</returns>
-        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, bool layoutChanged, double activeWindowScale = 3)
+        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, bool layoutChanged, double activeWindowScale = 1)
         {
             var visibleCenter = visibleTop + visibleHeight / 2.0;
             var halfVisibleWindowsSize = (activeWindowScale / 2.0) * visibleHeight;
@@ -269,25 +261,6 @@ namespace PRPR.Common.Controls
             return oldFirst != FirstActive || oldLast != LastActive;
         }
 
-        private async void ParentScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
-        {
-            // Update the active range
-            var top = e.FinalView.HorizontalOffset;
-
-            var scrollViewer = (sender as ScrollViewer);
-
-            if (UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
-            {
-                Debug.WriteLine($"ParentScrollViewer_ViewChanging: {e.NextView.VerticalOffset} | New Range {FirstActive} ~ {LastActive}");
-                RevirtualizeAll();
-                //InvalidateMeasure();
-                //InvalidateArrange();
-            }
-
-            await CheckNeedMoreItemAsync();
-        }
-
-        
 
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -295,8 +268,7 @@ namespace PRPR.Common.Controls
             // Update the parent ScrollViewer
             CheckParentUpdate();
 
-
-            double rowWidth = 0;
+            
             double currentY = 0;
             
             List<UIElement> currentRow = new List<UIElement>();
@@ -315,20 +287,21 @@ namespace PRPR.Common.Controls
                 //    }
                 //}
 
+                var maxWidth = availableSize.Width;
+
+                var maxWidthNormalized = maxWidth / RowHeight;
+                var rowWidthNormalized = 0.0;
                 foreach (IImageWallItemImage item in items)
                 {
-                    var itemWidth = ScaledWidth(item, RowHeight);
-
-
-                    bool newRow = itemWidth + rowWidth > availableSize.Width && (currentY != 0 || rowWidth!=0);
+                    bool newRow = (item.PreferredRatio + rowWidthNormalized > maxWidthNormalized) && (currentY != 0 || rowWidthNormalized != 0);
                     if (newRow)
                     {
                         // Process previous row
-                        MeasureRow(currentRow, new Rect(0, currentY, availableSize.Width, RowHeight), false);
+                        MeasureRow(currentRow, new Rect(0, currentY, maxWidth, RowHeight), false);
                         currentRow.Clear();
 
                         // next row!
-                        rowWidth = 0;
+                        rowWidthNormalized = 0;
                         currentY += RowHeight;
                     }
 
@@ -339,7 +312,7 @@ namespace PRPR.Common.Controls
                     }
 
                     // adjust the location for the next items
-                    rowWidth += itemWidth;
+                    rowWidthNormalized += item.PreferredRatio;
                 }
             }
 
@@ -359,10 +332,13 @@ namespace PRPR.Common.Controls
 
             List<UIElement> currentRow = new List<UIElement>();
 
-            if (ItemsSource is IList items)
+            if (ItemsSource is IList items && items.Count > 0)
             {
-                foreach (IImageWallItemImage item in items)
+                //foreach (IImageWallItemImage item in items)
+                IImageWallItemImage item;
+                for (int i = 0; i <= LastActive; i++)
                 {
+                    item = items[i] as IImageWallItemImage;
                     var itemWidth = ScaledWidth(item, RowHeight);
 
 
@@ -387,10 +363,10 @@ namespace PRPR.Common.Controls
                     // adjust the location for the next items
                     rowWidth += itemWidth;
                 }
+                ArrangeRow(currentRow, new Rect(0, currentY, finalSize.Width, RowHeight), items.Count - 1 == LastActive);
             }
 
 
-            ArrangeRow(currentRow, new Rect(0, currentY, finalSize.Width, RowHeight), true);
 
             return finalSize;
         }
@@ -398,14 +374,14 @@ namespace PRPR.Common.Controls
         private void MeasureRow(List<UIElement> items, Rect rowSpace, bool isLastRow)
         {
             // Calculate the scale factor
-            var scaleX = isLastRow ? 1 : rowSpace.Width / items.Sum(o =>
-           ScaledWidth((o as ContentControl).Content as IImageWallItemImage, rowSpace.Height));
+            var scaleX = isLastRow ? 1 : rowSpace.Width / (items.Sum(o => ((o as ContentControl).Content as IImageWallItemImage).PreferredRatio) * rowSpace.Height);
 
             double currentX = 0;
+            var scaledHeight = rowSpace.Height * scaleX;
             foreach (var item in items)
             {
                 // Place the item
-                var itemWidth = ScaledWidth((item as ContentControl).Content as IImageWallItemImage, rowSpace.Height) * scaleX;
+                var itemWidth = ((item as ContentControl).Content as IImageWallItemImage).PreferredRatio * scaledHeight;
                 var itemSize = new Size(itemWidth, rowSpace.Height);
                 item.Measure(itemSize);
                 currentX += itemWidth;

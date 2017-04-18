@@ -84,6 +84,12 @@ namespace PRPR.Common.Models
         {
             get;
         }
+
+
+        double PreferredRatio
+        {
+            get;
+        }
     }
 
 }

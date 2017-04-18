@@ -171,6 +171,8 @@ namespace PRPR.ExReader.Models
             }
         }
 
+        public double PreferredRatio => throw new NotImplementedException();
+
         public static async Task<ExGallery> DownloadGalleryAsync(string link, int pagenumber, uint maxAttempt = 1)
         {
             uint attempt = 1;
@@ -450,7 +452,25 @@ namespace PRPR.ExReader.Models
 
         public string Thumb { get; set; }
 
-        
+
+
+        private bool _preferredRatioFound = false;
+        private double _preferredRatio = 100;
+
+
+        public double PreferredRatio
+        {
+            get
+            {
+                if (!_preferredRatioFound)
+                {
+                    _preferredRatio = PreferredWidth / PreferredHeight;
+                    _preferredRatioFound = true;
+                }
+                return _preferredRatio;
+            }
+        }
+
 
         public double PreferredWidth
         {
@@ -495,5 +515,6 @@ namespace PRPR.ExReader.Models
                 }
             }
         }
+
     }
 }

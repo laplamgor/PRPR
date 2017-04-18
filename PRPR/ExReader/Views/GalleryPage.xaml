@@ -651,10 +651,12 @@
                     <CommonControl:JustifiedWrapPanel x:Name="ItemsWrapPanel" ItemsSource="{Binding Gallery}" RowHeight="300" Margin="4">
                         <CommonControl:JustifiedWrapPanel.ItemTemplate>
                             <DataTemplate x:DataType="model:ExGalleryImageListItem">
-                                <GridViewItem x:Name="gridViewItem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Tapped="GridViewItem_Tapped" >
+                                <GridViewItem x:Name="gridViewItem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                              HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                                              BorderThickness="0" Tapped="GridViewItem_Tapped" >
                                     <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1">
                                         <Border.BorderBrush>
-                                            <SolidColorBrush Color="#FF222222"/>
+                                            <SolidColorBrush Color="#FFFFFFFF"/>
                                         </Border.BorderBrush>
                                         <Image x:Name="ThumbImage" Stretch="UniformToFill" VerticalAlignment="Stretch">
                                             <Image.Source>
@@ -677,8 +679,8 @@
                                     <Setter.Value>
                                         <TransitionCollection>
                                             <!--<AddDeleteThemeTransition/>-->
-                                            <!--<EntranceThemeTransition/>-->
-                                            <!--<RepositionThemeTransition IsStaggeringEnabled="False"/>-->
+                                            <EntranceThemeTransition/>
+                                            <RepositionThemeTransition IsStaggeringEnabled="False"/>
                                         </TransitionCollection>
                                     </Setter.Value>
                                 </Setter>

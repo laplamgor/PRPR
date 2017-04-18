@@ -231,6 +231,8 @@ width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" fram
                 return Height;
             }
         }
+
+        public double PreferredRatio => throw new NotImplementedException();
     }
 
 
