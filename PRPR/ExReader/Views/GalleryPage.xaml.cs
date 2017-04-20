@@ -1,6 +1,7 @@
 ﻿using Microsoft.QueryStringDotNET;
 using PRPR.Common;
 using PRPR.Common.Models;
+using PRPR.Common.Services;
 using PRPR.ExReader.Models;
 using PRPR.ExReader.Services;
 using PRPR.ExReader.ViewModels;
@@ -10,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
@@ -135,8 +137,7 @@ namespace PRPR.ExReader.Views
         private void TagButton_Click(object sender, RoutedEventArgs e)
         {
 
-            // Search tags
-            this.Frame.Navigate(typeof(HomePage), $"{((sender as Button).DataContext as ExTag).GetQueryName()}");
+            
         }
 
         private void TagsWrapBlock_Loaded(object sender, RoutedEventArgs e)
@@ -342,6 +343,31 @@ namespace PRPR.ExReader.Views
                 { "page", $"{this.GalleryViewModel.Gallery.IndexOf(item)}" }
             };
             this.Frame.Navigate(typeof(ReadingPage), q.ToString());
+        }
+
+
+
+
+
+
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Search tags
+            this.Frame.Navigate(typeof(HomePage), $"{((sender as FrameworkElement).DataContext as ExTag).GetQueryName()}");
+        }
+
+        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            // Copy tags
+            ClipboardService.CopyText($"{((sender as FrameworkElement).DataContext as ExTag).GetQueryName()}");
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            var rawName = Regex.Replace(GalleryViewModel.Gallery.Title, @"(\([^\(\)]*\)|\[[^\[\]]*\])", m => "").Split('|')[0].Trim();
+            // Search for other languages
+            this.Frame.Navigate(typeof(HomePage), rawName);
         }
     }
 

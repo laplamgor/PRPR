@@ -119,7 +119,7 @@ namespace PRPR.Common.Controls
                     itemsToRealize.Add(items[i]);
                 }
 
-                var reusableContainers = new List<ContentControl>();
+                var containersToRelease = new List<ContentControl>();
                 foreach (var container in Containers)
                 {
                     if (itemsToRealize.Contains(container.Content))
@@ -128,31 +128,20 @@ namespace PRPR.Common.Controls
                     }
                     else
                     {
-                        reusableContainers.Add(container);
+                        containersToRelease.Add(container);
                     }
                 }
 
-                //// Reuse some container without full recycle and realize
-                //// So we do not need to remove a container from Children set and then add one.
-                //while (reusableContainers.Count != 0 && itemsToRealize.Count != 0)
-                //{
-                //    var container = reusableContainers.First();
-                //    var item = itemsToRealize.First();
-                //    container.Style = null;
-                //    container.Content = item;
-                //    container.Style = ItemContainerStyle;
-
-                //    reusableContainers.Remove(container);
-                //    itemsToRealize.Remove(item);
-                //}
-
-                // Recycle / Realize the rest
-                // It is the case where the number or active containers is changed
+                // We do all the realization before the releasing
+                // It prevents immeatately reuse of container within same frame
+                // It ensures reused containers can have entrance transition
+                // instead of Reposition transition across the viewport
+                // although might eat a bit more memory
                 foreach (var item in itemsToRealize)
                 {
                     RealizeItem(item);
                 }
-                foreach (var container in reusableContainers)
+                foreach (var container in containersToRelease)
                 {
                     RecycleItem(container.Content);
                 }

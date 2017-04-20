@@ -185,12 +185,15 @@ namespace PRPR.ExReader.Views
             scrollViewer.ZoomToFactor(1);
         }
 
+
+
+
         private void Image_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
 
             var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
 
-            dummyGrid.Margin = new Thickness(e.GetPosition((sender as Image).Parent as Grid).X, e.GetPosition((sender as Image).Parent as Grid).Y, 0, 0);
+            dummyGrid.Margin = new Thickness(e.GetPosition(flipView).X, e.GetPosition(flipView).Y, 0, 0);
             x.ShowAt(dummyGrid);
 
             e.Handled = true;
@@ -202,12 +205,15 @@ namespace PRPR.ExReader.Views
             {
                 var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
 
-                dummyGrid.Margin = new Thickness(e.GetPosition((sender as Image).Parent as Grid).X, e.GetPosition((sender as Image).Parent as Grid).Y, 0, 0);
+                dummyGrid.Margin = new Thickness(e.GetPosition(flipView).X, e.GetPosition(flipView).Y, 0, 0);
                 x.ShowAt(dummyGrid);
 
                 e.Handled = true;
             }
         }
+
+
+
 
         private async void CopyMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {

@@ -96,11 +96,20 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[19 April 2017] v1.2.0
+Yandere
+- 沒有改動
+Ex
+- 方便搜索同作品的其他語言
+- 大幅優化內頁列表的效能和內存
+- 修正內頁列表的排版Bugs
+- 加入標籤複製功能
+"
+,
 @"[18 April 2017] v1.1.0
 Yandere
 - 沒有改動
 Ex
-- 大幅改善內頁列表的效能和動畫
 - 修正內頁列表的加載Bugs
 "
 ,

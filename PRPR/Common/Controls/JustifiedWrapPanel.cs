@@ -191,7 +191,7 @@ namespace PRPR.Common.Controls
         /// <param name="layoutChanged"></param>
         /// <param name="activeWindowScale"></param>
         /// <returns>Whether the range is updated</returns>
-        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, bool layoutChanged, double activeWindowScale = 1)
+        bool UpdateActiveRange(double visibleTop, double visibleHeight, double parentWidth, bool layoutChanged, double activeWindowScale = 3)
         {
             var visibleCenter = visibleTop + visibleHeight / 2.0;
             var halfVisibleWindowsSize = (activeWindowScale / 2.0) * visibleHeight;
@@ -275,33 +275,21 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items)
             {
-                //for (int i = 0; i < items.Count; i++)
-                //{
-                //    if (i >= FirstActive && i <= LastActive)
-                //    {
-                //        RealizeItem(items[i]);
-                //    }
-                //    else
-                //    {
-                //        RecycleItem(items[i]);
-                //    }
-                //}
+                var maxRowWidth = availableSize.Width;
 
-                var maxWidth = availableSize.Width;
-
-                var maxWidthNormalized = maxWidth / RowHeight;
-                var rowWidthNormalized = 0.0;
+                var maxRowRatio = maxRowWidth / RowHeight;
+                var currectRowRatio = 0.0;
                 foreach (IImageWallItemImage item in items)
                 {
-                    bool newRow = (item.PreferredRatio + rowWidthNormalized > maxWidthNormalized) && (currentY != 0 || rowWidthNormalized != 0);
+                    bool newRow = (item.PreferredRatio + currectRowRatio > maxRowRatio) && (currentY != 0 || currectRowRatio != 0);
                     if (newRow)
                     {
                         // Process previous row
-                        MeasureRow(currentRow, new Rect(0, currentY, maxWidth, RowHeight), false);
+                        MeasureRow(currentRow, new Rect(0, currentY, maxRowWidth, RowHeight), false);
                         currentRow.Clear();
 
-                        // next row!
-                        rowWidthNormalized = 0;
+                        // Reset current row
+                        currectRowRatio = 0;
                         currentY += RowHeight;
                     }
 
@@ -312,15 +300,15 @@ namespace PRPR.Common.Controls
                     }
 
                     // adjust the location for the next items
-                    rowWidthNormalized += item.PreferredRatio;
+                    currectRowRatio += item.PreferredRatio;
                 }
+
+                // update value with the last line
+                MeasureRow(currentRow, new Rect(0, currentY, availableSize.Width, RowHeight), true);
+                currentY += RowHeight;
             }
 
 
-            MeasureRow(currentRow, new Rect(0, currentY, availableSize.Width, RowHeight), true);
-
-            // update value with the last line
-            currentY += RowHeight;
             return new Size(availableSize.Width, currentY);
         }
 
@@ -334,9 +322,8 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items && items.Count > 0)
             {
-                //foreach (IImageWallItemImage item in items)
                 IImageWallItemImage item;
-                for (int i = 0; i <= LastActive; i++)
+                for (int i = 0; i <= LastActive; i++) // Dont care about items after last active item
                 {
                     item = items[i] as IImageWallItemImage;
                     var itemWidth = ScaledWidth(item, RowHeight);
@@ -349,7 +336,7 @@ namespace PRPR.Common.Controls
                         ArrangeRow(currentRow, new Rect(0, currentY, finalSize.Width, RowHeight), false);
                         currentRow.Clear();
 
-                        // next row!
+                        // Reset current row
                         rowWidth = 0;
                         currentY += RowHeight;
                     }
@@ -365,9 +352,7 @@ namespace PRPR.Common.Controls
                 }
                 ArrangeRow(currentRow, new Rect(0, currentY, finalSize.Width, RowHeight), items.Count - 1 == LastActive);
             }
-
-
-
+            
             return finalSize;
         }
 
