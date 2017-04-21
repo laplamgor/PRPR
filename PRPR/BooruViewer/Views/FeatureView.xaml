@@ -37,6 +37,27 @@
             <VisualStateGroup x:Name="TopsGridLayoout">
                 <VisualState>
                     <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Top1.(Grid.Column)" Value="0"/>
+                        <Setter Target="Top1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Top1.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Top1.(Grid.RowSpan)" Value="6"/>
+
+                        <Setter Target="Top2.(Grid.Column)" Value="2"/>
+                        <Setter Target="Top2.(Grid.Row)" Value="0"/>
+                        <Setter Target="Top2.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Top2.(Grid.RowSpan)" Value="6"/>
+
+                        <Setter Target="Top3.(Grid.Column)" Value="4"/>
+                        <Setter Target="Top3.(Grid.Row)" Value="0"/>
+                        <Setter Target="Top3.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Top3.(Grid.RowSpan)" Value="6"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="700" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -78,6 +99,11 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+            
+            
+            
+            
+            
             <VisualStateGroup x:Name="TopsSize">
                 <VisualState>
                     <VisualState.StateTriggers>
@@ -247,6 +273,46 @@
             <VisualStateGroup x:Name="TagsGridLayoout">
                 <VisualState>
                     <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tags.ColumnDefinitions[3].Width" Value="*"/>
+                        <Setter Target="Tags.ColumnDefinitions[2].Width" Value="*"/>
+
+                        <Setter Target="Tags0.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags0.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags0.(Grid.RowSpan)" Value="3"/>
+
+                        <Setter Target="Tags3.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags3.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags3.(Grid.RowSpan)" Value="2"/>
+
+                        <Setter Target="Tags2.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tags2.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags2.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags2.(Grid.RowSpan)" Value="1"/>
+
+                        <Setter Target="Tags1.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tags1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags1.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags1.(Grid.RowSpan)" Value="3"/>
+
+                        <Setter Target="Tags4.(Grid.Column)" Value="3"/>
+                        <Setter Target="Tags4.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tags4.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags4.(Grid.RowSpan)" Value="2"/>
+
+                        <Setter Target="Tags5.(Grid.Column)" Value="3"/>
+                        <Setter Target="Tags5.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tags5.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="Tags5.(Grid.RowSpan)" Value="3"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="700" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -369,7 +435,7 @@
             <VisualStateGroup x:Name="TagsSize">
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1280" />
+                        <AdaptiveTrigger MinWindowWidth="1600" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Tags.RowDefinitions[0].Height" Value="220"/>

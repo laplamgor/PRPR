@@ -229,10 +229,5 @@ namespace PRPR.ExReader.Views
 
             await ClipboardService.CopyImageAsync(imageBuffer);
         }
-
-        //private void SaveMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
     }
 }
