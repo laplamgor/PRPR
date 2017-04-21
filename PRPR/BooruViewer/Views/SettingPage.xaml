@@ -5,9 +5,30 @@
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    
+    NavigationCacheMode="Required">
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Header-->
+        <TextBlock x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="其他設置" Foreground="White"/>
+
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Padding="12,0">
+                <ToggleSwitch Header="下載時使用指定路徑" IsOn="{Binding IsDefaultDownloadPathEnabled, Source={StaticResource YandeSettings}, Mode=TwoWay}"/>
+                <TextBlock Text="{Binding DefaultDownloadPath, Source={StaticResource YandeSettings}}"/>
+                <Button Content="更改路徑" Click="Button_Click"/>
+            </StackPanel>
+
+        </ScrollViewer>
 
     </Grid>
 </Page>

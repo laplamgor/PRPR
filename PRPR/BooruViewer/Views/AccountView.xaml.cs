@@ -90,6 +90,11 @@ namespace PRPR.BooruViewer.Views
         {
             (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(ExReader.Views.HomePage));
         }
+
+        private void SettingsListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(SettingPage));
+        }
     }
 }
  

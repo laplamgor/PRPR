@@ -399,10 +399,10 @@
             </Grid>
 
             <StackPanel x:Name="MainButtons" Orientation="Horizontal" HorizontalAlignment="Center" Margin="4,80,4,4" >
-                <Button  Height="48" Width="48" 
+                <Button  Height="48" Width="48" x:Name="SaveButton"
                          ToolTipService.ToolTip="Save" Style="{StaticResource ButtonStyleNoBorder}">
                     <Button.Flyout>
-                        <Flyout>
+                        <Flyout x:Name="SaveFlyout">
                             <Grid>
                                 <StackPanel>
                                     <Button x:Name="DownloadSampleButton" Click="DownloadSampleButton_Click" Margin="0,4">

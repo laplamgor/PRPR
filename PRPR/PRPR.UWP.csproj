@@ -96,6 +96,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Common\Controls\FaceDetectedImage.cs" />
     <Compile Include="Common\Controls\JustifiedWrapPanel.DataVirtualization.cs" />
     <None Include="project.json" />
     <None Include="PRPR.UWP_StoreKey.pfx" />
@@ -218,6 +219,9 @@
     </Compile>
     <Compile Include="ExReader\Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExReader\Views\ImageView.xaml.cs">
+      <DependentUpon>ImageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExReader\Views\MoreView.xaml.cs">
       <DependentUpon>MoreView.xaml</DependentUpon>
@@ -349,6 +353,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExReader\Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExReader\Views\ImageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

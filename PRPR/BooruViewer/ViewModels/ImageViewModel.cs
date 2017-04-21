@@ -1,4 +1,5 @@
 ﻿using PRPR.BooruViewer.Models;
+using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
 using PRPR.Common.Services;
 using System;
@@ -9,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
 using Windows.UI.Popups;
@@ -141,20 +143,40 @@ namespace PRPR.BooruViewer.ViewModels
 
         private async Task SaveImageFileAsync(string fileUri, string fileExtension)
         {
-            var savePicker = new FileSavePicker()
-            {
-                SuggestedStartLocation = PickerLocationId.PicturesLibrary
-            };
             string type = $".{fileExtension}";
-            savePicker.FileTypeChoices.Add(type, new List<string>() { type });
-            savePicker.SuggestedFileName = GetFileName(fileUri);
-
-            StorageFile file = await savePicker.PickSaveFileAsync();
-            var imageBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(fileUri));
 
 
+            StorageFile file = null;
+            if (YandeSettings.Current.IsDefaultDownloadPathEnabled)
+            {
+                // Try to dget the default folder
+                var newFolder = await StorageApplicationPermissions.FutureAccessList.GetFolderAsync("DefaultDownloadFolder");
+                if (newFolder != null)
+                {
+                    var finalName = GetFileName(fileUri).Replace("/", "") + type;
+                    file = await newFolder.CreateFileAsync(finalName, CreationCollisionOption.GenerateUniqueName);
+                }
+            }
+
+            // Let user to pick a new file, if there is no default folder
+            if (file == null)
+            {
+                var savePicker = new FileSavePicker()
+                {
+                    SuggestedStartLocation = PickerLocationId.PicturesLibrary
+                };
+                savePicker.FileTypeChoices.Add(type, new List<string>() { type });
+                savePicker.SuggestedFileName = GetFileName(fileUri);
+
+                file = await savePicker.PickSaveFileAsync();
+            }
+
+
+            // Download the image
             if (file != null)
             {
+                var imageBuffer = await (new HttpClient()).GetBufferAsync(new Uri(fileUri));
+
                 CachedFileManager.DeferUpdates(file);
                 await FileIO.WriteBufferAsync(file, imageBuffer);
                 FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);

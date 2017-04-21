@@ -1,10 +1,13 @@
-﻿using System;
+﻿using PRPR.BooruViewer.Models.Global;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.AccessCache;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +28,21 @@ namespace PRPR.BooruViewer.Views
         public SettingPage()
         {
             this.InitializeComponent();
+        }
+
+        
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Change default download folder
+            var savePicker = new FolderPicker();
+            savePicker.FileTypeFilter.Add("*");
+            var newDefaultFolder = await savePicker.PickSingleFolderAsync();
+            if (newDefaultFolder != null)
+            {
+                YandeSettings.Current.DefaultDownloadPath = newDefaultFolder.Path;
+                StorageApplicationPermissions.FutureAccessList.AddOrReplace("DefaultDownloadFolder", newDefaultFolder);
+            }
         }
     }
 }

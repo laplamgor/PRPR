@@ -135,9 +135,9 @@
                 </ListViewItem>
 
 
-                <ListViewItem HorizontalContentAlignment="Stretch">
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="SettingsListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="Other Settings (not yet)" VerticalAlignment="Center"/>
+                        <TextBlock Text="其他設置" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"

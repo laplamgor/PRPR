@@ -155,16 +155,19 @@ namespace PRPR.BooruViewer.Views
         private async void DownloadSampleButton_Click(object sender, RoutedEventArgs e)
         {
             await ImageViewModel.SaveImageFileAsync(PostImageVersion.Sample);
+            SaveFlyout.Hide();
         }
 
         private async void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
             await ImageViewModel.SaveImageFileAsync(PostImageVersion.Source);
+            SaveFlyout.Hide();
         }
 
         private async void DownloadJpegButton_Click(object sender, RoutedEventArgs e)
         {
             await ImageViewModel.SaveImageFileAsync(PostImageVersion.Jpeg);
+            SaveFlyout.Hide();
         }
 
 

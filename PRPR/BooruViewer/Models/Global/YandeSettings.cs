@@ -31,6 +31,8 @@ namespace PRPR.BooruViewer.Models.Global
             }
         }
 
+        #region Login info
+
         public bool IsLoggedIn
         {
             get
@@ -38,7 +40,6 @@ namespace PRPR.BooruViewer.Models.Global
                 return UserID != null;
             }
         }
-
 
         public string UserName
         {
@@ -85,6 +86,8 @@ namespace PRPR.BooruViewer.Models.Global
                 return $"https://yande.re/data/avatars/{UserID}.jpg";
             }
         }
+
+        #endregion
 
 
 
@@ -258,6 +261,10 @@ namespace PRPR.BooruViewer.Models.Global
         }
 
 
+        
+
+
+        #region Tile settings
 
 
         private PostFilter _tilePostFilter = null;
@@ -313,14 +320,7 @@ namespace PRPR.BooruViewer.Models.Global
             var s = SerializationService.SerializeToString(_tilePostFilter);
             AddOrUpdateValue(nameof(TilePostFilter), s, false);
         }
-
-
-
-
-
-
-
-
+        
         public bool TileUpdateTaskEnabled
         {
             get
@@ -431,11 +431,11 @@ namespace PRPR.BooruViewer.Models.Global
         }
 
 
+        #endregion
 
 
 
-
-
+        #region Wallpaper settings
 
 
         public bool WallpaperUpdateTaskEnabled
@@ -617,7 +617,11 @@ namespace PRPR.BooruViewer.Models.Global
             }
         }
 
+        #endregion
+        
 
+
+        #region Lockscreen settings
 
 
         public bool LockscreenUpdateTaskEnabled
@@ -799,7 +803,7 @@ namespace PRPR.BooruViewer.Models.Global
             }
         }
 
-
+        #endregion
 
 
 
@@ -970,6 +974,43 @@ namespace PRPR.BooruViewer.Models.Global
                     break;
             }
         }
+
+
+
+
+
+        #region other settings
+
+
+
+        public string DefaultDownloadPath
+        {
+            get
+            {
+                return GetValueOrDefault<string>(GetCallerName(), null, false);
+            }
+            set
+            {
+                AddOrUpdateValue(GetCallerName(), value, false);
+            }
+        }
+
+
+        public bool IsDefaultDownloadPathEnabled
+        {
+            get
+            {
+                return GetValueOrDefault<bool>(GetCallerName(), false, false);
+            }
+            set
+            {
+                AddOrUpdateValue(GetCallerName(), value, false);
+            }
+        }
+
+        #endregion
+
+
 
 
 
