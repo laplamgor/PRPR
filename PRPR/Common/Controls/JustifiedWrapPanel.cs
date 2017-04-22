@@ -150,15 +150,12 @@ namespace PRPR.Common.Controls
         
         private async void ParentScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            // TODO: handle oriendation
             var top = (sender as ScrollViewer).HorizontalOffset;
 
             if (UpdateActiveRange((sender as ScrollViewer).VerticalOffset, (sender as ScrollViewer).ViewportHeight, e.NewSize.Width - this.Margin.Left - this.Margin.Right, true))
             {
                 RevirtualizeAll();
             }
-            //InvalidateMeasure();
-            //InvalidateArrange();
             await CheckNeedMoreItemAsync();
         }
         private async void ParentScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)

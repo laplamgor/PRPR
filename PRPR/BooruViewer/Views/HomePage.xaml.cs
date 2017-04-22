@@ -96,6 +96,14 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[21 April 2017] v1.3.0
+Yandere
+- 現在可指定下載目錄
+- 優化21比9下的首頁顯示
+Ex
+- 加載圖片時顯示進度條
+"
+,
 @"[19 April 2017] v1.2.0
 Yandere
 - 沒有改動

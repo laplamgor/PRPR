@@ -71,16 +71,6 @@ namespace PRPR.ExReader.Views
         {
             BrowseWall.Focus(FocusState.Pointer);
             await GalleryListViewModel.Load();
-
-
-            // TODO: move to VM
-
-            //var gList = await ExGalleryList.DownloadGalleryListAsync(0, $"http://exhentai.org/?f_search={ WebUtility.UrlEncode(this.GalleryListViewModel.Key)}&{this.GalleryListViewModel.SearchConfig.ToString()}");
-            //BrowseWall.DataContext = new ImageWallRows<ExGallery>();
-            //(BrowseWall.DataContext as ImageWallRows<ExGallery>).RowWidth = BrowseWall.ActualWidth - BrowseWall.Padding.Left - BrowseWall.Padding.Right;
-            //(BrowseWall.DataContext as ImageWallRows<ExGallery>).RowHeight = BrowseWall.ActualWidth > 500 ? 300 : 150;
-            //(BrowseWall.DataContext as ImageWallRows<ExGallery>).ItemsSource = new FilteredCollection<ExGallery, ExGalleryList>(gList, this.GalleryListViewModel.GalleryFilter);
-
         }
 
         private void CategoryFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)

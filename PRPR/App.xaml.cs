@@ -287,19 +287,19 @@ namespace PRPR
             }
 
 
+            // TODO: reenable after debug
+            //BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+            //BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
+            //{
+            //    Name = "ToastActionTask",
+            //    //TaskEntryPoint = "RuntimeComponent1.NotificationActionBackgroundTask"
+            //};
+            //builder.SetTrigger(new ToastNotificationActionTrigger());
+            //BackgroundTaskRegistration registration = builder.Register();
 
-            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-            {
-                Name = "ToastActionTask",
-                //TaskEntryPoint = "RuntimeComponent1.NotificationActionBackgroundTask"
-            };
-            builder.SetTrigger(new ToastNotificationActionTrigger());
-            BackgroundTaskRegistration registration = builder.Register();
 
 
-
-            await new MessageDialog("這是內測版應用，所有內容和功能不代表最終成品。內測者有義務不定期使用ＱＱ或電郵提出反饋和改善建議。請勿在應用商店就內測版內容作出評分或評論。如果無法理解或者無法同意此守則，請卸載本應用。電郵：laplamgor2@gmail.com", "使用須知").ShowAsync();
+            await new MessageDialog("這是公測版應用，所有內容和功能不代表最終成品。公測者有義務不定期使用ＱＱ或電郵提出反饋和改善建議。請勿在應用商店就內測版內容作出評分或評論。如果無法理解或者無法同意此守則，請卸載本應用。電郵：laplamgor2@gmail.com", "使用須知").ShowAsync();
 
 
         }

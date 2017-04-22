@@ -896,7 +896,8 @@ namespace PRPR.BooruViewer.Models.Global
             }
             catch (Exception ex)
             {
-                new MessageDialog(ex.Message).ShowAsync();
+                // TODO: debug
+                //new MessageDialog(ex.Message).ShowAsync();
                 throw;
             }
         }
