@@ -187,7 +187,7 @@ namespace PRPR.BooruViewer.Services
             YandeSettings.Current.PasswordHash = null;
         }
         
-        public static async Task SubmitComment()
+        public static async Task SubmitCommentAsync()
         {
             // TODO: submit the comment to the server
         }

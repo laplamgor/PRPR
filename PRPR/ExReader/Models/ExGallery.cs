@@ -14,6 +14,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
+using Windows.Web.Http.Headers;
 
 namespace PRPR.ExReader.Models
 {
@@ -441,6 +444,52 @@ namespace PRPR.ExReader.Models
             var numbers = splited[0].Replace("background-position:", "").Replace("px", ",").Split(',');
 
             return 5.0 * (80.0 + int.Parse(numbers[0])) / 80.0 - 0.5 * ((int.Parse(numbers[1]) + 1)) / -20.0;
+        }
+
+
+
+
+
+
+        public async Task PostCommentAsync(string comment)
+        {
+            var requestBody = $"commenttext={WebUtility.UrlEncode(comment)}&postcomment=Post+Comment";
+
+
+            
+
+            var httpClient = new Windows.Web.Http.HttpClient(new HttpBaseProtocolFilter());
+            var message = new Windows.Web.Http.HttpRequestMessage(
+                new Windows.Web.Http.HttpMethod("POST"),
+                new Uri(this.Link))
+            {
+                Content = new HttpStringContent(requestBody)
+            };
+            message.Content.Headers.ContentType = new HttpMediaTypeHeaderValue("application/x-www-form-urlencoded");
+            message.Headers["Cookie"] = await ExClient.GetExCookieAsync("");
+            var response = await httpClient.SendRequestAsync(message);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+
+            // Handle error page returned from server
+            if (true) // sccuess
+            {
+                // Refresh the commenet list
+                HtmlDocument htmlDocument = new HtmlDocument()
+                {
+                    OptionFixNestedTags = true
+                };
+                htmlDocument.LoadHtml(responseString);
+                this.Comments.Clear();
+                HtmlNodeCollection commentNodes = htmlDocument.DocumentNode.SelectNodes("//div[@class='c1']");
+                if (commentNodes != null)
+                {
+                    foreach (var node in commentNodes)
+                    {
+                        this.Comments.Add(ExComment.FromNode(node));
+                    }
+                }
+            }
         }
     }
 

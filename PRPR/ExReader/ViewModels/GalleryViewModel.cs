@@ -77,12 +77,30 @@ namespace PRPR.ExReader.ViewModels
         }
 
 
-
-
-
         public async Task StartGalleryDownloadAsync(StorageFolder galleryFolder)
         {
             await GalleryDownloader.StartGalleryDownloadAsync(this.Gallery, galleryFolder);
+        }
+
+
+        private string _newComment = "";
+
+
+        public string NewComment
+        {
+            get => _newComment;
+            set
+            {
+                _newComment = value;
+                NotifyPropertyChanged(nameof(NewComment));
+            }
+        }
+
+        public async Task CommentAsync()
+        {
+            await this.Gallery.PostCommentAsync(this.NewComment);
+            // Clear the entered text
+            this.NewComment = "";
         }
     }
 }

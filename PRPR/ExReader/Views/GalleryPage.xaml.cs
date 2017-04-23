@@ -369,6 +369,101 @@ namespace PRPR.ExReader.Views
             // Search for other languages
             this.Frame.Navigate(typeof(HomePage), rawName);
         }
+
+
+
+
+
+
+
+
+        #region Handle comment rich text block
+
+        private void RichTextBlock_Loaded(object sender, RoutedEventArgs e)
+        {
+            var richTextBlock = sender as RichTextBlock;
+            richTextBlock.Blocks.Clear();
+
+            if (richTextBlock.DataContext is string comment)
+            {
+                var lines = comment.Split('\n');
+                foreach (var line in lines)
+                {
+                    richTextBlock.Blocks.Add(CraeteLine(line));
+                }
+            }
+        }
+
+        private void RichTextBlock_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            var richTextBlock = sender as RichTextBlock;
+            richTextBlock.Blocks.Clear();
+            
+            if (richTextBlock.DataContext is string comment)
+            {
+                var lines = comment.Split('\n');
+                foreach (var line in lines)
+                {
+                    richTextBlock.Blocks.Add(CraeteLine(line));
+                }
+            }
+        }
+
+        
+        // \b(?:https?://(e-hentai.org|exhentai.org))/g/\S+\b\/?
+        // To find all gallery url on exhentai or ehentai, http or https
+
+        Block CraeteLine(string line)
+        {
+            var paragraph = new Paragraph();
+            
+
+            var linkParser = new Regex(@"\b(?:https?://(e-hentai.org|exhentai.org))/g/\S+\b\/?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            int indexAfterPreviousMatch = 0;
+            foreach (Match match in linkParser.Matches(line))
+            {
+                bool hasTextBetween = indexAfterPreviousMatch < match.Index;
+                if (hasTextBetween)
+                {
+                    var textBetween = line.Substring(indexAfterPreviousMatch, match.Index - indexAfterPreviousMatch);
+                    paragraph.Inlines.Add(new Run() { Text = textBetween });
+                }
+                
+                paragraph.Inlines.Add(CraeteHyperLink(match.Value));
+                indexAfterPreviousMatch = match.Index + match.Length;
+            }
+
+            bool hasTextEnd = indexAfterPreviousMatch < line.Length;
+            if (hasTextEnd)
+            {
+                var textBetween = line.Substring(indexAfterPreviousMatch);
+                paragraph.Inlines.Add(new Run() { Text = textBetween });
+            }
+
+            return paragraph;
+        }
+
+        Inline CraeteHyperLink(string link)
+        {
+            var hyperLink = new Hyperlink();
+            hyperLink.Inlines.Add(new Run() { Text = link });
+            hyperLink.Click += HyperLink_Click;
+            return hyperLink;
+        }
+
+        private void HyperLink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), (sender.Inlines.First() as Run).Text);
+        }
+
+
+        #endregion
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            // Post new comment
+            await this.GalleryViewModel.CommentAsync();
+        }
     }
 
 

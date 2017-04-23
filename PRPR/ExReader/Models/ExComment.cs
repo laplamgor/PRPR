@@ -24,12 +24,15 @@ namespace PRPR.ExReader.Models
 
         public static ExComment FromNode(HtmlNode node)
         {
-            var c = new ExComment();
-            c.Author = ReadAuthor(node);
-            c.PostDate = ReadPostDate(node);
-            c.Content = ReadContent(node);
+            var c = new ExComment()
+            {
+                Author = ReadAuthor(node),
+                PostDate = ReadPostDate(node),
+                Content = ReadContent(node),
+                IsUploaderComment = ReadIsUploaderComment(node)
+            };
 
-            c.IsUploaderComment = ReadIsUploaderComment(node);
+
             if (!c.IsUploaderComment)
             {
                 c.Score = ReadScore(node);
@@ -43,13 +46,37 @@ namespace PRPR.ExReader.Models
 
             if (c != null)
             {
-                var s = WebUtility.HtmlDecode(c.InnerText);
+                //var s = WebUtility.HtmlDecode(c.InnerText);
+                var s = ReadInnerText(c);
                 return s;
+
             }
             else
             {
                 throw new Exception("Cannot parse comment content");
             }
+        }
+
+        static string ReadInnerText(HtmlNode node)
+        {
+            string s = "";
+
+            foreach (var childNode in node.ChildNodes)
+            {
+                if (childNode is HtmlTextNode textNode)
+                {
+                    s += textNode.Text;
+                }
+                else if (childNode.Name == "br")
+                {
+                    s += '\n';
+                }
+                else
+                {
+                    s += ReadInnerText(childNode);
+                }
+            }
+            return s;
         }
 
         private static int ReadScore(HtmlNode node)
@@ -99,14 +126,7 @@ namespace PRPR.ExReader.Models
         {
             var c = node.SelectSingleNode(".//a[@name='ulcomment']");
 
-            if (c != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (c != null);
         }
     }
 }

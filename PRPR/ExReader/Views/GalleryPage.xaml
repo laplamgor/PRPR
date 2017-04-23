@@ -10,6 +10,7 @@
     xmlns:model="using:PRPR.ExReader.Models"
     
     xmlns:Converters="using:PRPR.ExReader.Converters"
+    xmlns:Converters1="using:PRPR.Common.Converters"
     x:Class="PRPR.ExReader.Views.GalleryPage"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
@@ -22,6 +23,12 @@
     <Page.Resources>
 
 
+        <Converters1:SignedNumberConverter x:Key="SignedNumberConverter"/>
+
+
+        <Converters1:ZeroCountToVisibliltyConverter x:Key="ZeroCountToVisibliltyConverter"/>
+
+
         <Converters:TagTypeSymbolConverter x:Key="TagTypeSymbolConverter"/>
 
         <Converters:TagTypeColorConverter x:Key="TagTypeColorConverter"/>
@@ -29,173 +36,16 @@
 
         <Converters:ShortTitleConverter x:Key="ShortTitleConverter"/>
 
-
-        <Style x:Key="FlipViewStyle1" TargetType="FlipView">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="TabNavigation" Value="Once"/>
-            <Setter Property="IsTabStop" Value="False"/>
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
-            <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False"/>
-            <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="False"/>
-            <Setter Property="ScrollViewer.IsHorizontalScrollChainingEnabled" Value="True"/>
-            <Setter Property="ScrollViewer.IsVerticalScrollChainingEnabled" Value="True"/>
-            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
-            <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True"/>
-            <Setter Property="UseSystemFocusVisuals" Value="True"/>
-            <Setter Property="ItemsPanel">
-                <Setter.Value>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel AreScrollSnapPointsRegular="True" Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="FlipView">
-                        <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <Grid.Resources>
-                                <ControlTemplate x:Key="HorizontalNextTemplate" TargetType="Button">
-                                    <Border x:Name="Root" BorderBrush="{ThemeResource SystemControlForegroundTransparentBrush}" BorderThickness="{ThemeResource FlipViewButtonBorderThemeThickness}" Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup x:Name="CommonStates">
-                                                <VisualState x:Name="Normal"/>
-                                                <VisualState x:Name="PointerOver">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                                <VisualState x:Name="Pressed">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <FontIcon x:Name="Arrow" Foreground="{ThemeResource SystemControlForegroundAltMediumHighBrush}" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE0E3;" HorizontalAlignment="Center" MirroredWhenRightToLeft="True" UseLayoutRounding="False" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                                <ControlTemplate x:Key="HorizontalPreviousTemplate" TargetType="Button">
-                                    <Border x:Name="Root" BorderBrush="{ThemeResource SystemControlForegroundTransparentBrush}" BorderThickness="{ThemeResource FlipViewButtonBorderThemeThickness}" Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup x:Name="CommonStates">
-                                                <VisualState x:Name="Normal"/>
-                                                <VisualState x:Name="PointerOver">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                                <VisualState x:Name="Pressed">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <FontIcon x:Name="Arrow" Foreground="{ThemeResource SystemControlForegroundAltMediumHighBrush}" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE0E2;" HorizontalAlignment="Center" MirroredWhenRightToLeft="True" UseLayoutRounding="False" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                                <ControlTemplate x:Key="VerticalNextTemplate" TargetType="Button">
-                                    <Border x:Name="Root" BorderBrush="{ThemeResource SystemControlForegroundTransparentBrush}" BorderThickness="{ThemeResource FlipViewButtonBorderThemeThickness}" Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup x:Name="CommonStates">
-                                                <VisualState x:Name="Normal"/>
-                                                <VisualState x:Name="PointerOver">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                                <VisualState x:Name="Pressed">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <FontIcon x:Name="Arrow" Foreground="{ThemeResource SystemControlForegroundAltMediumHighBrush}" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE0E5;" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                                <ControlTemplate x:Key="VerticalPreviousTemplate" TargetType="Button">
-                                    <Border x:Name="Root" BorderBrush="{ThemeResource SystemControlForegroundTransparentBrush}" BorderThickness="{ThemeResource FlipViewButtonBorderThemeThickness}" Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup x:Name="CommonStates">
-                                                <VisualState x:Name="Normal"/>
-                                                <VisualState x:Name="PointerOver">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                                <VisualState x:Name="Pressed">
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Root">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Arrow">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}"/>
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </VisualState>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <FontIcon x:Name="Arrow" Foreground="{ThemeResource SystemControlForegroundAltMediumHighBrush}" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE0E4;" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Grid.Resources>
-                            <ScrollViewer x:Name="ScrollingHost" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalSnapPointsType="MandatorySingle" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsTabStop="False" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Padding="{TemplateBinding Padding}" TabNavigation="{TemplateBinding TabNavigation}" VerticalSnapPointsType="MandatorySingle" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="Disabled" ViewChanged="ScrollingHost_ViewChanged"
-                                                 
-                                                  >
-                                <ItemsPresenter/>
-                            </ScrollViewer>
-                            <!--<Button x:Name="PreviousButtonHorizontal" HorizontalAlignment="Left" Height="36" IsTabStop="False" Template="{StaticResource HorizontalPreviousTemplate}" UseSystemFocusVisuals="False" VerticalAlignment="Center" Width="20"/>
-                            <Button x:Name="NextButtonHorizontal" HorizontalAlignment="Right" Height="36" IsTabStop="False" Template="{StaticResource HorizontalNextTemplate}" UseSystemFocusVisuals="False" VerticalAlignment="Center" Width="20"/>
-                            <Button x:Name="PreviousButtonVertical" HorizontalAlignment="Center" Height="20" IsTabStop="False" Template="{StaticResource VerticalPreviousTemplate}" UseSystemFocusVisuals="False" VerticalAlignment="Top" Width="36"/>
-                            <Button x:Name="NextButtonVertical" HorizontalAlignment="Center" Height="20" IsTabStop="False" Template="{StaticResource VerticalNextTemplate}" UseSystemFocusVisuals="False" VerticalAlignment="Bottom" Width="36"/>-->
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
-
         <DataTemplate x:Key="TagButtonTemplate">
             <Button Style="{StaticResource ButtonStyleNoColor}" Margin="2,0" Click="TagButton_Click">
+
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="搜索" Click="MenuFlyoutItem_Click"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem Text="複製" Click="MenuFlyoutItem_Click_1"/>
+                    </MenuFlyout>
+                </Button.Flyout>
                 <StackPanel Padding="4" Orientation="Horizontal" Margin="0,2">
                     <StackPanel.Background>
                         <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
@@ -208,13 +58,6 @@
                     <TextBlock Text="{Binding Name}" Margin="2,0" FontSize="12" TextLineBounds="TrimToBaseline"/>
                 </StackPanel>
 
-                <Button.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="搜索" Click="MenuFlyoutItem_Click"/>
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem Text="複製" Click="MenuFlyoutItem_Click_1"/>
-                    </MenuFlyout>
-                </Button.Flyout>
             </Button>
         </DataTemplate>
         <Style x:Key="ButtonStyleCircle" TargetType="Button">
@@ -315,16 +158,16 @@
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
 
-                        
-                        
+
+
                         <DoubleAnimation Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Width"
                                                          Duration="0:0:0.33" From="320" To="64" EnableDependentAnimation="True">
                             <DoubleAnimation.EasingFunction>
                                 <CircleEase EasingMode="EaseOut"/>
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
-                        
-                        
+
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
@@ -367,19 +210,19 @@
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
 
-                        
+
                         <DoubleAnimation Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Width"
                                                          Duration="0:0:0.33" From="64" To="320" EnableDependentAnimation="True">
                             <DoubleAnimation.EasingFunction>
                                 <CircleEase EasingMode="EaseOut"/>
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
-                        
-                        
+
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DetailPanel" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
-                        
+
                         <DoubleAnimation Storyboard.TargetName="RotatedHeader" Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.33" To="0" EnableDependentAnimation="True">
                             <DoubleAnimation.EasingFunction>
@@ -490,7 +333,7 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
-                        
+
                         <DoubleAnimation Storyboard.TargetName="FullDetails" Storyboard.TargetProperty="Opacity"
                                                          Duration="0:0:0.33" To="1" EnableDependentAnimation="True">
                             <DoubleAnimation.EasingFunction>
@@ -524,12 +367,12 @@
                         <!--Left-->
                         <Setter Target="DetailPanel.HorizontalAlignment" Value="Left"/>
                         <Setter Target="DetailPanel.VerticalAlignment" Value="Stretch"/>
-                        
+
                         <Setter Target="DetailPanelButton.Margin" Value="0,60,-24,0"/>
 
                         <Setter Target="MainPanel.(Grid.Column)" Value="1"/>
 
-                        <Setter Target="ButtonsStack.Margin" Value="0,0,-30,0"/>
+                        <Setter Target="ButtonsStack.Margin" Value="0,0,-30,24"/>
                         <Setter Target="ButtonsStack.Orientation" Value="Vertical"/>
                         <Setter Target="ButtonsStack.HorizontalAlignment" Value="Right"/>
 
@@ -573,13 +416,13 @@
 
                         <Setter Target="MainPanel.(Grid.Column)" Value="1"/>
 
-                        <Setter Target="ButtonsStack.Margin" Value="0,0,-30,0"/>
+                        <Setter Target="ButtonsStack.Margin" Value="0,0,-30,24"/>
                         <Setter Target="ButtonsStack.Orientation" Value="Vertical"/>
                         <Setter Target="ButtonsStack.HorizontalAlignment" Value="Right"/>
 
 
                         <Setter Target="ItemsWrapPanel.RowHeight" Value="150"/>
-                        
+
                     </VisualState.Setters>
                 </VisualState>
 
@@ -594,7 +437,7 @@
 
                         <Setter Target="DetailPanelButton.Margin" Value="0,-24,20,0"/>
 
-                        
+
 
                         <Setter Target="MainPanel.(Grid.Column)" Value="0"/>
 
@@ -627,10 +470,7 @@
                                 <GridViewItem x:Name="gridViewItem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                               HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                                               BorderThickness="0" Tapped="GridViewItem_Tapped" >
-                                    <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1">
-                                        <Border.BorderBrush>
-                                            <SolidColorBrush Color="#FF333333"/>
-                                        </Border.BorderBrush>
+                                    <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1" BorderBrush="#FF333333">
                                         <Image x:Name="ThumbImage" Stretch="UniformToFill" VerticalAlignment="Stretch">
                                             <Image.Source>
                                                 <BitmapImage UriSource="{x:Bind Thumb}" 
@@ -643,11 +483,11 @@
                         </CommonControl:JustifiedWrapPanel.ItemTemplate>
                         <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
                             <Style TargetType="ContentControl">
-                                <Setter Property="TabNavigation" Value="Once"></Setter>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-                                <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="TabNavigation" Value="Once"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                                 <Setter Property="Transitions">
                                     <Setter.Value>
                                         <TransitionCollection>
@@ -664,45 +504,138 @@
             </Grid>
 
 
+
+
+
             <Grid x:Name="DetailPanel" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                 <Grid.Background>
                     <SolidColorBrush Color="{ThemeResource SystemChromeMediumLowColor}"/>
                 </Grid.Background>
-                <ScrollViewer x:Name="FullDetails" Padding="12,0"  MinWidth="320" 
-                              Visibility="Collapsed"
-                              Style="{StaticResource ScrollViewerStyleNiceScrollBar}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <StackPanel>
 
-                        <TextBlock Text="標題"  Foreground="Gray" Margin="0,64,0,0"/>
-                        <TextBlock Text="{Binding Gallery.Title}" TextWrapping="Wrap"/>
+                <Pivot x:Name="FullDetails"  MinWidth="320" HorizontalAlignment="Right">
 
-                        <TextBlock Text="日語標題"  Foreground="Gray" Margin="0,24,0,0"/>
-                        <TextBlock Text="{Binding Gallery.JapaneseTitle}" TextWrapping="Wrap"/>
+                    <PivotItem Margin="0">
+                        <PivotItem.Header>
+                            <SymbolIcon Symbol="ContactInfo"/>
+                        </PivotItem.Header>
 
-                        <TextBlock Text="評分"  Foreground="Gray" Margin="0,24,0,0"/>
-                        <TextBlock Text="{Binding Gallery.Rating}"/>
+                        <ScrollViewer Padding="12,0"  MinWidth="320" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                            <StackPanel>
 
-                        <TextBlock Text="語言"  Foreground="Gray" Margin="0,24,0,0"/>
-                        <!--<TextBlock Text="{Binding Gallery.Language}"/>-->
-                        <HyperlinkButton Content="{Binding Gallery.Language}" Click="HyperlinkButton_Click"/>
+                                <TextBlock Text="標題"  Foreground="Gray" Margin="0,24,0,0"/>
+                                <TextBlock Text="{Binding Gallery.Title}" TextWrapping="Wrap"/>
 
-                        <TextBlock Text="頁數"  Foreground="Gray" Margin="0,24,0,0"/>
-                        <TextBlock Text="{Binding Gallery.FileCount}"/>
+                                <TextBlock Text="日語標題"  Foreground="Gray" Margin="0,24,0,0"/>
+                                <TextBlock Text="{Binding Gallery.JapaneseTitle}" TextWrapping="Wrap"/>
 
-                        <TextBlock  Text="標籤"  Foreground="Gray" Margin="0,24,0,0"/>
-                        <RichTextBlock x:Name="TagsWrapBlock" DataContext="{Binding Gallery.Tags}" 
-                                       Margin="0,0,0,20"
-                                       Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged" IsTextSelectionEnabled="False"/>
+                                <TextBlock Text="評分"  Foreground="Gray" Margin="0,24,0,0"/>
+                                <TextBlock Text="{Binding Gallery.Rating}"/>
+
+                                <TextBlock Text="語言"  Foreground="Gray" Margin="0,24,0,0"/>
+                                <HyperlinkButton Click="HyperlinkButton_Click" Padding="0">
+                                    <TextBlock Text="{Binding Gallery.Language}"/>
+                                </HyperlinkButton>
+
+                                <TextBlock Text="頁數"  Foreground="Gray" Margin="0,24,0,0"/>
+                                <TextBlock Text="{Binding Gallery.FileCount}"/>
+
+                                <TextBlock  Text="標籤"  Foreground="Gray" Margin="0,24,0,0"/>
+                                <RichTextBlock x:Name="TagsWrapBlock" DataContext="{Binding Gallery.Tags}" 
+                                           Margin="0,0,0,20"
+                                           Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged" IsTextSelectionEnabled="False"/>
 
 
-                    </StackPanel>
-                </ScrollViewer>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </PivotItem>
+
+
+                    <PivotItem Margin="0">
+                        <PivotItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Comment"/>
+                                <TextBlock Text="{Binding Gallery.Comments.Count}" VerticalAlignment="Top" FontSize="16" Margin="4" TextLineBounds="TrimToCapHeight"/>
+                            </StackPanel>
+                        </PivotItem.Header>
+
+                        <ListView ItemsSource="{Binding Gallery.Comments}" 
+                                  Style="{StaticResource ListViewStyleNiceScrollBar}"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  SelectionMode="None">
+                            
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+
+                            <ListView.Header>
+                                <TextBlock Text="沒有評論" Margin="6" Visibility="{Binding Gallery.Comments, Converter={StaticResource ZeroCountToVisibliltyConverter}}" />
+                            </ListView.Header>
+                            
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Stretch" Margin="0,8">
+
+                                        <Grid HorizontalAlignment="Stretch" Margin="0,0,12,0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Author}" HorizontalAlignment="Stretch" Style="{StaticResource BaseTextBlockStyle}"/>
+
+                                                <TextBlock Text="{Binding PostDate}" Foreground="Gray" HorizontalAlignment="Stretch" Style="{StaticResource CaptionTextBlockStyle}" VerticalAlignment="Bottom" Margin="6,0,0,0"/>
+
+                                            </StackPanel>
+
+                                            <TextBlock Text="{Binding Score, Converter={StaticResource SignedNumberConverter}}" HorizontalAlignment="Right" Padding="0" 
+                                                             Visibility="{Binding IsUploaderComment, Converter={StaticResource BooleanToInvisibilityConverter}}"
+                                                             />
+                                            <!--<HyperlinkButton Content="{Binding Score, Converter={StaticResource SignedNumberConverter}}" HorizontalAlignment="Right" Padding="0" 
+                                                             Visibility="{Binding IsUploaderComment, Converter={StaticResource BooleanToInvisibilityConverter}}"
+                                                             />-->
+                                        </Grid>
+
+                                        <Grid  BorderBrush="Gray"  BorderThickness="1" Padding="4">
+                                            <RichTextBlock HorizontalAlignment="Stretch" DataContext="{Binding Content}" Loaded="RichTextBlock_Loaded" DataContextChanged="RichTextBlock_DataContextChanged"
+                                                           >
+                                            </RichTextBlock>
+                                        </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                            <ListView.Footer>
+
+                                <StackPanel HorizontalAlignment="Stretch" Margin="12,8">
+
+                                    <Grid HorizontalAlignment="Stretch" Margin="0,0,12,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="您" HorizontalAlignment="Stretch" Style="{StaticResource BaseTextBlockStyle}"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="48"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox BorderThickness="1" HorizontalAlignment="Stretch" Height="48" PlaceholderText="寫點什麼吧..." TextWrapping="Wrap" Text="{Binding NewComment, Mode=TwoWay}" Margin="0,0,4,0"/>
+
+                                        <Button Width="48" Height="48" HorizontalAlignment="Right" Grid.Column="1" Click="Button_Click_3">
+                                            <SymbolIcon Symbol="Send"/>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                            </ListView.Footer>
+                        </ListView>
+                    </PivotItem>
+                </Pivot>
 
                 <CommonControl:RotateContentControl x:Name="RotatedHeader" Direction="Up" HorizontalAlignment="Right" 
                                                     VerticalAlignment="Center" Margin="0,0,0,0">
                     <TextBlock Text="{Binding Gallery.Title, Converter={StaticResource ShortTitleConverter}}" 
-                               FontSize="28" TextAlignment="Center" Height="48" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextWrapping="NoWrap">
-                    </TextBlock>
+                               FontSize="28" TextAlignment="Center" Height="48" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextWrapping="NoWrap"/>
                 </CommonControl:RotateContentControl>
 
                 <Button x:Name="DetailPanelButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="0,60,-24,-0" Click="Button_Click_2" Style="{StaticResource ButtonStyleCircle}">
@@ -716,7 +649,7 @@
                 <StackPanel x:Name="ButtonsStack" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Orientation="Horizontal">
 
                     <Button x:Name="DownloadButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" Click="AppBarButton_Click" Style="{StaticResource ButtonStyleCircle}">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE105;"/>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE896;"/>
                     </Button>
                     <Button x:Name="UnfavoriteButton" 
                             HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
@@ -750,27 +683,12 @@
                         </Button.Flyout>
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE006;"/>
                     </Button>
-                    <Button x:Name="CommentButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
-                            Style="{StaticResource ButtonStyleCircle}">
 
-                        <Button.Flyout>
-                            <Flyout Placement="Full">
-                                <ListView ItemsSource="{Binding Gallery.Comments}" 
-                                          Width="300"
-                                          Style="{StaticResource ListViewStyleNiceScrollBar}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel HorizontalAlignment="Left" Margin="0,6">
-                                                <TextBlock Text="{Binding Author}" HorizontalAlignment="Left" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                                <TextBlock Text="{Binding Content}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Flyout>
-                        </Button.Flyout>
+
+                    <!--<Button x:Name="CommentButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
+                            Style="{StaticResource ButtonStyleCircle}">
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE134;"/>
-                    </Button>
+                    </Button>-->
                 </StackPanel>
             </Grid>
         </Grid>

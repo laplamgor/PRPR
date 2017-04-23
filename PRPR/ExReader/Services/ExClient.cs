@@ -123,7 +123,6 @@ namespace PRPR.ExReader.Services
             loginRequest.Method = "POST";
             loginRequest.ContentType = "application/x-www-form-urlencoded";
             loginRequest.Headers["Cookie"] = await GetExCookieAsync("");
-            //loginRequest.Headers["Accept-Encoding"] = "gzip, deflate";
             using (Stream stream = await loginRequest.GetRequestStreamAsync())
             {
                 await stream.WriteAsync(data, 0, data.Length);
