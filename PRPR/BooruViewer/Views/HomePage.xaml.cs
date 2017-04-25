@@ -47,9 +47,6 @@ namespace PRPR.BooruViewer.Views
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-
-
-            
         }
 
         #region NavigationHelper
@@ -96,6 +93,20 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[25 April 2017] v1.4.1
+Yandere
+- 修正嚴重閃退問題
+Ex
+- 沒有改動
+"
+,
+@"[23 April 2017] v1.4.0
+Yandere
+- 界面小改進
+Ex
+- 重製評論功能
+"
+,
 @"[21 April 2017] v1.3.0
 Yandere
 - 現在可指定下載目錄

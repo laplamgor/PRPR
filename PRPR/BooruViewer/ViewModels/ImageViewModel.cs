@@ -206,7 +206,7 @@ namespace PRPR.BooruViewer.ViewModels
                     uriString = Post.JpegUrl;
                     break;
                 case PostImageVersion.Source:
-                    uriString = Post.Source;
+                    uriString = Post.FileUrl;
                     break;
                 default:
                     break;

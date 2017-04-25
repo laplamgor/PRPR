@@ -620,7 +620,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="48"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBox BorderThickness="1" HorizontalAlignment="Stretch" Height="48" PlaceholderText="寫點什麼吧..." TextWrapping="Wrap" Text="{Binding NewComment, Mode=TwoWay}" Margin="0,0,4,0"/>
+                                        <TextBox BorderThickness="1" HorizontalAlignment="Stretch" Height="48" PlaceholderText="寫點什麼吧..." TextWrapping="Wrap" Text="{Binding NewComment, Mode=TwoWay}" Margin="0,0,4,0" AcceptsReturn="True"/>
 
                                         <Button Width="48" Height="48" HorizontalAlignment="Right" Grid.Column="1" Click="Button_Click_3">
                                             <SymbolIcon Symbol="Send"/>

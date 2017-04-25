@@ -288,14 +288,14 @@ namespace PRPR
 
 
             // TODO: reenable after debug
-            //BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-            //BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-            //{
-            //    Name = "ToastActionTask",
-            //    //TaskEntryPoint = "RuntimeComponent1.NotificationActionBackgroundTask"
-            //};
-            //builder.SetTrigger(new ToastNotificationActionTrigger());
-            //BackgroundTaskRegistration registration = builder.Register();
+            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
+            {
+                Name = "ToastActionTask",
+                //TaskEntryPoint = "RuntimeComponent1.NotificationActionBackgroundTask"
+            };
+            builder.SetTrigger(new ToastNotificationActionTrigger());
+            BackgroundTaskRegistration registration = builder.Register();
 
 
 

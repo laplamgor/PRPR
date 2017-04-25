@@ -27,6 +27,10 @@
         <Converters:AvatarUriConverter x:Key="AvatarUriConverter"/>
 
 
+        <Converters1:ZeroCountToVisibliltyConverter x:Key="ZeroCountToVisibliltyConverter"/>
+
+
+
         <DataTemplate x:Key="TagButtonTemplate">
             <Button Style="{StaticResource ButtonStyleNoColor}" Margin="2,0" Click="TagButton_Click">
                 <StackPanel Padding="4" Orientation="Horizontal" Margin="0,2">
@@ -604,14 +608,22 @@
 
                 <PivotItem Margin="0">
                     <PivotItem.Header>
-                        <SymbolIcon Symbol="Comment"/>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Comment"/>
+                            <TextBlock Text="{Binding Comments.Count}" VerticalAlignment="Top" FontSize="16" Margin="4" TextLineBounds="TrimToCapHeight"/>
+                        </StackPanel>
                     </PivotItem.Header>
                     <Grid>
-                        <ListView ItemsSource="{Binding Comments}" >
+                        <ListView ItemsSource="{Binding Comments}" SelectionMode="None">
                             <ListView.Style>
                                 <StaticResource ResourceKey="ListViewStyleNiceScrollBar"/>
                             </ListView.Style>
-                            
+
+                            <ListView.Header>
+                                <TextBlock Text="沒有評論" Margin="6" Visibility="{Binding Comments, Converter={StaticResource ZeroCountToVisibliltyConverter}}" />
+                            </ListView.Header>
+
+
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Padding" Value="0"/>
