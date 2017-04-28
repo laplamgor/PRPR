@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -53,18 +54,16 @@ namespace PRPR.BooruViewer.Views
         
         private void Top3_Click(object sender, RoutedEventArgs e)
         {
-
-            var post = (sender as Button).DataContext as Post;
-            if (post != null)
+            if ((sender as Button).DataContext is Post post)
             {
                 (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(ImagePage), post.ToXml());
             }
         }
         
-        private void Tags6_Click(object sender, RoutedEventArgs e)
+        private async void Tags6_Click(object sender, RoutedEventArgs e)
         {
-            var tag = (sender as Button).DataContext as FeaturedTag;
-            if (tag != null)
+            await Task.Delay(100);
+            if ((sender as Button).DataContext is FeaturedTag tag)
             {
                 // Search tags
                 (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(HomePage), $"{tag.Name}");
