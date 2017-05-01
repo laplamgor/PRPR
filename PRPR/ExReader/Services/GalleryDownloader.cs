@@ -32,7 +32,7 @@ namespace PRPR.ExReader.Services
 
             BackgroundDownloader downloader = new BackgroundDownloader(completionGroup)
             {
-                TransferGroup = BackgroundTransferGroup.CreateGroup($"{gallery.Gid}")
+                TransferGroup = BackgroundTransferGroup.CreateGroup("Gallery")
             };
             downloader.TransferGroup.TransferBehavior = BackgroundTransferBehavior.Parallel;
 
@@ -48,7 +48,10 @@ namespace PRPR.ExReader.Services
             List<Task> getImageUriTasks = new List<Task>();
             foreach (var image in gallery)
             {
-                getImageUriTasks.Add(StartImageDownloadAsync(gallery, image, files[gallery.IndexOf(image)], downloader));
+                if (files[gallery.IndexOf(image)] != null)
+                {
+                    getImageUriTasks.Add(StartImageDownloadAsync(gallery, image, files[gallery.IndexOf(image)], downloader));
+                }
             }
             await Task.WhenAll(getImageUriTasks);
 

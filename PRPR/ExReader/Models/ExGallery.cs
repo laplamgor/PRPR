@@ -39,18 +39,100 @@ namespace PRPR.ExReader.Models
         }
 
         public string Title { get; set; }
+
         public string JapaneseTitle { get; set; }
+
         public string Category { get; set; }
+
         public string Link { get; set; }
 
 
         public string Thumb { get; set; }
+
         public string Uploader { get; set; }
+
         public double Rating { get; set; }
+
         public int TorrentCount { get; set; }
 
         // Details
         public int FileCount { get; set; }
+
+
+        public LanguageType ParsedLanguage
+        {
+            get
+            {
+                if (Title.Contains("[Japanese]"))
+                {
+                    return LanguageType.Japanese;
+                }
+                else if (Title.Contains("[English]"))
+                {
+                    return LanguageType.English;
+                }
+                else if (Title.Contains("[Chinese]"))
+                {
+                    return LanguageType.Chinese;
+                }
+                else if (Title.Contains("[Dutch]"))
+                {
+                    return LanguageType.Dutch;
+                }
+                else if (Title.Contains("[French]"))
+                {
+                    return LanguageType.French;
+                }
+                else if (Title.Contains("[German]"))
+                {
+                    return LanguageType.German;
+                }
+                else if (Title.Contains("[Hungarian]"))
+                {
+                    return LanguageType.Hungarian;
+                }
+                else if (Title.Contains("[Italian]"))
+                {
+                    return LanguageType.Italian;
+                }
+                else if (Title.Contains("[German]"))
+                {
+                    return LanguageType.German;
+                }
+                else if (Title.Contains("[Korean]"))
+                {
+                    return LanguageType.Korean;
+                }
+                else if (Title.Contains("[Polish]"))
+                {
+                    return LanguageType.Polish;
+                }
+                else if (Title.Contains("[Portuguese-BR]"))
+                {
+                    return LanguageType.Portuguese;
+                }
+                else if (Title.Contains("[Russian]"))
+                {
+                    return LanguageType.Russian;
+                }
+                else if (Title.Contains("[Spanish]"))
+                {
+                    return LanguageType.Spanish;
+                }
+                else if (Title.Contains("[Thai ภาษาไทย]"))
+                {
+                    return LanguageType.Thai;
+                }
+                else if (Title.Contains("[Vietnamese Tiếng Việt]"))
+                {
+                    return LanguageType.Vietnamese;
+                }
+                else 
+                {
+                    return LanguageType.Japanese;
+                }
+            }
+        }
 
         public string Language { get; set; }
 

@@ -15,7 +15,7 @@ namespace PRPR.ExReader.Converters
             if (value is string)
             {
                 var s = (value as string);
-                return Regex.Replace(s, @"(\([^\(\)]*\)|\[[^\[\]]*\])", m => "").Trim();
+                return GetShortTitle(s);
             }
             else
             {
@@ -26,6 +26,11 @@ namespace PRPR.ExReader.Converters
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
+        }
+
+        public static string GetShortTitle(string fullTitle)
+        {
+            return Regex.Replace(fullTitle, @"(\([^\(\)]*\)|\[[^\[\]]*\])", m => "").Trim();
         }
     }
 }

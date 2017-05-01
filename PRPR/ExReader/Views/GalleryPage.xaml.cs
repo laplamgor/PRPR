@@ -464,6 +464,15 @@ namespace PRPR.ExReader.Views
             // Post new comment
             await this.GalleryViewModel.CommentAsync();
         }
+
+
+
+        // Just for debug
+        private async void CommentButton_Click(object sender, RoutedEventArgs e)
+        {
+            var d = await BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync(BackgroundTransferGroup.CreateGroup("Gallery"));
+            var downloawwqwds = d.ToList();
+        }
     }
 
 

@@ -44,6 +44,14 @@ namespace PRPR.ExReader.ViewModels
                 NotifyPropertyChanged(nameof(IsFavorited));
             }
         }
+
+
+
+
+
+
+
+
         
 
         public bool IsFavorited

@@ -170,6 +170,7 @@
       <DependentUpon>ImageWall.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExReader\Converters\BoolToFlowDirection.cs" />
+    <Compile Include="ExReader\Converters\LanguageConverter.cs" />
     <Compile Include="ExReader\Converters\CategoryColorConverter.cs" />
     <Compile Include="ExReader\Converters\ShortTitleConverter.cs" />
     <Compile Include="ExReader\Converters\TagTypeColorConverter.cs" />

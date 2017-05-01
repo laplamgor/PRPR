@@ -14,10 +14,12 @@
     d:DesignHeight="500"
     d:DesignWidth="330"
     Loaded="UserControl_Loaded"
-    RequestedTheme="Dark">  
+    RequestedTheme="Dark">
 
 
     <UserControl.Resources>
+        <Converters:LanguageConverter x:Key="LanguageConverter1"/>
+        <Converters:LanguageConverter x:Key="LanguageConverter"/>
         <Converters:CategoryColorConverter x:Key="CategoryColorConverter"/>
         <CommonConverters:RandomGrayConverter x:Key="RandomGrayConverter"/>
 
@@ -554,42 +556,43 @@
                                    Style="{StaticResource BaseTextBlockStyle}"
                                    />
                             </Grid>-->
-                            
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="20" Margin="0,0,0,0">
+                            <Grid>
+                                <Grid.Background>
+                                    <LinearGradientBrush StartPoint="1,0">
+                                        <GradientStop Offset="1" Color="#AA000000"/>
+                                        <GradientStop Offset="0.5" Color="#00000000"/> 
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                            </Grid>
 
-                                <StackPanel.Background>
+                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <Border.Background>
                                     <SolidColorBrush Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}"/>
-                                </StackPanel.Background>
+                                </Border.Background>
+
+                                <StackPanel Orientation="Horizontal" Height="20">
 
 
-                                <TextBlock Text="{Binding ItemSource.FileCount}"  Margin="4,0,0,0"
+
+                                    <TextBlock Text="{Binding ItemSource.FileCount}"  Margin="4,0,0,0"
                                    TextWrapping="NoWrap" VerticalAlignment="Center"
                                    />
-                                <TextBlock Text="p"
+                                    <TextBlock Text="p"
                                    TextWrapping="NoWrap" VerticalAlignment="Center"
                                    />
-                                <!--<SymbolIcon Symbol="Page2"/>-->
+                                </StackPanel>
+                            </Border>
+
+
+
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,0">
+
+                                <TextBlock Text="{Binding ItemSource.ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   />
                             </StackPanel>
 
-
-
-
-                            <!--<Grid VerticalAlignment="Bottom">
-                                <Rectangle Opacity="0.6">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                            <GradientStop Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}" Offset="0.75"/>
-                                            <GradientStop Color="#88888888" Offset="0"/>
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <controls:BackDrop x:Name="BackgroundBackDrop" BlurAmount="2" d:IsHidden="True"/>
-                                <TextBlock Text="{Binding ItemSource.Title}" 
-                                           Padding="2,0" TextAlignment="Center"
-                                           TextWrapping="WrapWholeWords" MaxLines="3" Height="36" LineHeight="12" Margin="0,2,0,2"
-                                           VerticalAlignment="Top" FontSize="12" LineStackingStrategy="BlockLineHeight"
-                               />
-                            </Grid>-->
 
                         </Grid>
                     </UserControl>

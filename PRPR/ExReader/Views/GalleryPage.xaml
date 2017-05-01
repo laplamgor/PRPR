@@ -685,10 +685,10 @@
                     </Button>
 
 
-                    <!--<Button x:Name="CommentButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
-                            Style="{StaticResource ButtonStyleCircle}">
+                    <Button x:Name="CommentButton" HorizontalAlignment="Right" Width="48" Height="48" VerticalAlignment="Top" Margin="6" 
+                            Style="{StaticResource ButtonStyleCircle}" Click="CommentButton_Click">
                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE134;"/>
-                    </Button>-->
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>

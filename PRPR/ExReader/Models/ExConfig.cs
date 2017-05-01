@@ -963,7 +963,7 @@ namespace PRPR.ExReader.Models
 
     }
 
-    enum LanguageType
+    public enum LanguageType
     {
         Japanese = 0,
         English = 1,
