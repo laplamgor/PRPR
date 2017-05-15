@@ -18,6 +18,7 @@
 
 
     <UserControl.Resources>
+        <Converters:ShortTitleConverter x:Key="ShortTitleConverter"/>
         <Converters:LanguageConverter x:Key="LanguageConverter1"/>
         <Converters:LanguageConverter x:Key="LanguageConverter"/>
         <Converters:CategoryColorConverter x:Key="CategoryColorConverter"/>
@@ -556,14 +557,36 @@
                                    Style="{StaticResource BaseTextBlockStyle}"
                                    />
                             </Grid>-->
-                            <Grid>
+                            <Grid VerticalAlignment="Bottom" Height="80">
                                 <Grid.Background>
+                                    <!--<SolidColorBrush Color="#FF000000"/>-->
                                     <LinearGradientBrush StartPoint="1,0">
-                                        <GradientStop Offset="1" Color="#AA000000"/>
-                                        <GradientStop Offset="0.5" Color="#00000000"/> 
+                                        <GradientStop Offset="1" Color="#FF000000"/>
+                                        <GradientStop Offset="0" Color="#00000000"/> 
                                     </LinearGradientBrush>
                                 </Grid.Background>
                             </Grid>
+
+
+
+                            <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="40" Margin="0,0,0,0">
+
+
+
+                                <TextBlock Text="{Binding ItemSource.Title, Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
+                                   TextWrapping="Wrap" VerticalAlignment="Top" MaxLines="2"
+                                   />
+                            </Grid>
+
+
+                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}"/>
+                                </Border.Background>
+                                <TextBlock Text="{Binding ItemSource.ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center"/>
+                            </Border>
+
 
                             <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
                                 <Border.Background>
@@ -571,9 +594,6 @@
                                 </Border.Background>
 
                                 <StackPanel Orientation="Horizontal" Height="20">
-
-
-
                                     <TextBlock Text="{Binding ItemSource.FileCount}"  Margin="4,0,0,0"
                                    TextWrapping="NoWrap" VerticalAlignment="Center"
                                    />
@@ -583,15 +603,6 @@
                                 </StackPanel>
                             </Border>
 
-
-
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,0">
-
-                                <TextBlock Text="{Binding ItemSource.ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center"
-                                   />
-                            </StackPanel>
 
 
                         </Grid>

@@ -88,207 +88,6 @@ namespace PRPR.BooruViewer.Views
             }
         }
         
-        public ObservableCollection<string> UpdateNotes
-        {
-            get
-            {
-                return new ObservableCollection<string>(new string[] {
-@"[25 April 2017] v1.4.1
-Yandere
-- 修正嚴重閃退問題
-Ex
-- 沒有改動
-"
-,
-@"[23 April 2017] v1.4.0
-Yandere
-- 界面小改進
-Ex
-- 重製評論功能
-"
-,
-@"[21 April 2017] v1.3.0
-Yandere
-- 現在可指定下載目錄
-- 優化21比9下的首頁顯示
-Ex
-- 加載圖片時顯示進度條
-"
-,
-@"[19 April 2017] v1.2.0
-Yandere
-- 沒有改動
-Ex
-- 方便搜索同作品的其他語言
-- 大幅優化內頁列表的效能和內存
-- 修正內頁列表的排版Bugs
-- 加入標籤複製功能
-"
-,
-@"[18 April 2017] v1.1.0
-Yandere
-- 沒有改動
-Ex
-- 修正內頁列表的加載Bugs
-"
-,
-@"[16 April 2017] v1.0.0
-正式公測！
-Yandere
-- 修正Bugs
-Ex
-- 改善內頁列表的效能和動畫
-"
-,
-@"[14 April 2017] v0.45.0
-Yandere
-- 修正Bugs
-Ex
-- 修正Bugs
-- 新介面
-"
-,
-@"[9 April 2017] v0.45.0
-Yandere
-- 修正Bugs
-Ex
-- 修正Bugs
-- 新介面
-"
-,
-@"[29 March 2017] v0.43.0
-Yandere
-- 自動刷新鎖屏、壁紙加上過濾設置
-- 修正一些自動刷新不了的問題
-Ex
-- 修正解析封面縮圖失敗
-"
-,
-@"[3 Feb 2017] v0.42.0
-Yandere
-- 沒有改動
-Ex
-- 搜索結果用可變寬度的照片牆顯示
-- 搜索結果按分類上色顯示
-- 加入右向左翻頁選項
-"
-, 
-@"[15 Jan 2017] v0.41.0
-Yandere
-- 搜索過濾選項現在會作用在收藏清表上
-— 搜索過濾選項改變時自動刷新結果
-Ex
-- 搜索可以過濾低平均作品
-- 更多界面改成繁中
-"
-,
-@"[3 Jan 2017] v0.40.0
-Yandere
-- 更多界面改成繁中
-Ex
-- 本子資訊顯示平均評分
-- 互換圖片列表和本子資訊的顯示位置
-"
-,
-@"[30 Dec 2016] v0.39.0
-Yandere
-- 部份界面改成繁中
-Ex
-- 閱讀頁面加個雞肋的複製功能
-- 修正閱讀頁面不能快速跳頁
-- 可從中段位置開始閱讀
-"
-,
-@"[14 Oct 2016] v0.38.0
-Yandere
-- 修正後台無法刷新鎖屏背景
-- 刷新鎖屏、壁紙時顯示通知(可即時收藏圖片)
-- 刷新鎖屏、壁紙加入自動剪裁選項
-Ex
-- 沒有改動
-"
-,
-@"[9 Oct 2016] v0.37.0
-Yandere
-- Filter設置現可自動保存
-- 閃退時顯示報錯訊息
-- 搜索框現會建議相關性更高的標籤
-- 搜索框有多個關鍵字時根據指標所在的字作建議
-Ex
-- 修正頭像顯示失敗(使用Eh論壇頭像)
-"
-,
-@"[8 Oct 2016] v0.36.0
-Yandere
-- 修正打開應用返回不了首頁的問題
-Ex
-- 加入下載功能(另存)
-- 加入加載圖集失敗後自動重試
-- 界面小改動
-"
-,
-@"[5 Oct 2016] v0.35.0
-Yandere
-- 加入後台自動刷新Lockscreen功能
-- 現可不經瀏覽器直接下載圖片
-Ex
-- 界面小改動
-"
-,
-@"[2 Oct 2016] v0.34.0
-Yandere
-- 後台自動刷新Wallpaper加入Shuffle選項
-- 改善磁貼功能圖片品質
-- 改善磁貼功能、首頁前三圖片的辨認面部準確度
-Ex
-- 現可按圖集標籤搜索
-"
-,
-@"[1 Oct 2016] v0.33.0
-Yandere
-- 加入後台自動刷新Wallpaper功能
-- 掃盲
-Ex
-- 圖集頁的縮圖列表以照片牆顯示
-"
-,
-@"[29 Sep 2016] v0.32.0
-Yandere
-- 加入後台自動刷新磁貼功能
-- 修正離線時閃退
-Ex
-- 顯示圖集標籤(暫未能按標籤搜索)
-"
-,
-@"[24 Sep 2016] v0.31.0
-Yandere
-- 全面換上新的scroll bar，提升空間感
-- 顯示更多圖片資料(分數、評級)
-- 加入有趣的磁貼功能(手動)
-- 加入過濾隱藏貼圖的搜索選項
-Ex
-- 顯示更多圖集資料(語言)
-- 繼續改善介面
-"
-,
-@"[23 Sep 2016] v0.30.0
-Yandere
-- 加入更新日誌
-- 減少首面閃退機率
-- 首面加入resize後網格排列動畫
-- 修正首頁Top3移位BUG(resize後依然對準面部)
-- 可按自己頭像查看自己在Yandere發的圖
-- 可按頭像外鏈到網頁改密碼
-Ex
-- 閱讀介面加入快速跳轉
-- 補一下介面上方工具欄跟yandere更一致
-- 修正如果加載圖集失敗，返回再進不會重新加載
-"
-                });
-            }
-        }
-
-
         
 
 
@@ -402,60 +201,7 @@ Ex
             var post = (e.ClickedItem as ImageWallItem<Post>).ItemSource;
             this.Frame.Navigate(typeof(ImagePage), post.ToXml());
         }
-
-
-
-        //private double getElementPositionY(UIElement element)
-        //{
-        //    var trans = element.TransformToVisual(null);
-        //    var point = trans.TransformPoint(new Point());
-        //    return point.Y;
-        //}
-
         
-
-
-        //private int getListViewCurrentRowIndex()
-        //{
-        //    var listViewY = getElementPositionY(PostsRowsListView);
-
-
-        //    var minOffset = double.MaxValue;
-        //    int minOffsetPageIndex = -1;
-
-        //    // Return -1 if there is no content loaded in the listview
-        //    if (PostsRowsListView.Items.Count == 0)
-        //    {
-        //        return -1;
-        //    }
-
-
-        //    for (int i = 0; i < PostsRowsListView.Items.Count(); i++)
-        //    {
-        //        var container = PostsRowsListView.ContainerFromIndex(i);
-        //        if (container != null)
-        //        {
-        //            if (((FrameworkElement)container).ActualHeight != 0)
-        //            {
-        //                var y = getElementPositionY((UIElement)container) - listViewY;
-        //                if (y != -listViewY)
-        //                {
-        //                    // If the item is virtualized, its position Y will be 0
-        //                    if (Math.Abs(y) <= minOffset)
-        //                    {
-        //                        minOffset = Math.Abs(y);
-        //                        minOffsetPageIndex = i;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        else
-        //        {
-        //            // This container is virtualized, Do nothing
-        //        }
-        //    }
-        //    return minOffsetPageIndex;
-        //}
 
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -662,6 +408,211 @@ Ex
 
             VisualStateManager.GoToState(c, "ImageLoaded", true);
         }
+
+
+
+
+        public ObservableCollection<string> UpdateNotes
+        {
+            get
+            {
+                return new ObservableCollection<string>(new string[] {
+@"[25 April 2017] v1.4.1
+Yandere
+- 修正嚴重閃退問題
+Ex
+- 沒有改動
+"
+,
+@"[23 April 2017] v1.4.0
+Yandere
+- 界面小改進
+Ex
+- 重製評論功能
+"
+,
+@"[21 April 2017] v1.3.0
+Yandere
+- 現在可指定下載目錄
+- 優化21比9下的首頁顯示
+Ex
+- 加載圖片時顯示進度條
+"
+,
+@"[19 April 2017] v1.2.0
+Yandere
+- 沒有改動
+Ex
+- 方便搜索同作品的其他語言
+- 大幅優化內頁列表的效能和內存
+- 修正內頁列表的排版Bugs
+- 加入標籤複製功能
+"
+,
+@"[18 April 2017] v1.1.0
+Yandere
+- 沒有改動
+Ex
+- 修正內頁列表的加載Bugs
+"
+,
+@"[16 April 2017] v1.0.0
+正式公測！
+Yandere
+- 修正Bugs
+Ex
+- 改善內頁列表的效能和動畫
+"
+,
+@"[14 April 2017] v0.45.0
+Yandere
+- 修正Bugs
+Ex
+- 修正Bugs
+- 新介面
+"
+,
+@"[9 April 2017] v0.45.0
+Yandere
+- 修正Bugs
+Ex
+- 修正Bugs
+- 新介面
+"
+,
+@"[29 March 2017] v0.43.0
+Yandere
+- 自動刷新鎖屏、壁紙加上過濾設置
+- 修正一些自動刷新不了的問題
+Ex
+- 修正解析封面縮圖失敗
+"
+,
+@"[3 Feb 2017] v0.42.0
+Yandere
+- 沒有改動
+Ex
+- 搜索結果用可變寬度的照片牆顯示
+- 搜索結果按分類上色顯示
+- 加入右向左翻頁選項
+"
+,
+@"[15 Jan 2017] v0.41.0
+Yandere
+- 搜索過濾選項現在會作用在收藏清表上
+— 搜索過濾選項改變時自動刷新結果
+Ex
+- 搜索可以過濾低平均作品
+- 更多界面改成繁中
+"
+,
+@"[3 Jan 2017] v0.40.0
+Yandere
+- 更多界面改成繁中
+Ex
+- 本子資訊顯示平均評分
+- 互換圖片列表和本子資訊的顯示位置
+"
+,
+@"[30 Dec 2016] v0.39.0
+Yandere
+- 部份界面改成繁中
+Ex
+- 閱讀頁面加個雞肋的複製功能
+- 修正閱讀頁面不能快速跳頁
+- 可從中段位置開始閱讀
+"
+,
+@"[14 Oct 2016] v0.38.0
+Yandere
+- 修正後台無法刷新鎖屏背景
+- 刷新鎖屏、壁紙時顯示通知(可即時收藏圖片)
+- 刷新鎖屏、壁紙加入自動剪裁選項
+Ex
+- 沒有改動
+"
+,
+@"[9 Oct 2016] v0.37.0
+Yandere
+- Filter設置現可自動保存
+- 閃退時顯示報錯訊息
+- 搜索框現會建議相關性更高的標籤
+- 搜索框有多個關鍵字時根據指標所在的字作建議
+Ex
+- 修正頭像顯示失敗(使用Eh論壇頭像)
+"
+,
+@"[8 Oct 2016] v0.36.0
+Yandere
+- 修正打開應用返回不了首頁的問題
+Ex
+- 加入下載功能(另存)
+- 加入加載圖集失敗後自動重試
+- 界面小改動
+"
+,
+@"[5 Oct 2016] v0.35.0
+Yandere
+- 加入後台自動刷新Lockscreen功能
+- 現可不經瀏覽器直接下載圖片
+Ex
+- 界面小改動
+"
+,
+@"[2 Oct 2016] v0.34.0
+Yandere
+- 後台自動刷新Wallpaper加入Shuffle選項
+- 改善磁貼功能圖片品質
+- 改善磁貼功能、首頁前三圖片的辨認面部準確度
+Ex
+- 現可按圖集標籤搜索
+"
+,
+@"[1 Oct 2016] v0.33.0
+Yandere
+- 加入後台自動刷新Wallpaper功能
+- 掃盲
+Ex
+- 圖集頁的縮圖列表以照片牆顯示
+"
+,
+@"[29 Sep 2016] v0.32.0
+Yandere
+- 加入後台自動刷新磁貼功能
+- 修正離線時閃退
+Ex
+- 顯示圖集標籤(暫未能按標籤搜索)
+"
+,
+@"[24 Sep 2016] v0.31.0
+Yandere
+- 全面換上新的scroll bar，提升空間感
+- 顯示更多圖片資料(分數、評級)
+- 加入有趣的磁貼功能(手動)
+- 加入過濾隱藏貼圖的搜索選項
+Ex
+- 顯示更多圖集資料(語言)
+- 繼續改善介面
+"
+,
+@"[23 Sep 2016] v0.30.0
+Yandere
+- 加入更新日誌
+- 減少首面閃退機率
+- 首面加入resize後網格排列動畫
+- 修正首頁Top3移位BUG(resize後依然對準面部)
+- 可按自己頭像查看自己在Yandere發的圖
+- 可按頭像外鏈到網頁改密碼
+Ex
+- 閱讀介面加入快速跳轉
+- 補一下介面上方工具欄跟yandere更一致
+- 修正如果加載圖集失敗，返回再進不會重新加載
+"
+                });
+            }
+        }
+
+
 
     }
 }

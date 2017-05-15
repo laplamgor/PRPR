@@ -14,7 +14,14 @@ namespace PRPR.Common.Services
         public static void ToastDebug(string text0, string text1)
         {
             XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText02);
-
+            if (text0 == null)
+            {
+                text0 = "";
+            }
+            if (text1 == null)
+            {
+                text1 = "";
+            }
             XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
             stringElements.Item(0).AppendChild(toastXml.CreateTextNode(text0));
             stringElements.Item(1).AppendChild(toastXml.CreateTextNode(text1.Replace('\n', ' ').Replace('\r', ' ').Replace('\t', ' ')));
