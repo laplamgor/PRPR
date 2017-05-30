@@ -32,11 +32,6 @@ rating=""s"" has_children=""false"" parent_id="""" status=""active""
 width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" frames_string=""""/>
 ";
 
-        internal object Where(Func<object, bool> p)
-        {
-            throw new NotImplementedException();
-        }
-
         public static Post FromXml(string xml)
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(Post));
@@ -186,7 +181,7 @@ width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" fram
         public string Status { get; set; }
 
         [XmlAttribute("parent_id")]
-        public string parent_id { get; set; }
+        public string ParentId { get; set; }
 
 
         [XmlAttribute("width")]

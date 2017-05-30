@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -24,7 +25,7 @@ namespace PRPR.ExReader.Controls
 
         public BackDrop()
         {
-            if (ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateBackdropBrush"))
+            if (ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateBackdropBrush") && !DesignMode.DesignModeEnabled)
             {
                 m_rootVisual = ElementCompositionPreview.GetElementVisual(this as UIElement);
                 Compositor = m_rootVisual.Compositor;
@@ -89,7 +90,7 @@ namespace PRPR.ExReader.Controls
             set
             {
                 SetValue(BlurAmountDependencyProperty, value);
-                if (ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateBackdropBrush"))
+                if (ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateBackdropBrush") && !DesignMode.DesignModeEnabled)
                 {
                     if (!m_setUpExpressions)
                     {
@@ -121,7 +122,7 @@ namespace PRPR.ExReader.Controls
             }
             set
             {
-                if (ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateBackdropBrush"))
+                if (ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateBackdropBrush") && !DesignMode.DesignModeEnabled)
                 {
                     if (!m_setUpExpressions)
                     {
@@ -173,7 +174,11 @@ namespace PRPR.ExReader.Controls
         {
             if (m_blurVisual != null)
             {
-                m_blurVisual.Size = new System.Numerics.Vector2((float)this.ActualWidth, (float)this.ActualHeight);
+                if (!DesignMode.DesignModeEnabled)
+                {
+                    m_blurVisual.Size = new System.Numerics.Vector2((float)this.ActualWidth, (float)this.ActualHeight);
+
+                }
             }
         }
 

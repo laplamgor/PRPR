@@ -141,15 +141,7 @@ namespace PRPR.BooruViewer.Views
             (scrollViewer.Content as FrameworkElement).MaxWidth = e.NewSize.Width;
         }
 
-
-
         
-
-
-
-
-
-
 
 
         private async void DownloadSampleButton_Click(object sender, RoutedEventArgs e)
@@ -220,18 +212,7 @@ namespace PRPR.BooruViewer.Views
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+        
         private void SampleImage_ImageOpened(object sender, RoutedEventArgs e)
         {
             var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
@@ -245,23 +226,7 @@ namespace PRPR.BooruViewer.Views
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 
