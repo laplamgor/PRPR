@@ -9,10 +9,12 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="AnimeFaceDetector.cpp" />
+    <ClCompile Include="Inpainter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="AnimeFaceDetector.h" />
+    <ClInclude Include="Inpainter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
