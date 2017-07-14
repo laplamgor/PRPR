@@ -10,7 +10,6 @@ using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Graphics::Imaging;
 using namespace Windows::Storage::Streams;
-using namespace Windows::UI::Xaml::Media::Imaging;
 
 AnimeFaceDetector::AnimeFaceDetector()
 {
@@ -24,26 +23,22 @@ IAsyncOperation<IVector<Windows::Foundation::Rect>^>^ AnimeFaceDetector::Detect(
 	return create_async([this, uri, scaleFactor, minNeighbors, minSize]() {
 		RandomAccessStreamReference^ streamRef = RandomAccessStreamReference::CreateFromUri(uri);
 
-		return create_task(streamRef->OpenReadAsync()).then([](task<IRandomAccessStreamWithContentType^> thisTask)
+		return create_task(streamRef->OpenReadAsync()).then([](IRandomAccessStreamWithContentType^ fileStream)
 		{
-			IRandomAccessStreamWithContentType^ fileStream = thisTask.get();
 			return BitmapDecoder::CreateAsync(fileStream);
 		}).then([](task<BitmapDecoder^> thisTask)
 		{
 			BitmapDecoder^ decoder = thisTask.get();
 			return decoder->GetFrameAsync(0);
-		}).then([this, scaleFactor, minNeighbors, minSize](task<BitmapFrame^> thisTask)
+		}).then([this, scaleFactor, minNeighbors, minSize](BitmapFrame^ frame)
 		{
-			BitmapFrame^ frame = thisTask.get();
-
 			// Save some information as fields
 			frameWidth = frame->PixelWidth;
 			frameHeight = frame->PixelHeight;
 
 			return frame->GetPixelDataAsync();
-		}).then([this, scaleFactor, minNeighbors, minSize](task<PixelDataProvider^> thisTask)
+		}).then([this, scaleFactor, minNeighbors, minSize](PixelDataProvider^ pixelProvider)
 		{
-			PixelDataProvider^ pixelProvider = thisTask.get();
 			Platform::Array<byte>^ srcPixels = pixelProvider->DetachPixelData();
 			Mat im = cv::Mat(frameHeight, frameWidth, CV_8UC4);
 			memcpy(im.data, srcPixels->Data, 4 * frameWidth*frameHeight);
@@ -81,9 +76,8 @@ IAsyncOperation<IVector<Windows::Foundation::Rect>^>^ AnimeFaceDetector::DetectB
 			frameHeight = frame->PixelHeight;
 
 			return frame->GetPixelDataAsync();
-		}).then([this, scaleFactor, minNeighbors, minSize](task<PixelDataProvider^> thisTask)
+		}).then([this, scaleFactor, minNeighbors, minSize](PixelDataProvider^ pixelProvider)
 		{
-			PixelDataProvider^ pixelProvider = thisTask.get();
 			Platform::Array<byte>^ srcPixels = pixelProvider->DetachPixelData();
 			Mat im = cv::Mat(frameHeight, frameWidth, CV_8UC4);
 			memcpy(im.data, srcPixels->Data, 4 * frameWidth*frameHeight);

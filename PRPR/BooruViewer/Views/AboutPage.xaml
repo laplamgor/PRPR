@@ -57,41 +57,8 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Grid Grid.Row="2">
-
-            <ScrollViewer Visibility="Collapsed">
-                <CommonControl:JustifiedWrapPanel ItemsSource="{Binding TestPosts}" RowHeight="300">
-                    <CommonControl:JustifiedWrapPanel.ItemTemplate>
-                        <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
-
-                                <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1">
-                                    <Border.BorderBrush>
-                                        <SolidColorBrush Color="#FF222222"/>
-                                    </Border.BorderBrush>
-                                    <Image Stretch="UniformToFill" Source="{Binding PreviewUrl}" HorizontalAlignment="Stretch" />
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </CommonControl:JustifiedWrapPanel.ItemTemplate>
-                    <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                        <Style TargetType="ContentControl">
-                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-                            <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
-                            <Setter Property="Transitions">
-                                <Setter.Value>
-                                    <TransitionCollection>
-                                        <RepositionThemeTransition IsStaggeringEnabled="False"/>
-                                    </TransitionCollection>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                </CommonControl:JustifiedWrapPanel>
-            </ScrollViewer>
-
+        <Grid Grid.RowSpan="3" BorderBrush="White" BorderThickness="2">
+            <Image x:Name="TestImage" Tapped="TestImage_Tapped"/>
         </Grid>
 
 

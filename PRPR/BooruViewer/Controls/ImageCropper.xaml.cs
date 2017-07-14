@@ -189,6 +189,10 @@ namespace PRPR.BooruViewer.Controls
             BitmapDecoder bd = await BitmapDecoder.CreateAsync(proxyResult.AsStream().AsRandomAccessStream());
             BitmapFrame bf = await bd.GetFrameAsync(0);
 
+
+
+            
+
             try
             {
                 var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));

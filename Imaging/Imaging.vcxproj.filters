@@ -10,11 +10,13 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="AnimeFaceDetector.cpp" />
     <ClCompile Include="Inpainter.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="AnimeFaceDetector.h" />
     <ClInclude Include="Inpainter.h" />
+    <ClInclude Include="utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

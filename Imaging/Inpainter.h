@@ -14,6 +14,7 @@ namespace Imaging
 	public:
 		Inpainter();
 
-		Windows::Storage::Streams::IBuffer^ Detect();
+		Windows::Foundation::IAsyncOperation<Windows::Storage::Streams::InMemoryRandomAccessStream^>^ Detect();
+		Windows::Foundation::IAsyncOperation<Windows::Storage::Streams::InMemoryRandomAccessStream^>^ InpaintMS();
 	};
 }
