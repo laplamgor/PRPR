@@ -31,6 +31,7 @@ using PRPR.Common.Views.Controls;
 using PRPR.Common.Models;
 using System.Collections;
 using PRPR.Common.Services;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -198,6 +199,20 @@ namespace PRPR.BooruViewer.Views
         
         public void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            var container = (sender as ImageWall).ContainerFromItem(e.ClickedItem) as ListViewItem;
+            if (container != null)
+            {
+                var root = (FrameworkElement)container.ContentTemplateRoot;
+                var image = (UIElement)root.FindName("PreviewImage");
+
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+            }
+            
+            // Add a fade out effect
+            Transitions = new TransitionCollection();
+            Transitions.Add(new ContentThemeTransition());
+            
+
             var post = (e.ClickedItem as ImageWallItem<Post>).ItemSource;
             this.Frame.Navigate(typeof(ImagePage), post.ToXml());
         }
@@ -417,6 +432,13 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[16 July 2017] v1.5.1
+Yandere
+- 加入頁面過渡動畫
+Ex
+- 改良搜索列表介面
+"
+,
 @"[25 April 2017] v1.4.1
 Yandere
 - 修正嚴重閃退問題

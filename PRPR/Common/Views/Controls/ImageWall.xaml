@@ -121,7 +121,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ListView  ItemsSource="{Binding }"
+                    <ListView x:Name="InnerListView" ItemsSource="{Binding }"
                            ScrollViewer.HorizontalScrollMode="Disabled" 
                            ScrollViewer.VerticalScrollMode="Disabled" 
                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"

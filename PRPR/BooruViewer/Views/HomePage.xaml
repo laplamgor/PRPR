@@ -630,7 +630,7 @@
                                         <Border.BorderBrush>
                                             <SolidColorBrush Color="#FF222222"/>
                                         </Border.BorderBrush>
-                                        <Image Stretch="UniformToFill" Source="{Binding ItemSource.PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding ItemSource.PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
                                     </Border>
                                 </Grid>
                             </UserControl>
@@ -729,7 +729,7 @@
                                         <Border.BorderBrush>
                                             <SolidColorBrush Color="#FF222222"/>
                                         </Border.BorderBrush>
-                                        <Image Stretch="UniformToFill" Source="{Binding ItemSource.PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding ItemSource.PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
                                     </Border>
                                 </Grid>
                             </UserControl>

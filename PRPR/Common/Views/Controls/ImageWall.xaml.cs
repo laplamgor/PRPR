@@ -1,4 +1,5 @@
-﻿using PRPR.Common.Models;
+﻿using PRPR.BooruViewer.Models;
+using PRPR.Common.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -96,7 +97,35 @@ namespace PRPR.Common.Views.Controls
 
 
 
+        public object ContainerFromItem(object item)
+        {
+            if (RowsListView.ItemsSource is ImageWallRows<Post> rows)
+            {
+                foreach (var row in rows)
+                {
+                    if (RowsListView.ContainerFromItem(row) != null)
+                    {
 
+
+                        var container = RowsListView.ContainerFromItem(row) as ListViewItem;
+                        if (container != null)
+                        {
+                            var root = (FrameworkElement)container.ContentTemplateRoot;
+                            var innerListView = (ListView)root.FindName("InnerListView");
+
+                            var c = innerListView.ContainerFromItem(item);
+                            if (c != null)
+                            {
+                                return c;
+                            }
+                        }
+                    }
+                }
+            }
+            
+
+            return null;
+        }
 
 
 

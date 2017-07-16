@@ -57,10 +57,5 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Grid Grid.RowSpan="3" BorderBrush="White" BorderThickness="2">
-            <Image x:Name="TestImage" Tapped="TestImage_Tapped"/>
-        </Grid>
-
-
     </Grid>
 </Page>

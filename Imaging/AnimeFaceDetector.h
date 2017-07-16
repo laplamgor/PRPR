@@ -15,6 +15,7 @@ namespace Imaging
 
 	public:
 		AnimeFaceDetector();
+		void LoadCascade();
 		Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IVector<Windows::Foundation::Rect>^>^ Detect(Windows::Foundation::Uri^ uri, double scaleFactor, int minNeighbors, Windows::Foundation::Size minSize);
 		Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IVector<Windows::Foundation::Rect>^>^ DetectBitmap(Windows::Graphics::Imaging::BitmapFrame^ frame, double scaleFactor, int minNeighbors, Windows::Foundation::Size minSize);
 	};

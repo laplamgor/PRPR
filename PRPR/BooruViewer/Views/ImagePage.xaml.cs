@@ -78,6 +78,10 @@ namespace PRPR.BooruViewer.Views
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+
+
+
+
             var b = VisualStateManager.GoToState(CurrentImagePage, "Low", true);
             Debug.WriteLine("NavigationHelper_LoadState");
 
@@ -90,6 +94,29 @@ namespace PRPR.BooruViewer.Views
                 if (e.NavigationParameter != null)
                 {
                     this.ImageViewModel.Post = Post.FromXml(e.NavigationParameter as string);
+
+
+
+                    var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+                    if (animation != null)
+                    {
+                        // Wait for image opened. In future Insider Preview releases, this won't be necessary.
+                        PreviewImage.ImageOpened += (sender_, e_) =>
+                        {
+                        animation.TryStart(PreviewImage);
+                        };
+                        JpegImage.ImageOpened += (sender_, e_) =>
+                        {
+                            animation.TryStart(JpegImage);
+                        };
+                        SampleImage.ImageOpened += (sender_, e_) =>
+                        {
+                            animation.TryStart(SampleImage);
+                        };
+                    }
+
+
+
                     await ImageViewModel.UpdateIsFavorited();
                     this.ImageViewModel.Comments = await Comments.GetComments(this.ImageViewModel.Post.Id);
                 }

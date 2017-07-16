@@ -184,19 +184,18 @@ namespace PRPR.BooruViewer.Controls
             var factor = 1.05;
             var min = 3;
             var size = 25;
-            AnimeFaceDetector c;
-            c = new AnimeFaceDetector();
             BitmapDecoder bd = await BitmapDecoder.CreateAsync(proxyResult.AsStream().AsRandomAccessStream());
             BitmapFrame bf = await bd.GetFrameAsync(0);
 
 
 
-            
+
 
             try
             {
-                var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
-                Rects = s.ToList();
+                //await DetectBitmapInBackgroundAsync(bf, factor, min, size);
+
+                await Task.Run(async () => await DetectBitmapInBackgroundAsync(bf, factor, min, size));
             }
             catch (Exception ex)
             {
@@ -204,7 +203,14 @@ namespace PRPR.BooruViewer.Controls
             }
         }
 
-
+        async Task DetectBitmapInBackgroundAsync(BitmapFrame bf, double factor, int min, int size)
+        {
+            AnimeFaceDetector c;
+            c = new AnimeFaceDetector();
+            c.LoadCascade();
+            var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
+            Rects = s.ToList();
+        }
 
 
         bool ImageLoaded = false;

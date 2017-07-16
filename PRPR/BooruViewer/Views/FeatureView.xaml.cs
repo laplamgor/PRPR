@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
@@ -54,6 +55,13 @@ namespace PRPR.BooruViewer.Views
         
         private void Top3_Click(object sender, RoutedEventArgs e)
         {
+            
+            var root = (Button)sender;
+            var image = ((UIElement)((Border)root.Content).Child);
+
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+
+
             if ((sender as Button).DataContext is Post post)
             {
                 (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(ImagePage), post.ToXml());
@@ -67,7 +75,6 @@ namespace PRPR.BooruViewer.Views
             {
                 // Search tags
                 (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(HomePage), $"{tag.Name}");
-
             }
         }
     }
