@@ -95,23 +95,20 @@
                 <VisualState x:Name="Medium">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PreviewImage" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="Collapsed"/>
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimation Storyboard.TargetName="PreviewImage" Storyboard.TargetProperty="Opacity"
                                                      Duration="0" To="1"/>
-
-
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="Visible"/>
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.3" From="0" To="1"/>
+                                                     Duration="0:0:0.0" To="1"/>
 
 
                         <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
                                                      Duration="0" To="0"/>
+                        
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
@@ -128,8 +125,7 @@
 
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="Collapsed"/>
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
                                                      Duration="0" To="1"/>
@@ -137,10 +133,10 @@
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="Visible"/>
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.3" From="0" To="1"/>
+                                                     Duration="0:0:0.0" To="1"/>
 
 
 
@@ -148,6 +144,34 @@
 
                     </Storyboard>
                 </VisualState>
+
+                <VisualStateGroup.Transitions>
+                    <VisualTransition From="Low" To="Medium" GeneratedDuration="0:0:0.3">
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="PreviewImage" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0" To="1"/>
+
+                            <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0:0:0.3" From="0" To="1"/>
+
+                            <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0" To="0"/>
+                        </Storyboard>
+                    </VisualTransition>
+                    <VisualTransition From="Medium" To="High" GeneratedDuration="0:0:0.3">
+
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="PreviewImage" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0" To="1"/>
+
+                            <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0" To="1"/>
+
+                            <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
+                                                     Duration="0:0:0.3" From="0" To="1"/>
+                        </Storyboard>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="OverlayStates">
