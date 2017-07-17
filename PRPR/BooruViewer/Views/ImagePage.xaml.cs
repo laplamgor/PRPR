@@ -76,10 +76,13 @@ namespace PRPR.BooruViewer.Views
         }
 
 
+        bool IsConnectedAnimationPlayed = true;
+
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
 
 
+            IsConnectedAnimationPlayed = false;
 
 
             var b = VisualStateManager.GoToState(CurrentImagePage, "Low", true);
@@ -94,29 +97,6 @@ namespace PRPR.BooruViewer.Views
                 if (e.NavigationParameter != null)
                 {
                     this.ImageViewModel.Post = Post.FromXml(e.NavigationParameter as string);
-
-
-
-                    var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
-                    if (animation != null)
-                    {
-                        // Wait for image opened. In future Insider Preview releases, this won't be necessary.
-                        PreviewImage.ImageOpened += (sender_, e_) =>
-                        {
-                        animation.TryStart(PreviewImage);
-                        };
-                        JpegImage.ImageOpened += (sender_, e_) =>
-                        {
-                            animation.TryStart(JpegImage);
-                        };
-                        SampleImage.ImageOpened += (sender_, e_) =>
-                        {
-                            animation.TryStart(SampleImage);
-                        };
-                    }
-
-
-
                     await ImageViewModel.UpdateIsFavorited();
                     this.ImageViewModel.Comments = await Comments.GetComments(this.ImageViewModel.Post.Id);
                 }
@@ -239,20 +219,81 @@ namespace PRPR.BooruViewer.Views
 
 
 
+        ConnectedAnimation animation = null;
         
+        
+        private void PreviewImage_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+
+                if (animation != null)
+                {
+                    animation.Completed += ((c, o) =>
+                    {
+                        animation = null;
+                    });
+
+                    if (!animation.TryStart(PreviewImage))
+                    {
+                        animation = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
         private void SampleImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-            var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
-            Debug.WriteLine("SampleImage_ImageOpened");
+            try
+            {
+                if (animation != null)
+                {
+                    animation.Completed += (async (c, o) =>
+                    {
+                        await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
+                        var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
+                    });
+                }
+                else
+                {
+                    var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            
         }
 
         private void JpegImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-            var b =VisualStateManager.GoToState(CurrentImagePage, "High", true);
-            Debug.WriteLine("JpegImage_ImageOpened");
+            try
+            {
+                if (animation != null)
+                {
+                    animation.Completed += (async (c, o) =>
+                    {
+                        await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
+                        var b = VisualStateManager.GoToState(CurrentImagePage, "High", true);
+                    });
+                }
+                else
+                {
+                    var b = VisualStateManager.GoToState(CurrentImagePage, "High", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
-
-
+        
         
 
 
@@ -481,6 +522,11 @@ namespace PRPR.BooruViewer.Views
 
                 e.Handled = true;
             }
+        }
+
+        private void Background_ImageOpened(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -70,9 +70,6 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="QualityStates">
                 <VisualState x:Name="Low">
-                    <!--<VisualState.Setters>
-                        <Setter Target="MoreButton.Foreground" Value="Red"/>
-                    </VisualState.Setters>-->
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PreviewImage" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
@@ -93,14 +90,9 @@
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
                                                      Duration="0" To="0"/>
-                        
-
                     </Storyboard>
                 </VisualState>
                 <VisualState x:Name="Medium">
-                    <!--<VisualState.Setters>
-                        <Setter Target="MoreButton.Foreground" Value="Yellow"/>
-                    </VisualState.Setters>-->
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PreviewImage" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
@@ -127,9 +119,6 @@
                     </Storyboard>
                 </VisualState>
                 <VisualState x:Name="High">
-                    <!--<VisualState.Setters>
-                        <Setter Target="MoreButton.Foreground" Value="Green"/>
-                    </VisualState.Setters>-->
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PreviewImage" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
@@ -310,7 +299,9 @@
         <!--Background-->
         <Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Post.PreviewUrl}">
+                <Image x:Name="Background" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       Source="{Binding Post.PreviewUrl}"
+                       ImageOpened="Background_ImageOpened">
                 </Image>
             </Grid>
             <control:BackDrop x:Name="BackgroundBackDrop" BlurAmount="2" TintColor="#90000010"
@@ -362,7 +353,8 @@
 
                     <Image x:Name="PreviewImage" Stretch="Uniform" 
                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Source="{Binding Post.PreviewUrl}"/>
+                           Source="{Binding Post.PreviewUrl}"
+                           ImageOpened="PreviewImage_ImageOpened"/>
 
                     <Image x:Name="SampleImage" Stretch="Uniform" x:DeferLoadStrategy="Lazy"
                            VerticalAlignment="Center" HorizontalAlignment="Center" 

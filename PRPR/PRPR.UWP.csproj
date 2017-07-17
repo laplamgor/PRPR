@@ -258,7 +258,7 @@
     <Compile Include="BooruViewer\Views\ConceptPage.xaml.cs">
       <DependentUpon>ConceptPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BooruViewer\Controls\CompositionImage.cs" />
+    <Compile Include="Common\Controls\CompositionImage.cs" />
     <Compile Include="BooruViewer\Views\FeatureView.xaml.cs">
       <DependentUpon>FeatureView.xaml</DependentUpon>
     </Compile>

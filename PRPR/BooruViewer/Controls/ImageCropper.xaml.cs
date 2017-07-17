@@ -189,13 +189,13 @@ namespace PRPR.BooruViewer.Controls
 
 
 
-
+            //c.LoadCascadeFile();
 
             try
             {
-                //await DetectBitmapInBackgroundAsync(bf, factor, min, size);
+                //await DetectBitmapInBackgroundAsync(c, bf, factor, min, size);
 
-                await Task.Run(async () => await DetectBitmapInBackgroundAsync(bf, factor, min, size));
+                await Task.Run(async () => await DetectBitmapInBackgroundAsync(bf, factor, min, size, this));
             }
             catch (Exception ex)
             {
@@ -203,10 +203,21 @@ namespace PRPR.BooruViewer.Controls
             }
         }
 
-        async Task DetectBitmapInBackgroundAsync(BitmapFrame bf, double factor, int min, int size)
+        async Task DetectBitmapInBackgroundAsync(BitmapFrame bf, double factor, int min, int size, ImageCropper parent)
         {
-            AnimeFaceDetector c;
-            c = new AnimeFaceDetector();
+
+            AnimeFaceDetector c = new AnimeFaceDetector();
+            c.LoadCascade();
+            var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
+
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                parent.Rects = s.ToList();
+            });
+            //Rects = s.ToList();
+        }
+        async Task DetectBitmapInBackgroundAsync(AnimeFaceDetector c, BitmapFrame bf, double factor, int min, int size)
+        {
             c.LoadCascade();
             var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
             Rects = s.ToList();

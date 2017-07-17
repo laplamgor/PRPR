@@ -10,7 +10,8 @@ namespace Imaging
 		int frameWidth;
 		int frameHeight;
 		Windows::Foundation::Collections::IVector<Windows::Foundation::Rect>^ rects;
-		static cv::CascadeClassifier cascade;
+		//static cv::FileStorage cascade;
+		cv::CascadeClassifier cascade;
 
 
 	public:
