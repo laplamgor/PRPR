@@ -153,20 +153,41 @@ namespace PRPR.BooruViewer.Views
 
         private async void DownloadSampleButton_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.SaveImageFileAsync(PostImageVersion.Sample);
-            SaveFlyout.Hide();
+            try
+            {
+                await ImageViewModel.SaveImageFileAsync(PostImageVersion.Sample);
+                SaveFlyout.Hide();
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
+            }
         }
 
         private async void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.SaveImageFileAsync(PostImageVersion.Source);
+            try
+            {
+                await ImageViewModel.SaveImageFileAsync(PostImageVersion.Source);
             SaveFlyout.Hide();
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
+            }
         }
 
         private async void DownloadJpegButton_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.SaveImageFileAsync(PostImageVersion.Jpeg);
-            SaveFlyout.Hide();
+            try
+            {
+                await ImageViewModel.SaveImageFileAsync(PostImageVersion.Jpeg);
+                SaveFlyout.Hide();
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
+            }
         }
 
 
@@ -186,7 +207,7 @@ namespace PRPR.BooruViewer.Views
             }
             catch (Exception ex)
             {
-                
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -255,8 +276,15 @@ namespace PRPR.BooruViewer.Views
                 {
                     animation.Completed += (async (c, o) =>
                     {
-                        await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
-                        var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
+                        try
+                        {
+                            await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
+                            var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
                     });
                 }
                 else
@@ -277,11 +305,18 @@ namespace PRPR.BooruViewer.Views
             {
                 if (animation != null)
                 {
-                    animation.Completed += (async (c, o) =>
+                    try
                     {
-                        await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
-                        var b = VisualStateManager.GoToState(CurrentImagePage, "High", true);
-                    });
+                        animation.Completed += (async (c, o) =>
+                        {
+                            await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
+                            var b = VisualStateManager.GoToState(CurrentImagePage, "High", true);
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                 }
                 else
                 {
