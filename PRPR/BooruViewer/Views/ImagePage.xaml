@@ -259,13 +259,12 @@
                                 <CircleEase EasingMode="EaseOut"/>
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
-
                     </Storyboard>
 
                 </VisualState>
             </VisualStateGroup>
 
-            <VisualStateGroup x:Name="WidthStates" CurrentStateChanged="WidthStates_CurrentStateChanged">
+            <VisualStateGroup x:Name="WidthStates">
                 <VisualState x:Name="Width700">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="700"/>
@@ -328,9 +327,15 @@
                        ImageOpened="Background_ImageOpened">
                 </Image>
             </Grid>
-            <control:BackDrop x:Name="BackgroundBackDrop" BlurAmount="2" TintColor="#90000010"
-                              d:IsHidden="True"
-                              Loaded="BackgroundBackDrop_Loaded"/>
+            
+            <Rectangle>
+                <Rectangle.Fill>
+                    <AcrylicBrush 
+                        BackgroundSource="Backdrop" TintColor="#55888888"
+                        TintOpacity="0.1"
+                        FallbackColor="#FF7F7F7F"/>
+                </Rectangle.Fill>
+            </Rectangle>
         </Grid>
 
         <!--TitleBar-->
@@ -367,10 +372,7 @@
                           HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled"
                           HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
                           DoubleTapped="ImageScrollViewer_DoubleTapped"  Tapped="MainPreview_Tapped"
-                          
-                          
-                          
-                          Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                          >
                 <Grid x:Name="Images" HorizontalAlignment="Center" VerticalAlignment="Center" 
                       FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"
                       RightTapped="Image_RightTapped" Holding="Image_Holding">
@@ -539,8 +541,7 @@
                     <PivotItem.Header>
                         <SymbolIcon Symbol="ContactInfo"/>
                     </PivotItem.Header>
-                    <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto" 
-                                  Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                    <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel Padding="12,0">
 
                             <TextBlock Text="上傳者" Foreground="Gray" Margin="0,12,0,0"/>
@@ -603,7 +604,7 @@
                                 <TextBlock Text="{Binding Post.Rating}"/>
                             </StackPanel>
 
-                            <Button Content="在瀏覽器中打開" Click="Button_Click" Margin="0,24"/>
+                            <Button Style="{StaticResource ButtonRevealStyle}" Content="在瀏覽器中打開" Click="Button_Click" Margin="0,24"/>
 
                         </StackPanel>
                     </ScrollViewer>
@@ -613,8 +614,7 @@
                     <PivotItem.Header>
                         <SymbolIcon Symbol="Tag"/>
                     </PivotItem.Header>
-                    <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto" Padding="12,0"
-                                  Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                    <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto" Padding="12,0">
 
                         <wp:WrapPanel x:Name="TagsWrapPanel" d:IsHidden="true"
                                       Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged">
@@ -631,9 +631,6 @@
                     </PivotItem.Header>
                     <Grid>
                         <ListView ItemsSource="{Binding Comments}" SelectionMode="None">
-                            <ListView.Style>
-                                <StaticResource ResourceKey="ListViewStyleNiceScrollBar"/>
-                            </ListView.Style>
 
                             <ListView.Header>
                                 <TextBlock Text="沒有評論" Margin="6" Visibility="{Binding Comments, Converter={StaticResource ZeroCountToVisibliltyConverter}}" />

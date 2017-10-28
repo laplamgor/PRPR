@@ -9,7 +9,7 @@
     xmlns:Converters="using:PRPR.BooruViewer.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
+    xmlns:vm="using:PRPR.BooruViewer.ViewModels"
     x:Class="PRPR.BooruViewer.Views.HomePage"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
@@ -17,7 +17,7 @@
     >
 
     <Page.DataContext>
-        <ViewModels:HomeViewModel/>
+        <vm:HomeViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
@@ -494,7 +494,7 @@
                     </Grid.Transitions>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
-                        <Button  Padding="12,0" VerticalAlignment="Stretch">
+                        <Button  Padding="12,0" VerticalAlignment="Stretch" Style="{StaticResource ButtonRevealStyle}">
                             <StackPanel >
                                 <TextBlock Text="{x:Bind AppVersion}"/>
                                 <TextBlock Text="更新日誌"/>
@@ -526,7 +526,7 @@
                     <AppBarButton Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
                 </Grid>
 
-                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                <ScrollViewer Grid.Row="1">
                     <local:FeatureView x:Name="FeatureView"/>
                 </ScrollViewer>
 
@@ -760,7 +760,7 @@
                     </AppBarButton>-->
                 </Grid>
 
-                <ScrollViewer Grid.Row="1" Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                <ScrollViewer Grid.Row="1">
                     <local:AccountView/>
                 </ScrollViewer>
             </Grid>

@@ -203,14 +203,14 @@
 
 
         <Grid Grid.Row="1">
-            <ScrollViewer Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+            <ScrollViewer>
                 <StackPanel Padding="12,0">
                     <TextBlock Text="磁貼動態動漫頭像" Style="{StaticResource SubtitleTextBlockStyle}"/>
                     <TextBlock Text="搜索標籤："/>
                     <TextBox x:Name="TileTextBox"  Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero) rating:s"/>
 
 
-                    <Button x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
+                    <Button Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Filter" Margin="0,0,4,0"/>
                             <TextBlock Text="Filter"/>
@@ -218,8 +218,8 @@
                     </Button>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="手動刷新" Click="Button_Click"  Margin="0,12,12,12"/>
-                        <Button Content="重設" Click="Button_Click_1" />
+                        <Button Style="{StaticResource ButtonRevealStyle}" Content="手動刷新" Click="Button_Click"  Margin="0,12,12,12"/>
+                        <Button Style="{StaticResource ButtonRevealStyle}" Content="重設" Click="Button_Click_1" />
                     </StackPanel>
 
                     

@@ -20,8 +20,7 @@
                       HorizontalAlignment="Stretch" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled"
                       
                       DoubleTapped="ScrollViewer_DoubleTapped"
-                      DataContextChanged="ScrollViewer_DataContextChanged"
-                      Style="{StaticResource ScrollViewerStyleNiceScrollBar}">    
+                      DataContextChanged="ScrollViewer_DataContextChanged">    
             <Grid x:Name="rootGrid" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.Resources>
                     <MenuFlyout x:Name="MenuFlyout">

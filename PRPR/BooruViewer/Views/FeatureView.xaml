@@ -10,7 +10,7 @@
     xmlns:Converters="using:PRPR.BooruViewer.Converters"
     x:Class="PRPR.BooruViewer.Views.FeatureView"
     mc:Ignorable="d"
-    d:DesignHeight="4000"
+    d:DesignHeight="2000"
     d:DesignWidth="1440"
     Loaded="UserControl_Loaded">
     <UserControl.Resources>

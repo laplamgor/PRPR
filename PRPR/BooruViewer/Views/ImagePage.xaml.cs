@@ -430,18 +430,7 @@ namespace PRPR.BooruViewer.Views
             this.Frame.Navigate(typeof(HomePage), $"{((sender as Button).DataContext as TagDetail).Name}");
         }
         
-
-        private void WidthStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
-        {
-            if (e.NewState == Width480Height500 || e.NewState == Width700)
-            {
-                BackgroundBackDrop.BlurAmount = 5;
-            }
-            else
-            {
-                BackgroundBackDrop.BlurAmount = 2;
-            }
-        }
+        
 
         private void ImageScrollViewer_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
@@ -499,19 +488,6 @@ namespace PRPR.BooruViewer.Views
             e.Handled = true;
         }
 
-        private void BackgroundBackDrop_Loaded(object sender, RoutedEventArgs e)
-        {
-
-            if (WidthStates.CurrentState == Width480Height500 || WidthStates.CurrentState == Width700)
-            {
-                BackgroundBackDrop.BlurAmount = 5;
-            }
-            else
-            {
-                BackgroundBackDrop.BlurAmount = 2;
-            }
-
-        }
 
 
 

@@ -72,8 +72,7 @@
                           ZoomMode="Enabled" MinZoomFactor="1"  
                           HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                           HorizontalScrollMode="Auto" VerticalScrollMode="Auto"
-                          
-                          Style="{StaticResource ScrollViewerStyleNiceScrollBar}">
+                          >
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
 
                     <Image x:Name="SetLockScreenPreviewImage" Stretch="Uniform" SizeChanged="Image_SizeChanged" 

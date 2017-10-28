@@ -187,16 +187,7 @@ namespace PRPR.ExReader.Models.Global
                 AddOrUpdateValue(GetCallerName(), value.ToBinary(), false);
             }
         }
-
-
-        public bool IsBlurAvailable
-        {
-            get
-            {
-                //return false;
-                return ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateBackdropBrush");
-            }
-        }
+        
 
 
         public string xl

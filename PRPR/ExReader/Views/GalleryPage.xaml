@@ -463,7 +463,7 @@
             </Grid.RowDefinitions>
 
             <Grid x:Name="MainPanel" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="2">
-                <ScrollViewer Style="{StaticResource ScrollViewerStyleNiceScrollBar}" >
+                <ScrollViewer>
                     <CommonControl:JustifiedWrapPanel x:Name="ItemsWrapPanel" ItemsSource="{Binding Gallery}" RowHeight="300" Margin="4">
                         <CommonControl:JustifiedWrapPanel.ItemTemplate>
                             <DataTemplate x:DataType="model:ExGalleryImageListItem">
@@ -559,8 +559,7 @@
                             </StackPanel>
                         </PivotItem.Header>
 
-                        <ListView ItemsSource="{Binding Gallery.Comments}" 
-                                  Style="{StaticResource ListViewStyleNiceScrollBar}"
+                        <ListView ItemsSource="{Binding Gallery.Comments}"
                                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                   SelectionMode="None">
                             

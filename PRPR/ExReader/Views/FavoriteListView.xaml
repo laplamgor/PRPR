@@ -93,7 +93,6 @@
 
         <ListView ItemsSource="{Binding FavoriteList}" Grid.Row="0" 
                   ItemTemplate="{StaticResource ListItemTemplate}"
-                  Style="{StaticResource ListViewStyleNiceScrollBar}"
                   IsItemClickEnabled="True" SelectionMode="None" 
                   ItemClick="ListView_ItemClick">
         </ListView>

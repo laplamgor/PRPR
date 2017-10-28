@@ -88,7 +88,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <ListView x:Name="RowsListView" Background="{Binding Background, ElementName=Wall}"
                   DataContextChanged="UserControl_DataContextChanged"
                   ItemsSource="{Binding }" SelectionMode="None"
@@ -100,9 +100,6 @@
                   IsDoubleTapEnabled="False"
                   IsHoldingEnabled="False"
                   IsTapEnabled="False">
-            <ListView.Style>
-                <StaticResource ResourceKey="ListViewStyleNiceScrollBar"/>
-            </ListView.Style>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0"/>
