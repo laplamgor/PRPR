@@ -24,158 +24,7 @@
         <Converters:CategoryColorConverter x:Key="CategoryColorConverter"/>
         <CommonConverters:RandomGrayConverter x:Key="RandomGrayConverter"/>
 
-        <DataTemplate x:Key="ItemTemplate360">
-            <Grid Margin="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                </Grid.RowDefinitions>
-
-                <Rectangle Grid.Row="0" Grid.RowSpan="2"  Fill="Gray"/>
-                <Border Grid.Row="0" Grid.RowSpan="2" BorderThickness="0" Margin="0,0,0,0" VerticalAlignment="Stretch"
-                        BorderBrush="{ThemeResource ToolTipBorderThemeBrush}">
-                    <Image Source="{Binding Thumb}"
-                                   Width="108" Height="128"
-                                   Stretch="UniformToFill"
-                                   />
-                </Border>
-
-
-                <Rectangle Grid.Row="1" Margin="0,-12,0,0">
-                    <Rectangle.Fill>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="#00000000" Offset="0"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-
-                <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="108">
-                    <TextBlock Text="{Binding Title}"  Padding="2,0"
-                               TextWrapping="WrapWholeWords" MaxLines="2" Height="40" VerticalAlignment="Top"
-                               Style="{StaticResource BaseTextBlockStyle}"
-                               />
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Background="Black">
-
-                        <TextBlock Text="{Binding Rating}" Foreground="#FFFF8B00"   Margin="6,0,0,0"
-                               TextWrapping="NoWrap" VerticalAlignment="Center"
-                               Style="{StaticResource BaseTextBlockStyle}"
-                               />
-                        <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" />
-
-
-
-                        <TextBlock Text="{Binding FileCount}"  Margin="6,0,0,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center"
-                                   Style="{StaticResource BaseTextBlockStyle}"
-                                   />
-                        <SymbolIcon Symbol="Page"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </DataTemplate>
-
-
-        <DataTemplate x:Key="ItemTemplate550">
-            <Grid Margin="2,2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="144"/>
-                    <RowDefinition Height="32"/>
-                    <RowDefinition Height="16"/>
-                </Grid.RowDefinitions>
-
-                <Rectangle Grid.Row="0" Grid.RowSpan="2"  Fill="Gray"/>
-                <Border Grid.Row="0" Grid.RowSpan="2" BorderThickness="0" Margin="0,0,0,0" VerticalAlignment="Stretch"
-                        BorderBrush="{ThemeResource ToolTipBorderThemeBrush}">
-                    <Image Source="{Binding Thumb}"
-                                   Width="150" Height="176"
-                                   Stretch="UniformToFill"
-                                   />
-                </Border>
-
-
-                <Rectangle Grid.Row="1" Margin="0,-16,0,0">
-                    <Rectangle.Fill>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="#00000000" Offset="0"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-
-                <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="150">
-                    <TextBlock Text="{Binding Title}"  Padding="2,0"
-                               TextWrapping="WrapWholeWords" MaxLines="2" Height="40" VerticalAlignment="Top"
-                               Style="{StaticResource BaseTextBlockStyle}"
-                               />
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Background="Black">
-
-                        <TextBlock Text="{Binding Rating}" Foreground="#FFFF8B00"   Margin="6,0,0,0"
-                               TextWrapping="NoWrap" VerticalAlignment="Center"
-                               Style="{StaticResource BaseTextBlockStyle}"
-                               />
-                        <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" />
-
-                        <TextBlock Text="{Binding FileCount}"  Margin="6,0,0,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center"
-                                   Style="{StaticResource BaseTextBlockStyle}"
-                                   />
-                        <SymbolIcon Symbol="Page"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </DataTemplate>
-
-
-        <DataTemplate x:Key="ItemTemplate840">
-            <Grid Margin="4,4">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="180"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="20"/>
-                </Grid.RowDefinitions>
-                <Rectangle Grid.Row="0" Grid.RowSpan="2"  Fill="Gray"/>
-                <Border Grid.Row="0" Grid.RowSpan="2" BorderThickness="0" Margin="0,0,0,0" VerticalAlignment="Stretch"
-                        BorderBrush="{ThemeResource ToolTipBorderThemeBrush}">
-                    <Image Source="{Binding Thumb}"
-                                   Width="200" Height="220"
-                                   Stretch="UniformToFill"
-                                   />
-                </Border>
-
-                <Rectangle Grid.Row="1" Margin="0,-20,0,0">
-                    <Rectangle.Fill>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="#00000000" Offset="0"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-
-                <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="200">
-                    <TextBlock Text="{Binding Title}"  Padding="4,0"
-                               TextWrapping="WrapWholeWords" MaxLines="3" Height="60" VerticalAlignment="Top"
-                               Style="{StaticResource BaseTextBlockStyle}"
-                               />
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Background="Black">
-
-                        <TextBlock Text="{Binding Rating}" Foreground="#FFFF8B00"   Margin="6,0,0,0"
-                               TextWrapping="NoWrap" VerticalAlignment="Center"
-                               Style="{StaticResource BaseTextBlockStyle}"
-                               />
-                        <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" />
-
-                        <TextBlock Text="{Binding FileCount}"  Margin="6,0,0,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center"
-                                   Style="{StaticResource BaseTextBlockStyle}"
-                                   />
-                        <SymbolIcon Symbol="Page"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </DataTemplate>
-
+        
 
 
 
@@ -487,14 +336,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
-
-
-
-
-
-
-
         <CommonControls:ImageWall x:Name="BrowseWall" Grid.Row="1" Background="Transparent"
                                     HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0"
                                   DataContext="{Binding GalleryList}">
@@ -573,7 +414,7 @@
 
 
 
-                                <TextBlock Text="{Binding ItemSource.Title, Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
+                                <TextBlock Text="{Binding ItemSource, Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
                                    TextWrapping="Wrap" VerticalAlignment="Top" MaxLines="2"
                                    />
                             </Grid>

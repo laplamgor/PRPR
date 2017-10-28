@@ -633,7 +633,7 @@
 
                 <CommonControl:RotateContentControl x:Name="RotatedHeader" Direction="Up" HorizontalAlignment="Right" 
                                                     VerticalAlignment="Center" Margin="0,0,0,0">
-                    <TextBlock Text="{Binding Gallery.Title, Converter={StaticResource ShortTitleConverter}}" 
+                    <TextBlock Text="{Binding Gallery, Converter={StaticResource ShortTitleConverter}}" 
                                FontSize="28" TextAlignment="Center" Height="48" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextWrapping="NoWrap"/>
                 </CommonControl:RotateContentControl>
 
