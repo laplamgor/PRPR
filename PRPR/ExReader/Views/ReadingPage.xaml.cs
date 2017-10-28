@@ -154,6 +154,8 @@ namespace PRPR.ExReader.Views
         {
             if (this.ReadingViewModel.Gallery != null)
             {
+                var s = this.Frame.GetNavigationState();
+
                 e.PageState["Gid"] = this.ReadingViewModel.Gallery.Gid;
                 e.PageState["Link"] = this.ReadingViewModel.Gallery.Link;
                 e.PageState["Page"] = this.ReadingViewModel.CurrentImageIndex;

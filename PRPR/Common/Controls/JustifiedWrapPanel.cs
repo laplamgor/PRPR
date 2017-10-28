@@ -393,5 +393,85 @@ namespace PRPR.Common.Controls
         {
             return item.PreferredWidth / item.PreferredHeight * height;
         }
+
+
+        public void ScrollIntoView(object item, ScrollIntoViewAlignment alignment)
+        {
+            if (ItemsSource is IList items)
+            {
+                int index = items.IndexOf(item);
+                if (index != -1)
+                {
+                    // Get the top position of the given index
+
+                    // Scroll the scrollviewer
+                    switch (alignment)
+                    {
+                        default:
+                        case ScrollIntoViewAlignment.Default:
+                            double top = GetPositionY(index);
+
+                            if (ParentScrollViewer.VerticalOffset + ParentScrollViewer.ViewportHeight < top)
+                            {
+                                // The target is below the viewport, align the item to the button of viewport
+                                ParentScrollViewer.ChangeView(null, top + RowHeight - ParentScrollViewer.ViewportHeight, null, true);
+                            }
+                            else if (top + RowHeight < ParentScrollViewer.VerticalOffset)
+                            {
+                                // The target is above the viewport, align the item to the top of viewport
+                                ParentScrollViewer.ChangeView(null, top, null, true);
+                            }
+                            break;
+                        case ScrollIntoViewAlignment.Leading:
+                            ParentScrollViewer.ChangeView(null, GetPositionY(index), null, true);
+                            break;
+                    }
+
+                }
+            }
+
+            
+        }
+
+
+
+
+
+
+
+
+
+
+        double GetPositionY(int index)
+        {
+            double currentY = 0;
+            
+            if (ItemsSource is IList items)
+            {
+                var maxRowWidth = this.DesiredSize.Width;
+
+                var maxRowRatio = maxRowWidth / RowHeight;
+                var currectRowRatio = 0.0;
+                for (int i = 0; i <= index; i++)
+                {
+                    var item = items[i] as IImageWallItemImage;
+                    bool newRow = (item.PreferredRatio + currectRowRatio > maxRowRatio) && (currentY != 0 || currectRowRatio != 0);
+                    if (newRow)
+                    {
+
+                        // Reset current row
+                        currectRowRatio = 0;
+                        currentY += RowHeight;
+                    }
+                    
+
+                    // adjust the location for the next items
+                    currectRowRatio += item.PreferredRatio;
+                }
+
+                return currentY;
+            }
+            return 0;
+        }
     }
 }

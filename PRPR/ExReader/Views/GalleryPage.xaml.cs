@@ -6,6 +6,7 @@ using PRPR.ExReader.Models;
 using PRPR.ExReader.Services;
 using PRPR.ExReader.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -95,15 +96,6 @@ namespace PRPR.ExReader.Views
                     this.GalleryViewModel.Gallery = await ExGallery.DownloadGalleryAsync(e.NavigationParameter as string, 1, 3);
                 }
 
-
-                // Jump to the page item if this is a back button action
-                if (this.Frame.CanGoForward)
-                {
-                    var p = this.Frame.ForwardStack.First().Parameter;
-                    var indexFromLastPage = int.Parse(QueryString.Parse(p as string)["page"]);
-
-                    // TODO: scroll into the index of last opened page
-                }
                 
             }
             catch (Exception ex)
@@ -310,6 +302,20 @@ namespace PRPR.ExReader.Views
             }
 
             UpdateDetailPanelState(true);
+
+
+
+            // Jump to the page item if this is a back button action
+            if (this.Frame.CanGoForward)
+            {
+                var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
+                var lastPageParameters = frameState["Page-" + (this.Frame.BackStackDepth + 1)] as IDictionary<string, object>;
+                var index = (int)lastPageParameters["Page"];
+
+
+                // TODO: scroll into the index of last opened page
+                ItemsWrapPanel.ScrollIntoView((ItemsWrapPanel.ItemsSource as IList)[index], ScrollIntoViewAlignment.Default);
+            }
         }
 
         public VisualState GetCurrentState(string stateGroupName)
