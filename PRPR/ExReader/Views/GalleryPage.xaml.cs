@@ -27,6 +27,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -86,22 +87,35 @@ namespace PRPR.ExReader.Views
         {
             try
             {
+                // Load the gallery info
                 if (GalleryViewModel.Gallery == null || GalleryViewModel.Gallery.Count == 0 || (e.NavigationParameter as string) != GalleryViewModel.Gallery?.Link)
                 {
                     this.GalleryViewModel = new GalleryViewModel();
 
                     this.GalleryViewModel.Gallery = await ExGallery.DownloadGalleryAsync(e.NavigationParameter as string, 1, 3);
                 }
+
+
+                // Jump to the page item if this is a back button action
+                if (this.Frame.CanGoForward)
+                {
+                    var p = this.Frame.ForwardStack.First().Parameter;
+                    var indexFromLastPage = int.Parse(QueryString.Parse(p as string)["page"]);
+
+                    // TODO: scroll into the index of last opened page
+                }
+                
             }
             catch (Exception ex)
             {
-                var x = ex.GetType();
+
             }
         }
 
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
+
         }
         
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -122,24 +136,8 @@ namespace PRPR.ExReader.Views
 
             GalleryViewModel.IsFavorited = false;
         }
-
-        private void ScrollingHost_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-
-
-        }
-
-        private void TabListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void TagButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            
-        }
-
+        
+        
         private void TagsWrapBlock_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -342,6 +340,17 @@ namespace PRPR.ExReader.Views
                 { "link", this.GalleryViewModel.Gallery.Link },
                 { "page", $"{this.GalleryViewModel.Gallery.IndexOf(item)}" }
             };
+
+            var container = (sender as GridViewItem);
+            if (container != null)
+            {
+                var root = (FrameworkElement)container.ContentTemplateRoot;
+                var image = (UIElement)root.FindName("ThumbImage");
+
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ThumbImage", image);
+            }
+
+
             this.Frame.Navigate(typeof(ReadingPage), q.ToString());
         }
 
@@ -474,31 +483,7 @@ namespace PRPR.ExReader.Views
             var downloawwqwds = d.ToList();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     public class WrapPanel : Panel
     {

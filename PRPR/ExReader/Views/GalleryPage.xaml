@@ -37,7 +37,7 @@
         <Converters:ShortTitleConverter x:Key="ShortTitleConverter"/>
 
         <DataTemplate x:Key="TagButtonTemplate">
-            <Button Style="{StaticResource ButtonStyleNoColor}" Margin="2,0" Click="TagButton_Click">
+            <Button Style="{StaticResource ButtonStyleNoColor}" Margin="2,0">
 
                 <Button.Flyout>
                     <MenuFlyout>

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -23,6 +24,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
@@ -107,6 +109,8 @@ namespace PRPR.ExReader.Views
                 // Jump to Page
                 var indexFromLastPage = int.Parse(QueryString.Parse(e.NavigationParameter as string)["page"]);
                 this.ReadingViewModel.CurrentImageIndex = indexFromLastPage;
+
+
             }
             catch (Exception ex)
             {
@@ -116,12 +120,43 @@ namespace PRPR.ExReader.Views
         }
 
 
+        private void HandleConnectedAnimation()
+        {
+            try
+            {
+                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ThumbImage");
+
+                if (animation != null)
+                {
+                    animation.Completed += ((c, o) =>
+                    {
+                        animation = null;
+                    });
+
+                    // Connect the animation to only the scrolling host of the flipview
+                    // So the prev/next buttons will not be animationed
+                    var grid = VisualTreeHelper.GetChild(flipView, 0) as Grid;
+                    var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
+                    if (!animation.TryStart(scrollingHost as UIElement))
+                    {
+                        animation = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        } 
+
+
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             if (this.ReadingViewModel.Gallery != null)
             {
                 e.PageState["Gid"] = this.ReadingViewModel.Gallery.Gid;
                 e.PageState["Link"] = this.ReadingViewModel.Gallery.Link;
+                e.PageState["Page"] = this.ReadingViewModel.CurrentImageIndex;
             }
         }
 
@@ -228,6 +263,12 @@ namespace PRPR.ExReader.Views
             }
 
             await ClipboardService.CopyImageAsync(imageBuffer);
+        }
+
+        private void CurrentReadingPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Handle the connected animation
+            HandleConnectedAnimation();
         }
     }
 }

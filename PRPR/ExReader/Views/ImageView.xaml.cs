@@ -50,8 +50,6 @@ namespace PRPR.ExReader.Views
 
         private void BitmapImage_DownloadProgress(object sender, DownloadProgressEventArgs e)
         {
-            Debug.WriteLine(e.Progress);
-
             UpdateDownloadProcessBar(e.Progress);
         }
 

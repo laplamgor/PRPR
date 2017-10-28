@@ -80,8 +80,6 @@ namespace PRPR.BooruViewer.Views
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-
-
             IsConnectedAnimationPlayed = false;
 
 
@@ -534,10 +532,6 @@ namespace PRPR.BooruViewer.Views
                 e.Handled = true;
             }
         }
-
-        private void Background_ImageOpened(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }
