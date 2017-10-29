@@ -86,6 +86,8 @@ namespace PRPR.ExReader.Views
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+
+
             try
             {
                 // Load the gallery info
@@ -313,9 +315,22 @@ namespace PRPR.ExReader.Views
                 var index = (int)lastPageParameters["Page"];
 
 
-                // TODO: scroll into the index of last opened page
+                // Scroll into the index of last opened page
                 ItemsWrapPanel.ScrollIntoView((ItemsWrapPanel.ItemsSource as IList)[index], ScrollIntoViewAlignment.Default);
+
+                // Start the animation
+                ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ThumbImage");
+                if (animation != null)
+                {
+                    if (ItemsWrapPanel.ContainerFromIndex(index) is ContentControl container)
+                    {
+                        var root = (FrameworkElement)container.ContentTemplateRoot;
+                        var image = (UIElement)root.FindName("ThumbImage");
+                        animation.TryStart(image);
+                    }
+                }
             }
+            
         }
 
         public VisualState GetCurrentState(string stateGroupName)

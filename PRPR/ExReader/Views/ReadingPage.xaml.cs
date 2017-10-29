@@ -128,19 +128,12 @@ namespace PRPR.ExReader.Views
 
                 if (animation != null)
                 {
-                    animation.Completed += ((c, o) =>
-                    {
-                        animation = null;
-                    });
 
                     // Connect the animation to only the scrolling host of the flipview
                     // So the prev/next buttons will not be animationed
                     var grid = VisualTreeHelper.GetChild(flipView, 0) as Grid;
                     var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
-                    if (!animation.TryStart(scrollingHost as UIElement))
-                    {
-                        animation = null;
-                    }
+                    animation.TryStart(scrollingHost as UIElement);
                 }
             }
             catch (Exception ex)
@@ -159,6 +152,18 @@ namespace PRPR.ExReader.Views
                 e.PageState["Gid"] = this.ReadingViewModel.Gallery.Gid;
                 e.PageState["Link"] = this.ReadingViewModel.Gallery.Link;
                 e.PageState["Page"] = this.ReadingViewModel.CurrentImageIndex;
+            }
+
+            try
+            {
+                // Prepare backward connected animation
+                var grid = VisualTreeHelper.GetChild(flipView, 0) as Grid;
+                var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ThumbImage", scrollingHost as UIElement);
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
 

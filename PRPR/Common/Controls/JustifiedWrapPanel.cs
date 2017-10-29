@@ -309,7 +309,6 @@ namespace PRPR.Common.Controls
             return new Size(availableSize.Width, currentY);
         }
 
-
         protected override Size ArrangeOverride(Size finalSize)
         {
             double rowWidth = 0;
@@ -426,23 +425,11 @@ namespace PRPR.Common.Controls
                             ParentScrollViewer.ChangeView(null, GetPositionY(index), null, true);
                             break;
                     }
-
                 }
             }
-
-            
         }
-
-
-
-
-
-
-
-
-
-
-        double GetPositionY(int index)
+        
+        private double GetPositionY(int index)
         {
             double currentY = 0;
             
@@ -472,6 +459,19 @@ namespace PRPR.Common.Controls
                 return currentY;
             }
             return 0;
+        }
+
+
+        public DependencyObject ContainerFromIndex (int index)
+        {
+            if (ItemsSource is IList items)
+            {
+                return ContainerFromItem(items[index]);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
