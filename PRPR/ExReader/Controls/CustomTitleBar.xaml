@@ -93,7 +93,11 @@
         </Grid.ColumnDefinitions>
 
 
-        <Rectangle x:Name="BackgroundElement" Fill="Transparent" Grid.ColumnSpan="3" />
+        <Rectangle x:Name="BackgroundElement" Grid.ColumnSpan="3">
+            <Rectangle.Fill>
+                <AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
+            </Rectangle.Fill>
+        </Rectangle>
 
         <Button x:Name="BackButton" 
                 VerticalAlignment="Stretch"

@@ -85,15 +85,18 @@
                                             <DoubleAnimation Storyboard.TargetName="SelectedColorBar"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0"
-                                 To="1"/>
+                                 To="0"/>
                                             <DoubleAnimation Storyboard.TargetName="SelectedColorBar"
                                  Storyboard.TargetProperty="Height"
                                  Duration="0:0:0.0" EnableDependentAnimation="True"
-                                 To="48">
+                                 To="0">
                                                 <DoubleAnimation.EasingFunction>
                                                     <QuadraticEase EasingMode="EaseInOut"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentHighBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
                                             <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                         </Storyboard>
                                     </VisualState>
@@ -102,11 +105,11 @@
                                             <DoubleAnimation Storyboard.TargetName="MultiSelectCheck"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0:0:0"
-                                 To="1"/>
+                                 To="0"/>
                                             <DoubleAnimation Storyboard.TargetName="SelectedColorBar"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0"
-                                 To="1"/>
+                                 To="0"/>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentHighBrush}" />
                                             </ObjectAnimationUsingKeyFrames>
@@ -117,7 +120,7 @@
                                             <DoubleAnimation Storyboard.TargetName="MultiSelectCheck"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0:0:0"
-                                 To="1"/>
+                                 To="0"/>
                                             <DoubleAnimation Storyboard.TargetName="SelectedColorBar"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0"
@@ -132,7 +135,7 @@
                                             <DoubleAnimation Storyboard.TargetName="MultiSelectCheck"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0:0:0"
-                                 To="1"/>
+                                 To="0"/>
                                             <DoubleAnimation Storyboard.TargetName="SelectedColorBar"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0"
@@ -148,7 +151,7 @@
                                             <DoubleAnimation Storyboard.TargetName="MultiSelectCheck"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0:0:0"
-                                 To="1"/>
+                                 To="0"/>
                                             <DoubleAnimation Storyboard.TargetName="SelectedColorBar"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0"
@@ -156,7 +159,7 @@
                                             <DoubleAnimation Storyboard.TargetName="SelectedColorBar"
                                  Storyboard.TargetProperty="Height" EnableDependentAnimation="True"
                                  Duration="0:0:0.0"
-                                 To="48">
+                                 To="4">
                                                 <DoubleAnimation.EasingFunction>
                                                     <QuadraticEase EasingMode="EaseInOut"/>
                                                 </DoubleAnimation.EasingFunction>
@@ -333,9 +336,8 @@
                                 <Grid.RenderTransform>
                                     <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
                                 </Grid.RenderTransform>
-                                <Rectangle x:Name="SelectedColorBar" 
-                    IsHitTestVisible="False"
-                    Opacity="0" VerticalAlignment="Bottom" Height="48" Fill="{TemplateBinding BorderBrush}">
+                                <Rectangle x:Name="SelectedColorBar" IsHitTestVisible="False"
+                    Opacity="0" VerticalAlignment="Bottom" Height="4" Fill="{ThemeResource SystemControlHighlightListAccentHighBrush}">
                                     <!--<Rectangle.Fill>
 
                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

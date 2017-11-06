@@ -449,12 +449,11 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
-@"[30 October 2017] v1.7.0
+@"[7 November 2017] v1.7.0
 Yandere
 - 重製搜索列表
-- 改善背景虛化效果
+- 界面小改
 Ex
-- 重製搜索列表
 - 加入頁面過渡動畫
 "
 ,

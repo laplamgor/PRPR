@@ -222,6 +222,10 @@
 
 
         <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0">
+            <Grid.Background>
+                <!--<SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>-->
+                <AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
+            </Grid.Background>
 
             <TextBlock x:Name="CurrentHeaderTextBlock"  Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}" Foreground="White"/>
 

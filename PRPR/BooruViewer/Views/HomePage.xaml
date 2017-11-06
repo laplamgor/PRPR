@@ -416,7 +416,8 @@
               Margin="0,-40,0,0" Padding="0,40,0,0" 
                >
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
+                <!--<SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>-->
+                <AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
             </Grid.Background>
 
             <Grid.BorderBrush>
