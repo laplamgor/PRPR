@@ -137,14 +137,8 @@
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
                                                      Duration="0:0:0.0" To="1"/>
-
-
-
-
-
                     </Storyboard>
                 </VisualState>
-
                 <VisualStateGroup.Transitions>
                     <VisualTransition From="Low" To="Medium" GeneratedDuration="0:0:0.3">
                         <Storyboard>
@@ -152,7 +146,7 @@
                                                      Duration="0" To="1"/>
 
                             <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.3" From="0" To="1"/>
+                                                     Duration="0:0:0.0033" From="0" To="1"/>
 
                             <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
                                                      Duration="0" To="0"/>
@@ -168,12 +162,15 @@
                                                      Duration="0" To="1"/>
 
                             <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.3" From="0" To="1"/>
+                                                     Duration="0:0:0.0033" From="0" To="1"/>
                         </Storyboard>
                     </VisualTransition>
                 </VisualStateGroup.Transitions>
             </VisualStateGroup>
 
+            
+            
+            
             <VisualStateGroup x:Name="OverlayStates">
                 <VisualState x:Name="NoOverlay">
                     <Storyboard>
@@ -185,7 +182,7 @@
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DetailBlock" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.33" Value="Collapsed"/>
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0033" Value="Collapsed"/>
                         </ObjectAnimationUsingKeyFrames>
 
                         <DoubleAnimation Storyboard.TargetName="DetailBlock" Storyboard.TargetProperty="Height"

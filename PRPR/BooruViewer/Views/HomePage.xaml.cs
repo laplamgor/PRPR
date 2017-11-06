@@ -121,10 +121,13 @@ namespace PRPR.BooruViewer.Views
                             ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
                         };
                         HomeViewModel.BrowsePosts = s;
+                        BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+
                     }
                     else
                     {
                         HomeViewModel.BrowsePosts.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                        BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
 
                     }
                 }
@@ -153,6 +156,8 @@ namespace PRPR.BooruViewer.Views
                     ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
                 };
                 HomeViewModel.BrowsePosts = s;
+                BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+
             }
 
 
@@ -167,11 +172,7 @@ namespace PRPR.BooruViewer.Views
                 {
                     
                 }
-                var f = new ImageWallRows<Post>()
-                {
-                    ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter)
-                };
-                FavoriteWall.DataContext = f;
+                FavoritePanel.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
             }
         }
         
@@ -186,10 +187,29 @@ namespace PRPR.BooruViewer.Views
             
         }
 
-        
 
 
 
+
+        private void GridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var container = (sender as GridViewItem);
+            if (container != null)
+            {
+                var root = (FrameworkElement)container.ContentTemplateRoot;
+                var image = (UIElement)root.FindName("PreviewImage");
+
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+            }
+
+            // Add a fade out effect
+            Transitions = new TransitionCollection();
+            Transitions.Add(new ContentThemeTransition());
+
+
+            var post = (sender as GridViewItem).DataContext as Post;
+            this.Frame.Navigate(typeof(ImagePage), post.ToXml());
+        }
 
 
 
@@ -252,12 +272,7 @@ namespace PRPR.BooruViewer.Views
                 {
                     return;
                 }
-
-                var f = new ImageWallRows<Post>()
-                {
-                    ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter)
-                };
-                FavoriteWall.DataContext = f;
+                FavoritePanel.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
             }
         }
         
@@ -310,6 +325,7 @@ namespace PRPR.BooruViewer.Views
                 }
                 s.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
                 HomeViewModel.BrowsePosts = s;
+                BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
             }
             else
             {
@@ -323,6 +339,7 @@ namespace PRPR.BooruViewer.Views
 
                 }
                 HomeViewModel.BrowsePosts.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
             }
 
         }
@@ -432,6 +449,15 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[30 October 2017] v1.7.0
+Yandere
+- 重製搜索列表
+- 改善背景虛化效果
+Ex
+- 重製搜索列表
+- 加入頁面過渡動畫
+"
+,
 @"[28 October 2017] v1.6.0
 Yandere
 - 升級秋季創作者更新
@@ -641,8 +667,6 @@ Ex
                 });
             }
         }
-
-
 
     }
 }

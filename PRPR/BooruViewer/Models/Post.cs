@@ -227,7 +227,13 @@ width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" fram
             }
         }
 
-        public double PreferredRatio => throw new NotImplementedException();
+        public double PreferredRatio
+        {
+            get
+            {
+                return (double)Width / Height;
+            }
+        }
     }
 
 

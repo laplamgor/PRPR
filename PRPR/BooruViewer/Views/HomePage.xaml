@@ -3,10 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:Control="using:PRPR.ExReader.Controls"
+    xmlns:CommonControl="using:PRPR.Common.Controls"
     xmlns:CommonControls="using:PRPR.Common.Views.Controls"
     xmlns:Controls="using:PRPR.BooruViewer.Controls"
     xmlns:CommonConverters="using:PRPR.Common.Converters"
     xmlns:Converters="using:PRPR.BooruViewer.Converters"
+    xmlns:m="using:PRPR.BooruViewer.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:PRPR.BooruViewer.ViewModels"
@@ -377,6 +379,7 @@
         </Grid.RowDefinitions>
 
         <VisualStateManager.VisualStateGroups>
+
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
@@ -579,64 +582,91 @@
                 </Grid>
 
 
-                <CommonControls:ImageWall x:Name="BrowseWall" Grid.Row="1" Background="Transparent" DataContext="{Binding BrowsePosts}"
-                                HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0">
 
-                    <CommonControls:ImageWall.ItemTemplate>
-                        <DataTemplate>
-                            <UserControl>
-                                <Grid Height="{Binding DisplayHeight}" Width="{Binding DisplayWidth}" BorderThickness="0">
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup>
-                                            <VisualState>
-                                                <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="500" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Target="Back.Margin" Value="6"/>
-                                                    <Setter Target="Image.Margin" Value="6"/>
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState>
-                                                <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Target="Back.Margin" Value="2"/>
-                                                    <Setter Target="Image.Margin" Value="2"/>
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                        <VisualStateGroup x:Name="ImageStates">
-                                            <VisualState x:Name="ImageNotLoaded">
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="0"/>
-                                                </Storyboard>
-                                            </VisualState>
-                                            <VisualState x:Name="ImageLoaded">
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.2" To="1"/>
-                                                </Storyboard>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
-
-                                    <Rectangle x:Name="Back" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       Stretch="UniformToFill" Margin="2" Fill="{Binding Converter={StaticResource RandomGrayConverter}}"/>
-
-                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2" Opacity="0" BorderThickness="1">
-                                        <Border.BorderBrush>
-                                            <SolidColorBrush Color="#FF222222"/>
-                                        </Border.BorderBrush>
-                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding ItemSource.PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                                    </Border>
-                                </Grid>
-                            </UserControl>
-                        </DataTemplate>
-                    </CommonControls:ImageWall.ItemTemplate>
-                </CommonControls:ImageWall>
+                <UserControl Grid.Row="1">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="1200" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="BrowsePanel.RowHeight" Value="360"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="700" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="BrowsePanel.RowHeight" Value="300"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="500" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="BrowsePanel.RowHeight" Value="200"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="400" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="BrowsePanel.RowHeight" Value="150"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="0" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="BrowsePanel.RowHeight" Value="100"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ScrollViewer>
+                            <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4">
+                                <CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                    <DataTemplate x:DataType="m:Post">
+                                        <GridViewItem Tapped="GridViewItem_Tapped">
+                                            <Grid BorderThickness="0">
+                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Border.BorderBrush>
+                                                        <SolidColorBrush Color="#FF222222"/>
+                                                    </Border.BorderBrush>
+                                                    <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                                </Border>
+                                            </Grid>
+                                        </GridViewItem>
+                                    </DataTemplate>
+                                </CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                                    <Style TargetType="ContentControl">
+                                        <Setter Property="TabNavigation" Value="Once"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="Transitions">
+                                            <Setter.Value>
+                                                <TransitionCollection>
+                                                    <!--<AddDeleteThemeTransition/>-->
+                                                    <EntranceThemeTransition/>
+                                                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                                                </TransitionCollection>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                            </CommonControl:JustifiedWrapPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </UserControl>
             </Grid>
 
 
@@ -676,66 +706,92 @@
 
 
 
-                <CommonControls:ImageWall x:Name="FavoriteWall" Grid.Row="1" Background="Transparent" 
-                                    HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0">
-                    <CommonControls:ImageWall.ItemTemplate>
-                        <DataTemplate>
-                            <UserControl>
-                                <Grid Height="{Binding DisplayHeight}" Width="{Binding DisplayWidth}" BorderThickness="0" >
+                <UserControl Grid.Row="1">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="1200" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="FavoritePanel.RowHeight" Value="360"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="700" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="FavoritePanel.RowHeight" Value="300"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="500" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="FavoritePanel.RowHeight" Value="200"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="400" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="FavoritePanel.RowHeight" Value="150"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="0" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="FavoritePanel.RowHeight" Value="100"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ScrollViewer>
+                            <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4">
+                                <CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                    <DataTemplate x:DataType="m:Post">
+                                        <GridViewItem Tapped="GridViewItem_Tapped">
+                                            <Grid BorderThickness="0" >
+                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Border.BorderBrush>
+                                                        <SolidColorBrush Color="#FF222222"/>
+                                                    </Border.BorderBrush>
+                                                    <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                                </Border>
+                                            </Grid>
+                                        </GridViewItem>
+                                    </DataTemplate>
+                                </CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                                    <Style TargetType="ContentControl">
+                                        <Setter Property="TabNavigation" Value="Once"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="Transitions">
+                                            <Setter.Value>
+                                                <TransitionCollection>
+                                                    <!--<AddDeleteThemeTransition/>-->
+                                                    <EntranceThemeTransition/>
+                                                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                                                </TransitionCollection>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                            </CommonControl:JustifiedWrapPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </UserControl>
 
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup>
-                                            <VisualState>
-                                                <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="500" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Target="Back.Margin" Value="6"/>
-                                                    <Setter Target="Image.Margin" Value="6"/>
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState>
-                                                <VisualState.StateTriggers>
-                                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Target="Back.Margin" Value="2"/>
-                                                    <Setter Target="Image.Margin" Value="2"/>
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                        <VisualStateGroup x:Name="ImageStates">
-                                            <VisualState x:Name="ImageNotLoaded">
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="0"/>
-                                                </Storyboard>
-                                            </VisualState>
-                                            <VisualState x:Name="ImageLoaded">
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.2" To="1"/>
-                                                </Storyboard>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
 
-
-
-                                    <Rectangle x:Name="Back" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       Stretch="UniformToFill" Margin="2" Fill="{Binding Converter={StaticResource RandomGrayConverter}}"/>
-
-                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2" Opacity="0" BorderThickness="1">
-                                        <Border.BorderBrush>
-                                            <SolidColorBrush Color="#FF222222"/>
-                                        </Border.BorderBrush>
-                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding ItemSource.PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                                    </Border>
-                                </Grid>
-                            </UserControl>
-                        </DataTemplate>
-                    </CommonControls:ImageWall.ItemTemplate>
-                </CommonControls:ImageWall>
             </Grid>
 
 

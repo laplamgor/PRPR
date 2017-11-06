@@ -305,30 +305,38 @@ namespace PRPR.ExReader.Views
 
             UpdateDetailPanelState(true);
 
-
-
-            // Jump to the page item if this is a back button action
-            if (this.Frame.CanGoForward)
+            try
             {
-                var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
-                var lastPageParameters = frameState["Page-" + (this.Frame.BackStackDepth + 1)] as IDictionary<string, object>;
-                var index = (int)lastPageParameters["Page"];
 
-
-                // Scroll into the index of last opened page
-                ItemsWrapPanel.ScrollIntoView((ItemsWrapPanel.ItemsSource as IList)[index], ScrollIntoViewAlignment.Default);
-
-                // Start the animation
-                ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ThumbImage");
-                if (animation != null)
+                // Jump to the page item if this is a back button action
+                if (this.Frame.CanGoForward)
                 {
-                    if (ItemsWrapPanel.ContainerFromIndex(index) is ContentControl container)
+                    var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
+                    var lastPageParameters = frameState["Page-" + (this.Frame.BackStackDepth + 1)] as IDictionary<string, object>;
+                    var index = (int)lastPageParameters["Page"];
+
+                    // Scroll into the index of last opened page
+                    ItemsWrapPanel.ScrollIntoView((ItemsWrapPanel.ItemsSource as IList)[index], ScrollIntoViewAlignment.Default);
+                    
+                    ItemsWrapPanel.UpdateLayout();
+
+                    // Start the animation
+                    ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ThumbImage");
+                    if (animation != null)
                     {
-                        var root = (FrameworkElement)container.ContentTemplateRoot;
-                        var image = (UIElement)root.FindName("ThumbImage");
-                        animation.TryStart(image);
+                        if (ItemsWrapPanel.ContainerFromIndex(index) is ContentControl container)
+                        {
+                            var root = (FrameworkElement)container.ContentTemplateRoot;
+                            var image = (UIElement)root.FindName("ThumbImage");
+                            animation.TryStart(image);
+                        }
                     }
+
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
             
         }

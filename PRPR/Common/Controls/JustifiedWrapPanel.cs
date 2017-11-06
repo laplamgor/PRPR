@@ -40,8 +40,11 @@ namespace PRPR.Common.Controls
                 p.UpdateActiveRange(p.ParentScrollViewer.VerticalOffset, p.ParentScrollViewer.ViewportHeight, p.DesiredSize.Width - p.Margin.Left - p.Margin.Right, true);
                 Debug.WriteLine($"OnItemSourceChanged: New Range {p.FirstActive} ~ {p.LastActive}");
                 p.RevirtualizeAll();
-                //p.InvalidateMeasure();
-                //p.InvalidateArrange();
+
+                // It is necessary to force an UI refresh before handling the incremental loading
+                // The scrollable window size sticks with old item source
+                p.UpdateLayout();
+
                 await p.CheckNeedMoreItemAsync();
             }
         }
@@ -167,7 +170,7 @@ namespace PRPR.Common.Controls
 
             if (UpdateActiveRange(e.NextView.VerticalOffset, scrollViewer.ViewportHeight, this.DesiredSize.Width - this.Margin.Left - this.Margin.Right, false))
             {
-                Debug.WriteLine($"ParentScrollViewer_ViewChanging: New Range {FirstActive} ~ {LastActive}");
+                //Debug.WriteLine($"ParentScrollViewer_ViewChanging: New Range {FirstActive} ~ {LastActive}");
                 RevirtualizeAll();
             }
 
@@ -261,7 +264,6 @@ namespace PRPR.Common.Controls
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            Debug.WriteLine("MeasureOverride");
             // Update the parent ScrollViewer
             CheckParentUpdate();
 
@@ -435,7 +437,7 @@ namespace PRPR.Common.Controls
             
             if (ItemsSource is IList items)
             {
-                var maxRowWidth = this.DesiredSize.Width;
+                var maxRowWidth = this.DesiredSize.Width - this.Margin.Left - this.Margin.Right;
 
                 var maxRowRatio = maxRowWidth / RowHeight;
                 var currectRowRatio = 0.0;

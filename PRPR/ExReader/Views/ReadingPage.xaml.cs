@@ -76,6 +76,10 @@ namespace PRPR.ExReader.Views
             {
                 return this.DataContext as ReadingViewModel;
             }
+            set
+            {
+                this.DataContext = value;
+            }
         }
 
 
@@ -94,6 +98,7 @@ namespace PRPR.ExReader.Views
                 }
                 else
                 {
+                    this.ReadingViewModel = new ReadingViewModel();
                     this.ReadingViewModel.Gallery = await ExGallery.DownloadGalleryAsync(galleryLinkFromLastPage, 1, 3);
                 }
 
@@ -147,8 +152,6 @@ namespace PRPR.ExReader.Views
         {
             if (this.ReadingViewModel.Gallery != null)
             {
-                var s = this.Frame.GetNavigationState();
-
                 e.PageState["Gid"] = this.ReadingViewModel.Gallery.Gid;
                 e.PageState["Link"] = this.ReadingViewModel.Gallery.Link;
                 e.PageState["Page"] = this.ReadingViewModel.CurrentImageIndex;
@@ -156,10 +159,15 @@ namespace PRPR.ExReader.Views
 
             try
             {
+                var container = flipView.ContainerFromIndex(flipView.SelectedIndex) as FlipViewItem;
+                var imageView = container.ContentTemplateRoot as ImageView;
+                var srollViewer = ((imageView.Content as Grid).Children.First() as ScrollViewer);
+                var iamgeGrid = srollViewer.Content as Grid;
+               
                 // Prepare backward connected animation
                 var grid = VisualTreeHelper.GetChild(flipView, 0) as Grid;
                 var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
-                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ThumbImage", scrollingHost as UIElement);
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ThumbImage", iamgeGrid);
             }
             catch (Exception ex)
             {

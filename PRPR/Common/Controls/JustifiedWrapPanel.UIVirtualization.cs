@@ -116,7 +116,10 @@ namespace PRPR.Common.Controls
                 var itemsToRealize = new List<object>();
                 for (int i = FirstActive; i <= LastActive; i++)
                 {
-                    itemsToRealize.Add(items[i]);
+                    if (items.Count > i && i >= 0)
+                    {
+                        itemsToRealize.Add(items[i]);
+                    }
                 }
 
                 var containersToRelease = new List<ContentControl>();
