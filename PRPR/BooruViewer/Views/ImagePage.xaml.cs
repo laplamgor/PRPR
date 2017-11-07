@@ -254,7 +254,7 @@ namespace PRPR.BooruViewer.Views
                         animation = null;
                     });
 
-                    if (!animation.TryStart(PreviewImage))
+                    if (!animation.TryStart(Images))
                     {
                         animation = null;
                     }
