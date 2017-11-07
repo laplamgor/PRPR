@@ -5,6 +5,9 @@
     xmlns:local="using:PRPR.ExReader.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+
     mc:Ignorable="d"
     Height="{x:Bind CoreTitleBarHeight}"
     d:DesignHeight="32"
@@ -93,10 +96,10 @@
         </Grid.ColumnDefinitions>
 
 
-        <Rectangle x:Name="BackgroundElement" Grid.ColumnSpan="3">
-            <Rectangle.Fill>
-                <AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
-            </Rectangle.Fill>
+        <Rectangle x:Name="BackgroundElement" Grid.ColumnSpan="3" contract5Present:Fill="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <!--<contract5Present:Rectangle.Fill>
+                <contract5Present:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
+            </contract5Present:Rectangle.Fill>-->
         </Rectangle>
 
         <Button x:Name="BackButton" 

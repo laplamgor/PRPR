@@ -12,6 +12,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:PRPR.BooruViewer.ViewModels"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+
     x:Class="PRPR.BooruViewer.Views.HomePage"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
@@ -412,13 +415,14 @@
 
         </VisualStateManager.VisualStateGroups>
 
-        <Grid Grid.Row="0" 
-              Margin="0,-40,0,0" Padding="0,40,0,0" 
-               >
-            <Grid.Background>
-                <!--<SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>-->
-                <AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
-            </Grid.Background>
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" contract5Present:Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <contract5NotPresent:Grid.Background>
+                <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
+            </contract5NotPresent:Grid.Background>
+            <!--<contract5Present:Grid.Background>
+                <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
+                --><!--<contract5Present:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>--><!--
+            </contract5Present:Grid.Background>-->
 
             <Grid.BorderBrush>
                 <SolidColorBrush Color="White"/>
@@ -498,7 +502,7 @@
                     </Grid.Transitions>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
-                        <Button  Padding="12,0" VerticalAlignment="Stretch" Style="{StaticResource ButtonRevealStyle}">
+                        <Button  Padding="12,0" VerticalAlignment="Stretch" contract5Present:Style="{StaticResource ButtonRevealStyle}">
                             <StackPanel >
                                 <TextBlock Text="{x:Bind AppVersion}"/>
                                 <TextBlock Text="更新日誌"/>

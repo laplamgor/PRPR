@@ -6,6 +6,9 @@
     xmlns:controls="using:PRPR.BooruViewer.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+
     mc:Ignorable="d"
     d:DesignHeight="800"
     d:DesignWidth="500">
@@ -22,7 +25,7 @@
                 <TextBox x:Name="YandeUserNameTextBox" PlaceholderText="User Name" Margin="0,24,0,4" Width="300"/>
                 <PasswordBox x:Name="YandePasswordBox" PlaceholderText="Password" Margin="0,4" Width="300"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="Login" Click="LoginButton_Click" Style="{StaticResource ButtonRevealStyle}" Margin="4,4" HorizontalAlignment="Center"/>
+                    <Button Content="Login" Click="LoginButton_Click" contract5Present:Style="{StaticResource ButtonRevealStyle}" Margin="4,4" HorizontalAlignment="Center"/>
                     <HyperlinkButton Content="Register" Margin="4,4" NavigateUri="https://yande.re/user/signup"/>
                 </StackPanel>
             </StackPanel>

@@ -5,6 +5,9 @@
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     mc:Ignorable="d">
 
@@ -206,7 +209,7 @@
                     <TextBox x:Name="TileTextBox"  Text="{Binding LockscreenUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. landscape score:5.. order:random"/>
 
 
-                    <Button Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
+                    <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Filter" Margin="0,0,4,0"/>
                             <TextBlock Text="Filter"/>
@@ -218,7 +221,7 @@
                         <TextBox Text="{Binding LockscreenUpdateTaskTimeSpan, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="15-1440"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
                         <TextBlock Text="分鐘" VerticalAlignment="Center"/>
 
-                        <Button Style="{StaticResource ButtonRevealStyle}" Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
+                        <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
                     </StackPanel>
                     
                     <TextBlock MaxWidth="500" Margin="0,24,0,0" Text="如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙" HorizontalAlignment="Left" TextWrapping="Wrap"/>
@@ -228,7 +231,7 @@
                         <TextBlock Text="個搜索結果" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Button Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,24,0,0"/>
+                    <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,24,0,0"/>
 
                     <ToggleSwitch x:Name="AutoToggleSwitch" Header="自動於後台刷新鎖屏" Margin="0,24,0,0"
                                   IsOn="{Binding LockscreenUpdateTaskEnabled, Mode=TwoWay, Source={StaticResource YandeSettings}}"/>

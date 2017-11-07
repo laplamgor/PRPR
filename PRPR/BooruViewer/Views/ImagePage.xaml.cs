@@ -277,7 +277,7 @@ namespace PRPR.BooruViewer.Views
                         try
                         {
                             await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
-                            var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
+                            var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", false);
                         }
                         catch (Exception ex)
                         {
@@ -287,7 +287,7 @@ namespace PRPR.BooruViewer.Views
                 }
                 else
                 {
-                    var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", true);
+                    var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", false);
                 }
             }
             catch (Exception ex)
@@ -308,7 +308,7 @@ namespace PRPR.BooruViewer.Views
                         animation.Completed += (async (c, o) =>
                         {
                             await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
-                            var b = VisualStateManager.GoToState(CurrentImagePage, "High", true);
+                            var b = VisualStateManager.GoToState(CurrentImagePage, "High", false);
                         });
                     }
                     catch (Exception ex)
@@ -318,7 +318,7 @@ namespace PRPR.BooruViewer.Views
                 }
                 else
                 {
-                    var b = VisualStateManager.GoToState(CurrentImagePage, "High", true);
+                    var b = VisualStateManager.GoToState(CurrentImagePage, "High", false);
                 }
             }
             catch (Exception ex)
