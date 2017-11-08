@@ -82,40 +82,41 @@ namespace PRPR.ExReader.Views
             }
         }
 
-
+        bool readyForConnectedAnimation = false;
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             // Load Images
             try
             {
+                readyForConnectedAnimation = false;
                 var galleryLinkFromLastPage = QueryString.Parse(e.NavigationParameter as string)["link"];
 
                 // Get ExGallery
                 if (App.Current.Resources.ContainsKey("Gallery"))
                 {
-                    this.ReadingViewModel.Gallery = App.Current.Resources["Gallery"] as ExGallery;
+                    this.ReadingViewModel = new ReadingViewModel(App.Current.Resources["Gallery"] as ExGallery);
                 }
                 else
                 {
-                    this.ReadingViewModel = new ReadingViewModel();
-                    this.ReadingViewModel.Gallery = await ExGallery.DownloadGalleryAsync(galleryLinkFromLastPage, 1, 3);
+                    this.ReadingViewModel = new ReadingViewModel(await ExGallery.DownloadGalleryAsync(galleryLinkFromLastPage, 1, 3));
                 }
 
-                // Load all image item
-                var images = new ObservableCollection<ExImage>();
-                await this.ReadingViewModel.Gallery.LoadAllItemsAsync();
-                foreach (var item in this.ReadingViewModel.Gallery)
-                {
-                    images.Add(new ExImage() { Link = item.Link, Thumb = item.Thumb });
-                }
-                this.ReadingViewModel.Images = images;
 
                 // Jump to Page
-                var indexFromLastPage = int.Parse(QueryString.Parse(e.NavigationParameter as string)["page"]);
-                this.ReadingViewModel.CurrentImageIndex = indexFromLastPage;
+                indexFromLastPage = int.Parse(QueryString.Parse(e.NavigationParameter as string)["page"]);
 
-
+                if (this.ReadingViewModel.CurrentImageIndex != indexFromLastPage)
+                {
+                    readyForConnectedAnimation = true;
+                    this.ReadingViewModel.CurrentImageIndex = indexFromLastPage;
+                }
+                else
+                {
+                    // Handle the connected animation
+                    flipView.UpdateLayout();
+                    HandleConnectedAnimation();
+                }
             }
             catch (Exception ex)
             {
@@ -124,28 +125,8 @@ namespace PRPR.ExReader.Views
 
         }
 
+        int indexFromLastPage = -1;
 
-        private void HandleConnectedAnimation()
-        {
-            try
-            {
-                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ThumbImage");
-
-                if (animation != null)
-                {
-
-                    // Connect the animation to only the scrolling host of the flipview
-                    // So the prev/next buttons will not be animationed
-                    var grid = VisualTreeHelper.GetChild(flipView, 0) as Grid;
-                    var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
-                    animation.TryStart(scrollingHost as UIElement);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        } 
 
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
@@ -282,8 +263,61 @@ namespace PRPR.ExReader.Views
 
         private void CurrentReadingPage_Loaded(object sender, RoutedEventArgs e)
         {
-            // Handle the connected animation
-            HandleConnectedAnimation();
+            flipView.UpdateLayout();
+
+        }
+
+        private async void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Try to start connected animaton after the item picked from gallery page is loaded
+            flipView.UpdateLayout();
+            if (flipView.SelectedIndex == indexFromLastPage && readyForConnectedAnimation)
+            {
+                HandleConnectedAnimation();
+            }
+             
+
+            // If the current selected item is a dummy item
+            // Load the at least list til its index.
+            while (this.ReadingViewModel.Gallery.Count - 1 < flipView.SelectedIndex)
+            {
+                await this.ReadingViewModel.Gallery.LoadMoreItemsAsync((uint)(flipView.SelectedIndex - this.ReadingViewModel.Gallery.Count + 1));
+            }
+        }
+
+
+        private void HandleConnectedAnimation()
+        {
+            try
+            {
+                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ThumbImage");
+
+                if (animation != null)
+                {
+
+                    // Connect the animation to only the scrolling host of the flipview
+                    // So the prev/next buttons will not be animationed
+                    var grid = VisualTreeHelper.GetChild(flipView, 0) as Grid;
+                    var scrollingHost = (grid.Children.FirstOrDefault(o => o is ScrollViewer) as ScrollViewer);
+                    var i = flipView.SelectedIndex;
+                    if (indexFromLastPage != -1)
+                    {
+                        var c = flipView.ContainerFromIndex(indexFromLastPage) as FlipViewItem;
+                        var ctr = c.ContentTemplateRoot as ImageView;
+                        var g = ctr.Content as Grid;
+                        var s = g.Children.FirstOrDefault(o => o is ScrollViewer) as ScrollViewer;
+                        var gg = s.Content as Grid;
+                        if (animation.TryStart(gg as UIElement))
+                        {
+                            readyForConnectedAnimation = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

@@ -208,7 +208,7 @@ namespace PRPR.BooruViewer.Views
 
 
             var post = (sender as GridViewItem).DataContext as Post;
-            this.Frame.Navigate(typeof(ImagePage), post.ToXml());
+            this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
 
 
@@ -234,7 +234,7 @@ namespace PRPR.BooruViewer.Views
             
 
             var post = (e.ClickedItem as ImageWallItem<Post>).ItemSource;
-            this.Frame.Navigate(typeof(ImagePage), post.ToXml());
+            this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
         
 
@@ -449,6 +449,14 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[9 November 2017] v1.7.2
+Yandere
+- 向後兼容1703版本
+- 改善頁面過渡動畫流暢度
+Ex
+- ??
+"
+,
 @"[7 November 2017] v1.7.0
 Yandere
 - 重製搜索列表

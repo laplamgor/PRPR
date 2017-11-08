@@ -49,11 +49,11 @@
 
 
 
-        <FlipView x:Name="flipView" ItemsSource="{Binding Images}" SelectedIndex="{Binding CurrentImageIndex, Mode=TwoWay}" 
-                  FlowDirection="{Binding StartFromRightToLeft, Converter={StaticResource BoolToFlowDirection}, Source={StaticResource ExSettings}}">
+        <FlipView x:Name="flipView" ItemsSource="{Binding ImageViewModels}" SelectedIndex="{Binding CurrentImageIndex, Mode=TwoWay}" 
+                  FlowDirection="{Binding StartFromRightToLeft, Converter={StaticResource BoolToFlowDirection}, Source={StaticResource ExSettings}}" SelectionChanged="flipView_SelectionChanged">
             <FlipView.ItemTemplate>
                 <DataTemplate>
-                    <local:ImageView  Tapped="ScrollViewer_Tapped"/>
+                    <local:ImageView Tapped="ScrollViewer_Tapped"/>
                 </DataTemplate>
             </FlipView.ItemTemplate>
 

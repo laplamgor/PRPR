@@ -171,35 +171,6 @@ namespace PRPR.ExReader.Views
 
 
 
-        private void Image_ImageOpened(object sender, RoutedEventArgs e)
-        {
-            var i = sender as Image;
-
-            var b = i.Parent as Border;
-            if (b == null)
-            {
-                i.Opacity = 1;
-                return;
-            }
-
-            var g = b.Parent as Grid;
-            if (g == null)
-            {
-                i.Opacity = 1;
-                return;
-            }
-
-
-            var c = g.Parent as UserControl;
-            if (c == null)
-            {
-                i.Opacity = 1;
-                return;
-            }
-
-            VisualStateManager.GoToState(c, "ImageLoaded", true);
-        }
-
         
 
         const string EX_GALLERIES_FOLDER_NAME = "Gallery";
@@ -380,7 +351,7 @@ namespace PRPR.ExReader.Views
             }
 
 
-            this.Frame.Navigate(typeof(ReadingPage), q.ToString());
+            this.Frame.Navigate(typeof(ReadingPage), q.ToString(), new SuppressNavigationTransitionInfo());
         }
 
 

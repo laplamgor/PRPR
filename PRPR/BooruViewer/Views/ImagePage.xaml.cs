@@ -91,6 +91,29 @@ namespace PRPR.BooruViewer.Views
 
             try
             {
+                animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+
+                if (animation != null)
+                {
+                    animation.Completed += ((c, o) =>
+                    {
+                        animation = null;
+                    });
+
+                    if (!animation.TryStart(Images))
+                    {
+                        animation = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            try
+            {
                 var x = DisplayInformation.GetForCurrentView();
                 if (e.NavigationParameter != null)
                 {
@@ -243,27 +266,6 @@ namespace PRPR.BooruViewer.Views
         
         private void PreviewImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
-
-                if (animation != null)
-                {
-                    animation.Completed += ((c, o) =>
-                    {
-                        animation = null;
-                    });
-
-                    if (!animation.TryStart(Images))
-                    {
-                        animation = null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                
-            }
         }
 
         private void SampleImage_ImageOpened(object sender, RoutedEventArgs e)

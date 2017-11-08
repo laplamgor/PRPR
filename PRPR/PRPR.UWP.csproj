@@ -201,6 +201,7 @@
     <Compile Include="ExReader\ViewModels\GalleryListViewModel.cs" />
     <Compile Include="ExReader\ViewModels\GalleryViewModel.cs" />
     <Compile Include="ExReader\ViewModels\HomeViewModel.cs" />
+    <Compile Include="ExReader\ViewModels\ImageViewModel.cs" />
     <Compile Include="ExReader\ViewModels\MoreViewModel.cs" />
     <Compile Include="ExReader\ViewModels\ReadingViewModel.cs" />
     <Compile Include="ExReader\Views\AppShell.xaml.cs">

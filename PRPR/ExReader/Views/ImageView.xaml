@@ -31,7 +31,7 @@
 
                 <Image Stretch="Uniform" 
                        VerticalAlignment="Center" HorizontalAlignment="Center"
-                       Source="{Binding Thumb}" 
+                       Source="{Binding Image.Thumb}" 
                        RightTapped="Image_RightTapped" Holding="Image_Holding" 
                        FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}" Opacity="0.75"/>
 
@@ -42,7 +42,7 @@
                        RightTapped="Image_RightTapped" Holding="Image_Holding"
                        FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}">
                     <Image.Source>
-                        <BitmapImage UriSource="{Binding ImageSource}" DownloadProgress="BitmapImage_DownloadProgress"/>
+                        <BitmapImage UriSource="{Binding Image.ImageSource}" DownloadProgress="BitmapImage_DownloadProgress"/>
                     </Image.Source>
                 </Image>
 
