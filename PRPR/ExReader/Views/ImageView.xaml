@@ -35,7 +35,7 @@
                        RightTapped="Image_RightTapped" Holding="Image_Holding" 
                        FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}" Opacity="0.75"/>
 
-                <ProgressBar x:Name="ProcessBar" Width="300" Height="4"/>
+                <ProgressBar x:Name="ProcessBar" Width="300" Height="4" FlowDirection="LeftToRight"/>
 
                 <Image Stretch="Uniform"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
