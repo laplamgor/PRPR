@@ -449,12 +449,13 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
-@"[9 November 2017] v1.7.2
+@"[9 November 2017] v1.8.0
 Yandere
-- 向後兼容1703版本
+- 向後兼容1703版本WIN10
 - 改善頁面過渡動畫流暢度
 Ex
-- ??
+- 開始閱讀前不再需要加載全部圖片列表
+- 改善頁面過渡動畫流暢度
 "
 ,
 @"[7 November 2017] v1.7.0
@@ -477,7 +478,7 @@ Ex
 Yandere
 - 加入頁面過渡動畫
 Ex
-- 改良搜索列表介面
+- 改良搜索列表界面
 "
 ,
 @"[25 April 2017] v1.4.1
@@ -532,7 +533,7 @@ Yandere
 - 修正Bugs
 Ex
 - 修正Bugs
-- 新介面
+- 新界面
 "
 ,
 @"[9 April 2017] v0.45.0
@@ -540,7 +541,7 @@ Yandere
 - 修正Bugs
 Ex
 - 修正Bugs
-- 新介面
+- 新界面
 "
 ,
 @"[29 March 2017] v0.43.0
@@ -655,7 +656,7 @@ Yandere
 - 加入過濾隱藏貼圖的搜索選項
 Ex
 - 顯示更多圖集資料(語言)
-- 繼續改善介面
+- 繼續改善界面
 "
 ,
 @"[23 Sep 2016] v0.30.0
@@ -667,8 +668,8 @@ Yandere
 - 可按自己頭像查看自己在Yandere發的圖
 - 可按頭像外鏈到網頁改密碼
 Ex
-- 閱讀介面加入快速跳轉
-- 補一下介面上方工具欄跟yandere更一致
+- 閱讀界面加入快速跳轉
+- 補一下界面上方工具欄跟yandere更一致
 - 修正如果加載圖集失敗，返回再進不會重新加載
 "
                 });
