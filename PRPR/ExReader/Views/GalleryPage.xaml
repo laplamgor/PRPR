@@ -492,7 +492,7 @@
                                     <Setter.Value>
                                         <TransitionCollection>
                                             <!--<AddDeleteThemeTransition/>-->
-                                            <EntranceThemeTransition/>
+                                            <!--<EntranceThemeTransition/>-->
                                             <RepositionThemeTransition IsStaggeringEnabled="True"/>
                                         </TransitionCollection>
                                     </Setter.Value>
