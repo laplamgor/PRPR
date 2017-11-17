@@ -415,15 +415,7 @@
 
         </VisualStateManager.VisualStateGroups>
 
-        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" contract5Present:Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-            <contract5NotPresent:Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
-            </contract5NotPresent:Grid.Background>
-            <!--<contract5Present:Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
-                --><!--<contract5Present:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>--><!--
-            </contract5Present:Grid.Background>-->
-
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0">
             <Grid.BorderBrush>
                 <SolidColorBrush Color="White"/>
             </Grid.BorderBrush>
@@ -434,6 +426,13 @@
                     <EntranceThemeTransition FromVerticalOffset="0"/>
                 </TransitionCollection>
             </Grid.Transitions>
+
+            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
+            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
+                </Rectangle.Fill>
+            </contract5NotPresent:Rectangle>
 
             <TextBlock x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}" Foreground="White" Visibility="Collapsed"/>
 
@@ -618,18 +617,10 @@
                                 </VisualState>
                                 <VisualState>
                                     <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="400" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="BrowsePanel.RowHeight" Value="150"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
                                         <AdaptiveTrigger MinWindowWidth="0" />
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
-                                        <Setter Target="BrowsePanel.RowHeight" Value="100"/>
+                                        <Setter Target="BrowsePanel.RowHeight" Value="150"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -741,18 +732,10 @@
                                 </VisualState>
                                 <VisualState>
                                     <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="400" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="FavoritePanel.RowHeight" Value="150"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
                                         <AdaptiveTrigger MinWindowWidth="0" />
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
-                                        <Setter Target="FavoritePanel.RowHeight" Value="100"/>
+                                        <Setter Target="FavoritePanel.RowHeight" Value="150"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

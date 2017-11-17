@@ -110,27 +110,6 @@
                                                      Duration="0:0:0.0" To="1"/>
                     </Storyboard>
                 </VisualState>
-                <!--<VisualStateGroup.Transitions>
-                    <VisualTransition From="Low" To="Medium">
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.0" From="0" To="1"/>
-
-                            <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="0"/>
-                        </Storyboard>
-                    </VisualTransition>
-                    <VisualTransition From="Medium" To="High">
-
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="1"/>
-
-                            <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.0" From="0" To="1"/>
-                        </Storyboard>
-                    </VisualTransition>
-                </VisualStateGroup.Transitions>-->
             </VisualStateGroup>
 
             
@@ -288,20 +267,8 @@
                        Source="{Binding Post.PreviewUrl}">
                 </Image>
             </Grid>
-
-            <Rectangle contract5Present:Fill="{ThemeResource SystemControlAcrylicElementBrush}">
-                <contract5NotPresent:Rectangle.Fill>
-                    <SolidColorBrush Color="#AA7F7F7F"/>
-                </contract5NotPresent:Rectangle.Fill>
-            </Rectangle>
-            <!--<contract5Present:Rectangle>
-                <Rectangle.Fill>
-                    <AcrylicBrush 
-                        BackgroundSource="Backdrop" TintColor="#55888888"
-                        TintOpacity="0.1"
-                        FallbackColor="#FF7F7F7F"/>
-                </Rectangle.Fill>
-            </contract5Present:Rectangle>-->
+            <contract5Present:Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}" />
+            <contract5NotPresent:Rectangle Fill="#AA7F7F7F" />
         </Grid>
 
         <!--TitleBar-->
