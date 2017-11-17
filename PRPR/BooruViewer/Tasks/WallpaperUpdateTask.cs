@@ -47,7 +47,7 @@ namespace PRPR.BooruViewer.Tasks
                 yandeSettings.WallpaperUpdateTaskCurrentImageID = "";
 
                 // Set wallpaper
-                var result = await AnimePersonalization.SetBackgroundImageAsync(filteredPosts, shuffle, yandeSettings.WallpaperUpdateTaskCropMethod, appSettings.ScreenSize, false);
+                var result = await AnimePersonalization.SetBackgroundImageAsync(filteredPosts, shuffle, yandeSettings.WallpaperUpdateTaskCropMethod, appSettings.ScreenSize, false, yandeSettings.WallpaperUpdateTaskQuality);
 
                 // Notice the app that the wallpapaer was changed
                 yandeSettings.WallpaperUpdateTaskCurrentImageID = result;

@@ -617,8 +617,27 @@ namespace PRPR.BooruViewer.Models.Global
             }
         }
 
+        public int WallpaperUpdateTaskQuality
+        {
+            get
+            {
+                return GetValueOrDefault<int>(GetCallerName(), 0, false);
+            }
+            set
+            {
+                // Re-register the task if value changed
+                if (value != WallpaperUpdateTaskTimeSpan && WallpaperUpdateTaskEnabled)
+                {
+                    ReregisterTask(BackgroundTaskType.Wallpaper);
+                }
+
+                AddOrUpdateValue(GetCallerName(), value, false);
+            }
+        }
+
+
         #endregion
-        
+
 
 
         #region Lockscreen settings
@@ -800,6 +819,26 @@ namespace PRPR.BooruViewer.Models.Global
                 {
                     return (CropMethod)LockscreenUpdateTaskCropMethodIndex;
                 }
+            }
+        }
+
+
+
+        public int LockscreenUpdateTaskQuality
+        {
+            get
+            {
+                return GetValueOrDefault<int>(GetCallerName(), 0, false);
+            }
+            set
+            {
+                // Re-register the task if value changed
+                if (value != LockscreenUpdateTaskTimeSpan && LockscreenUpdateTaskEnabled)
+                {
+                    ReregisterTask(BackgroundTaskType.Lockscreen);
+                }
+
+                AddOrUpdateValue(GetCallerName(), value, false);
             }
         }
 

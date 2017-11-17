@@ -82,7 +82,7 @@ namespace PRPR.BooruViewer.Services
             }
         }
         
-        public static async Task<string> SetBackgroundImageAsync(FilteredCollection<Post, Posts> posts, uint postShuffle, CropMethod method, Size screenSize, bool isLockscreen)
+        public static async Task<string> SetBackgroundImageAsync(FilteredCollection<Post, Posts> posts, uint postShuffle, CropMethod method, Size screenSize, bool isLockscreen, int qualityLevel)
         {
             var folderName = isLockscreen ? LOCKSCREEN_FOLDER_NAME : WALLPAPER_FOLDER_NAME;
 
@@ -91,19 +91,49 @@ namespace PRPR.BooruViewer.Services
 
             var post = await GetPostAtAsync(posts, pointer);
             var previewBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(post.PreviewUrl));
-            var jpegBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(post.SampleUrl));
+            var largeBufferUrl = "";
+            int largeWidth = 0;
+            int largeHeight = 0;
+            switch (qualityLevel)
+            {
+                case 2:
+                    if (!String.IsNullOrEmpty(post.FileUrl))
+                    {
+                        largeBufferUrl = post.FileUrl;
+                        largeWidth = post.Width;
+                        largeHeight = post.Height;
+                    }
+                    else
+                    {
+                        largeBufferUrl = post.JpegUrl;
+                        largeWidth = post.JpegWidth;
+                        largeHeight = post.JpegHeight;
+                    }
+                    break;
+                case 1:
+                    largeBufferUrl = post.JpegUrl;
+                    largeWidth = post.JpegWidth;
+                    largeHeight = post.JpegHeight;
+                    break;
+                default:
+                    largeBufferUrl = post.SampleUrl;
+                    largeWidth = post.SampleWidth;
+                    largeHeight = post.SampleHeight;
+                    break;
+            }
+            var largeBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(largeBufferUrl));
 
 
             var imageFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
             var imageFile = await imageFolder.CreateFileAsync($"{post.Id}.jpg", CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteBufferAsync(imageFile, jpegBuffer);
+            await FileIO.WriteBufferAsync(imageFile, largeBuffer);
             var jpegFile = await imageFolder.CreateFileAsync($"{post.Id}-original.jpg", CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteBufferAsync(jpegFile, jpegBuffer);
+            await FileIO.WriteBufferAsync(jpegFile, largeBuffer);
 
 
 
             // Crop the image
-            var imageSize = new Size(post.SampleWidth, post.SampleHeight);
+            var imageSize = new Size(largeWidth, largeHeight);
             await CropImageFile(imageFile, imageSize, method, screenSize, previewBuffer);
 
             if (UserProfilePersonalizationSettings.IsSupported())

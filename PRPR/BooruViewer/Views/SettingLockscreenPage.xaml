@@ -241,6 +241,12 @@
                               Margin="0,24,0,0" IsEnabled="{Binding IsOn, ElementName=AutoToggleSwitch}"/>
 
 
+                    <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
+                    <TextBlock Text="圖片質量:"/>
+                    <ComboBox x:Name="QualityComboBox" SelectedIndex="{Binding LockscreenUpdateTaskQuality, Source={StaticResource YandeSettings}, Mode=TwoWay}">
+                        <ComboBoxItem Content="中"/>
+                        <ComboBoxItem Content="高"/>
+                    </ComboBox>
 
                     <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
 
