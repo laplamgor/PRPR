@@ -449,6 +449,15 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[18 November 2017] v1.9.1
+Yandere
+- 修正1703版本WIN10上的過渡動畫問題
+- 新增壁紙/鎖屏解析度設置
+- 加大列表縮圖大小
+Ex
+- 修正1703版本WIN10上的過渡動畫問題
+"
+,
 @"[9 November 2017] v1.8.0
 Yandere
 - 向後兼容1703版本WIN10

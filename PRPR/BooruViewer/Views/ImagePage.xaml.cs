@@ -73,6 +73,10 @@ namespace PRPR.BooruViewer.Views
             {
                 return this.DataContext as ImageViewModel;
             }
+            set
+            {
+                this.DataContext = value;
+            }
         }
 
 
@@ -83,40 +87,27 @@ namespace PRPR.BooruViewer.Views
             IsConnectedAnimationPlayed = false;
 
 
-            var b = VisualStateManager.GoToState(CurrentImagePage, "Low", true);
+            //var b = VisualStateManager.GoToState(CurrentImagePage, "Low", true);
             Debug.WriteLine("NavigationHelper_LoadState");
 
             // Reset the scroll and zoom of the image
             ImageScrollViewer.ZoomToFactor(1);
 
-            try
+
+
+            SampleImage.Visibility = Visibility.Collapsed;
+            JpegImage.Visibility = Visibility.Collapsed;
+
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
             {
-                animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
-
-                if (animation != null)
-                {
-                    animation.Completed += ((c, o) =>
-                    {
-                        animation = null;
-                    });
-
-                    if (!animation.TryStart(Images))
-                    {
-                        animation = null;
-                    }
-                }
+                HandleConnectedAnimation();
             }
-            catch (Exception ex)
-            {
-
-            }
-
 
             try
             {
-                var x = DisplayInformation.GetForCurrentView();
                 if (e.NavigationParameter != null)
                 {
+                    this.ImageViewModel = new ImageViewModel();
                     this.ImageViewModel.Post = Post.FromXml(e.NavigationParameter as string);
                     await ImageViewModel.UpdateIsFavorited();
                     this.ImageViewModel.Comments = await Comments.GetComments(this.ImageViewModel.Post.Id);
@@ -139,6 +130,32 @@ namespace PRPR.BooruViewer.Views
             }
         }
 
+        private void HandleConnectedAnimation()
+        {
+            try
+            {
+                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+
+                if (animation != null)
+                {
+                    animation.Completed += ((c, o) =>
+                    {
+                        SampleImage.Visibility = Visibility.Visible;
+                        JpegImage.Visibility = Visibility.Visible;
+                    });
+
+                    if (!animation.TryStart(PreviewImage))
+                    {
+                        SampleImage.Visibility = Visibility.Visible;
+                        JpegImage.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
         private async void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
@@ -266,67 +283,18 @@ namespace PRPR.BooruViewer.Views
         
         private void PreviewImage_ImageOpened(object sender, RoutedEventArgs e)
         {
+            if (!ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+                HandleConnectedAnimation();
+            }
         }
 
         private void SampleImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (animation != null)
-                {
-                    animation.Completed += (async (c, o) =>
-                    {
-                        try
-                        {
-                            await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
-                            var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", false);
-                        }
-                        catch (Exception ex)
-                        {
-
-                        }
-                    });
-                }
-                else
-                {
-                    var b = VisualStateManager.GoToState(CurrentImagePage, "Medium", false);
-                }
-            }
-            catch (Exception ex)
-            {
-                
-            }
-            
         }
 
         private void JpegImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (animation != null)
-                {
-                    try
-                    {
-                        animation.Completed += (async (c, o) =>
-                        {
-                            await Task.Delay(ConnectedAnimationService.GetForCurrentView().DefaultDuration);
-                            var b = VisualStateManager.GoToState(CurrentImagePage, "High", false);
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-                }
-                else
-                {
-                    var b = VisualStateManager.GoToState(CurrentImagePage, "High", false);
-                }
-            }
-            catch (Exception ex)
-            {
-                
-            }
         }
         
         
@@ -534,6 +502,10 @@ namespace PRPR.BooruViewer.Views
                 e.Handled = true;
             }
         }
-        
+
+        private void PreviewImage_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+
+        }
     }
 }

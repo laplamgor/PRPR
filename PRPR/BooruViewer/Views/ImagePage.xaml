@@ -71,48 +71,6 @@
 
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="QualityStates">
-                <VisualState x:Name="Low">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="0"/>
-                        
-                        <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="0"/>
-                    </Storyboard>
-                </VisualState>
-                <VisualState x:Name="Medium">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Storyboard.TargetName="SampleImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.0" To="1"/>
-
-
-                        <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="1"/>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-
-                    </Storyboard>
-                </VisualState>
-                <VisualState x:Name="High">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Storyboard.TargetName="JpegImage" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.0" To="1"/>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-
-            
             
             
             <VisualStateGroup x:Name="OverlayStates">
@@ -313,18 +271,17 @@
                     <Image x:Name="PreviewImage" Stretch="Uniform" 
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                            Source="{Binding Post.PreviewUrl}"
-                           ImageOpened="PreviewImage_ImageOpened"/>
+                           ImageOpened="PreviewImage_ImageOpened" ImageFailed="PreviewImage_ImageFailed"/>
 
-                    <Image x:Name="SampleImage" Stretch="Uniform" x:DeferLoadStrategy="Lazy"
+                    <Image x:Name="SampleImage" Stretch="Uniform"
                            VerticalAlignment="Center" HorizontalAlignment="Center" 
                            Source="{Binding Post.SampleUrl}"
-                           Opacity="0" ImageOpened="SampleImage_ImageOpened"/>
+                           ImageOpened="SampleImage_ImageOpened"/>
 
-                    <Image x:Name="JpegImage" Stretch="Uniform" x:DeferLoadStrategy="Lazy"
+                    <Image x:Name="JpegImage" Stretch="Uniform"
                            VerticalAlignment="Center" HorizontalAlignment="Center" 
                            Source="{Binding Post.JpegUrl}"
-                           Opacity="0"
-                           Visibility="Collapsed" ImageOpened="JpegImage_ImageOpened"/>
+                           ImageOpened="JpegImage_ImageOpened"/>
 
 
 

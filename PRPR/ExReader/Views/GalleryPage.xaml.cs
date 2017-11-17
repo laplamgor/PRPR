@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -334,14 +335,28 @@ namespace PRPR.ExReader.Views
 
             // Navigate to image page
             App.Current.Resources["Gallery"] = this.GalleryViewModel.Gallery;
-            
+
             var q = new QueryString
             {
                 { "link", this.GalleryViewModel.Gallery.Link },
                 { "page", $"{this.GalleryViewModel.Gallery.IndexOf(item)}" }
             };
+            PrepareConnectedAnimation(sender as GridViewItem);
 
-            var container = (sender as GridViewItem);
+            this.Frame.Navigate(typeof(ReadingPage), q.ToString(), new SuppressNavigationTransitionInfo());
+        }
+
+        private void PrepareConnectedAnimation(GridViewItem item)
+        {
+            // Pre-fall creator has different image loading order
+            // unable to share same connected animation code without breaking the UI
+            if (!ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+                return;
+            }
+
+
+            var container = (item);
             if (container != null)
             {
                 var root = (FrameworkElement)container.ContentTemplateRoot;
@@ -349,16 +364,7 @@ namespace PRPR.ExReader.Views
 
                 ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ThumbImage", image);
             }
-
-
-            this.Frame.Navigate(typeof(ReadingPage), q.ToString(), new SuppressNavigationTransitionInfo());
         }
-
-
-
-
-
-
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {

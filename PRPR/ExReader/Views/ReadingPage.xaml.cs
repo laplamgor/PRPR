@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
@@ -86,6 +87,7 @@ namespace PRPR.ExReader.Views
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+
             // Load Images
             try
             {
@@ -288,6 +290,13 @@ namespace PRPR.ExReader.Views
 
         private void HandleConnectedAnimation()
         {
+            // Pre-fall creator has different image loading order
+            // unable to share same connected animation code without breaking the UI
+            if (!ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+                return;
+            }
+
             try
             {
                 var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("ThumbImage");
