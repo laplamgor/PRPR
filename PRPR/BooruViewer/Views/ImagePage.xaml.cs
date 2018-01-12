@@ -374,19 +374,28 @@ namespace PRPR.BooruViewer.Views
         void RefreshTagsWrapBlock(Panel tagsWrapPanel)
         {
             tagsWrapPanel.Children.Clear();
-            var groupedTags = this.ImageViewModel.Post.TagItems.GroupBy(o => o.Type);
-            foreach (var group in groupedTags)
+            var post = this.ImageViewModel.Post;
+            if (post != null)
             {
-                var gOrdered = group.OrderBy(o => o.Name.Length);
-                foreach (var item in gOrdered)
+                var groupedTags = this.ImageViewModel.Post.TagItems.GroupBy(o => o.Type);
+                foreach (var group in groupedTags)
                 {
-                    var button = new ContentControl() {
-                        ContentTemplate = this.Resources["TagButtonTemplate"] as DataTemplate,
-                        DataContext = item,
-                        Transitions = new TransitionCollection { new RepositionThemeTransition() }
-                    };
-                    tagsWrapPanel.Children.Add(button);
+                    var gOrdered = group.OrderBy(o => o.Name.Length);
+                    foreach (var item in gOrdered)
+                    {
+                        var button = new ContentControl()
+                        {
+                            ContentTemplate = this.Resources["TagButtonTemplate"] as DataTemplate,
+                            DataContext = item,
+                            Transitions = new TransitionCollection { new RepositionThemeTransition() }
+                        };
+                        tagsWrapPanel.Children.Add(button);
+                    }
                 }
+            }
+            else
+            {
+
             }
         }
         

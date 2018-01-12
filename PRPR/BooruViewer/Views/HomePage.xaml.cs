@@ -449,6 +449,14 @@ namespace PRPR.BooruViewer.Views
             get
             {
                 return new ObservableCollection<string>(new string[] {
+@"[18 Jan 2017] v1.10.0
+Yandere
+- 修正一部份閃退問題
+- 加入英語支持
+Ex
+- 123456
+"
+,
 @"[18 November 2017] v1.9.1
 Yandere
 - 修正1703版本WIN10上的過渡動畫問題
