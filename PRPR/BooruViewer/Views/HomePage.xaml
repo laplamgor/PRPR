@@ -415,17 +415,11 @@
 
         </VisualStateManager.VisualStateGroups>
 
-        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0">
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" EntranceNavigationTransitionInfo.IsTargetElement="False">
             <Grid.BorderBrush>
                 <SolidColorBrush Color="White"/>
             </Grid.BorderBrush>
 
-            <Grid.Transitions>
-                <TransitionCollection>
-                    <!--<EdgeUIThemeTransition/>-->
-                    <EntranceThemeTransition FromVerticalOffset="0"/>
-                </TransitionCollection>
-            </Grid.Transitions>
 
             <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
             <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
@@ -478,334 +472,348 @@
         </Grid>
 
 
-        <FlipView x:Name="FlipView" Grid.Row="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" >
-            <FlipView.Style>
-                <StaticResource ResourceKey="FlipViewStyle1"/>
-            </FlipView.Style>
+        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="True" Style="{StaticResource PivotStyleNoHeader}" x:Name="FlipView" Grid.Row="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" >
+            
+            <Pivot.Resources>
+                <DataTemplate x:Key="EmptyHeaderTemplate">
+                    <Grid />
+                </DataTemplate>
+            </Pivot.Resources>
+            <Pivot.HeaderTemplate>
+                <StaticResource ResourceKey="EmptyHeaderTemplate" />
+            </Pivot.HeaderTemplate>
+
             <!--Feature-->
-            <Grid x:Name="FeatureRoot">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <PivotItem Margin="0">
+                <Grid x:Name="FeatureRoot">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                      BorderThickness="0,0,0,1" 
-                      BorderBrush="#FF444444" 
-                      Background="#FF222222"
-                       >
-                    <Grid.Transitions>
-                        <TransitionCollection>
-                            <EdgeUIThemeTransition/>
-                        </TransitionCollection>
-                    </Grid.Transitions>
+                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
+                          BorderThickness="0,0,0,1" 
+                          BorderBrush="#FF444444" 
+                          Background="#FF222222"
+                           >
+                        <Grid.Transitions>
+                            <TransitionCollection>
+                                <EdgeUIThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.Transitions>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
-                        <Button  Padding="12,0" VerticalAlignment="Stretch" contract5Present:Style="{StaticResource ButtonRevealStyle}">
-                            <StackPanel >
-                                <TextBlock Text="{x:Bind AppVersion}"/>
-                                <TextBlock x:Uid="/BooruHomePage/TextBlockPatchNotes" Text="更新日誌"/>
-                            </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
+                            <Button  Padding="12,0" VerticalAlignment="Stretch" contract5Present:Style="{StaticResource ButtonRevealStyle}">
+                                <StackPanel >
+                                    <TextBlock Text="{x:Bind AppVersion}"/>
+                                    <TextBlock x:Uid="/BooruHomePage/TextBlockPatchNotes" Text="更新日誌"/>
+                                </StackPanel>
 
-                            <Button.Flyout>
-                                <Flyout>
-                                    <Flyout.FlyoutPresenterStyle>
-                                        <Style TargetType="FlyoutPresenter">
-                                            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-                                            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-                                            <Setter Property="Padding" Value="0"/>
-                                        </Style>
-                                    </Flyout.FlyoutPresenterStyle>
+                                <Button.Flyout>
+                                    <Flyout>
+                                        <Flyout.FlyoutPresenterStyle>
+                                            <Style TargetType="FlyoutPresenter">
+                                                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                                                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                                                <Setter Property="Padding" Value="0"/>
+                                            </Style>
+                                        </Flyout.FlyoutPresenterStyle>
 
-                                    <ListView x:Name="DevLogsListView" SelectionMode="None" ItemsSource="{x:Bind UpdateNotes}">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextWrapping="Wrap" Margin="0,12" Text="{Binding}" />
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                </Flyout>
-                            </Button.Flyout>
-                        </Button>
-                    </StackPanel>
+                                        <ListView x:Name="DevLogsListView" SelectionMode="None" ItemsSource="{x:Bind UpdateNotes}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap" Margin="0,12" Text="{Binding}" />
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
 
 
-                    <AppBarButton Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
+                        <AppBarButton Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1">
+                        <local:FeatureView x:Name="FeatureView"/>
+                    </ScrollViewer>
+
                 </Grid>
-
-                <ScrollViewer Grid.Row="1">
-                    <local:FeatureView x:Name="FeatureView"/>
-                </ScrollViewer>
-
-            </Grid>
+            </PivotItem>
 
             <!--Image Search List-->
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <PivotItem  Margin="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
 
 
-                <Grid x:Name="BrowseTopSearchBar" Grid.RowSpan="1" Height="48"  
-                      VerticalAlignment="Top" HorizontalAlignment="Stretch"
-                      BorderThickness="0,0,0,1" 
-                      BorderBrush="#FF444444" 
-                      Background="#FF222222">
-                    <Grid.Transitions>
-                        <TransitionCollection>
-                            <EdgeUIThemeTransition/>
-                        </TransitionCollection>
-                    </Grid.Transitions>
+                    <Grid x:Name="BrowseTopSearchBar" Grid.RowSpan="1" Height="48"  
+                          VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                          BorderThickness="0,0,0,1" 
+                          BorderBrush="#FF444444" 
+                          Background="#FF222222">
+                        <Grid.Transitions>
+                            <TransitionCollection>
+                                <EdgeUIThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.Transitions>
 
-                    <AppBarButton x:Name="FilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Click="FilterButton_Click" >
-                    </AppBarButton>
+                        <AppBarButton x:Name="FilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Click="FilterButton_Click" >
+                        </AppBarButton>
 
-                    <AutoSuggestBox x:Name="SearchBox" 
-                                    QuerySubmitted="SearchBox_QuerySubmitted" QueryIcon="Find" 
-                                    TextChanged="SearchBox_TextChanged" 
-                                    VerticalAlignment="Center" Margin="52,0,4,0" 
-                                    FontSize="18" VerticalContentAlignment="Center" Height="40" 
-                                    Loaded="SearchBox_Loaded" Unloaded="SearchBox_Unloaded"
-                                    Style="{StaticResource AutoSuggestBoxStyle1}" SuggestionChosen="SearchBox_SuggestionChosen" >
-                        <AutoSuggestBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Padding="8" Orientation="Horizontal" Margin="0,4">
+                        <AutoSuggestBox x:Name="SearchBox" 
+                                        QuerySubmitted="SearchBox_QuerySubmitted" QueryIcon="Find" 
+                                        TextChanged="SearchBox_TextChanged" 
+                                        VerticalAlignment="Center" Margin="52,0,4,0" 
+                                        FontSize="18" VerticalContentAlignment="Center" Height="40" 
+                                        Loaded="SearchBox_Loaded" Unloaded="SearchBox_Unloaded"
+                                        Style="{StaticResource AutoSuggestBoxStyle1}" SuggestionChosen="SearchBox_SuggestionChosen" >
+                            <AutoSuggestBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Padding="8" Orientation="Horizontal" Margin="0,4">
 
-                                    <StackPanel.Background>
-                                        <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
-                                    </StackPanel.Background>
+                                        <StackPanel.Background>
+                                            <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
+                                        </StackPanel.Background>
 
-                                    <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}"/>
-                                    <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </AutoSuggestBox.ItemTemplate>
-                    </AutoSuggestBox>
-                </Grid>
-
-
-
-                <UserControl Grid.Row="1">
-                    <Grid>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="1200" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="BrowsePanel.RowHeight" Value="360"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="700" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="BrowsePanel.RowHeight" Value="300"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="500" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="BrowsePanel.RowHeight" Value="200"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="0" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="BrowsePanel.RowHeight" Value="150"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <ScrollViewer>
-                            <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4">
-                                <CommonControl:JustifiedWrapPanel.ItemTemplate>
-                                    <DataTemplate x:DataType="m:Post">
-                                        <GridViewItem Tapped="GridViewItem_Tapped">
-                                            <Grid BorderThickness="0">
-                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                    <Border.BorderBrush>
-                                                        <SolidColorBrush Color="#FF222222"/>
-                                                    </Border.BorderBrush>
-                                                    <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                                                </Border>
-                                            </Grid>
-                                        </GridViewItem>
-                                    </DataTemplate>
-                                </CommonControl:JustifiedWrapPanel.ItemTemplate>
-                                <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                                    <Style TargetType="ContentControl">
-                                        <Setter Property="TabNavigation" Value="Once"/>
-                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                                        <Setter Property="Transitions">
-                                            <Setter.Value>
-                                                <TransitionCollection>
-                                                    <!--<AddDeleteThemeTransition/>-->
-                                                    <EntranceThemeTransition/>
-                                                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
-                                                </TransitionCollection>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                            </CommonControl:JustifiedWrapPanel>
-                        </ScrollViewer>
+                                        <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}"/>
+                                        <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </AutoSuggestBox.ItemTemplate>
+                        </AutoSuggestBox>
                     </Grid>
-                </UserControl>
-            </Grid>
+
+
+
+                    <UserControl Grid.Row="1">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="1200" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="BrowsePanel.RowHeight" Value="360"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="700" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="BrowsePanel.RowHeight" Value="300"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="500" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="BrowsePanel.RowHeight" Value="200"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="BrowsePanel.RowHeight" Value="150"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ScrollViewer>
+                                <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4">
+                                    <CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                        <DataTemplate x:DataType="m:Post">
+                                            <GridViewItem Tapped="GridViewItem_Tapped">
+                                                <Grid BorderThickness="0">
+                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Border.BorderBrush>
+                                                            <SolidColorBrush Color="#FF222222"/>
+                                                        </Border.BorderBrush>
+                                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                                    </Border>
+                                                </Grid>
+                                            </GridViewItem>
+                                        </DataTemplate>
+                                    </CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                    <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                                        <Style TargetType="ContentControl">
+                                            <Setter Property="TabNavigation" Value="Once"/>
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="Transitions">
+                                                <Setter.Value>
+                                                    <TransitionCollection>
+                                                        <!--<AddDeleteThemeTransition/>-->
+                                                        <EntranceThemeTransition/>
+                                                        <!--<RepositionThemeTransition IsStaggeringEnabled="False"/>-->
+                                                    </TransitionCollection>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                                </CommonControl:JustifiedWrapPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </UserControl>
+                </Grid>
+            </PivotItem>
 
 
             <!--Favorited Image List-->
-            <Grid HorizontalAlignment="Stretch">
+            <PivotItem  Margin="0">
+                <Grid HorizontalAlignment="Stretch">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                      BorderThickness="0,0,0,1" 
-                      BorderBrush="#FF444444"
-                      Background="#FF222222">
-                    <Grid.Transitions>
-                        <TransitionCollection>
-                            <EdgeUIThemeTransition/>
-                        </TransitionCollection>
-                    </Grid.Transitions>
-                    
-                    <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="12,0">
-                        <TextBlock Text="Sorting(Coming soon):" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <ComboBox VerticalAlignment="Center" SelectedIndex="0">
-                            <TextBlock Text="Favorite Date"/>
-                            <!--<TextBlock Text="Favorite Date (Ord First)"/>
-                            <TextBlock Text="Post Date (New Firts)"/>
-                            <TextBlock Text="Post Date (Ord First)"/>-->
-                        </ComboBox>
-                    </StackPanel>
+                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
+                          BorderThickness="0,0,0,1" 
+                          BorderBrush="#FF444444"
+                          Background="#FF222222">
+                        <Grid.Transitions>
+                            <TransitionCollection>
+                                <EdgeUIThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.Transitions>
 
-                    <AppBarButton  x:Name="FavoriteRefreshButton" Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="FavoriteRefreshButton_Click" >
-                    </AppBarButton>
+                        <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="12,0">
+                            <TextBlock Text="Sorting(Coming soon):" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <ComboBox VerticalAlignment="Center" SelectedIndex="0">
+                                <TextBlock Text="Favorite Date"/>
+                                <!--<TextBlock Text="Favorite Date (Ord First)"/>
+                                <TextBlock Text="Post Date (New Firts)"/>
+                                <TextBlock Text="Post Date (Ord First)"/>-->
+                            </ComboBox>
+                        </StackPanel>
+
+                        <AppBarButton  x:Name="FavoriteRefreshButton" Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="FavoriteRefreshButton_Click" >
+                        </AppBarButton>
+
+                    </Grid>
+
+
+
+
+                    <UserControl Grid.Row="1">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="1200" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="FavoritePanel.RowHeight" Value="360"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="700" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="FavoritePanel.RowHeight" Value="300"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="500" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="FavoritePanel.RowHeight" Value="200"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="FavoritePanel.RowHeight" Value="150"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ScrollViewer>
+                                <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4">
+                                    <CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                        <DataTemplate x:DataType="m:Post">
+                                            <GridViewItem Tapped="GridViewItem_Tapped">
+                                                <Grid BorderThickness="0" >
+                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Border.BorderBrush>
+                                                            <SolidColorBrush Color="#FF222222"/>
+                                                        </Border.BorderBrush>
+                                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                                    </Border>
+                                                </Grid>
+                                            </GridViewItem>
+                                        </DataTemplate>
+                                    </CommonControl:JustifiedWrapPanel.ItemTemplate>
+                                    <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                                        <Style TargetType="ContentControl">
+                                            <Setter Property="TabNavigation" Value="Once"/>
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="Transitions">
+                                                <Setter.Value>
+                                                    <TransitionCollection>
+                                                        <!--<AddDeleteThemeTransition/>-->
+                                                        <EntranceThemeTransition/>
+                                                        <!--<RepositionThemeTransition IsStaggeringEnabled="False"/>-->
+                                                    </TransitionCollection>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                                </CommonControl:JustifiedWrapPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </UserControl>
+
 
                 </Grid>
-
-
-
-
-                <UserControl Grid.Row="1">
-                    <Grid>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="1200" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="FavoritePanel.RowHeight" Value="360"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="700" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="FavoritePanel.RowHeight" Value="300"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="500" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="FavoritePanel.RowHeight" Value="200"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState>
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="0" />
-                                    </VisualState.StateTriggers>
-                                    <VisualState.Setters>
-                                        <Setter Target="FavoritePanel.RowHeight" Value="150"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <ScrollViewer>
-                            <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4">
-                                <CommonControl:JustifiedWrapPanel.ItemTemplate>
-                                    <DataTemplate x:DataType="m:Post">
-                                        <GridViewItem Tapped="GridViewItem_Tapped">
-                                            <Grid BorderThickness="0" >
-                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                    <Border.BorderBrush>
-                                                        <SolidColorBrush Color="#FF222222"/>
-                                                    </Border.BorderBrush>
-                                                    <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                                                </Border>
-                                            </Grid>
-                                        </GridViewItem>
-                                    </DataTemplate>
-                                </CommonControl:JustifiedWrapPanel.ItemTemplate>
-                                <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                                    <Style TargetType="ContentControl">
-                                        <Setter Property="TabNavigation" Value="Once"/>
-                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                                        <Setter Property="Transitions">
-                                            <Setter.Value>
-                                                <TransitionCollection>
-                                                    <!--<AddDeleteThemeTransition/>-->
-                                                    <EntranceThemeTransition/>
-                                                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
-                                                </TransitionCollection>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                            </CommonControl:JustifiedWrapPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </UserControl>
-
-
-            </Grid>
-
+            </PivotItem>
 
             <!--More items-->
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <PivotItem  Margin="0">
+                <Grid >
+                    <!--<Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                      BorderThickness="0,0,0,1" 
-                      BorderBrush="#FF444444"
-                      Background="#FF222222">
-                    <Grid.Transitions>
-                        <TransitionCollection>
-                            <EdgeUIThemeTransition Edge="Top"/>
-                        </TransitionCollection>
-                    </Grid.Transitions>
+                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
+                          BorderThickness="0,0,0,1" 
+                          BorderBrush="#FF444444"
+                          Background="#FF222222">
+                        <Grid.Transitions>
+                            <TransitionCollection>
+                                <EdgeUIThemeTransition Edge="Top"/>
+                            </TransitionCollection>
+                        </Grid.Transitions>
+                    </Grid>-->
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <local:AccountView/>
+                    </ScrollViewer>
                 </Grid>
-
-                <ScrollViewer Grid.Row="1">
-                    <local:AccountView/>
-                </ScrollViewer>
-            </Grid>
-        </FlipView>
+            </PivotItem>
+        </Pivot>
 
     </Grid>
 </Page>

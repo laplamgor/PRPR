@@ -274,56 +274,45 @@
 
         </Grid>
 
-        <FlipView Grid.Row="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}">
-            <FlipView.Style>
-                <StaticResource ResourceKey="FlipViewStyle1"/>
-            </FlipView.Style>
-            <Grid>
-                <local:GalleryListView x:Name="GalleryListView"/>
-            </Grid>
-            <Grid Background="Gray">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                    BorderThickness="0,0,0,1" 
-                    BorderBrush="#FF444444"
-                    Background="#FF222222">
 
+
+        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="True" Style="{StaticResource PivotStyleNoHeader}" Grid.Row="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}">
+            <Pivot.Resources>
+                <DataTemplate x:Key="EmptyHeaderTemplate">
+                    <Grid />
+                </DataTemplate>
+            </Pivot.Resources>
+            <Pivot.HeaderTemplate>
+                <StaticResource ResourceKey="EmptyHeaderTemplate" />
+            </Pivot.HeaderTemplate>
+
+
+            <PivotItem  Margin="0">
+                <Grid>
+                    <local:GalleryListView x:Name="GalleryListView"/>
                 </Grid>
-                <local:FavoriteListView Grid.Row="1"/>
+            </PivotItem>
 
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                    BorderThickness="0,0,0,1" 
-                    BorderBrush="#FF444444"
-                    Background="#FF222222">
-
+            <PivotItem  Margin="0">
+                <Grid Background="Gray">
+                    <local:FavoriteListView Grid.Row="1"/>
                 </Grid>
-                <TextBlock Grid.Row="1" Text="未動工"/>
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            </PivotItem>
 
-                <Grid Grid.Row="0" Height="48" VerticalAlignment="Top" 
-                    BorderThickness="0,0,0,1" 
-                    BorderBrush="#FF444444"
-                    Background="#FF222222">
+            <PivotItem  Margin="0">
+                <Grid>
+                    <TextBlock Text="未動工"/>
                 </Grid>
-                
-                <local:MoreView Grid.Row="1"/>
-            </Grid>
-        </FlipView>
+            </PivotItem>
+
+
+            <PivotItem  Margin="0">
+                <Grid>
+                    <local:MoreView Grid.Row="1"/>
+                </Grid>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>
