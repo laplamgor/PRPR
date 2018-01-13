@@ -501,7 +501,7 @@
                         <GradientStop Color="#FF000000" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <TextBlock x:Name="TopTodayHeader" Text="本日熱門" Margin="24,0" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0"/>
+                <TextBlock x:Uid="/BooruFeatureView/TextBlockTopToday"  x:Name="TopTodayHeader" Text="本日熱門" Margin="24,0" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0"/>
             </Grid>
             <Grid x:Name="TodayGrid" Height="640" Padding="42,0,42,6" Margin="0,0,0,0">
                 <Grid.ColumnDefinitions>
@@ -574,7 +574,7 @@
                             <GradientStop Color="#FF000000" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <TextBlock x:Name="TagsHeader" Text="推薦標籤" Margin="24,12" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0" Foreground="White"/>
+                    <TextBlock x:Uid="/BooruFeatureView/TextBlockSuggestedTags" x:Name="TagsHeader" Text="推薦標籤" Margin="24,12" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0" Foreground="White"/>
                 </Grid>
 
                 <Grid x:Name="Tags" Margin="36,0,36,0" HorizontalAlignment="Stretch">

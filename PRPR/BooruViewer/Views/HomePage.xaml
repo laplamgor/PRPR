@@ -216,7 +216,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="MenuFlyoutSubItem_Tapped">
                     <Grid>
-                        <TextBlock Text="評級" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatingItem" Text="評級" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -231,7 +231,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="長闊比" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatioItem" Text="長闊比" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -245,7 +245,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterHiddenPostsListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHiddenItem"  Text="隱藏圖片" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -275,7 +275,7 @@
                 </StackPanel.Transitions>
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatingItem"  Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                                   Glyph="&#xE0E2;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -287,13 +287,13 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox Content="Safe" IsChecked="{Binding SearchPostFilter.IsFilterSafe, Mode=TwoWay}" 
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding SearchPostFilter.IsFilterSafe, Mode=TwoWay}" 
                           IsEnabled="{Binding SearchPostFilter.IsFilterSafeUnlocked}"/>
-                <CheckBox Content="Questionable" IsChecked="{Binding SearchPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding SearchPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
                           IsEnabled="{Binding SearchPostFilter.IsFilterQuestionableUnlocked}"/>
-                <CheckBox Content="Explicit" IsChecked="{Binding SearchPostFilter.IsFilterExplicit, Mode=TwoWay}"
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding SearchPostFilter.IsFilterExplicit, Mode=TwoWay}"
                           IsEnabled="{Binding SearchPostFilter.IsFilterExplicitUnlocked}"/>
-                <TextBlock Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockRating" Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
             </StackPanel>
 
         </Flyout>
@@ -316,7 +316,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="長闊比" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatioItem" Margin="36,0,0,0" Text="長闊比" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                 Glyph="&#xE0E2;"
                 FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -328,11 +328,11 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox Content="Horizontal" IsChecked="{Binding SearchPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioHorizontal" Content="Horizontal" IsChecked="{Binding SearchPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
                           IsEnabled="{Binding SearchPostFilter.IsFilterHorizontalUnlocked}"/>
-                <CheckBox Content="Vertical" IsChecked="{Binding SearchPostFilter.IsFilterVertical, Mode=TwoWay}"
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioVertical" Content="Vertical" IsChecked="{Binding SearchPostFilter.IsFilterVertical, Mode=TwoWay}"
                           IsEnabled="{Binding SearchPostFilter.IsFilterVerticalUnlocked}"/>
-                <TextBlock Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockRatioSquare" Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
 
@@ -355,7 +355,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHiddenItem" Margin="36,0,0,0" Text="隱藏圖片" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                                   Glyph="&#xE0E2;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -367,8 +367,8 @@
                     </Grid>
                 </ListViewItem>
 
-                <ToggleSwitch Header="顯示被隱藏的圖片" IsOn="{Binding SearchPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
-                <TextBlock Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
+                <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding SearchPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHidden" Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
     </Page.Resources>
@@ -454,25 +454,25 @@
                         <ItemsStackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <StackPanel Tag="精選" Orientation="Horizontal">
+                <StackPanel  x:Uid="/BooruHomePage/StackPanelHeaderFeature" Tag="精選" Orientation="Horizontal">
                     <SymbolIcon Symbol="Home" Width="48" />
-                    <TextBlock x:Name="FeatureTextBlock" Text="精選" Margin="0,0,16,0"/>
+                    <TextBlock x:Uid="/BooruHomePage/TextBlockHeaderFeature" x:Name="FeatureTextBlock" Margin="0,0,16,0"/>
                 </StackPanel>
-                <StackPanel Tag="瀏覽" Orientation="Horizontal">
+                <StackPanel x:Uid="/BooruHomePage/StackPanelHeaderBrowse" Tag="瀏覽" Orientation="Horizontal">
                     <SymbolIcon Symbol="BrowsePhotos" Width="48" RenderTransformOrigin="0.5,0.5" >
                         <SymbolIcon.RenderTransform>
                             <CompositeTransform TranslateY="3"/>
                         </SymbolIcon.RenderTransform>
                     </SymbolIcon>
-                    <TextBlock x:Name="BrowseTextBlock" Text="瀏覽" Margin="0,0,16,0"/>
+                    <TextBlock x:Uid="/BooruHomePage/TextBlockHeaderBrowse" x:Name="BrowseTextBlock" Margin="0,0,16,0"/>
                 </StackPanel>
-                <StackPanel Tag="收藏" Orientation="Horizontal">
+                <StackPanel x:Uid="/BooruHomePage/StackPanelHeaderFavorite" Tag="收藏" Orientation="Horizontal">
                     <SymbolIcon Symbol="OutlineStar" Width="48" />
-                    <TextBlock x:Name="FavoriteTextBlock"  Text="收藏" Margin="0,0,16,0"/>
+                    <TextBlock x:Uid="/BooruHomePage/TextBlockHeaderFavorite" x:Name="FavoriteTextBlock" Margin="0,0,16,0"/>
                 </StackPanel>
-                <StackPanel Tag="更多" Orientation="Horizontal">
+                <StackPanel x:Uid="/BooruHomePage/StackPanelHeaderMore" Tag="更多" Orientation="Horizontal">
                     <SymbolIcon Symbol="More" Width="48" />
-                    <TextBlock x:Name="MoreTextBlock" Text="更多" Margin="0,0,16,0"/>
+                    <TextBlock x:Uid="/BooruHomePage/TextBlockHeaderMore" x:Name="MoreTextBlock" Margin="0,0,16,0"/>
                 </StackPanel>
             </ListView>
         </Grid>
@@ -504,7 +504,7 @@
                         <Button  Padding="12,0" VerticalAlignment="Stretch" contract5Present:Style="{StaticResource ButtonRevealStyle}">
                             <StackPanel >
                                 <TextBlock Text="{x:Bind AppVersion}"/>
-                                <TextBlock Text="更新日誌"/>
+                                <TextBlock x:Uid="/BooruHomePage/TextBlockPatchNotes" Text="更新日誌"/>
                             </StackPanel>
 
                             <Button.Flyout>
@@ -685,7 +685,7 @@
                     </Grid.Transitions>
                     
                     <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="12,0">
-                        <TextBlock Text="排序(未完成):" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="Sorting(Coming soon):" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <ComboBox VerticalAlignment="Center" SelectedIndex="0">
                             <TextBlock Text="Favorite Date"/>
                             <!--<TextBlock Text="Favorite Date (Ord First)"/>
@@ -799,9 +799,6 @@
                             <EdgeUIThemeTransition Edge="Top"/>
                         </TransitionCollection>
                     </Grid.Transitions>
-
-                    <!--<AppBarButton  x:Name="FavoriteFilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Click="FavoriteFilterButton_Click" >
-                    </AppBarButton>-->
                 </Grid>
 
                 <ScrollViewer Grid.Row="1">

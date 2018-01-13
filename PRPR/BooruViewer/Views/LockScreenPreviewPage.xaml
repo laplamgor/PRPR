@@ -62,7 +62,7 @@
         <Grid x:Name="SetLockScreenPreview" Grid.Row="1" Visibility="Visible">
 
             <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="True" Width="40" Height="40" Margin="0,0,0,50"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="正在下載原圖，請耐心等候" Margin="0,40,0,0"/>
+            <TextBlock x:Uid="/BooruImagePage/TextBlockDownloading" HorizontalAlignment="Center" VerticalAlignment="Center" Text="正在下載原圖，請耐心等候" Margin="0,40,0,0"/>
 
             <ScrollViewer x:Name="SetLockScreenPreViewScrollViewer"  
                           SizeChanged="ScrollViewer_SizeChanged_1"

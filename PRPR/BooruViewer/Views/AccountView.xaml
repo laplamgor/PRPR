@@ -82,7 +82,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch"  x:Name="WallpaperSettingButton" Tapped="WallpaperSettingButton_Tapped">
                     <Grid>
-                        <TextBlock Text="壁紙" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockWallPaper" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -97,7 +97,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch"  x:Name="LockscreenSettingButton" Tapped="LockscreenSettingButton_Tapped">
                     <Grid>
-                        <TextBlock Text="鎖屏" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -111,7 +111,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" x:Name="TileSettingButton" Tapped="TileSettingButton_Tapped">
                     <Grid>
-                        <TextBlock Text="磁貼" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockLiveTile" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -125,7 +125,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch">
                     <Grid>
-                        <TextBlock Text="Notification (not yet)" VerticalAlignment="Center"/>
+                        <TextBlock Text="Notification (Coming soon)" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -140,7 +140,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="SettingsListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="其他設置" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -154,7 +154,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped" RightTapped="ListViewItem_RightTapped">
                     <Grid>
-                        <TextBlock Text="關於" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"

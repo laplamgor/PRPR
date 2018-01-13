@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PRPR</RootNamespace>
     <AssemblyName>PRPR</AssemblyName>
-    <DefaultLanguage>zh-Hant</DefaultLanguage>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
@@ -103,6 +103,39 @@
     <Compile Include="Common\Controls\JustifiedWrapPanel.DataVirtualization.cs" />
     <None Include="PRPR.UWP_StoreKey.pfx" />
     <None Include="PRPR.UWP_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hans\PatchNotes.resw" />
+    <PRIResource Include="Strings\zh-Hans\BooruSettingPage.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-Hans\BooruImagePage.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-Hans\BooruHomePage.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-Hans\BooruFeatureView.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-Hans\BooruAccountView.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\BooruImagePage.resw" />
+    <PRIResource Include="Strings\zh-Hant\BooruImagePage.resw" />
+    <PRIResource Include="Strings\zh-Hant\BooruSettingPage.resw" />
+    <PRIResource Include="Strings\en-US\BooruSettingPage.resw" />
+    <PRIResource Include="Strings\zh-Hant\BooruAccountView.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\BooruAccountView.resw" />
+    <PRIResource Include="Strings\en-US\BooruFeatureView.resw" />
+    <PRIResource Include="Strings\zh-Hant\BooruFeatureView.resw" />
+    <PRIResource Include="Strings\en-US\BooruHomePage.resw" />
+    <PRIResource Include="Strings\zh-Hant\BooruHomePage.resw" />
+    <PRIResource Include="Strings\zh-Hant\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\en-US\PatchNotes.resw" />
+    <PRIResource Include="Strings\zh-Hant\PatchNotes.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -447,6 +480,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

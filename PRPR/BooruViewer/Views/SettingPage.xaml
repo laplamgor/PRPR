@@ -21,14 +21,14 @@
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <TextBlock x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="其他設置" Foreground="White"/>
+        <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="其他設置" Foreground="White"/>
 
 
         <ScrollViewer Grid.Row="1">
             <StackPanel Padding="12,0">
-                <ToggleSwitch Header="下載時使用指定路徑" IsOn="{Binding IsDefaultDownloadPathEnabled, Source={StaticResource YandeSettings}, Mode=TwoWay}"/>
+                <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchDownloadPath" Header="下載時使用指定路徑" IsOn="{Binding IsDefaultDownloadPathEnabled, Source={StaticResource YandeSettings}, Mode=TwoWay}"/>
                 <TextBlock Text="{Binding DefaultDownloadPath, Source={StaticResource YandeSettings}}"/>
-                <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="更改路徑" Click="Button_Click"/>
+                <Button x:Uid="/BooruSettingPage/ButtonChangePath" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="更改路徑" Click="Button_Click"/>
             </StackPanel>
 
         </ScrollViewer>

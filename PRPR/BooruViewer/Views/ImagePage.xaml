@@ -434,7 +434,7 @@
                     <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel Padding="12,0">
 
-                            <TextBlock Text="上傳者" Foreground="Gray" Margin="0,12,0,0"/>
+                            <TextBlock x:Uid="/BooruImagePage/TextBlockUploader" Foreground="Gray" Margin="0,12,0,0"/>
                             <Button Padding="0" Margin="0,4" HorizontalAlignment="Left" Click="AuthorButton_Click">
                                 <Button.Style>
                                     <StaticResource ResourceKey="ButtonStyleNoColor"/>
@@ -469,7 +469,7 @@
 
 
 
-                            <TextBlock Text="圖片大小" Foreground="Gray" Margin="0,24,0,0"/>
+                            <TextBlock x:Uid="/BooruImagePage/TextBlockImageSize" Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Post.Width}"/>
                                 <TextBlock Text="x"/>
@@ -477,24 +477,24 @@
                             </StackPanel>
 
 
-                            <TextBlock Text="分數" Foreground="Gray" Margin="0,24,0,0"/>
+                            <TextBlock x:Uid="/BooruImagePage/TextBlockScore" Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Post.Score}"/>
                             </StackPanel>
 
-                            <TextBlock Text="上傳日期 (UTC)" Foreground="Gray" Margin="0,24,0,0"/>
+                            <TextBlock x:Uid="/BooruImagePage/TextBlockUploadDate"  Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Post.CreatedAtUtc}"/>
                             </StackPanel>
 
 
 
-                            <TextBlock Text="評級" Foreground="Gray" Margin="0,24,0,0"/>
+                            <TextBlock x:Uid="/BooruImagePage/TextBlockRating" Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Post.Rating}"/>
                             </StackPanel>
 
-                            <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="在瀏覽器中打開" Click="Button_Click" Margin="0,24"/>
+                            <Button x:Uid="/BooruImagePage/ButtonOpenInBrowser" contract5Present:Style="{StaticResource ButtonRevealStyle}" Click="Button_Click" Margin="0,24"/>
 
                         </StackPanel>
                     </ScrollViewer>
@@ -523,7 +523,7 @@
                         <ListView ItemsSource="{Binding Comments}" SelectionMode="None">
 
                             <ListView.Header>
-                                <TextBlock Text="沒有評論" Margin="6" Visibility="{Binding Comments, Converter={StaticResource ZeroCountToVisibliltyConverter}}" />
+                                <TextBlock x:Uid="/BooruImagePage/TextBlockNoComment" Margin="6" Visibility="{Binding Comments, Converter={StaticResource ZeroCountToVisibliltyConverter}}" />
                             </ListView.Header>
 
 

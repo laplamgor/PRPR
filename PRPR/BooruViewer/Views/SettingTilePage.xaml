@@ -31,7 +31,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="MenuFlyoutSubItem_Tapped">
                     <Grid>
-                        <TextBlock Text="評級" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatingItem" Text="評級" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -46,7 +46,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="長闊比" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatioItem" Text="長闊比" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -60,7 +60,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterHiddenPostsListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHiddenItem"  Text="隱藏圖片" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -90,7 +90,7 @@
                 </StackPanel.Transitions>
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatingItem"  Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                                   Glyph="&#xE0E2;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -102,13 +102,13 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox Content="Safe" IsChecked="{Binding TilePostFilter.IsFilterSafe, Mode=TwoWay}" 
-                          IsEnabled="{Binding TilePostFilter.IsFilterSafeUnlocked}"/>
-                <CheckBox Content="Questionable" IsChecked="{Binding TilePostFilter.IsFilterQuestionable, Mode=TwoWay}" 
-                          IsEnabled="{Binding TilePostFilter.IsFilterQuestionableUnlocked}"/>
-                <CheckBox Content="Explicit" IsChecked="{Binding TilePostFilter.IsFilterExplicit, Mode=TwoWay}"
-                          IsEnabled="{Binding TilePostFilter.IsFilterExplicitUnlocked}"/>
-                <TextBlock Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding SearchPostFilter.IsFilterSafe, Mode=TwoWay}" 
+                          IsEnabled="{Binding SearchPostFilter.IsFilterSafeUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding SearchPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
+                          IsEnabled="{Binding SearchPostFilter.IsFilterQuestionableUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding SearchPostFilter.IsFilterExplicit, Mode=TwoWay}"
+                          IsEnabled="{Binding SearchPostFilter.IsFilterExplicitUnlocked}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockRating" Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
             </StackPanel>
 
         </Flyout>
@@ -131,7 +131,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="長闊比" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatioItem" Margin="36,0,0,0" Text="長闊比" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                 Glyph="&#xE0E2;"
                 FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -143,11 +143,11 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox Content="Horizontal" IsChecked="{Binding TilePostFilter.IsFilterHorizontal, Mode=TwoWay}" 
-                          IsEnabled="{Binding TilePostFilter.IsFilterHorizontalUnlocked}"/>
-                <CheckBox Content="Vertical" IsChecked="{Binding TilePostFilter.IsFilterVertical, Mode=TwoWay}"
-                          IsEnabled="{Binding TilePostFilter.IsFilterVerticalUnlocked}"/>
-                <TextBlock Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioHorizontal" Content="Horizontal" IsChecked="{Binding SearchPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
+                          IsEnabled="{Binding SearchPostFilter.IsFilterHorizontalUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioVertical" Content="Vertical" IsChecked="{Binding SearchPostFilter.IsFilterVertical, Mode=TwoWay}"
+                          IsEnabled="{Binding SearchPostFilter.IsFilterVerticalUnlocked}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockRatioSquare" Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
 
@@ -170,7 +170,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHiddenItem" Margin="36,0,0,0" Text="隱藏圖片" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                                   Glyph="&#xE0E2;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -182,8 +182,8 @@
                     </Grid>
                 </ListViewItem>
 
-                <ToggleSwitch Header="顯示被隱藏的圖片" IsOn="{Binding TilePostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
-                <TextBlock Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
+                <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding SearchPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHidden" Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
     </Page.Resources>
@@ -201,41 +201,41 @@
         </Grid.RowDefinitions>
         
         <!--Header-->
-        <TextBlock x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="磁貼" Foreground="White"/>
+        <TextBlock x:Uid="/BooruAccountView/TextBlockLiveTile" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="磁貼" Foreground="White"/>
 
 
         <Grid Grid.Row="1">
             <ScrollViewer>
                 <StackPanel Padding="12,0">
-                    <TextBlock Text="磁貼動態動漫頭像" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                    <TextBlock Text="搜索標籤："/>
-                    <TextBox x:Name="TileTextBox"  Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero) rating:s"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockLiveTileIcons"  Text="磁貼動態動漫頭像" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockSearchTag" Text="搜索標籤："/>
+                    <TextBox Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero) rating:s"/>
 
 
                     <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Filter" Margin="0,0,4,0"/>
-                            <TextBlock Text="Filter"/>
+                            <TextBlock x:Uid="/BooruSettingPage/TextBlockFilter" Text="Filter"/>
                         </StackPanel>
                     </Button>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新" Click="Button_Click"  Margin="0,12,12,12"/>
-                        <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="重設" Click="Button_Click_1" />
+                        <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新" Click="Button_Click"  Margin="0,12,12,12"/>
+                        <Button x:Uid="/BooruSettingPage/ButtonResetTile" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="重設" Click="Button_Click_1" />
                     </StackPanel>
 
-                    
-                    
-                    <ToggleSwitch Header="定期後台自動刷新磁貼" 
+
+
+                    <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchAutoLiveTile" Header="定期後台自動刷新磁貼" 
                                   IsOn="{Binding TileUpdateTaskEnabled, Mode=TwoWay, Source={StaticResource YandeSettings}}"/>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="換圖間隔：" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruSettingPage/TextBlockUpdateInterval" Text="換圖間隔：" VerticalAlignment="Center"/>
                         <TextBox Text="{Binding TileUpdateTaskTimeSpan, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="15-1440"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
-                        <TextBlock Text="分鐘" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruSettingPage/TextBlockMinute" Text="分鐘" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <CheckBox Content="even on metered network" IsChecked="{Binding TileUpdateTaskOnMeteredNetwork, Mode=TwoWay, Source={StaticResource YandeSettings}}" Margin="0,0,0,0"/>
+                    <CheckBox x:Uid="/BooruSettingPage/CheckBoxMeteredNetwork" Content="even on metered network" IsChecked="{Binding TileUpdateTaskOnMeteredNetwork, Mode=TwoWay, Source={StaticResource YandeSettings}}" Margin="0,0,0,0"/>
 
                 </StackPanel>
             </ScrollViewer>

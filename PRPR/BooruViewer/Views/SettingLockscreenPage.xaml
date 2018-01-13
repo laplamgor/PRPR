@@ -30,7 +30,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="MenuFlyoutSubItem_Tapped">
                     <Grid>
-                        <TextBlock Text="評級" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatingItem" Text="評級" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -45,7 +45,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="長闊比" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatioItem" Text="長闊比" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -59,7 +59,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterHiddenPostsListViewItem_Tapped">
                     <Grid>
-                        <TextBlock Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHiddenItem"  Text="隱藏圖片" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -89,7 +89,7 @@
                 </StackPanel.Transitions>
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatingItem"  Margin="36,0,0,0" Text="評級" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                                   Glyph="&#xE0E2;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -101,13 +101,13 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox Content="Safe" IsChecked="{Binding LockscreenPostFilter.IsFilterSafe, Mode=TwoWay}" 
-                          IsEnabled="{Binding LockscreenPostFilter.IsFilterSafeUnlocked}"/>
-                <CheckBox Content="Questionable" IsChecked="{Binding LockscreenPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
-                          IsEnabled="{Binding LockscreenPostFilter.IsFilterQuestionableUnlocked}"/>
-                <CheckBox Content="Explicit" IsChecked="{Binding LockscreenPostFilter.IsFilterExplicit, Mode=TwoWay}"
-                          IsEnabled="{Binding LockscreenPostFilter.IsFilterExplicitUnlocked}"/>
-                <TextBlock Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding SearchPostFilter.IsFilterSafe, Mode=TwoWay}" 
+                          IsEnabled="{Binding SearchPostFilter.IsFilterSafeUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding SearchPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
+                          IsEnabled="{Binding SearchPostFilter.IsFilterQuestionableUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding SearchPostFilter.IsFilterExplicit, Mode=TwoWay}"
+                          IsEnabled="{Binding SearchPostFilter.IsFilterExplicitUnlocked}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockRating" Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
             </StackPanel>
 
         </Flyout>
@@ -130,7 +130,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="長闊比" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockRatioItem" Margin="36,0,0,0" Text="長闊比" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                 Glyph="&#xE0E2;"
                 FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -142,11 +142,11 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox Content="Horizontal" IsChecked="{Binding LockscreenPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
-                          IsEnabled="{Binding LockscreenPostFilter.IsFilterHorizontalUnlocked}"/>
-                <CheckBox Content="Vertical" IsChecked="{Binding LockscreenPostFilter.IsFilterVertical, Mode=TwoWay}"
-                          IsEnabled="{Binding LockscreenPostFilter.IsFilterVerticalUnlocked}"/>
-                <TextBlock Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioHorizontal" Content="Horizontal" IsChecked="{Binding SearchPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
+                          IsEnabled="{Binding SearchPostFilter.IsFilterHorizontalUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioVertical" Content="Vertical" IsChecked="{Binding SearchPostFilter.IsFilterVertical, Mode=TwoWay}"
+                          IsEnabled="{Binding SearchPostFilter.IsFilterVerticalUnlocked}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockRatioSquare" Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
 
@@ -169,7 +169,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
                     <Grid>
-                        <TextBlock Margin="36,0,0,0" Text="隱藏圖片" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHiddenItem" Margin="36,0,0,0" Text="隱藏圖片" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Left"
                                   Glyph="&#xE0E2;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -181,8 +181,8 @@
                     </Grid>
                 </ListViewItem>
 
-                <ToggleSwitch Header="顯示被隱藏的圖片" IsOn="{Binding LockscreenPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
-                <TextBlock Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
+                <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding SearchPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHidden" Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
     </Page.Resources>
@@ -199,14 +199,14 @@
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <TextBlock x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="鎖屏" Foreground="White"/>
+        <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="鎖屏" Foreground="White"/>
 
 
         <Grid Grid.Row="1">
             <ScrollViewer>
                 <StackPanel Padding="12,0">
-                    <TextBlock Text="搜索標籤："/>
-                    <TextBox x:Name="TileTextBox"  Text="{Binding LockscreenUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. landscape score:5.. order:random"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockSearchTag" Text="搜索標籤："/>
+                    <TextBox Text="{Binding LockscreenUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. landscape score:5.. order:random"/>
 
 
                     <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
@@ -217,48 +217,48 @@
                     </Button>
 
                     <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
-                        <TextBlock Text="換圖間隔：" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruSettingPage/TextBlockUpdateInterval" Text="換圖間隔：" VerticalAlignment="Center"/>
                         <TextBox Text="{Binding LockscreenUpdateTaskTimeSpan, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="15-1440"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
-                        <TextBlock Text="分鐘" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruSettingPage/TextBlockMinute" Text="分鐘" VerticalAlignment="Center"/>
 
                         <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
                     </StackPanel>
                     
-                    <TextBlock MaxWidth="500" Margin="0,24,0,0" Text="如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockRandom" MaxWidth="500" Margin="0,24,0,0" Text="如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙" HorizontalAlignment="Left" TextWrapping="Wrap"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="隨機選取首" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruSettingPage/TextBlockRandomFirst" Text="隨機選取首" VerticalAlignment="Center"/>
                         <TextBox Text="{Binding LockscreenUpdateTaskShuffleCount, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="1-20"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
-                        <TextBlock Text="個搜索結果" VerticalAlignment="Center"/>
+                        <TextBlock x:Uid="/BooruSettingPage/TextBlockRandomResults" Text="個搜索結果" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,24,0,0"/>
+                    <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,24,0,0"/>
 
-                    <ToggleSwitch x:Name="AutoToggleSwitch" Header="自動於後台刷新鎖屏" Margin="0,24,0,0"
+                    <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchAutoLockScreen"  x:Name="AutoToggleSwitch" Header="自動於後台刷新鎖屏" Margin="0,24,0,0"
                                   IsOn="{Binding LockscreenUpdateTaskEnabled, Mode=TwoWay, Source={StaticResource YandeSettings}}"/>
 
-                    <CheckBox Content="計費網絡下也照更不誤" 
+                    <CheckBox x:Uid="/BooruSettingPage/CheckBoxMeteredNetwork" Content="計費網絡下也照更不誤" 
                               IsChecked="{Binding LockscreenUpdateTaskOnMeteredNetwork, Mode=TwoWay, Source={StaticResource YandeSettings}}" 
                               Margin="0,24,0,0" IsEnabled="{Binding IsOn, ElementName=AutoToggleSwitch}"/>
 
 
                     <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
-                    <TextBlock Text="圖片質量:"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockImageQuality" Text="圖片質量:"/>
                     <ComboBox x:Name="QualityComboBox" SelectedIndex="{Binding LockscreenUpdateTaskQuality, Source={StaticResource YandeSettings}, Mode=TwoWay}">
-                        <ComboBoxItem Content="中"/>
-                        <ComboBoxItem Content="高"/>
+                        <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityMedium" Content="中"/>
+                        <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityHigh"  Content="高"/>
                     </ComboBox>
 
                     <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
 
 
 
-                    <TextBlock Text="自動剪裁:"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockAutoCrop" Text="自動剪裁:"/>
                     <ComboBox x:Name="CropMethodComboBox" SelectedIndex="{Binding LockscreenUpdateTaskCropMethodIndex, Source={StaticResource YandeSettings}, Mode=TwoWay}">
-                        <ComboBoxItem Content="無剪裁" Tag="應用不預先剪裁原圖並由系統決定顯示效果。適合經常旋轉屏幕的平板用戶。也適合同時使用不同長闊比的多屏台式機用戶"/>
-                        <ComboBoxItem Content="頂部置中" Tag="原圖太高時去掉底部；原圖太寬時去掉左右兩側。適用於臉蛋辨識經常認錯東西的場合(例如bikini)"/>
-                        <ComboBoxItem Content="置中" Tag="原圖太高時去掉上下兩側；原圖太寬時去掉左右兩側。適用於純風景圖標籤(例如landscape)"/>
-                        <ComboBoxItem Content="最大的臉" Tag="剪裁時盡量環繞圖中最大臉蛋。辨識不到動漫臉蛋時等於頂部置中。適用於人物標籤(例如aisaka_taiga)"/>
-                        <ComboBoxItem Content="最多的臉"  Tag="剪裁時盡量保留圖中最多臉蛋，避免合照時出現臉蛋被剪去一半的情況。辨識不到動漫臉蛋時等於頂部置中。適用於動漫作品標籤(例如k-on!)"/>
+                        <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropDisabled" Content="無剪裁" Tag="應用不預先剪裁原圖並由系統決定顯示效果。適合經常旋轉屏幕的平板用戶。也適合同時使用不同長闊比的多屏台式機用戶"/>
+                        <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropTopCenter"  Content="頂部置中" Tag="原圖太高時去掉底部；原圖太寬時去掉左右兩側。適用於臉蛋辨識經常認錯東西的場合(例如bikini)"/>
+                        <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropCenter"  Content="置中" Tag="原圖太高時去掉上下兩側；原圖太寬時去掉左右兩側。適用於純風景圖標籤(例如landscape)"/>
+                        <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropLargestFace"  Content="最大的臉" Tag="剪裁時盡量環繞圖中最大臉蛋。辨識不到動漫臉蛋時等於頂部置中。適用於人物標籤(例如aisaka_taiga)"/>
+                        <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropMostFaces"  Content="最多的臉"  Tag="剪裁時盡量保留圖中最多臉蛋，避免合照時出現臉蛋被剪去一半的情況。辨識不到動漫臉蛋時等於頂部置中。適用於動漫作品標籤(例如k-on!)"/>
                     </ComboBox>
                     <TextBlock Text="{Binding SelectedItem.Tag, ElementName=CropMethodComboBox}" TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
 

@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Notes" xml:space="preserve">
+    <value>@[18 Jan 2017] v1.10.0
+Yandere
+- 修正一部份闪退问题
+- 加入英语支持
+Ex
+- 123456
+@[18 November 2017] v1.9.1
+Yandere
+- 修正1703版本WIN10上的过渡动画问题
+- 新增壁纸/锁屏解析度设置
+- 加大列表缩图大小
+Ex
+- 修正1703版本WIN10上的过渡动画问题
+@[9 November 2017] v1.8.0
+Yandere
+- 向后兼容1703版本WIN10
+- 改善页面过渡动画流畅度
+Ex
+- 开始阅读前不再需要加载全部图片列表
+- 改善页面过渡动画流畅度
+@[7 November 2017] v1.7.0
+Yandere
+- 重製搜索列表
+- 界面小改
+Ex
+- 加入页面过渡动画
+@[28 October 2017] v1.6.0
+Yandere
+- 升级秋季创作者更新
+- 改善背景虚化效果
+Ex
+- 在搜索列表的标题显示语言
+@[16 July 2017] v1.5.1
+Yandere
+- 加入页面过渡动画
+Ex
+- 改良搜索列表界面
+@[25 April 2017] v1.4.1
+Yandere
+- 修正严重闪退问题
+Ex
+- 没有改动
+@[23 April 2017] v1.4.0
+Yandere
+- 界面小改进
+Ex
+- 重製评论功能
+@[21 April 2017] v1.3.0
+Yandere
+- 现在可指定下载目录
+- 优化21比9下的首页显示
+Ex
+- 加载图片时显示进度条
+@[19 April 2017] v1.2.0
+Yandere
+- 没有改动
+Ex
+- 方便搜索同作品的其他语言
+- 大幅优化内页列表的效能和内存
+- 修正内页列表的排版Bugs
+- 加入标籤複製功能
+@[18 April 2017] v1.1.0
+Yandere
+- 没有改动
+Ex
+- 修正内页列表的加载Bugs
+@[16 April 2017] v1.0.0
+正式公测！
+Yandere
+- 修正Bugs
+Ex
+- 改善内页列表的效能和动画
+@[14 April 2017] v0.45.0
+Yandere
+- 修正Bugs
+Ex
+- 修正Bugs
+- 新界面
+@[9 April 2017] v0.45.0
+Yandere
+- 修正Bugs
+Ex
+- 修正Bugs
+- 新界面
+@[29 March 2017] v0.43.0
+Yandere
+- 自动刷新锁屏、壁纸加上过滤设置
+- 修正一些自动刷新不了的问题
+Ex
+- 修正解析封面缩图失败
+@[3 Feb 2017] v0.42.0
+Yandere
+- 没有改动
+Ex
+- 搜索结果用可变宽度的照片牆显示
+- 搜索结果按分类上色显示
+- 加入右向左翻页选项
+@[15 Jan 2017] v0.41.0
+Yandere
+- 搜索过滤选项现在会作用在收藏清表上
+— 搜索过滤选项改变时自动刷新结果
+Ex
+- 搜索可以过滤低平均作品
+- 更多界面改成繁中
+@[3 Jan 2017] v0.40.0
+Yandere
+- 更多界面改成繁中
+Ex
+- 本子资讯显示平均评分
+- 互换图片列表和本子资讯的显示位置
+@[30 Dec 2016] v0.39.0
+Yandere
+- 部份界面改成繁中
+Ex
+- 阅读页面加个鸡肋的複製功能
+- 修正阅读页面不能快速跳页
+- 可从中段位置开始阅读
+@[14 Oct 2016] v0.38.0
+Yandere
+- 修正后台无法刷新锁屏背景
+- 刷新锁屏、壁纸时显示通知(可即时收藏图片)
+- 刷新锁屏、壁纸加入自动剪裁选项
+Ex
+- 没有改动
+@[9 Oct 2016] v0.37.0
+Yandere
+- Filter设置现可自动保存
+- 闪退时显示报错讯息
+- 搜索框现会建议相关性更高的标籤
+- 搜索框有多个关键字时根据指标所在的字作建议
+Ex
+- 修正头像显示失败(使用Eh论坛头像)
+@[8 Oct 2016] v0.36.0
+Yandere
+- 修正打开应用返回不了首页的问题
+Ex
+- 加入下载功能(另存)
+- 加入加载图集失败后自动重试
+- 界面小改动
+@[5 Oct 2016] v0.35.0
+Yandere
+- 加入后台自动刷新Lockscreen功能
+- 现可不经浏览器直接下载图片
+Ex
+- 界面小改动
+@[2 Oct 2016] v0.34.0
+Yandere
+- 后台自动刷新Wallpaper加入Shuffle选项
+- 改善磁贴功能图片品质
+- 改善磁贴功能、首页前三图片的辨认面部准确度
+Ex
+- 现可按图集标籤搜索
+@[1 Oct 2016] v0.33.0
+Yandere
+- 加入后台自动刷新Wallpaper功能
+- 扫盲
+Ex
+- 图集页的缩图列表以照片牆显示
+@[29 Sep 2016] v0.32.0
+Yandere
+- 加入后台自动刷新磁贴功能
+- 修正离线时闪退
+Ex
+- 显示图集标籤(暂未能按标籤搜索)
+@[24 Sep 2016] v0.31.0
+Yandere
+- 全面换上新的scroll bar，提升空间感
+- 显示更多图片资料(分数、评级)
+- 加入有趣的磁贴功能(手动)
+- 加入过滤隐藏贴图的搜索选项
+Ex
+- 显示更多图集资料(语言)
+- 继续改善界面
+@[23 Sep 2016] v0.30.0
+Yandere
+- 加入更新日誌
+- 减少首面闪退机率
+- 首面加入resize后网格排列动画
+- 修正首页Top3移位BUG(resize后依然对准面部)
+- 可按自己头像查看自己在Yandere发的图
+- 可按头像外链到网页改密码
+Ex
+- 阅读界面加入快速跳转
+- 补一下界面上方工具栏跟yandere更一致
+- 修正如果加载图集失败，返回再进不会重新加载</value>
+  </data>
+</root>

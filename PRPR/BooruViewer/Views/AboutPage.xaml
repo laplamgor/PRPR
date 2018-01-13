@@ -24,25 +24,25 @@
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <TextBlock x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="關於" Foreground="White"/>
+        <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="關於" Foreground="White"/>
 
 
         <ScrollViewer Grid.Row="1">
             <StackPanel Padding="12,0">
-                <TextBlock Text="作者："/>
+                <TextBlock Text="Author："/>
                 <HyperlinkButton NavigateUri="mailto:laplamgor2@gmail.com">
                     <TextBlock Text="laplamgor"/>
                 </HyperlinkButton>
                 <TextBlock Text=""/>
 
 
-                <TextBlock Text="原碼(Github)："/>
+                <TextBlock Text="Github："/>
                 <HyperlinkButton NavigateUri="https://github.com/laplamgor/PRPR">
                     <TextBlock Text="GitHub"/>
                 </HyperlinkButton>
                 <TextBlock Text=""/>
 
-                <TextBlock Text="QQ群："/>
+                <TextBlock Text="QQ："/>
                 <RichTextBlock IsTextSelectionEnabled="True">
                     <Paragraph>
                         <Run Text="387526263"/>
@@ -51,7 +51,7 @@
                 <TextBlock Text=""/>
 
                 <TextBlock Text="歡迎回報BUG或提出改善建議"/>
-                <TextBlock Text=""/>
+                <TextBlock Text="Feel free to give feedbacks and report bugs"/>
 
                 <TextBlock Text=""/>
             </StackPanel>
