@@ -96,7 +96,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <Rectangle x:Name="BackgroundElement" Grid.ColumnSpan="3" contract5Present:Fill="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <Rectangle x:Name="BackgroundElement" Grid.ColumnSpan="3">
             <!--<contract5Present:Rectangle.Fill>
                 <contract5Present:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
             </contract5Present:Rectangle.Fill>-->
