@@ -214,7 +214,7 @@ namespace PRPR.BooruViewer.Views
                 e.PageState["Index"] = ImagesViewModel.SelectedIndex;
             }
             
-
+            
             // Pre-fall creator has different image loading order
             // unable to share same connected animation code without breaking the UI
             if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
@@ -238,7 +238,6 @@ namespace PRPR.BooruViewer.Views
 
                     }
                 }
-
             }
 
 
@@ -570,29 +569,32 @@ namespace PRPR.BooruViewer.Views
 
         private void Image_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            /*
-                        var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+            var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+            
 
-                        dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
-                        x.ShowAt(dummyGrid);
+            var transform = (sender as Grid).TransformToVisual((sender as Grid).Parent as ScrollViewer);
+            Point absolutePosition = transform.TransformPoint(new Point(0, 0));
 
-                        e.Handled = true;
-                        */
+            dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X + absolutePosition.X, e.GetPosition(sender as FrameworkElement).Y + absolutePosition.Y, 0, 0);
+            x.ShowAt(dummyGrid);
+
+            e.Handled = true;
         }
 
         private void Image_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            /*
-                        if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
-                        {
-                            var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
 
-                            dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
-                            x.ShowAt(dummyGrid);
+                var transform = (sender as Grid).TransformToVisual((sender as Grid).Parent as ScrollViewer);
+                Point absolutePosition = transform.TransformPoint(new Point(0, 0));
 
-                            e.Handled = true;
-                        }
-                        */
+                dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y + absolutePosition.Y, 0, 0);
+                x.ShowAt(dummyGrid);
+
+                e.Handled = true;
+            }
         }
 
         private void PreviewImage_ImageFailed(object sender, ExceptionRoutedEventArgs e)

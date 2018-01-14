@@ -287,7 +287,6 @@
 
 
 
-                                <Grid x:Name="dummyGrid" Margin="0" HorizontalAlignment="Left"/>
                             </Grid>
                         </ScrollViewer>
                     </Grid>
@@ -295,6 +294,7 @@
             </FlipView.ItemTemplate>
         </FlipView>
 
+        <Grid x:Name="dummyGrid"  Grid.Row="1" Grid.Column="1"  Margin="0" HorizontalAlignment="Left"/>
 
         <!--Buttons-->
         <Grid x:Name="Buttons" Grid.Row="1" Grid.Column="1"
