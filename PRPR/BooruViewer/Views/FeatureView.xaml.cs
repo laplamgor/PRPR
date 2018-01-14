@@ -9,6 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -55,11 +56,18 @@ namespace PRPR.BooruViewer.Views
         
         private void Top3_Click(object sender, RoutedEventArgs e)
         {
-            
-            var root = (Button)sender;
-            var image = ((UIElement)((Border)root.Content).Child);
 
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+            // Pre-fall creator has different image loading order
+            // unable to share same connected animation code without breaking the UI
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+                var root = (Button)sender;
+                var image = ((UIElement)((Border)root.Content).Child);
+
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+            }
+
+
 
 
             if ((sender as Button).DataContext is Post post)
@@ -76,6 +84,22 @@ namespace PRPR.BooruViewer.Views
             {
                 // Search tags
                 (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(HomePage), $"{tag.Name}");
+            }
+        }
+
+
+        public UIElement GetTopTodayButton(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return Top1;
+                case 1:
+                    return Top2;
+                case 2:
+                    return Top3;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

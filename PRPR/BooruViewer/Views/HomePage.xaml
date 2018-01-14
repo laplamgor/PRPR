@@ -414,7 +414,7 @@
 
         </VisualStateManager.VisualStateGroups>
 
-        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="True" 
+        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False"
                Style="{StaticResource PivotStyleNoHeader}" x:Name="FlipView"
                Grid.Row="1" Grid.RowSpan="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" Margin="0,-48,0,0">
             
@@ -480,7 +480,7 @@
 
                                 <AppBarButton Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
                             </Grid>
-                            
+
                             <local:FeatureView x:Name="FeatureView" />
                         </StackPanel>
                     </ScrollViewer>

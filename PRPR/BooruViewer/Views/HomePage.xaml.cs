@@ -279,11 +279,30 @@ namespace PRPR.BooruViewer.Views
                     var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
                     var lastPageParameters = frameState["Page-" + (this.Frame.BackStackDepth + 1)] as IDictionary<string, object>;
                     var index = (int)lastPageParameters["Index"];
-
+                    var postId = (int)lastPageParameters["PostId"];
                     
+
                     if (this.HomeViewModel.SelectedViewIndex == 0)
                     {
 
+                        // Pre-fall creator has different image loading order
+                        // unable to share same connected animation code without breaking the UI
+                        if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+                        {
+
+                            var post = FeatureView.FeatureViewModel.TopToday.First(o => o.Id == postId);
+                            if (post != null && FeatureView.FeatureViewModel.TopToday.IndexOf(post) != -1)
+                            {
+                                // Start the animation
+                                ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+                                if (animation != null)
+                                {
+                                    FeatureView.UpdateLayout();
+                                    animation.TryStart(this.FeatureView.GetTopTodayButton(FeatureView.FeatureViewModel.TopToday.IndexOf(post)));
+                                }
+                            }
+
+                        }
                     }
                     else if(this.HomeViewModel.SelectedViewIndex == 1 || this.HomeViewModel.SelectedViewIndex == 2)
                     {

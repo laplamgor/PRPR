@@ -110,7 +110,14 @@ namespace PRPR.BooruViewer.Views
 
 
                 var post1 = Post.FromXml(e.NavigationParameter as string);
-                indexFromLastPage = this.ImagesViewModel.Posts.IndexOf(this.ImagesViewModel.Posts.First(o => o.Id == post1.Id));
+                if (this.ImagesViewModel.Posts == null)
+                {
+                    indexFromLastPage = 0;
+                }
+                else
+                {
+                    indexFromLastPage = this.ImagesViewModel.Posts.IndexOf(this.ImagesViewModel.Posts.First(o => o.Id == post1.Id));
+                }
                 readyForConnectedAnimation = indexFromLastPage == FlipView.SelectedIndex;
 
                 if (indexFromLastPage == 0)
@@ -206,7 +213,7 @@ namespace PRPR.BooruViewer.Views
                 e.PageState["PostId"] = ImagesViewModel.SelectedImageViewModel.Post.Id;
                 e.PageState["Index"] = ImagesViewModel.SelectedIndex;
             }
-
+            
 
             // Pre-fall creator has different image loading order
             // unable to share same connected animation code without breaking the UI
