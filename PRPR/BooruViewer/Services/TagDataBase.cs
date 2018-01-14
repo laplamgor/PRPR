@@ -128,6 +128,8 @@ namespace PRPR.BooruViewer.Services
 
         public TagType Type { get; set; }
 
+        public string Parent { get; set; } = null;
+
 
         public bool IsAlias
         {
@@ -137,11 +139,33 @@ namespace PRPR.BooruViewer.Services
             }
         }
         
-        public string Parent { get; set; } = null;
-
         public override string ToString()
         {
             return this.Name;
+        }
+    }
+
+
+
+    public class TagDetailInMiddle : TagDetail
+    {
+        public TagDetailInMiddle(TagDetail tag, string prefix, string suffix)
+        {
+            Name = tag.Name;
+            Type = tag.Type;
+            Parent = tag.Parent;
+            Prefix = prefix;
+            Suffix = suffix;
+        }
+
+        public string Prefix { get; set; } = "";
+
+        public string Suffix { get; set; } = "";
+
+        
+        public override string ToString()
+        {
+            return Prefix + this.Name + Suffix;
         }
     }
 }
