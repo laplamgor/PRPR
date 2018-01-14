@@ -62,6 +62,36 @@ namespace PRPR.BooruViewer.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedFrom(e);
+
+            // Prepare backward transition connected animation
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                // Pre-fall creator has different image loading order
+                // unable to share same connected animation code without breaking the UI
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+                {
+                    if (FlipView.SelectedIndex >= 0)
+                    {
+                        try
+                        {
+                            var container = FlipView.ContainerFromIndex(FlipView.SelectedIndex) as FlipViewItem;
+                            var mainPreview = container.ContentTemplateRoot as Grid;
+                            var srollViewer = mainPreview.Children.First() as ScrollViewer;
+                            var imageGrid = srollViewer.Content as Grid;
+
+                            // Prepare backward connected animation
+                            var grid = VisualTreeHelper.GetChild(FlipView, 0) as Grid;
+                            var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
+                            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", imageGrid);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+            }
+
         }
 
         #endregion
@@ -215,30 +245,6 @@ namespace PRPR.BooruViewer.Views
             }
             
             
-            // Pre-fall creator has different image loading order
-            // unable to share same connected animation code without breaking the UI
-            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
-            {
-                if (FlipView.SelectedIndex >= 0)
-                {
-                    try
-                    {
-                        var container = FlipView.ContainerFromIndex(FlipView.SelectedIndex) as FlipViewItem;
-                        var mainPreview = container.ContentTemplateRoot as Grid;
-                        var srollViewer = mainPreview.Children.First() as ScrollViewer;
-                        var imageGrid = srollViewer.Content as Grid;
-
-                        // Prepare backward connected animation
-                        var grid = VisualTreeHelper.GetChild(FlipView, 0) as Grid;
-                        var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
-                        ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", imageGrid);
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-                }
-            }
 
 
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
