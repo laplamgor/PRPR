@@ -74,21 +74,28 @@ namespace PRPR.BooruViewer.Services
 
         private static async Task<VoteType> GetVoteAsync(int postId, string userName, string passwordHash)
         {
-            HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://yande.re/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}");
-            loginRequest.Method = "POST";
-            loginRequest.ContentType = "application/x-www-form-urlencoded";
-            loginRequest.Headers["Accept-Encoding"] = "gzip, deflate";
-
-
-            using (HttpWebResponse logResponse = (HttpWebResponse)(await loginRequest.GetResponseAsync()))
+            try
             {
-                using (Stream stream = logResponse.GetResponseStream())
-                {
-                    StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-                    string responseString = reader.ReadToEnd();
+                HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://yande.re/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}");
+                loginRequest.Method = "POST";
+                loginRequest.ContentType = "application/x-www-form-urlencoded";
+                loginRequest.Headers["Accept-Encoding"] = "gzip, deflate";
 
-                    return responseString.Contains("3") ? VoteType.Favorite : VoteType.None;
+
+                using (HttpWebResponse logResponse = (HttpWebResponse)(await loginRequest.GetResponseAsync()))
+                {
+                    using (Stream stream = logResponse.GetResponseStream())
+                    {
+                        StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                        string responseString = reader.ReadToEnd();
+
+                        return responseString.Contains("3") ? VoteType.Favorite : VoteType.None;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return VoteType.None;
             }
         }
 
