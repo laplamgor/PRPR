@@ -242,7 +242,6 @@ namespace PRPR
             if (shell.AppFrame.Content == null)
             {
                 shell.AppFrame.Navigate(typeof(BooruViewer.Views.HomePage), e.Arguments);
-                //shell.AppFrame.Navigate(typeof(BooruViewer.Views.TestPage), e.Arguments);
             }
 
 
@@ -253,14 +252,11 @@ namespace PRPR
                 switch (action)
                 {
                     case "viewPost":
-
                         break;
                     default:
                         break;
                 }
             }
-
-
 
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
@@ -299,9 +295,7 @@ namespace PRPR
 
 
 
-            await new MessageDialog("這是公測版應用，所有內容和功能不代表最終成品。公測者有義務不定期使用ＱＱ或電郵提出反饋和改善建議。請勿在應用商店就內測版內容作出評分或評論。如果無法理解或者無法同意此守則，請卸載本應用。電郵：laplamgor2@gmail.com", "使用須知").ShowAsync();
-
-
+            //await new MessageDialog("這是公測版應用，所有內容和功能不代表最終成品。公測者有義務不定期使用ＱＱ或電郵提出反饋和改善建議。請勿在應用商店就內測版內容作出評分或評論。如果無法理解或者無法同意此守則，請卸載本應用。電郵：laplamgor2@gmail.com", "使用須知").ShowAsync();
         }
 
         /// <summary>
