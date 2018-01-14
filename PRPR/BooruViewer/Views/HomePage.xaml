@@ -750,7 +750,7 @@
             <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
             <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>
-                    <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
+                    <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
             </contract5NotPresent:Rectangle>
 

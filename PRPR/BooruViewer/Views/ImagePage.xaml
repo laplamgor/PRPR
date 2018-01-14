@@ -219,14 +219,13 @@
 
 
         <!--Background-->
-        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+        <contract5Present:Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image x:Name="Background" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" 
                        Source="{Binding SelectedImageViewModel.Post.PreviewUrl}"/>
             </Grid>
-            <contract5Present:Rectangle Fill="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}" />
-            <contract5NotPresent:Rectangle Fill="#AA7F7F7F" />
-        </Grid>
+            <Rectangle Fill="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}" />
+        </contract5Present:Grid>
 
         <!--TitleBar-->
         <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" BorderBrush="#FFFFFFFF" Background="#FF000000">
