@@ -594,7 +594,7 @@
                                         VerticalAlignment="Center" Margin="48,0,4,0" 
                                         FontSize="18" VerticalContentAlignment="Center" Height="40" 
                                         Loaded="SearchBox_Loaded" Unloaded="SearchBox_Unloaded"
-                                        Style="{StaticResource AutoSuggestBoxStyle1}" SuggestionChosen="SearchBox_SuggestionChosen" >
+                                        Style="{StaticResource AutoSuggestBoxStyle1}">
                             <AutoSuggestBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Padding="8" Orientation="Horizontal" Margin="0,4">

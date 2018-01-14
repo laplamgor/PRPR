@@ -416,16 +416,6 @@ namespace PRPR.BooruViewer.Views
         }
         
 
-        private void SearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-        {
-            //var newTags = string.Join(" ", sender.Text.Split(' ').Reverse().Skip(1).Reverse());
-            //if (newTags != "")
-            //{
-            //    newTags += ' ';
-            //}
-            //sender.Text = newTags + (args.SelectedItem as TagDetail).Name + ' ';
-        }
-
         private async void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             if (HomeViewModel.BrowsePosts == null)
@@ -471,10 +461,13 @@ namespace PRPR.BooruViewer.Views
             textbox.SelectionChanged += Textbox_SelectionChanged;
         }
 
-        int lastSelectionStart = 0;
+
+        private int lastSelectionStart = 0;
 
         private void Textbox_SelectionChanged(object sender, RoutedEventArgs e)
         {
+            // Re-search suggestions if the user move the cursor position to another word
+            // Except the cursor is at the end, bcs it is probably caused by a SuggestionChosen event
             var newSelectionStart = (sender as TextBox).SelectionStart;
             int newSelecetedKeyIndex = (sender as TextBox).Text.Take(newSelectionStart).Count(o => o == ' ');
             int lastSelecetedKeyIndex = (sender as TextBox).Text.Take(lastSelectionStart).Count(o => o == ' ');
@@ -505,6 +498,8 @@ namespace PRPR.BooruViewer.Views
                 if (tags.Length >= 1 && tags[selecetedKeyIndex] != "")
                 {
                     var results = TagDataBase.Search(tags[selecetedKeyIndex]);
+
+                    // Add back the other tags to the string
                     var prefix = String.Join(" ", tags.Take(selecetedKeyIndex));
                     if (!String.IsNullOrWhiteSpace(prefix))
                     {
@@ -515,7 +510,11 @@ namespace PRPR.BooruViewer.Views
                     {
                         suffix = " " + suffix;
                     }
-                    var results2 = results.Select(o => new TagDetailInMiddle(o, prefix, suffix));
+
+                    // Also add an extra space at the end so that its easier to start typing next new type
+                    var results2 = results.Select(o => new TagDetailInMiddle(o, prefix, suffix + " "));
+
+                    // Display the tag search results
                     sender.ItemsSource = results2;
                 }
                 else
