@@ -67,11 +67,11 @@ namespace PRPR.BooruViewer.Views
         #endregion
 
 
-        public ImageViewModel ImageViewModel
+        public ImagesViewModel ImagesViewModel
         {
             get
             {
-                return this.DataContext as ImageViewModel;
+                return this.DataContext as ImagesViewModel;
             }
             set
             {
@@ -85,32 +85,50 @@ namespace PRPR.BooruViewer.Views
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             IsConnectedAnimationPlayed = false;
-
-
-            //var b = VisualStateManager.GoToState(CurrentImagePage, "Low", true);
+            
             Debug.WriteLine("NavigationHelper_LoadState");
-
-            // Reset the scroll and zoom of the image
-            ImageScrollViewer.ZoomToFactor(1);
-
-
-
-            SampleImage.Visibility = Visibility.Collapsed;
-            JpegImage.Visibility = Visibility.Collapsed;
-
-            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
-            {
-                HandleConnectedAnimation();
-            }
-
+            
             try
             {
-                if (e.NavigationParameter != null)
+                readyForConnectedAnimation = false;
+
+                // Get Posts
+                if (App.Current.Resources.ContainsKey("Posts"))
                 {
-                    this.ImageViewModel = new ImageViewModel();
-                    this.ImageViewModel.Post = Post.FromXml(e.NavigationParameter as string);
-                    await ImageViewModel.UpdateIsFavorited();
-                    this.ImageViewModel.Comments = await Comments.GetComments(this.ImageViewModel.Post.Id);
+                    if (this.ImagesViewModel.Posts !=  App.Current.Resources["Posts"] as FilteredCollection<Post, Posts>)
+                    {
+                        this.ImagesViewModel = new ImagesViewModel(App.Current.Resources["Posts"] as FilteredCollection<Post, Posts>);
+                    }
+                }
+                else
+                {
+                    if (e.NavigationParameter != null)
+                    {
+                        this.ImagesViewModel = new ImagesViewModel(Post.FromXml(e.NavigationParameter as string));
+                    }
+                }
+
+
+                var post1 = Post.FromXml(e.NavigationParameter as string);
+                indexFromLastPage = this.ImagesViewModel.Posts.IndexOf(this.ImagesViewModel.Posts.First(o => o.Id == post1.Id));
+                readyForConnectedAnimation = indexFromLastPage == FlipView.SelectedIndex;
+
+                if (indexFromLastPage == 0)
+                {
+                }
+                else
+                {
+                    this.ImagesViewModel.SelectedIndex = -1;
+                    FlipView.SelectedIndex = -1;
+                }
+                
+                this.ImagesViewModel.SelectedIndex = indexFromLastPage;
+
+
+                if (ImagesViewModel.SelectedImageViewModel != null)
+                {
+                    await ImagesViewModel.SelectedImageViewModel.UpdateIsFavorited();
+                    await ImagesViewModel.SelectedImageViewModel.UpdateComments();
                 }
             }
             catch (Exception ex)
@@ -132,22 +150,46 @@ namespace PRPR.BooruViewer.Views
 
         private void HandleConnectedAnimation()
         {
+            // Pre-fall creator has different image loading order
+            // unable to share same connected animation code without breaking the UI
+            if (!ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+                return;
+            }
+
+
             try
             {
-                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+                var container = FlipView.ContainerFromIndex(FlipView.SelectedIndex) as FlipViewItem;
 
+
+                // Do not play the animation if the target flipview item is not actually in the middle 
+                // even if the SelectedIndex is pointing it, there are chance that the UI component is still not in the correct position
+                var transform = container.TransformToVisual(FlipView);
+                Point absolutePosition = transform.TransformPoint(new Point(0, 0));
+                if ((int)absolutePosition.X != 0)
+                {
+                    return;
+                }
+
+
+                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
                 if (animation != null)
                 {
-                    animation.Completed += ((c, o) =>
+                    if (FlipView.SelectedIndex >= 0)
                     {
-                        SampleImage.Visibility = Visibility.Visible;
-                        JpegImage.Visibility = Visibility.Visible;
-                    });
-
-                    if (!animation.TryStart(PreviewImage))
-                    {
-                        SampleImage.Visibility = Visibility.Visible;
-                        JpegImage.Visibility = Visibility.Visible;
+                        var mainPreview = container.ContentTemplateRoot as Grid;
+                        var srollViewer = mainPreview.Children.First() as ScrollViewer;
+                        var imageGrid = srollViewer.Content as Grid;
+                        // Prepare backward connected animation
+                        if (!animation.TryStart(imageGrid))
+                        {
+                            readyForConnectedAnimation = false;
+                        }
+                        else
+                        {
+                            readyForConnectedAnimation = true;
+                        }
                     }
                 }
             }
@@ -159,10 +201,42 @@ namespace PRPR.BooruViewer.Views
 
         private async void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
+            if (this.ImagesViewModel.SelectedImageViewModel != null)
+            {
+                e.PageState["PostId"] = ImagesViewModel.SelectedImageViewModel.Post.Id;
+                e.PageState["Index"] = ImagesViewModel.SelectedIndex;
+            }
+
+
+            // Pre-fall creator has different image loading order
+            // unable to share same connected animation code without breaking the UI
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+                if (FlipView.SelectedIndex >= 0)
+                {
+                    try
+                    {
+                        var container = FlipView.ContainerFromIndex(FlipView.SelectedIndex) as FlipViewItem;
+                        var mainPreview = container.ContentTemplateRoot as Grid;
+                        var srollViewer = mainPreview.Children.First() as ScrollViewer;
+                        var imageGrid = srollViewer.Content as Grid;
+
+                        // Prepare backward connected animation
+                        var grid = VisualTreeHelper.GetChild(FlipView, 0) as Grid;
+                        var scrollingHost = grid.Children.FirstOrDefault(o => o is ScrollViewer) as UIElement;
+                        ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", imageGrid);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+            }
+
 
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
-
                 var statusBar = StatusBar.GetForCurrentView();
                 if (statusBar != null)
                 {
@@ -176,7 +250,7 @@ namespace PRPR.BooruViewer.Views
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/post/show/{ImageViewModel.Post.Id}"));
+            await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/post/show/{ImagesViewModel.SelectedImageViewModel.Post.Id}"));
         }
 
         private void ScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -186,14 +260,14 @@ namespace PRPR.BooruViewer.Views
             (scrollViewer.Content as FrameworkElement).MaxWidth = e.NewSize.Width;
         }
 
-        
+
 
 
         private async void DownloadSampleButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await ImageViewModel.SaveImageFileAsync(PostImageVersion.Sample);
+                await ImagesViewModel.SelectedImageViewModel.SaveImageFileAsync(PostImageVersion.Sample);
                 SaveFlyout.Hide();
             }
             catch (Exception ex)
@@ -206,8 +280,8 @@ namespace PRPR.BooruViewer.Views
         {
             try
             {
-                await ImageViewModel.SaveImageFileAsync(PostImageVersion.Source);
-            SaveFlyout.Hide();
+                await ImagesViewModel.SelectedImageViewModel.SaveImageFileAsync(PostImageVersion.Source);
+                SaveFlyout.Hide();
             }
             catch (Exception ex)
             {
@@ -219,7 +293,7 @@ namespace PRPR.BooruViewer.Views
         {
             try
             {
-                await ImageViewModel.SaveImageFileAsync(PostImageVersion.Jpeg);
+                await ImagesViewModel.SelectedImageViewModel.SaveImageFileAsync(PostImageVersion.Jpeg);
                 SaveFlyout.Hide();
             }
             catch (Exception ex)
@@ -236,12 +310,12 @@ namespace PRPR.BooruViewer.Views
 
 
 
-        
+
         private async void SetWallPaperButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                await PersonalizationHelper.SetWallPaper(this.ImageViewModel.Post);
+                await PersonalizationHelper.SetWallPaper(this.ImagesViewModel.SelectedImageViewModel.Post);
             }
             catch (Exception ex)
             {
@@ -249,11 +323,11 @@ namespace PRPR.BooruViewer.Views
             }
         }
 
-        
+
 
         private void SetLockScreenButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(LockScreenPreviewPage), this.ImageViewModel.Post.ToXml());
+            this.Frame.Navigate(typeof(LockScreenPreviewPage), this.ImagesViewModel.SelectedImageViewModel.Post.ToXml());
         }
 
 
@@ -263,30 +337,26 @@ namespace PRPR.BooruViewer.Views
         {
             try
             {
-                await ImageViewModel.Favorite();
+                await ImagesViewModel.SelectedImageViewModel.Favorite();
             }
             catch (Exception ex)
             {
-                
+
             }
         }
-        
+
         private async void UnfavoriteButton_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.Unfavorite();
+            await ImagesViewModel.SelectedImageViewModel.Unfavorite();
         }
 
 
 
         ConnectedAnimation animation = null;
-        
-        
+
+
         private void PreviewImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-            if (!ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
-            {
-                HandleConnectedAnimation();
-            }
         }
 
         private void SampleImage_ImageOpened(object sender, RoutedEventArgs e)
@@ -296,8 +366,8 @@ namespace PRPR.BooruViewer.Views
         private void JpegImage_ImageOpened(object sender, RoutedEventArgs e)
         {
         }
-        
-        
+
+
 
 
 
@@ -331,7 +401,7 @@ namespace PRPR.BooruViewer.Views
 
             e.Handled = true;
         }
-        
+
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -346,18 +416,18 @@ namespace PRPR.BooruViewer.Views
                 var b = VisualStateManager.GoToState(CurrentImagePage, "Details", true);
             }
         }
-        
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/post/show/{ImageViewModel.Post.Id}"));
+            await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/post/show/{ImagesViewModel.SelectedImageViewModel.Post.Id}"));
         }
-        
+
 
         private void AuthorButton_Click(object sender, RoutedEventArgs e)
         {
             // Search tags
-            this.Frame.Navigate(typeof(HomePage), $"user:{this.ImageViewModel.Post.Author}");
+            this.Frame.Navigate(typeof(HomePage), $"user:{this.ImagesViewModel.SelectedImageViewModel.Post.Author}");
         }
 
         private void TagsWrapBlock_Loaded(object sender, RoutedEventArgs e)
@@ -374,10 +444,10 @@ namespace PRPR.BooruViewer.Views
         void RefreshTagsWrapBlock(Panel tagsWrapPanel)
         {
             tagsWrapPanel.Children.Clear();
-            var post = this.ImageViewModel.Post;
+            var post = this.ImagesViewModel.SelectedImageViewModel?.Post;
             if (post != null)
             {
-                var groupedTags = this.ImageViewModel.Post.TagItems.GroupBy(o => o.Type);
+                var groupedTags = this.ImagesViewModel.SelectedImageViewModel.Post.TagItems.GroupBy(o => o.Type);
                 foreach (var group in groupedTags)
                 {
                     var gOrdered = group.OrderBy(o => o.Name.Length);
@@ -398,16 +468,16 @@ namespace PRPR.BooruViewer.Views
 
             }
         }
-        
-        
+
+
         private void TagButton_Click(object sender, RoutedEventArgs e)
         {
 
             // Search tags
             this.Frame.Navigate(typeof(HomePage), $"{((sender as Button).DataContext as TagDetail).Name}");
         }
-        
-        
+
+
 
         private void ImageScrollViewer_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
@@ -458,7 +528,7 @@ namespace PRPR.BooruViewer.Views
                         y = point.Y * 2 - (bh / 2 - (ih / 2 - point.Y));
                     }
                 }
-                
+
                 scrollViewer.ChangeView(x, y, 2, true);
             }
 
@@ -471,50 +541,109 @@ namespace PRPR.BooruViewer.Views
 
         private async void CopyPreviewMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.CopyImagesAsync(PostImageVersion.Preview);
+            await ImagesViewModel.SelectedImageViewModel.CopyImagesAsync(PostImageVersion.Preview);
         }
 
         private async void CopySampleMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.CopyImagesAsync(PostImageVersion.Sample);
+            await ImagesViewModel.SelectedImageViewModel.CopyImagesAsync(PostImageVersion.Sample);
         }
 
         private async void CopyJpegMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.CopyImagesAsync(PostImageVersion.Jpeg);
+            await ImagesViewModel.SelectedImageViewModel.CopyImagesAsync(PostImageVersion.Jpeg);
         }
 
         private async void CopySourceMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await ImageViewModel.CopyImagesAsync(PostImageVersion.Source);
+            await ImagesViewModel.SelectedImageViewModel.CopyImagesAsync(PostImageVersion.Source);
         }
+
+
 
         private void Image_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+            /*
+                        var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
 
-            dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
-            x.ShowAt(dummyGrid);
+                        dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
+                        x.ShowAt(dummyGrid);
 
-            e.Handled = true;
+                        e.Handled = true;
+                        */
         }
 
         private void Image_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
-            {
-                var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+            /*
+                        if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+                        {
+                            var x = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
 
-                dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
-                x.ShowAt(dummyGrid);
+                            dummyGrid.Margin = new Thickness(e.GetPosition(sender as FrameworkElement).X, e.GetPosition(sender as FrameworkElement).Y, 0, 0);
+                            x.ShowAt(dummyGrid);
 
-                e.Handled = true;
-            }
+                            e.Handled = true;
+                        }
+                        */
         }
 
         private void PreviewImage_ImageFailed(object sender, ExceptionRoutedEventArgs e)
         {
 
+        }
+
+
+        bool readyForConnectedAnimation = false;
+        int indexFromLastPage = -1;
+
+
+        private async void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Debug.WriteLine($"Index={ImagesViewModel.SelectedIndex}, {(sender as FlipView).SelectedIndex}");
+
+
+            FlipView.UpdateLayout();
+            if (FlipView.SelectedIndex == indexFromLastPage && readyForConnectedAnimation)
+            {
+                HandleConnectedAnimation();
+            }
+
+            // Increamental load when needed (e.g. last 3)
+            if (ImagesViewModel.SelectedIndex >= ImagesViewModel.Images.Count - 10)
+            {
+                uint newItemCount = 0;
+                while (ImagesViewModel.Posts != null && ImagesViewModel.Posts.HasMoreItems && newItemCount == 0)
+                {
+                    var result = await ImagesViewModel.Posts.LoadMoreItemsAsync(10);
+                    newItemCount = result.Count;
+                }
+            }
+
+
+            if (ImagesViewModel.SelectedImageViewModel != null)
+            {
+                var tasks = new List<Task>();
+                tasks.Add(ImagesViewModel.SelectedImageViewModel.UpdateIsFavorited());
+                tasks.Add(ImagesViewModel.SelectedImageViewModel.UpdateComments());
+
+                //await Task.WhenAll(tasks);
+            }
+        }
+
+        private void FlipView_Loaded(object sender, RoutedEventArgs e)
+        {
+            FlipView.UpdateLayout();
+            if (FlipView.SelectedIndex == indexFromLastPage)
+            {
+                HandleConnectedAnimation();
+            }
+        }
+
+        private void ImageScrollViewer_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            // Reset the scroll and zoom of the image
+            (sender as ScrollViewer).ZoomToFactor(1);
         }
     }
 }

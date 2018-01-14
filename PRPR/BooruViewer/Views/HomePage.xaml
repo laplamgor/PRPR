@@ -436,7 +436,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Grid.Row="1">
+                    <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="1">
                         <StackPanel Margin="0,150,0,0">
 
                             <Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
@@ -534,11 +534,11 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" >
+                            <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
                                 <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
-                                            <GridViewItem Tapped="GridViewItem_Tapped">
+                                            <GridViewItem Tapped="BrowseGridViewItem_Tapped">
                                                 <Grid BorderThickness="0">
                                                     <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                         <Border.BorderBrush>
@@ -665,11 +665,11 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" >
+                            <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
                                 <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4,202,4,4">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
-                                            <GridViewItem Tapped="GridViewItem_Tapped">
+                                            <GridViewItem Tapped="FavoriteGridViewItem_Tapped">
                                                 <Grid BorderThickness="0" >
                                                     <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                         <Border.BorderBrush>
@@ -732,7 +732,7 @@
             <!--More items-->
             <PivotItem  Margin="0">
                 <Grid  Margin="0,48,0,0">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{StaticResource ScrollViewerStyleExtended150}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
                         <local:AccountView Margin="0,150,0,0"/>
                     </ScrollViewer>
                 </Grid>

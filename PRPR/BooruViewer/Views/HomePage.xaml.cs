@@ -33,6 +33,9 @@ using System.Collections;
 using PRPR.Common.Services;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.ApplicationModel.Resources;
+using Microsoft.QueryStringDotNET;
+using PRPR.Common.Controls;
+using Windows.Foundation.Metadata;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -159,21 +162,21 @@ namespace PRPR.BooruViewer.Views
                 HomeViewModel.BrowsePosts = s;
                 BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
 
-            }
 
+                // Load the favorites if logged in
+                if (YandeSettings.Current.IsLoggedIn)
+                {
+                    Posts favoritePost = new Posts();
+                    try
+                    {
+                        favoritePost = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+order:vote");
+                    }
+                    catch (Exception ex)
+                    {
 
-            if (YandeSettings.Current.IsLoggedIn)
-            {
-                Posts favoritePost = new Posts();
-                try
-                {
-                    favoritePost = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+order:vote");
+                    }
+                    FavoritePanel.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
                 }
-                catch (Exception ex)
-                {
-                    
-                }
-                FavoritePanel.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
             }
         }
         
@@ -192,15 +195,24 @@ namespace PRPR.BooruViewer.Views
 
 
 
-        private void GridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private void BrowseGridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            // Clicked a list item from the image wall
+
+            
+
             var container = (sender as GridViewItem);
             if (container != null)
             {
                 var root = (FrameworkElement)container.ContentTemplateRoot;
                 var image = (UIElement)root.FindName("PreviewImage");
 
-                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+                // Pre-fall creator has different image loading order
+                // unable to share same connected animation code without breaking the UI
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+                {
+                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+                }
             }
 
             // Add a fade out effect
@@ -209,34 +221,119 @@ namespace PRPR.BooruViewer.Views
 
 
             var post = (sender as GridViewItem).DataContext as Post;
+            //this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
+
+           
+            
+            // Navigate to image page
+            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)BrowsePanel.ItemsSource;
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
+
         }
 
 
+        private void FavoriteGridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            // Clicked a list item from the image wall
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-        
-        public void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var container = (sender as ImageWall).ContainerFromItem(e.ClickedItem) as ListViewItem;
+
+
+            var container = (sender as GridViewItem);
             if (container != null)
             {
                 var root = (FrameworkElement)container.ContentTemplateRoot;
                 var image = (UIElement)root.FindName("PreviewImage");
 
-                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+                // Pre-fall creator has different image loading order
+                // unable to share same connected animation code without breaking the UI
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+                {
+                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+                }
             }
-            
+
             // Add a fade out effect
             Transitions = new TransitionCollection();
             Transitions.Add(new ContentThemeTransition());
-            
 
-            var post = (e.ClickedItem as ImageWallItem<Post>).ItemSource;
+
+            var post = (sender as GridViewItem).DataContext as Post;
+            //this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
+
+
+
+            // Navigate to image page
+            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)FavoritePanel.ItemsSource;
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
+
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                // Jump to the page item if this is a back button action
+                if (this.Frame.CanGoForward)
+                {
+                    var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
+                    var lastPageParameters = frameState["Page-" + (this.Frame.BackStackDepth + 1)] as IDictionary<string, object>;
+                    var index = (int)lastPageParameters["Index"];
+
+                    
+                    if (this.HomeViewModel.SelectedViewIndex == 0)
+                    {
+
+                    }
+                    else if(this.HomeViewModel.SelectedViewIndex == 1 || this.HomeViewModel.SelectedViewIndex == 2)
+                    {
+                        JustifiedWrapPanel panel = null;
+                        if (this.HomeViewModel.SelectedViewIndex == 1)
+                        {
+                            // Navigating back from a search result image
+                            panel = BrowsePanel;
+                        }
+                        else if (this.HomeViewModel.SelectedViewIndex == 2)
+                        {
+                            // Navigating back from a favorite image
+                            panel = FavoritePanel;
+                        }
+
+                        // Scroll into the index of last opened page
+                        panel.ScrollIntoView((panel.ItemsSource as IList)[index], ScrollIntoViewAlignment.Default);
+                        panel.UpdateLayout();
+
+
+
+
+                        // Pre-fall creator has different image loading order
+                        // unable to share same connected animation code without breaking the UI
+                        if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+                        {
+                            // Start the animation
+                            ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+                            if (animation != null)
+                            {
+                                if (panel.ContainerFromIndex(index) is ContentControl container)
+                                {
+                                    var root = (FrameworkElement)container.ContentTemplateRoot;
+                                    var image = (UIElement)root.FindName("PreviewImage");
+                                    animation.TryStart(image);
+                                }
+                            }
+                        }
+
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        
         
 
 

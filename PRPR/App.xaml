@@ -1887,7 +1887,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollViewer">
-                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Margin="0,-150,0,0">
+                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" >
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="ScrollingIndicatorStates">
                                     <VisualStateGroup.Transitions>

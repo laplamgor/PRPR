@@ -103,7 +103,8 @@ namespace PRPR.ExReader.Views
                 {
                     this.ReadingViewModel = new ReadingViewModel(await ExGallery.DownloadGalleryAsync(galleryLinkFromLastPage, 1, 3));
                 }
-
+                this.ReadingViewModel.CurrentImageIndex = -1;
+                flipView.SelectedIndex = -1;
 
                 // Jump to Page
                 indexFromLastPage = int.Parse(QueryString.Parse(e.NavigationParameter as string)["page"]);
@@ -266,11 +267,12 @@ namespace PRPR.ExReader.Views
         private void CurrentReadingPage_Loaded(object sender, RoutedEventArgs e)
         {
             flipView.UpdateLayout();
-
         }
 
         private async void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Debug.WriteLine($"Index={this.ReadingViewModel.CurrentImageIndex}, {(sender as FlipView).SelectedIndex}");
+
             // Try to start connected animaton after the item picked from gallery page is loaded
             flipView.UpdateLayout();
             if (flipView.SelectedIndex == indexFromLastPage && readyForConnectedAnimation)
@@ -286,7 +288,6 @@ namespace PRPR.ExReader.Views
                 await this.ReadingViewModel.Gallery.LoadMoreItemsAsync((uint)(flipView.SelectedIndex - this.ReadingViewModel.Gallery.Count + 1));
             }
         }
-
 
         private void HandleConnectedAnimation()
         {

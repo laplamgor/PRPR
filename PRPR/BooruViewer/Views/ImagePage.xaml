@@ -9,8 +9,8 @@
     xmlns:wp="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsTypePresent(Windows.UI.Xaml.Media.AcrylicBrush)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsTypeNotPresent(Windows.UI.Xaml.Media.AcrylicBrush)"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     xmlns:Converters="using:PRPR.BooruViewer.Converters"
@@ -52,7 +52,7 @@
     </Page.Resources>
 
     <Page.DataContext>
-        <ViewModels:ImageViewModel/>
+        <ViewModels:ImagesViewModel/>
     </Page.DataContext>
 
 
@@ -71,8 +71,8 @@
 
 
         <VisualStateManager.VisualStateGroups>
-            
-            
+
+
             <VisualStateGroup x:Name="OverlayStates">
                 <VisualState x:Name="NoOverlay">
                     <Storyboard>
@@ -222,10 +222,9 @@
         <Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image x:Name="Background" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                       Source="{Binding Post.PreviewUrl}">
-                </Image>
+                       Source="{Binding SelectedImageViewModel.Post.PreviewUrl}"/>
             </Grid>
-            <contract5Present:Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}" />
+            <contract5Present:Rectangle Fill="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}" />
             <contract5NotPresent:Rectangle Fill="#AA7F7F7F" />
         </Grid>
 
@@ -237,64 +236,70 @@
                 </TransitionCollection>
             </Grid.Transitions>
         </Grid>
-        
+
         <!--Image viewport-->
-        <Grid x:Name="MainPreview" Grid.Row="1" Grid.Column="1">
-
-            <Grid.Resources>
-                <MenuFlyout x:Name="MenuFlyout">
-                    <MenuFlyoutSubItem Text="Copy">
-                        <MenuFlyoutItem Text="Preview" Click="CopyPreviewMenuFlyoutItem_Click"/>
-                        <MenuFlyoutItem Text="Sample" Click="CopySampleMenuFlyoutItem_Click"/>
-                        <MenuFlyoutItem Text="Jpeg" Click="CopyJpegMenuFlyoutItem_Click"/>
-                        <MenuFlyoutItem Text="Source" Click="CopySourceMenuFlyoutItem_Click" Visibility="{Binding Post.IsJpeg, Converter={StaticResource BooleanToInvisibilityConverter}}"/>
-                    </MenuFlyoutSubItem>
-                    <!--<MenuFlyoutItem x:Uid="/Reading/SaveFlyoutItem" Text="Save picture as" Click="SaveMenuFlyoutItem_Click"/>-->
-                </MenuFlyout>
-            </Grid.Resources>
-
-
-
-            <ScrollViewer x:Name="ImageScrollViewer" SizeChanged="ScrollViewer_SizeChanged" 
-                          VerticalContentAlignment="Center" 
-                          HorizontalContentAlignment="Center"
-                          HorizontalAlignment="Stretch" 
-                          ZoomMode="Enabled" MinZoomFactor="1" 
-                          HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled"
-                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
-                          DoubleTapped="ImageScrollViewer_DoubleTapped"  Tapped="MainPreview_Tapped"
-                          >
-                <Grid x:Name="Images" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                      FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"
-                      RightTapped="Image_RightTapped" Holding="Image_Holding">
-
-                    <Image x:Name="PreviewImage" Stretch="Uniform" 
-                           VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Source="{Binding Post.PreviewUrl}"
-                           ImageOpened="PreviewImage_ImageOpened" ImageFailed="PreviewImage_ImageFailed"/>
-
-                    <Image x:Name="SampleImage" Stretch="Uniform"
-                           VerticalAlignment="Center" HorizontalAlignment="Center" 
-                           Source="{Binding Post.SampleUrl}"
-                           ImageOpened="SampleImage_ImageOpened"/>
-
-                    <Image x:Name="JpegImage" Stretch="Uniform"
-                           VerticalAlignment="Center" HorizontalAlignment="Center" 
-                           Source="{Binding Post.JpegUrl}"
-                           ImageOpened="JpegImage_ImageOpened"/>
+        <FlipView x:Name="FlipView" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Images}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectionChanged="FlipView_SelectionChanged" Loaded="FlipView_Loaded">
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="MainPreview">
+                        <Grid.Resources>
+                            <MenuFlyout x:Name="MenuFlyout">
+                                <MenuFlyoutSubItem Text="Copy">
+                                    <MenuFlyoutItem Text="Preview" Click="CopyPreviewMenuFlyoutItem_Click"/>
+                                    <MenuFlyoutItem Text="Sample" Click="CopySampleMenuFlyoutItem_Click"/>
+                                    <MenuFlyoutItem Text="Jpeg" Click="CopyJpegMenuFlyoutItem_Click"/>
+                                    <MenuFlyoutItem Text="Source" Click="CopySourceMenuFlyoutItem_Click" Visibility="{Binding Post.IsJpeg, Converter={StaticResource BooleanToInvisibilityConverter}}"/>
+                                </MenuFlyoutSubItem>
+                                <!--<MenuFlyoutItem x:Uid="/Reading/SaveFlyoutItem" Text="Save picture as" Click="SaveMenuFlyoutItem_Click"/>-->
+                            </MenuFlyout>
+                        </Grid.Resources>
 
 
 
-                    <Grid x:Name="dummyGrid" Margin="0" HorizontalAlignment="Left"/>
-                </Grid>
-            </ScrollViewer>
-        </Grid>
+                        <ScrollViewer x:Name="ImageScrollViewer" SizeChanged="ScrollViewer_SizeChanged" 
+                                      VerticalContentAlignment="Center" 
+                                      HorizontalContentAlignment="Center"
+                                      HorizontalAlignment="Stretch" 
+                                      ZoomMode="Enabled" MinZoomFactor="1" 
+                                      HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled"
+                                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
+                                      DoubleTapped="ImageScrollViewer_DoubleTapped"  Tapped="MainPreview_Tapped"
+                                      DataContextChanged="ImageScrollViewer_DataContextChanged"
+                                      >
+                            <Grid x:Name="Images" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}"
+                                  RightTapped="Image_RightTapped" Holding="Image_Holding">
+
+                                <Image x:Name="PreviewImage" Stretch="Uniform" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Source="{Binding Post.PreviewUrl}"
+                                       ImageOpened="PreviewImage_ImageOpened" ImageFailed="PreviewImage_ImageFailed"/>
+
+                                <Image x:Name="SampleImage" Stretch="Uniform"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                       Source="{Binding Post.SampleUrl}"
+                                       ImageOpened="SampleImage_ImageOpened"/>
+
+                                <Image x:Name="JpegImage" Stretch="Uniform"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                       Source="{Binding Post.JpegUrl}"
+                                       ImageOpened="JpegImage_ImageOpened"/>
+
+
+
+                                <Grid x:Name="dummyGrid" Margin="0" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
 
 
         <!--Buttons-->
         <Grid x:Name="Buttons" Grid.Row="1" Grid.Column="1"
               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0">
-            
+
             <!--Button fade background-->
             <Grid IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.75">
                 <Grid.Background>
@@ -320,47 +325,47 @@
                                     <Button x:Name="DownloadSampleButton" Click="DownloadSampleButton_Click" Margin="0,4">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Sample ("/>
-                                            <TextBlock Text="{Binding Post.SampleWidth}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.SampleWidth}"/>
                                             <TextBlock Text="x"/>
-                                            <TextBlock Text="{Binding Post.SampleHeight}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.SampleHeight}"/>
                                             <TextBlock Text=") "/>
-                                            <TextBlock Text="{Binding Post.SampleFileSize, Converter={StaticResource FileSizeConverter}}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.SampleFileSize, Converter={StaticResource FileSizeConverter}}"/>
                                         </StackPanel>
                                     </Button>
 
 
 
-                                    <Button Visibility="{Binding Post.IsJpeg, Converter={StaticResource BooleanToInvisibilityConverter}}" Click="DownloadJpegButton_Click" Margin="0,4">
+                                    <Button Visibility="{Binding SelectedImageViewModel.Post.IsJpeg, Converter={StaticResource BooleanToInvisibilityConverter}}" Click="DownloadJpegButton_Click" Margin="0,4">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Large Jpeg ("/>
-                                            <TextBlock Text="{Binding Post.JpegWidth}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.JpegWidth}"/>
                                             <TextBlock Text="x"/>
-                                            <TextBlock Text="{Binding Post.JpegHeight}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.JpegHeight}"/>
                                             <TextBlock Text=") "/>
-                                            <TextBlock Text="{Binding Post.JpegFileSize, Converter={StaticResource FileSizeConverter}}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.JpegFileSize, Converter={StaticResource FileSizeConverter}}"/>
                                         </StackPanel>
                                     </Button>
 
 
-                                    <Button Visibility="{Binding Post.IsJpeg, Converter={StaticResource BooleanToInvisibilityConverter}}" Click="DownloadButton_Click" Margin="0,4">
+                                    <Button Visibility="{Binding SelectedImageViewModel.Post.IsJpeg, Converter={StaticResource BooleanToInvisibilityConverter}}" Click="DownloadButton_Click" Margin="0,4">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Large PNG ("/>
-                                            <TextBlock Text="{Binding Post.Width}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.Width}"/>
                                             <TextBlock Text="x"/>
-                                            <TextBlock Text="{Binding Post.Height}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.Height}"/>
                                             <TextBlock Text=") "/>
-                                            <TextBlock Text="{Binding Post.FileSize, Converter={StaticResource FileSizeConverter}}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.FileSize, Converter={StaticResource FileSizeConverter}}"/>
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Visibility="{Binding Post.IsJpeg, Converter={StaticResource BooleanToVisibilityConverter}}" Click="DownloadButton_Click" Margin="0,4">
+                                    <Button Visibility="{Binding SelectedImageViewModel.Post.IsJpeg, Converter={StaticResource BooleanToVisibilityConverter}}" Click="DownloadButton_Click" Margin="0,4">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Large Jpeg ("/>
-                                            <TextBlock Text="{Binding Post.Width}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.Width}"/>
                                             <TextBlock Text="x"/>
-                                            <TextBlock Text="{Binding Post.Height}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.Height}"/>
                                             <TextBlock Text=") "/>
-                                            <TextBlock Text="{Binding Post.FileSize, Converter={StaticResource FileSizeConverter}}"/>
+                                            <TextBlock Text="{Binding SelectedImageViewModel.Post.FileSize, Converter={StaticResource FileSizeConverter}}"/>
                                         </StackPanel>
                                     </Button>
 
@@ -376,7 +381,7 @@
 
                 <Button x:Name="UnfavoriteButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"
                         ToolTipService.ToolTip="Unfavorite" Click="UnfavoriteButton_Click" Foreground="Gold"
-                        Visibility="{Binding IsFavorited, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding SelectedImageViewModel.IsFavorited, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="UnFavorite"/>
                     </Grid>
@@ -384,7 +389,7 @@
 
                 <Button x:Name="FavoriteButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"
                         ToolTipService.ToolTip="Favorite" Click="FavoriteButton_Click"
-                        Visibility="{Binding IsFavorited, Converter={StaticResource BooleanToInvisibilityConverter}}">
+                        Visibility="{Binding SelectedImageViewModel.IsFavorited, Converter={StaticResource BooleanToInvisibilityConverter}}">
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="Favorite"/>
                     </Grid>
@@ -426,7 +431,7 @@
         <!--Details-->
         <Grid x:Name="DetailBlock" Grid.Row="2" Grid.Column="0" Visibility="Visible" Background="Black" Height="0" Width="0">
             <Pivot MinWidth="320" MinHeight="320" HorizontalAlignment="Right">
-                
+
                 <PivotItem Margin="0">
                     <PivotItem.Header>
                         <SymbolIcon Symbol="ContactInfo"/>
@@ -435,10 +440,7 @@
                         <StackPanel Padding="12,0">
 
                             <TextBlock x:Uid="/BooruImagePage/TextBlockUploader" Foreground="Gray" Margin="0,12,0,0"/>
-                            <Button Padding="0" Margin="0,4" HorizontalAlignment="Left" Click="AuthorButton_Click">
-                                <Button.Style>
-                                    <StaticResource ResourceKey="ButtonStyleNoColor"/>
-                                </Button.Style>
+                            <Button Padding="0" Margin="0,4" HorizontalAlignment="Left" Click="AuthorButton_Click" Style="{StaticResource ButtonStyleNoColor}">
                                 <StackPanel Orientation="Horizontal">
 
                                     <Grid  HorizontalAlignment="Left" >
@@ -457,13 +459,13 @@
 
                                         <Ellipse  Width="80" Height="80" Stroke="Gray" StrokeThickness="2" >
                                             <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{Binding Post.CreatorId, Converter={StaticResource AvatarUriConverter}}"/>
+                                                <ImageBrush ImageSource="{Binding SelectedImageViewModel.Post.CreatorId, Converter={StaticResource AvatarUriConverter}}"/>
 
                                             </Ellipse.Fill>
                                         </Ellipse>
                                     </Grid>
 
-                                    <TextBlock Text="{Binding Post.Author}" VerticalAlignment="Center" Margin="12,0"/>
+                                    <TextBlock Text="{Binding SelectedImageViewModel.Post.Author}" VerticalAlignment="Center" Margin="12,0"/>
                                 </StackPanel>
                             </Button>
 
@@ -471,27 +473,27 @@
 
                             <TextBlock x:Uid="/BooruImagePage/TextBlockImageSize" Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Post.Width}"/>
+                                <TextBlock Text="{Binding SelectedImageViewModel.Post.Width}"/>
                                 <TextBlock Text="x"/>
-                                <TextBlock Text="{Binding Post.Height}"/>
+                                <TextBlock Text="{Binding SelectedImageViewModel.Post.Height}"/>
                             </StackPanel>
 
 
                             <TextBlock x:Uid="/BooruImagePage/TextBlockScore" Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Post.Score}"/>
+                                <TextBlock Text="{Binding SelectedImageViewModel.Post.Score}"/>
                             </StackPanel>
 
                             <TextBlock x:Uid="/BooruImagePage/TextBlockUploadDate"  Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Post.CreatedAtUtc}"/>
+                                <TextBlock Text="{Binding SelectedImageViewModel.Post.CreatedAtUtc}"/>
                             </StackPanel>
 
 
 
                             <TextBlock x:Uid="/BooruImagePage/TextBlockRating" Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Post.Rating}"/>
+                                <TextBlock Text="{Binding SelectedImageViewModel.Post.Rating}"/>
                             </StackPanel>
 
                             <Button x:Uid="/BooruImagePage/ButtonOpenInBrowser" contract5Present:Style="{StaticResource ButtonRevealStyle}" Click="Button_Click" Margin="0,24"/>
@@ -506,9 +508,8 @@
                     </PivotItem.Header>
                     <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto" Padding="12,0">
 
-                        <wp:WrapPanel x:Name="TagsWrapPanel" d:IsHidden="true"
-                                      Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged">
-                        </wp:WrapPanel>
+                        <wp:WrapPanel x:Name="TagsWrapPanel" d:IsHidden="true" DataContext="{Binding SelectedImageViewModel}"
+                                      Loaded="TagsWrapBlock_Loaded" DataContextChanged="TagsWrapBlock_DataContextChanged"/>
                     </ScrollViewer>
                 </PivotItem>
 
@@ -516,14 +517,14 @@
                     <PivotItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Comment"/>
-                            <TextBlock Text="{Binding Comments.Count}" VerticalAlignment="Top" FontSize="16" Margin="4" TextLineBounds="TrimToCapHeight"/>
+                            <TextBlock Text="{Binding SelectedImageViewModel.Comments.Count}" VerticalAlignment="Top" FontSize="16" Margin="4" TextLineBounds="TrimToCapHeight"/>
                         </StackPanel>
                     </PivotItem.Header>
                     <Grid>
-                        <ListView ItemsSource="{Binding Comments}" SelectionMode="None">
+                        <ListView ItemsSource="{Binding SelectedImageViewModel.Comments}" SelectionMode="None">
 
                             <ListView.Header>
-                                <TextBlock x:Uid="/BooruImagePage/TextBlockNoComment" Margin="6" Visibility="{Binding Comments, Converter={StaticResource ZeroCountToVisibliltyConverter}}" />
+                                <TextBlock x:Uid="/BooruImagePage/TextBlockNoComment" Margin="6" Visibility="{Binding SelectedImageViewModel.Comments, Converter={StaticResource ZeroCountToVisibliltyConverter}}" />
                             </ListView.Header>
 
 

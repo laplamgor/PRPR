@@ -64,6 +64,7 @@ namespace PRPR.BooruViewer.Views
 
             if ((sender as Button).DataContext is Post post)
             {
+                App.Current.Resources.Remove("Posts");
                 (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(ImagePage), post.ToXml());
             }
         }

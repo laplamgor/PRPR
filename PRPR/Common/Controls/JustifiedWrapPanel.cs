@@ -412,12 +412,12 @@ namespace PRPR.Common.Controls
                         case ScrollIntoViewAlignment.Default:
                             double top = GetPositionY(index);
 
-                            if (ParentScrollViewer.VerticalOffset + ParentScrollViewer.ViewportHeight < top)
+                            if (ParentScrollViewer.VerticalOffset + ParentScrollViewer.ViewportHeight + ParentScrollViewer.Margin.Top < top + RowHeight)
                             {
                                 // The target is below the viewport, align the item to the button of viewport
-                                ParentScrollViewer.ChangeView(null, top + RowHeight - ParentScrollViewer.ViewportHeight, null, true);
+                                ParentScrollViewer.ChangeView(null, top + RowHeight - ParentScrollViewer.ViewportHeight - ParentScrollViewer.Margin.Top, null, true);
                             }
-                            else if (top + RowHeight < ParentScrollViewer.VerticalOffset)
+                            else if (top < ParentScrollViewer.VerticalOffset)
                             {
                                 // The target is above the viewport, align the item to the top of viewport
                                 ParentScrollViewer.ChangeView(null, top, null, true);

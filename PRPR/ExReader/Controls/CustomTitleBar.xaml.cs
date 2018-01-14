@@ -167,7 +167,6 @@ namespace PRPR.ExReader.Controls
 
         void OnLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object e)
         {
-            Debug.WriteLine("OnLayoutMetricsChanged");
             UpdateLayoutMetrics();
         }
 

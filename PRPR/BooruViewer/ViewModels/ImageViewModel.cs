@@ -1,9 +1,12 @@
 ﻿using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
+using PRPR.Common;
 using PRPR.Common.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
@@ -18,6 +21,117 @@ using Windows.Web.Http;
 
 namespace PRPR.BooruViewer.ViewModels
 {
+
+    public class ImagesViewModel : INotifyPropertyChanged
+    {
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
+
+        public ImagesViewModel()
+        {
+
+        }
+
+        public ImagesViewModel(Post post)
+        {
+            _posts = null;
+            
+            var image = new ImageViewModel();
+            image.Post = post;
+            Images.Add(image);
+        }
+
+        public ImagesViewModel(FilteredCollection<Post, Posts> posts)
+        {
+            _posts = posts;
+
+
+            foreach (var post in _posts)
+            {
+                var image = new ImageViewModel();
+                image.Post = post;
+                Images.Add(image);
+            }
+            _posts.CollectionChanged += _posts_CollectionChanged;
+        }
+
+        private void _posts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (Post post in e.NewItems)
+                {
+                    var image = new ImageViewModel();
+                    image.Post = post;
+                    Images.Add(image);
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                Images.Clear();
+            }
+            else
+            {
+
+            }
+        }
+
+
+        private int _selectedIndex = 0;
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set
+            {
+                _selectedIndex = value;
+                NotifyPropertyChanged(nameof(SelectedIndex));
+                NotifyPropertyChanged(nameof(SelectedImageViewModel));
+            }
+        }
+
+        public ImageViewModel SelectedImageViewModel
+        {
+            get
+            {
+                if (_selectedIndex >= 0 && _selectedIndex < Images.Count)
+                {
+                    return Images[_selectedIndex];
+                }
+                return null;
+            }
+        }
+
+
+
+
+
+
+
+        FilteredCollection<Post, Posts> _posts = null;
+
+        public FilteredCollection<Post, Posts> Posts { get => _posts; }
+
+
+
+        private ObservableCollection<ImageViewModel> _images = new ObservableCollection<ImageViewModel>();
+
+        public ObservableCollection<ImageViewModel> Images { get => _images; }
+    }
+
+
+
+
+
+
+
     public class ImageViewModel : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
@@ -88,6 +202,16 @@ namespace PRPR.BooruViewer.ViewModels
         {
             IsFavorited = await YandeClient.CheckFavorited(Post.Id);
         }
+
+        public async Task UpdateComments()
+        {
+            Comments = await Comments.GetComments(Post.Id);
+        }
+
+
+
+        
+
 
         public async Task Favorite()
         {
