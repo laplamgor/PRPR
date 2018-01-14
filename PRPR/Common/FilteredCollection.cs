@@ -101,13 +101,21 @@ namespace PRPR.Common
                 var newCount = this.Source.Count();
                 var newSourceItems = Source.Where(filter.Function).Skip(oldCount);
 
-
-                foreach (var item in newSourceItems)
+                if (oldCount == this.Count)
                 {
-                    this.Add(item);
-                }
+                    foreach (var item in newSourceItems)
+                    {
+                        this.Add(item);
+                    }
 
-                return new LoadMoreItemsResult { Count = (uint)(this.Count - oldFilteredCount) };
+                    return new LoadMoreItemsResult { Count = (uint)(this.Count - oldFilteredCount) };
+                }
+                else
+                {
+                    // There are other items loaded during this download
+                    // Prevent duplicate items
+                    return new LoadMoreItemsResult { Count = 0 };
+                }
             }
             catch (Exception ex)
             {

@@ -47,16 +47,27 @@ namespace PRPR.BooruViewer.Models
         {
             try
             {
-                var nextPagePosts = await DownloadPostsAsync((this.Offset + this.Count) / limit + 1, this.Uri);
-                foreach (var item in nextPagePosts)
+                var currentPageNum = (this.Offset + this.Count) / limit;
+                var nextPagePosts = await DownloadPostsAsync(currentPageNum + 1, this.Uri);
+
+                bool isListUnchanged = currentPageNum == (this.Offset + this.Count) / limit;
+                if (isListUnchanged)
                 {
-                    this.Add(item);
+
+                    foreach (var item in nextPagePosts)
+                    {
+                        this.Add(item);
+                    }
+                    this.TotalCount = nextPagePosts.TotalCount;
+
+                    return new LoadMoreItemsResult { Count = (uint)nextPagePosts.Count };
                 }
-
-                this.TotalCount = nextPagePosts.TotalCount;
-                //this.Offset = 0;
-
-                return new LoadMoreItemsResult { Count = (uint)nextPagePosts.Count };
+                else
+                {
+                    // There are other items loaded during this download
+                    // Prevent duplicate items
+                    return new LoadMoreItemsResult { Count = 0 };
+                }
             }
             catch (Exception ex)
             {
