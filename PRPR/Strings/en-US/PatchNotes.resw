@@ -118,9 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[18 Jan 2017] v1.10.0
+    <value>@[15 Jan 2018] v2.0.0
+- End open beta
+- Add back x64 version
 Yandere
-- Add English Language UI support
+- Add next/pre buttons when viewing image
+- Add Englisg Language UI support
+- Remake UI with better acrylic effects
+- Improve connected animations/page transitions
+- Disable some effects in older OS (basically mobile users) for better performance
+- Fix some crashes and bugs
 Ex
 - Nothing Changed
 @Older patch notes are only available in Chinese Version</value>

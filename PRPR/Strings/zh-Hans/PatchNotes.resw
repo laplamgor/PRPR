@@ -118,12 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[18 Jan 2017] v1.10.0
+    <value>@[15 Jan 2018] v2.0.0
+- 应用脱离公测阶段
+- 加回x64编译版本
 Yandere
+- 加入在看大图时的上/下一张按钮
+- 支持英语/简体中文界面
+- 重製界面, 首面毛玻璃更自然, 空间感更大
+- 改善过渡动画
+- 在旧版本OS(主要是无法升上16299的手机用户)上禁用一些特效以提高流畅度
 - 修正一部份闪退问题
-- 加入英语支持
 Ex
-- 123456
+- 基本没变
 @[18 November 2017] v1.9.1
 Yandere
 - 修正1703版本WIN10上的过渡动画问题
