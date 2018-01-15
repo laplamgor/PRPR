@@ -122,7 +122,7 @@
         <Grid x:Name="TitleGrid" VerticalAlignment="Stretch" Grid.Column="1"  IsHitTestVisible="False">
             <Grid x:Name="InnerGrid" Margin="0,0,0,0"  IsHitTestVisible="False">
                 <TextBlock x:Uid="AppNameTextBlock" 
-                           Text="pr²" 
+                           Text="PRPR" 
                            IsHitTestVisible="False"
                            Foreground="{ThemeResource AppBarItemForegroundThemeBrush}" VerticalAlignment="Center" 
                            Margin="10,0,0,0" FontSize="14" />

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="55370laplamgor.PRPR" Publisher="CN=0D24FD6E-A9C9-481C-BC9C-8FB22E628BA5" Version="1.9.0.0" />
+  <Identity Name="55370laplamgor.PRPR" Publisher="CN=0D24FD6E-A9C9-481C-BC9C-8FB22E628BA5" Version="2.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="727dddb3-aa66-4cd2-b00b-02d5995e5590" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>PRPR</DisplayName>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="PRPR.App">
-      <uap:VisualElements DisplayName="pr²" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="An online viewer to browse Japanese anime arts and set them as wallpaper." BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="PRPR" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="An online viewer to browse Japanese anime arts and set them as wallpaper." BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
