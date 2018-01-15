@@ -199,8 +199,6 @@ namespace PRPR.BooruViewer.Views
         {
             // Clicked a list item from the image wall
 
-            
-
             var container = (sender as GridViewItem);
             if (container != null)
             {
@@ -214,16 +212,8 @@ namespace PRPR.BooruViewer.Views
                     ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
                 }
             }
-
-            // Add a fade out effect
-            Transitions = new TransitionCollection();
-            Transitions.Add(new ContentThemeTransition());
-
-
+            
             var post = (sender as GridViewItem).DataContext as Post;
-            //this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
-
-           
             
             // Navigate to image page
             App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)BrowsePanel.ItemsSource;
@@ -235,8 +225,7 @@ namespace PRPR.BooruViewer.Views
         private void FavoriteGridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
             // Clicked a list item from the image wall
-
-
+            
 
             var container = (sender as GridViewItem);
             if (container != null)
@@ -251,16 +240,8 @@ namespace PRPR.BooruViewer.Views
                     ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
                 }
             }
-
-            // Add a fade out effect
-            Transitions = new TransitionCollection();
-            Transitions.Add(new ContentThemeTransition());
-
-
+            
             var post = (sender as GridViewItem).DataContext as Post;
-            //this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
-
-
 
             // Navigate to image page
             App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)FavoritePanel.ItemsSource;
@@ -270,80 +251,79 @@ namespace PRPR.BooruViewer.Views
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 // Jump to the page item if this is a back button action
-                if (this.Frame.CanGoForward)
+                var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
+                if (this.Frame.CanGoForward && frameState.ContainsKey("Page-" + (this.Frame.BackStackDepth + 1)))
                 {
-                    var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
                     var lastPageParameters = frameState["Page-" + (this.Frame.BackStackDepth + 1)] as IDictionary<string, object>;
-                    var index = (int)lastPageParameters["Index"];
-                    var postId = (int)lastPageParameters["PostId"];
-                    
-
-                    if (this.HomeViewModel.SelectedViewIndex == 0)
+                    if (lastPageParameters.ContainsKey("Index") && lastPageParameters.ContainsKey("PostId"))
                     {
+                        var index = (int)lastPageParameters["Index"];
+                        var postId = (int)lastPageParameters["PostId"];
 
-                        // Pre-fall creator has different image loading order
-                        // unable to share same connected animation code without breaking the UI
-                        if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+
+                        if (this.HomeViewModel.SelectedViewIndex == 0)
                         {
 
-                            var post = FeatureView.FeatureViewModel.TopToday.First(o => o.Id == postId);
-                            if (post != null && FeatureView.FeatureViewModel.TopToday.IndexOf(post) != -1)
+                            // Pre-fall creator has different image loading order
+                            // unable to share same connected animation code without breaking the UI
+                            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+                            {
+
+                                var post = FeatureView.FeatureViewModel.TopToday.First(o => o.Id == postId);
+                                if (post != null && FeatureView.FeatureViewModel.TopToday.IndexOf(post) != -1)
+                                {
+                                    // Start the animation
+                                    ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
+                                    if (animation != null)
+                                    {
+                                        FeatureView.UpdateLayout();
+                                        animation.TryStart(this.FeatureView.GetTopTodayButton(FeatureView.FeatureViewModel.TopToday.IndexOf(post)));
+                                    }
+                                }
+
+                            }
+                        }
+                        else if (this.HomeViewModel.SelectedViewIndex == 1 || this.HomeViewModel.SelectedViewIndex == 2)
+                        {
+                            JustifiedWrapPanel panel = null;
+                            if (this.HomeViewModel.SelectedViewIndex == 1)
+                            {
+                                // Navigating back from a search result image
+                                panel = BrowsePanel;
+                            }
+                            else if (this.HomeViewModel.SelectedViewIndex == 2)
+                            {
+                                // Navigating back from a favorite image
+                                panel = FavoritePanel;
+                            }
+
+                            // Scroll into the index of last opened page
+                            panel.ScrollIntoView((panel.ItemsSource as IList)[index], ScrollIntoViewAlignment.Default);
+                            panel.UpdateLayout();
+
+
+
+
+                            // Pre-fall creator has different image loading order
+                            // unable to share same connected animation code without breaking the UI
+                            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
                             {
                                 // Start the animation
                                 ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
                                 if (animation != null)
                                 {
-                                    FeatureView.UpdateLayout();
-                                    animation.TryStart(this.FeatureView.GetTopTodayButton(FeatureView.FeatureViewModel.TopToday.IndexOf(post)));
-                                }
-                            }
-
-                        }
-                    }
-                    else if(this.HomeViewModel.SelectedViewIndex == 1 || this.HomeViewModel.SelectedViewIndex == 2)
-                    {
-                        JustifiedWrapPanel panel = null;
-                        if (this.HomeViewModel.SelectedViewIndex == 1)
-                        {
-                            // Navigating back from a search result image
-                            panel = BrowsePanel;
-                        }
-                        else if (this.HomeViewModel.SelectedViewIndex == 2)
-                        {
-                            // Navigating back from a favorite image
-                            panel = FavoritePanel;
-                        }
-
-                        // Scroll into the index of last opened page
-                        panel.ScrollIntoView((panel.ItemsSource as IList)[index], ScrollIntoViewAlignment.Default);
-                        panel.UpdateLayout();
-
-
-
-
-                        // Pre-fall creator has different image loading order
-                        // unable to share same connected animation code without breaking the UI
-                        if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
-                        {
-                            // Start the animation
-                            ConnectedAnimation animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("PreviewImage");
-                            if (animation != null)
-                            {
-                                if (panel.ContainerFromIndex(index) is ContentControl container)
-                                {
-                                    var root = (FrameworkElement)container.ContentTemplateRoot;
-                                    var image = (UIElement)root.FindName("PreviewImage");
-                                    animation.TryStart(image);
+                                    if (panel.ContainerFromIndex(index) is ContentControl container)
+                                    {
+                                        var root = (FrameworkElement)container.ContentTemplateRoot;
+                                        var image = (UIElement)root.FindName("PreviewImage");
+                                        animation.TryStart(image);
+                                    }
                                 }
                             }
                         }
-
-
-
                     }
                 }
             }

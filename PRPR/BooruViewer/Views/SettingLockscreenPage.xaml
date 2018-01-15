@@ -198,15 +198,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!--Header-->
-        <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="鎖屏" Foreground="White"/>
-
 
         <Grid Grid.Row="1">
-            <ScrollViewer>
-                <StackPanel Padding="12,0">
+            <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
+                <StackPanel Padding="12,162,12,0">
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockSearchTag" Text="搜索標籤："/>
-                    <TextBox Text="{Binding LockscreenUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. landscape score:5.. order:random"/>
+                    <TextBox Text="{Binding LockscreenUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. landscape score:5.."/>
 
 
                     <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
@@ -269,5 +266,19 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
+
+
+
+        <!--Header-->
+        <Grid>
+            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
+                </Rectangle.Fill>
+            </contract5NotPresent:Rectangle>
+            <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="鎖屏" Foreground="White"/>
+        </Grid>
+
     </Grid>
 </Page>

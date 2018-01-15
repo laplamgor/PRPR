@@ -277,7 +277,7 @@
 
 
 
-        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="True" Style="{StaticResource PivotStyleNoHeader}" Grid.Row="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}">
+        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False" Style="{StaticResource PivotStyleNoHeader}" Grid.Row="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}">
             <Pivot.Resources>
                 <DataTemplate x:Key="EmptyHeaderTemplate">
                     <Grid />

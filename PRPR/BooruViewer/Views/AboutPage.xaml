@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     x:Class="PRPR.BooruViewer.Views.AboutPage"
     mc:Ignorable="d"
     
@@ -23,12 +25,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--Header-->
-        <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="關於" Foreground="White"/>
-
-
-        <ScrollViewer Grid.Row="1">
-            <StackPanel Padding="12,0">
+        <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="1">
+            <StackPanel Padding="12,162,12,0">
                 <TextBlock Text="Author："/>
                 <HyperlinkButton NavigateUri="mailto:laplamgor2@gmail.com">
                     <TextBlock Text="laplamgor"/>
@@ -57,5 +55,15 @@
             </StackPanel>
         </ScrollViewer>
 
+        <!--Header-->
+        <Grid>
+            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
+                </Rectangle.Fill>
+            </contract5NotPresent:Rectangle>
+            <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="關於" Foreground="White"/>
+        </Grid>
     </Grid>
 </Page>

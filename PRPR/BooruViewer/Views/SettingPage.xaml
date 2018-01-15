@@ -20,12 +20,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--Header-->
-        <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="其他設置" Foreground="White"/>
-
-
-        <ScrollViewer Grid.Row="1">
-            <StackPanel Padding="12,0">
+        <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="1">
+            <StackPanel Padding="12,162,12,0">
                 <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchDownloadPath" Header="下載時使用指定路徑" IsOn="{Binding IsDefaultDownloadPathEnabled, Source={StaticResource YandeSettings}, Mode=TwoWay}"/>
                 <TextBlock Text="{Binding DefaultDownloadPath, Source={StaticResource YandeSettings}}"/>
                 <Button x:Uid="/BooruSettingPage/ButtonChangePath" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="更改路徑" Click="Button_Click"/>
@@ -33,5 +29,15 @@
 
         </ScrollViewer>
 
+        <!--Header-->
+        <Grid>
+            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
+                </Rectangle.Fill>
+            </contract5NotPresent:Rectangle>
+            <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="其他設置" Foreground="White"/>
+        </Grid>
     </Grid>
 </Page>

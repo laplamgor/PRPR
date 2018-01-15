@@ -68,16 +68,16 @@ namespace PRPR.ExReader.Views
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            bool ResumingExistingPage = e.PageState != null && e.PageState.ContainsKey("Tags");
+            bool ResumingExistingPage = e.PageState != null && e.PageState.ContainsKey("ExTags");
 
             
             if (ResumingExistingPage)
             {
                 // Re-search the tags if needed
-                if (GalleryListView.GalleryListViewModel.Key != e.PageState["Tags"] as string)
+                if (GalleryListView.GalleryListViewModel.Key != e.PageState["ExTags"] as string)
                 {
-                    GalleryListView.GalleryListViewModel.Key = e.PageState["Tags"] as string;
-                    this.HomeViewModel.SelectedViewIndex = (int)(e.PageState["Tab"]);
+                    GalleryListView.GalleryListViewModel.Key = e.PageState["ExTags"] as string;
+                    this.HomeViewModel.SelectedViewIndex = (int)(e.PageState["ExTab"]);
                     try
                     {
                         await GalleryListView.GalleryListViewModel.Load();
@@ -130,9 +130,8 @@ namespace PRPR.ExReader.Views
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            e.PageState["Tags"] = GalleryListView.GalleryListViewModel.Key;// SearchBox.Text;
-            e.PageState["Tab"] = this.HomeViewModel.SelectedViewIndex;
-            
+            e.PageState["ExTags"] = GalleryListView.GalleryListViewModel.Key;// SearchBox.Text;
+            e.PageState["ExTab"] = this.HomeViewModel.SelectedViewIndex;
         }
 
 
