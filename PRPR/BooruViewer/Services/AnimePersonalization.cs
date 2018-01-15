@@ -89,7 +89,27 @@ namespace PRPR.BooruViewer.Services
             Random rnd = new Random();
             int pointer = rnd.Next((int)postShuffle);
 
-            var post = await GetPostAtAsync(posts, pointer);
+            // Load as many post as possible until reaching the pointer
+            while ((pointer >= posts.Count) && (posts.HasMoreItems))
+            {
+                await posts.LoadMoreItemsAsync(1);
+            }
+
+            if (posts.Count == 0)
+            {
+                // No result at all, cannot update background
+                return "";
+            }
+
+            if (posts.Count - 1 < pointer)
+            {
+                // Not enough posts to shuffle, shuffle for a lower amount of posts
+                pointer = rnd.Next((int)posts.Count - 1);
+            }
+
+            // Select a post
+            var post = posts[pointer];
+
             var previewBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(post.PreviewUrl));
             var largeBufferUrl = "";
             int largeWidth = 0;
