@@ -63,7 +63,6 @@ namespace PRPR.BooruViewer.ViewModels
             get
             {
                 return YandeSettings.Current.SearchPostFilter;
-                //return _searchPostFilter;
             }
 
             set
@@ -95,10 +94,7 @@ namespace PRPR.BooruViewer.ViewModels
 
         private PostFilter _searchPostFilter = new PostFilter();
 
-
-
-
+       
         private ImageWallRows<Post> _browsePosts = null;
-
     }
 }
