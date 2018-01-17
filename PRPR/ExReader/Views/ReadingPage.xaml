@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     x:Name="CurrentReadingPage"
-    RequestedTheme="Dark" Loaded="CurrentReadingPage_Loaded">
+    Loaded="CurrentReadingPage_Loaded">
 
     <Page.DataContext>
         <viewmodel:ReadingViewModel/>
@@ -88,44 +88,44 @@
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Height="48" Width="48" IsEnabled="False"
+                <!--<Button Grid.Column="0" Height="48" Width="48" IsEnabled="False"
                          ToolTipService.ToolTip="Save" Style="{StaticResource ButtonStyleNoBorder}">
                     
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="Refresh"/>
                     </Grid>
-                </Button>
+                </Button>-->
 
                 <Slider Grid.Column="1" VerticalAlignment="Center" TickPlacement="None" 
-                        Value="{Binding CurrentImageIndexOneBased, Mode=TwoWay}"
+                        Value="{Binding CurrentImageIndexOneBased, Mode=TwoWay}" RequestedTheme="Dark"
                         Minimum="1"
                   FlowDirection="{Binding StartFromRightToLeft, Converter={StaticResource BoolToFlowDirection}, Source={StaticResource ExSettings}}"
                         Maximum="{Binding Gallery.FileCount}"
                         LargeChange="1" TickFrequency="1">
                 </Slider>
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Center">
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Center" RequestedTheme="Dark">
                     <TextBlock Text="{Binding CurrentImageIndexOneBased}"/>
                     <TextBlock Text="/"/>
                     <TextBlock Text="{Binding Gallery.FileCount}" />
                 </StackPanel>
 
-                <Button Grid.Column="3" Height="48" Width="48" IsEnabled="False"
+                <!--<Button Grid.Column="3" Height="48" Width="48" IsEnabled="False"
                          ToolTipService.ToolTip="Save" Style="{StaticResource ButtonStyleNoBorder}">
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="Play"/>
                     </Grid>
-                </Button>
+                </Button>-->
 
             </Grid>
         </Grid>
 
 
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Background="Gray" HorizontalAlignment="Right">
+        <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Background="Gray" HorizontalAlignment="Right">
             <TextBlock Text="{Binding CurrentImageIndexOneBased}"/>
             <TextBlock Text="/"/>
             <TextBlock Text="{Binding Images.Count}" />
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </Page>

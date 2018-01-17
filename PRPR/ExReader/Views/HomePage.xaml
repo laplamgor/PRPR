@@ -10,8 +10,7 @@
 
     x:Class="PRPR.ExReader.Views.HomePage"
     mc:Ignorable="d"
-    NavigationCacheMode="Required"
-    RequestedTheme="Dark">
+    NavigationCacheMode="Required">
 
 
     <Page.Resources>
@@ -234,18 +233,17 @@
                 <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
             </contract5NotPresent:Grid.Background>
 
-            <TextBlock x:Name="CurrentHeaderTextBlock"  Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}" Foreground="White"/>
+            <TextBlock x:Name="CurrentHeaderTextBlock"  Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}"/>
 
             <ListView x:Name="TabListView" SelectionMode="Single" 
                       SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}"
                       IsItemClickEnabled="True"
                       HorizontalAlignment="Right"
-                      ScrollViewer.VerticalScrollMode="Disabled"
-                      RequestedTheme="Light">
+                      ScrollViewer.VerticalScrollMode="Disabled">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemTab}">
-                        <Setter Property="BorderBrush" Value="#FF222222"/>
-                        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+                        <Setter Property="BorderBrush" Value="{ThemeResource SystemChromeLowColor}"/>
+                        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemsPanel>

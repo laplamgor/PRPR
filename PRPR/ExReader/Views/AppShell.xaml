@@ -168,9 +168,6 @@
                 Navigating="OnNavigatingToPage"
                 Navigated="OnNavigatedToPage"
                 Loaded="frame_Loaded">
-            <Frame.Background>
-                <SolidColorBrush Color="{ThemeResource SystemChromeBlackHighColor}"/>
-            </Frame.Background>
             <Frame.ContentTransitions>
                 <TransitionCollection>
                     <NavigationThemeTransition>

@@ -14,7 +14,6 @@
     x:Class="PRPR.ExReader.Views.GalleryPage"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
-    RequestedTheme="Dark"
     Loaded="CurrentGalleryPage_Loaded"
     x:Name="CurrentGalleryPage">
 

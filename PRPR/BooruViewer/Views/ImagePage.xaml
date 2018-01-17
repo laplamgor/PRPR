@@ -219,7 +219,7 @@
 
 
         <!--Background-->
-        <contract5Present:Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+        <contract5Present:Grid Grid.RowSpan="99" Grid.ColumnSpan="99">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image x:Name="Background" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" 
                        Source="{Binding SelectedImageViewModel.Post.PreviewUrl}"/>
@@ -228,7 +228,7 @@
         </contract5Present:Grid>
 
         <!--TitleBar-->
-        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" BorderBrush="#FFFFFFFF" Background="#FF000000">
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" BorderBrush="#FFFFFFFF" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
             <Grid.Transitions>
                 <TransitionCollection>
                     <EdgeUIThemeTransition/>
@@ -315,7 +315,7 @@
             </Grid>
 
             <StackPanel x:Name="MainButtons" Orientation="Horizontal" HorizontalAlignment="Center" Margin="4,80,4,4" >
-                <Button  Height="48" Width="48" x:Name="SaveButton"
+                <Button  Height="48" Width="48" x:Name="SaveButton" Foreground="White"
                          ToolTipService.ToolTip="Save" Style="{StaticResource ButtonStyleNoBorder}">
                     <Button.Flyout>
                         <Flyout x:Name="SaveFlyout">
@@ -387,7 +387,7 @@
                 </Button>
 
                 <Button x:Name="FavoriteButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"
-                        ToolTipService.ToolTip="Favorite" Click="FavoriteButton_Click"
+                        ToolTipService.ToolTip="Favorite" Click="FavoriteButton_Click" Foreground="White"
                         Visibility="{Binding SelectedImageViewModel.IsFavorited, Converter={StaticResource BooleanToInvisibilityConverter}}">
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="Favorite"/>
@@ -396,7 +396,7 @@
 
 
 
-                <Button Height="48" Width="48" 
+                <Button Height="48" Width="48"  Foreground="White"
                         Style="{StaticResource ButtonStyleNoBorder}" Click="SetWallPaperButton_Click" ToolTipService.ToolTip="Set as WallPaper">
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="GoToStart"/>
@@ -405,7 +405,7 @@
 
 
 
-                <Button Height="48" Width="48" 
+                <Button Height="48" Width="48" Foreground="White"
                         Click="SetLockScreenButton_Click" ToolTipService.ToolTip="Set as LockScreen" Style="{StaticResource ButtonStyleNoBorder}">
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="SetLockScreen"/>
@@ -413,7 +413,7 @@
                 </Button>
 
 
-                <Button x:Name="MoreButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"
+                <Button x:Name="MoreButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}" Foreground="White"
                         ToolTipService.ToolTip="More" Click="MoreButton_Click">
                     <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <SymbolIcon Symbol="More"/>
@@ -428,7 +428,7 @@
         </Grid>
 
         <!--Details-->
-        <Grid x:Name="DetailBlock" Grid.Row="2" Grid.Column="0" Visibility="Visible" Background="Black" Height="0" Width="0">
+        <Grid x:Name="DetailBlock" Grid.Row="2" Grid.Column="0" Visibility="Visible" Height="0" Width="0">
             <Pivot MinWidth="320" MinHeight="320" HorizontalAlignment="Right">
 
                 <PivotItem Margin="0">

@@ -13,8 +13,7 @@
     mc:Ignorable="d"
     d:DesignHeight="500"
     d:DesignWidth="330"
-    Loaded="UserControl_Loaded"
-    RequestedTheme="Dark">
+    Loaded="UserControl_Loaded">
 
 
     <UserControl.Resources>
@@ -415,7 +414,7 @@
 
 
                                 <TextBlock Text="{Binding ItemSource, Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
-                                   TextWrapping="Wrap" VerticalAlignment="Top" MaxLines="2"
+                                   TextWrapping="Wrap" VerticalAlignment="Top" MaxLines="2" Foreground="White"
                                    />
                             </Grid>
 
@@ -425,7 +424,7 @@
                                     <SolidColorBrush Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}"/>
                                 </Border.Background>
                                 <TextBlock Text="{Binding ItemSource.ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center"/>
+                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"/>
                             </Border>
 
 
@@ -436,10 +435,10 @@
 
                                 <StackPanel Orientation="Horizontal" Height="20">
                                     <TextBlock Text="{Binding ItemSource.FileCount}"  Margin="4,0,0,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"
                                    />
                                     <TextBlock Text="p"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"
                                    />
                                 </StackPanel>
                             </Border>
@@ -456,9 +455,7 @@
 
 
         <Grid Grid.Row="0" Height="48" 
-                      BorderThickness="0,0,0,1" 
-                      BorderBrush="#FF444444" 
-                      Background="#FF222222" >
+                      BorderThickness="0,0,0,1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>

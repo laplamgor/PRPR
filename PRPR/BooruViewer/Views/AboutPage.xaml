@@ -63,7 +63,7 @@
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
             </contract5NotPresent:Rectangle>
-            <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="關於" Foreground="White"/>
+            <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="關於"/>
         </Grid>
     </Grid>
 </Page>

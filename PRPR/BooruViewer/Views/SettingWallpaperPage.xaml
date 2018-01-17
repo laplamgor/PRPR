@@ -274,7 +274,7 @@
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
             </contract5NotPresent:Rectangle>
-            <TextBlock x:Uid="/BooruAccountView/TextBlockWallPaper" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="壁紙" Foreground="White"/>
+            <TextBlock x:Uid="/BooruAccountView/TextBlockWallPaper" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="壁紙"/>
         </Grid>
     </Grid>
 </Page>

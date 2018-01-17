@@ -497,8 +497,8 @@
             <Grid Margin="0,4">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                        <GradientStop Color="#80808080" Offset="0.5"/>
-                        <GradientStop Color="#FF000000" Offset="1"/>
+                        <GradientStop Color="{ThemeResource SystemChromeHighColor}" Offset="0.5"/>
+                        <GradientStop Color="{ThemeResource SystemAltHighColor}" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
                 <TextBlock x:Uid="/BooruFeatureView/TextBlockTopToday"  x:Name="TopTodayHeader" Text="本日熱門" Margin="24,0" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0"/>
@@ -570,11 +570,11 @@
                 <Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                            <GradientStop Color="#80808080" Offset="0.5"/>
-                            <GradientStop Color="#FF000000" Offset="1"/>
+                            <GradientStop Color="{ThemeResource SystemChromeHighColor}" Offset="0.5"/>
+                            <GradientStop Color="{ThemeResource SystemAltHighColor}" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <TextBlock x:Uid="/BooruFeatureView/TextBlockSuggestedTags" x:Name="TagsHeader" Text="推薦標籤" Margin="24,12" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0" Foreground="White"/>
+                    <TextBlock x:Uid="/BooruFeatureView/TextBlockSuggestedTags" x:Name="TagsHeader" Text="推薦標籤" Margin="24,12" Style="{StaticResource SubheaderTextBlockStyle}" Padding="2,0"/>
                 </Grid>
 
                 <Grid x:Name="Tags" Margin="36,0,36,0" HorizontalAlignment="Stretch">

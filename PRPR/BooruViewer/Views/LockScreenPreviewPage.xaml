@@ -128,12 +128,7 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-
-
             </Border>
-
         </Border>
-
-
     </Grid>
 </Page>

@@ -7,7 +7,6 @@
     xmlns:global="using:PRPR.ExReader.Models.Global"
     xmlns:global2="using:PRPR.BooruViewer.Models.Global"
     xmlns:global3="using:PRPR.Common.Models.Global"
-    RequestedTheme="Dark"
     >
 
     <Application.Resources>
@@ -332,7 +331,7 @@
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightChromeAltLowBrush}" />
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>

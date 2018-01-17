@@ -277,7 +277,7 @@
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
             </contract5NotPresent:Rectangle>
-            <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="鎖屏" Foreground="White"/>
+            <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="鎖屏"/>
         </Grid>
 
     </Grid>
