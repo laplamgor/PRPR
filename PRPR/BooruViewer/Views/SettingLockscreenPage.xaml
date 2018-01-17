@@ -101,12 +101,12 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding SearchPostFilter.IsFilterSafe, Mode=TwoWay}" 
-                          IsEnabled="{Binding SearchPostFilter.IsFilterSafeUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding SearchPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
-                          IsEnabled="{Binding SearchPostFilter.IsFilterQuestionableUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding SearchPostFilter.IsFilterExplicit, Mode=TwoWay}"
-                          IsEnabled="{Binding SearchPostFilter.IsFilterExplicitUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding LockscreenPostFilter.IsFilterSafe, Mode=TwoWay}" 
+                          IsEnabled="{Binding LockscreenPostFilter.IsFilterSafeUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding LockscreenPostFilter.IsFilterQuestionable, Mode=TwoWay}" 
+                          IsEnabled="{Binding LockscreenPostFilter.IsFilterQuestionableUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding LockscreenPostFilter.IsFilterExplicit, Mode=TwoWay}"
+                          IsEnabled="{Binding LockscreenPostFilter.IsFilterExplicitUnlocked}"/>
                 <TextBlock x:Uid="/BooruHomePage/TextBlockRating" Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
             </StackPanel>
 
@@ -142,10 +142,10 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioHorizontal" Content="Horizontal" IsChecked="{Binding SearchPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
-                          IsEnabled="{Binding SearchPostFilter.IsFilterHorizontalUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioVertical" Content="Vertical" IsChecked="{Binding SearchPostFilter.IsFilterVertical, Mode=TwoWay}"
-                          IsEnabled="{Binding SearchPostFilter.IsFilterVerticalUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioHorizontal" Content="Horizontal" IsChecked="{Binding LockscreenPostFilter.IsFilterHorizontal, Mode=TwoWay}" 
+                          IsEnabled="{Binding LockscreenPostFilter.IsFilterHorizontalUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioVertical" Content="Vertical" IsChecked="{Binding LockscreenPostFilter.IsFilterVertical, Mode=TwoWay}"
+                          IsEnabled="{Binding LockscreenPostFilter.IsFilterVerticalUnlocked}"/>
                 <TextBlock x:Uid="/BooruHomePage/TextBlockRatioSquare" Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
@@ -181,7 +181,7 @@
                     </Grid>
                 </ListViewItem>
 
-                <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding SearchPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
+                <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding LockscreenPostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
                 <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHidden" Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
