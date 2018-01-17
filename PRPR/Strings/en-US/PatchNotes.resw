@@ -118,12 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[15 Jan 2018] v2.0.0
+    <value>@[18 Jan 2018] v2.0.1
 - End open beta
+- Add dark/light theme options 
 - Add back x64 version
 Yandere
 - Add next/pre buttons when viewing image
 - Add Englisg Language UI support
+- Add tag blacklist filter
 - Remake UI with better acrylic effects
 - Improve connected animations/page transitions
 - Disable some effects in older OS (basically mobile users) for better performance

@@ -118,13 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[15 Jan 2018] v2.0.0
+    <value>@[18 Jan 2018] v2.0.1
 - 應用脫離公測階段
+- 加入亮/暗主題選項
 - 加回x64編譯版本
 Yandere
 - 加入在看大圖時的上/下一張按鈕
 - 支持英語/簡體中文界面
 - 重製界面, 首面毛玻璃更自然, 空間感更大
+- 加入黑名單過濾器
 - 改善過渡動畫
 - 在舊版本OS(主要是無法升上16299的手機用戶)上禁用一些特效以提高流暢度
 - 修正一部份閃退問題
