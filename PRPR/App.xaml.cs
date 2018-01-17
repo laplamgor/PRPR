@@ -48,6 +48,20 @@ namespace PRPR
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
+
+            // Set the app theme before the UI is created
+            // Cannot call global AppSettings.Current stored in app resource which is not initialized
+            // Have to init another object for it
+            switch (new AppSettings().ThemeSelectedIndex)
+            {   
+                case 1:
+                    this.RequestedTheme = ApplicationTheme.Light;
+                    break;
+                case 2:
+                    this.RequestedTheme = ApplicationTheme.Dark;
+                    break;
+            }
+
             this.InitializeComponent();
 
             this.EnteredBackground += App_EnteredBackground;

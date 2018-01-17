@@ -165,6 +165,9 @@
   <data name="ComboBoxItemImageQualityMedium.Content" xml:space="preserve">
     <value>中</value>
   </data>
+  <data name="ComboBoxTheme.Header" xml:space="preserve">
+    <value>應用主題</value>
+  </data>
   <data name="TextBlockAutoCrop.Text" xml:space="preserve">
     <value>自動剪裁:</value>
   </data>
@@ -191,6 +194,18 @@
   </data>
   <data name="TextBlockSearchTag.Text" xml:space="preserve">
     <value>搜索標籤：</value>
+  </data>
+  <data name="TextBlockTheme.Text" xml:space="preserve">
+    <value>更改主題設置後需要重啟應用才會生效</value>
+  </data>
+  <data name="TextBlockThemeDark.Text" xml:space="preserve">
+    <value>暗</value>
+  </data>
+  <data name="TextBlockThemeDefault.Text" xml:space="preserve">
+    <value>由系統決定</value>
+  </data>
+  <data name="TextBlockThemeLight.Text" xml:space="preserve">
+    <value>亮</value>
   </data>
   <data name="TextBlockUpdateInterval.Text" xml:space="preserve">
     <value>換圖間隔：</value>

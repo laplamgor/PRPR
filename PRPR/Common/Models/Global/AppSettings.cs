@@ -53,6 +53,17 @@ namespace PRPR.Common.Models.Global
         }
 
 
-
+        public int ThemeSelectedIndex
+        {
+            get
+            {
+                return GetValueOrDefault<int>(GetCallerName(), 0, false);
+            }
+            set
+            {
+                AddOrUpdateValue(GetCallerName(), value, false);
+                NotifyPropertyChanged(nameof(ThemeSelectedIndex));
+            }
+        }
     }
 }

@@ -22,7 +22,22 @@
 
         <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="1">
             <StackPanel Padding="12,162,12,0">
-                <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchDownloadPath" Header="下載時使用指定路徑" IsOn="{Binding IsDefaultDownloadPathEnabled, Source={StaticResource YandeSettings}, Mode=TwoWay}"/>
+
+                <ComboBox x:Uid="/BooruSettingPage/ComboBoxTheme" Header="應用主題" Margin="0,12"
+                          SelectedIndex="{Binding ThemeSelectedIndex, Mode=TwoWay, Source={StaticResource AppSettings}}">
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockThemeDefault" Text="Windows Default"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockThemeLight" Text="亮"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockThemeDark" Text="暗"/>
+                </ComboBox>
+
+                <TextBlock x:Uid="/BooruSettingPage/TextBlockTheme" Text="The application needs to be restarted to take effect." 
+                           TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
+
+                <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
+
+
+                <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchDownloadPath" Header="下載時使用指定路徑" 
+                              IsOn="{Binding IsDefaultDownloadPathEnabled, Source={StaticResource YandeSettings}, Mode=TwoWay}"/>
                 <TextBlock Text="{Binding DefaultDownloadPath, Source={StaticResource YandeSettings}}"/>
                 <Button x:Uid="/BooruSettingPage/ButtonChangePath" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="更改路徑" Click="Button_Click"/>
             </StackPanel>
