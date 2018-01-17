@@ -182,8 +182,8 @@ namespace PRPR.BooruViewer.Models
             }
         }
 
-
-        private string _tagBlacklist = String.Join(" ", new List<string>{ "ass", "pantsu", "bra", "bikini", "cleavage", "underboob", "breast_hold" });
+        // All the blacklisted tags as fucking Microsoft Store testers think sexually suggestive
+        private string _tagBlacklist = String.Join(" ", new List<string>{ "swimsuits", "swimsuit", "bikini", "bikini_armor", "buruma", "ass", "pantsu", "bra", "cleavage", "underboob", "breast_hold" });
 
         public string TagBlacklist
         {
@@ -247,7 +247,7 @@ namespace PRPR.BooruViewer.Models
                          &&
                          ((o.IsShownInIndex || a))
                          &&
-                         (o.TagItems.FirstOrDefault(tag => tbl.FirstOrDefault(t => String.Compare(t, tag.ToString(), true) == 0) != default(string)) == default(TagDetail))
+                         (o.Tags.Split(' ').ToList().FirstOrDefault(tag => tbl.FirstOrDefault(t => String.Compare(t, tag, true) == 0) != default(string)) == default(string))
                          );
         }
 

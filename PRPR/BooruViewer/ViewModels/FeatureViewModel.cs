@@ -1,4 +1,5 @@
 ﻿using PRPR.BooruViewer.Models;
+using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,12 @@ namespace PRPR.BooruViewer.ViewModels
                 await p.LoadMoreItemsAsync(100);
             }
             var x = p.Where(o => o.created_at >= dayBefore);
+
+
+            // Hide all blacklisted post using the search page setting
+            // To prevent sexually suggestive
+            var tagBlacklist = YandeSettings.Current.SearchPostFilter.TagBlacklist.Split(' ').ToList();
+            x = x.Where(o => o.Tags.Split(' ').ToList().FirstOrDefault(tag => tagBlacklist.FirstOrDefault(t => String.Compare(t, tag, true) == 0) != default(string)) == default(string));
 
 
             UpdateTop3(x);
