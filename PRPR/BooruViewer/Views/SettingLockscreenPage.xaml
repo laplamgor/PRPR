@@ -289,14 +289,14 @@
                               Margin="0,24,0,0" IsEnabled="{Binding IsOn, ElementName=AutoToggleSwitch}"/>
 
 
-                    <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
+                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockImageQuality" Text="圖片質量:"/>
                     <ComboBox x:Name="QualityComboBox" SelectedIndex="{Binding LockscreenUpdateTaskQuality, Source={StaticResource YandeSettings}, Mode=TwoWay}">
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityMedium" Content="中"/>
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityHigh"  Content="高"/>
                     </ComboBox>
 
-                    <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
+                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
 
 
 
@@ -310,7 +310,7 @@
                     </ComboBox>
                     <TextBlock Text="{Binding SelectedItem.Tag, ElementName=CropMethodComboBox}" TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
 
-                    <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
+                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
 
                     <Image Source="{Binding LockscreenUpdateTaskCurrentImageFileUri, Mode=TwoWay, Source={StaticResource YandeSettings}}" Margin="0,12"/>
 

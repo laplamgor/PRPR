@@ -289,14 +289,14 @@
 
 
 
-                    <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
+                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockImageQuality" Text="圖片質量:"/>
                     <ComboBox x:Name="QualityComboBox" SelectedIndex="{Binding WallpaperUpdateTaskQuality, Source={StaticResource YandeSettings}, Mode=TwoWay}">
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityMedium" Content="中"/>
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityHigh"  Content="高"/>
                     </ComboBox>
 
-                    <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
+                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
 
 
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockAutoCrop" Text="自動剪裁:"/>
@@ -309,7 +309,7 @@
                     </ComboBox>
                     <TextBlock Text="{Binding SelectedItem.Tag, ElementName=CropMethodComboBox}" TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
 
-                    <Border BorderThickness="0,1,0,0" Margin="6" BorderBrush="Gray"/>
+                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
 
                     <Image Source="{Binding WallpaperUpdateTaskCurrentImageFileUri, Mode=TwoWay, Source={StaticResource YandeSettings}}" Margin="0,12"/>
 
