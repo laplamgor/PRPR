@@ -150,6 +150,12 @@
   <data name="TextBlockAllowHiddenItem.Text" xml:space="preserve">
     <value>Hidden Images</value>
   </data>
+  <data name="TextBlockBlacklist.Text" xml:space="preserve">
+    <value>Any post containing all blacklisted tags on a line will be hidden. Separate tags with spaces. This blacklist is not synced with your yandere account.</value>
+  </data>
+  <data name="TextBlockBlacklistItem.Text" xml:space="preserve">
+    <value>Blacklist</value>
+  </data>
   <data name="TextBlockHeaderBrowse.Text" xml:space="preserve">
     <value>Browse</value>
   </data>
@@ -176,6 +182,9 @@
   </data>
   <data name="TextBlockRatioSquare.Text" xml:space="preserve">
     <value>p.s. Square images are treated as horizontal.</value>
+  </data>
+  <data name="TextBoxBlacklist.Header" xml:space="preserve">
+    <value>Tag Blacklist</value>
   </data>
   <data name="ToggleSwitchAllowHidden.Header" xml:space="preserve">
     <value>Show hidden images</value>

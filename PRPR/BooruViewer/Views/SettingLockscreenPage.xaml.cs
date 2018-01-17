@@ -150,5 +150,11 @@ $"You have 90% chance to get a new image for {Search(0.90, timeSpans)} minutes.\
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterHiddenFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
         }
+
+        private void FilterBlacklistListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterBlacklistFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
     }
 }

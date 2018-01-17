@@ -354,7 +354,20 @@ namespace PRPR.BooruViewer.Views
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterMainFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
         }
-        
+
+        private void FilterHiddenPostsListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterHiddenFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+        private void FilterBlacklistListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterBlacklistFlyout"] as Flyout);
+            Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+
         private async void FavoriteRefreshButton_Click(object sender, RoutedEventArgs e)
         {
             if (YandeSettings.Current.UserName != "")
@@ -519,13 +532,6 @@ namespace PRPR.BooruViewer.Views
                 }
             }
         }
-
-        private void FilterHiddenPostsListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterHiddenFlyout"] as Flyout);
-            Flyout.ShowAttachedFlyout(FilterButton);
-        }
-
 
 
         private void Image_ImageOpened(object sender, RoutedEventArgs e)

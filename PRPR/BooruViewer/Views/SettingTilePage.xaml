@@ -71,6 +71,21 @@
                                   MirroredWhenRightToLeft="True" />
                     </Grid>
                 </ListViewItem>
+
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterBlacklistListViewItem_Tapped">
+                    <Grid>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockBlacklistItem"  Text="黑名單" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="36,15,0,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
             </StackPanel>
         </Flyout>
 
@@ -82,7 +97,7 @@
                 </Style>
             </Flyout.FlyoutPresenterStyle>
 
-            <StackPanel Width="300" Padding="12,0,12,12">
+            <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding TilePostFilter}">
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromHorizontalOffset="56"/>
@@ -102,12 +117,12 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding TilePostFilter.IsFilterSafe, Mode=TwoWay}" 
-                          IsEnabled="{Binding TilePostFilter.IsFilterSafeUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding TilePostFilter.IsFilterQuestionable, Mode=TwoWay}" 
-                          IsEnabled="{Binding TilePostFilter.IsFilterQuestionableUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding TilePostFilter.IsFilterExplicit, Mode=TwoWay}"
-                          IsEnabled="{Binding TilePostFilter.IsFilterExplicitUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding IsFilterSafe, Mode=TwoWay}" 
+                          IsEnabled="{Binding IsFilterSafeUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding IsFilterQuestionable, Mode=TwoWay}" 
+                          IsEnabled="{Binding IsFilterQuestionableUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding IsFilterExplicit, Mode=TwoWay}"
+                          IsEnabled="{Binding IsFilterExplicitUnlocked}"/>
                 <TextBlock x:Uid="/BooruHomePage/TextBlockRating" Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
             </StackPanel>
 
@@ -122,7 +137,7 @@
             </Flyout.FlyoutPresenterStyle>
 
 
-            <StackPanel Width="300" Padding="12,0,12,12">
+            <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding TilePostFilter}">
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromHorizontalOffset="56"/>
@@ -143,10 +158,10 @@
                     </Grid>
                 </ListViewItem>
 
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioHorizontal" Content="Horizontal" IsChecked="{Binding TilePostFilter.IsFilterHorizontal, Mode=TwoWay}" 
-                          IsEnabled="{Binding TilePostFilter.IsFilterHorizontalUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioVertical" Content="Vertical" IsChecked="{Binding TilePostFilter.IsFilterVertical, Mode=TwoWay}"
-                          IsEnabled="{Binding TilePostFilter.IsFilterVerticalUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioHorizontal" Content="Horizontal" IsChecked="{Binding IsFilterHorizontal, Mode=TwoWay}" 
+                          IsEnabled="{Binding IsFilterHorizontalUnlocked}"/>
+                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatioVertical" Content="Vertical" IsChecked="{Binding IsFilterVertical, Mode=TwoWay}"
+                          IsEnabled="{Binding IsFilterVerticalUnlocked}"/>
                 <TextBlock x:Uid="/BooruHomePage/TextBlockRatioSquare" Text="p.s. Square images are treated as horizontal." TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
@@ -161,7 +176,7 @@
             </Flyout.FlyoutPresenterStyle>
 
 
-            <StackPanel Width="300" Padding="12,0,12,12">
+            <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding TilePostFilter}">
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromHorizontalOffset="56"/>
@@ -182,8 +197,44 @@
                     </Grid>
                 </ListViewItem>
 
-                <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding TilePostFilter.IsFilterAllowHidden, Mode=TwoWay}"/>
+                <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding IsFilterAllowHidden, Mode=TwoWay}"/>
                 <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHidden" Text="一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Flyout>
+
+        <Flyout Placement="Bottom" x:Key="FilterBlacklistFlyout">
+
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+
+
+            <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding TilePostFilter}">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="56"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="FilterReturnItem_Tapped" Margin="-12,0">
+                    <Grid>
+                        <TextBlock x:Uid="/BooruHomePage/TextBlockBlacklistItem" Margin="36,0,0,0" Text="黑名單" VerticalAlignment="Center"/>
+                        <FontIcon HorizontalAlignment="Left"
+                                  Glyph="&#xE0E2;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                  Margin="0,15,12,17" 
+                                  MirroredWhenRightToLeft="True" />
+                    </Grid>
+                </ListViewItem>
+
+                <TextBox x:Uid="/BooruHomePage/TextBoxBlacklist" Header="黑名單標籤" Height="200" TextWrapping="Wrap" Text="{Binding TagBlacklist, Mode=TwoWay}"/>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockBlacklist" Text="所有包含黑名單標籤的貼圖將被隱藏，用空格分隔標籤。注意此黑名單不會與您yandere帳號的網頁版設置同步。" TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
     </Page.Resources>

@@ -1,6 +1,8 @@
-﻿using PRPR.Common;
+﻿using PRPR.BooruViewer.Services;
+using PRPR.Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -181,6 +183,26 @@ namespace PRPR.BooruViewer.Models
         }
 
 
+        private string _tagBlacklist = String.Join(" ", new List<string>{ "ass", "pantsu", "bra", "bikini", "cleavage", "underboob", "breast_hold" });
+
+        public string TagBlacklist
+        {
+            get
+            {
+                return _tagBlacklist;
+            }
+
+            set
+            {
+                _tagBlacklist = value;
+                NotifyPropertyChanged(nameof(TagBlacklist));
+
+                NotifyPropertyChanged(nameof(Function));
+            }
+        }
+
+
+
 
 
         public bool IsFilterHorizontalUnlocked
@@ -217,11 +239,15 @@ namespace PRPR.BooruViewer.Models
 
             var a = IsFilterAllowHidden;
 
+            var tbl = TagBlacklist.Split(' ').ToList();
+
             return (o => ((o.Rating == "s" && s) || (o.Rating == "q" && q) || (o.Rating == "e" && e))
                          &&
                          ((o.Width >= o.Height && h) || (o.Width < o.Height && v))
                          &&
                          ((o.IsShownInIndex || a))
+                         &&
+                         (o.TagItems.FirstOrDefault(tag => tbl.FirstOrDefault(t => String.Compare(t, tag.ToString(), true) == 0) != default(string)) == default(TagDetail))
                          );
         }
 

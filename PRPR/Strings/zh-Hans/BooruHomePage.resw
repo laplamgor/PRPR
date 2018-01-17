@@ -150,6 +150,12 @@
   <data name="TextBlockAllowHiddenItem.Text" xml:space="preserve">
     <value>隐藏图片</value>
   </data>
+  <data name="TextBlockBlacklist.Text" xml:space="preserve">
+    <value>所有包含黑名单标籤的贴图将被隐藏。用空格分隔标籤。注意此黑名单不会与您yandere帐号的网页版设置同步。</value>
+  </data>
+  <data name="TextBlockBlacklistItem.Text" xml:space="preserve">
+    <value>黑名单</value>
+  </data>
   <data name="TextBlockHeaderBrowse.Text" xml:space="preserve">
     <value>浏览</value>
   </data>
@@ -176,6 +182,9 @@
   </data>
   <data name="TextBlockRatioSquare.Text" xml:space="preserve">
     <value>注意：正方图片归入横向类</value>
+  </data>
+  <data name="TextBoxBlacklist.Header" xml:space="preserve">
+    <value>黑名单标籤</value>
   </data>
   <data name="ToggleSwitchAllowHidden.Header" xml:space="preserve">
     <value>显示被隐藏的图片</value>
