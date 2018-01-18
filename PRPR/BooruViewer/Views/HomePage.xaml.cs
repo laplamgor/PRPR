@@ -125,13 +125,13 @@ namespace PRPR.BooruViewer.Views
                             ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
                         };
                         HomeViewModel.BrowsePosts = s;
-                        BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                        HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
 
                     }
                     else
                     {
                         HomeViewModel.BrowsePosts.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
-                        BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                        HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
 
                     }
                 }
@@ -160,7 +160,7 @@ namespace PRPR.BooruViewer.Views
                     ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
                 };
                 HomeViewModel.BrowsePosts = s;
-                BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
 
 
                 // Load the favorites if logged in
@@ -175,7 +175,7 @@ namespace PRPR.BooruViewer.Views
                     {
 
                     }
-                    FavoritePanel.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
+                    HomeViewModel.FavoritePosts = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
                 }
             }
         }
@@ -216,7 +216,7 @@ namespace PRPR.BooruViewer.Views
             var post = (sender as GridViewItem).DataContext as Post;
             
             // Navigate to image page
-            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)BrowsePanel.ItemsSource;
+            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)HomeViewModel.SearchPosts;
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
 
         }
@@ -244,7 +244,7 @@ namespace PRPR.BooruViewer.Views
             var post = (sender as GridViewItem).DataContext as Post;
 
             // Navigate to image page
-            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)FavoritePanel.ItemsSource;
+            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)HomeViewModel.FavoritePosts;
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
 
@@ -382,7 +382,7 @@ namespace PRPR.BooruViewer.Views
                 {
                     return;
                 }
-                FavoritePanel.ItemsSource = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
+                HomeViewModel.FavoritePosts = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
             }
         }
         
@@ -411,37 +411,15 @@ namespace PRPR.BooruViewer.Views
 
         private async void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (HomeViewModel.BrowsePosts == null)
+            try
             {
-                var s = new ImageWallRows<Post>();
-                
-                try
-                {
-                    this.HomeViewModel.Posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(SearchBox.Text)}");
-                }
-                catch (Exception ex)
-                {
-
-                }
-                s.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
-                HomeViewModel.BrowsePosts = s;
-                BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                this.HomeViewModel.Posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(SearchBox.Text)}");
             }
-            else
+            catch (Exception ex)
             {
 
-                try
-                {
-                    this.HomeViewModel.Posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(SearchBox.Text)}");
-                }
-                catch (Exception ex)
-                {
-
-                }
-                HomeViewModel.BrowsePosts.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
-                BrowsePanel.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
             }
-
+            HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
         }
 
 

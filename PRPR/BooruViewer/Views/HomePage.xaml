@@ -324,11 +324,7 @@
 
                     <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="1">
                         <StackPanel Margin="0,150,0,0">
-
                             <Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
-
-
-
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
                                     <Button  Padding="12,0" VerticalAlignment="Stretch" contract5Present:Style="{StaticResource ButtonRevealStyle}">
                                         <StackPanel >
@@ -416,7 +412,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
-                                <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4">
+                                <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4" ItemsSource="{Binding SearchPosts}">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
                                             <GridViewItem Tapped="BrowseGridViewItem_Tapped">
@@ -542,7 +538,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
-                                <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4,154,4,4">
+                                <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4,154,4,4" ItemsSource="{Binding FavoritePosts}">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
                                             <GridViewItem Tapped="FavoriteGridViewItem_Tapped">
@@ -568,8 +564,8 @@
                                                 <Setter.Value>
                                                     <TransitionCollection>
                                                         <!--<AddDeleteThemeTransition/>-->
-                                                        <EntranceThemeTransition/>
-                                                        <!--<RepositionThemeTransition IsStaggeringEnabled="False"/>-->
+                                                        <!--<EntranceThemeTransition/>-->
+                                                        <RepositionThemeTransition IsStaggeringEnabled="False"/>
                                                     </TransitionCollection>
                                                 </Setter.Value>
                                             </Setter>

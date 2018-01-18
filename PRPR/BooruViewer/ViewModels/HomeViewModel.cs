@@ -1,5 +1,6 @@
 ﻿using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
+using PRPR.Common;
 using PRPR.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,46 @@ namespace PRPR.BooruViewer.ViewModels
             }
         }
 
+
+        private FilteredCollection<Post, Posts> _favoritePosts = null;
+
+
+
+        public FilteredCollection<Post, Posts> FavoritePosts
+        {
+            get
+            {
+                return _favoritePosts;
+            }
+
+            set
+            {
+                _favoritePosts = value;
+                NotifyPropertyChanged(nameof(FavoritePosts));
+            }
+        }
+
+
+        private FilteredCollection<Post, Posts> _searchPosts = null;
+
+
+
+        public FilteredCollection<Post, Posts> SearchPosts
+        {
+            get
+            {
+                return _searchPosts;
+            }
+
+            set
+            {
+                _searchPosts = value;
+                NotifyPropertyChanged(nameof(SearchPosts));
+            }
+        }
+
+
+
         public ImageWallRows<Post> BrowsePosts
         {
             get
@@ -85,6 +126,7 @@ namespace PRPR.BooruViewer.ViewModels
                 NotifyPropertyChanged(nameof(BrowsePosts));
             }
         }
+
 
         public HomeViewModel()
         {
