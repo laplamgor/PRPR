@@ -72,12 +72,12 @@ namespace PRPR.ExReader.Models
                 // Get page html
                 if (pagenumber == 1)
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"http://exhentai.org/favorites.php", "dm_l");
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php", "dm_l");
                     return ExFavoriteList.FromHtml(htmlStr);
                 }
                 else
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"http://exhentai.org/favorites.php?page= {pagenumber - 1}");
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?page= {pagenumber - 1}");
                     return ExFavoriteList.FromHtml(htmlStr);
                 }
 

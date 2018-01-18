@@ -119,7 +119,7 @@ namespace PRPR.ExReader.Services
         {
             string requestBody = $"apply=Add+to+Favorites&favcat={favcat}&favnote={favnote}&update=1";
             byte[] data = Encoding.UTF8.GetBytes(requestBody);
-            HttpWebRequest loginRequest = WebRequest.CreateHttp($"http://exhentai.org/gallerypopups.php?gid={gid}&t={token}&act=addfav");
+            HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://exhentai.org/gallerypopups.php?gid={gid}&t={token}&act=addfav");
             loginRequest.Method = "POST";
             loginRequest.ContentType = "application/x-www-form-urlencoded";
             loginRequest.Headers["Cookie"] = await GetExCookieAsync("");
@@ -144,7 +144,7 @@ namespace PRPR.ExReader.Services
         {
             string requestBody = $"apply=Apply&ddact=delete&modifygids[]={gid}";
             byte[] data = Encoding.UTF8.GetBytes(requestBody);
-            HttpWebRequest loginRequest = WebRequest.CreateHttp($"http://exhentai.org/favorites.php");
+            HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://exhentai.org/favorites.php");
             loginRequest.Method = "POST";
             loginRequest.ContentType = "application/x-www-form-urlencoded";
             loginRequest.Headers["Cookie"] = await GetExCookieAsync("");

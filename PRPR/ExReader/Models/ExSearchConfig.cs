@@ -19,7 +19,7 @@ namespace PRPR.ExReader.Models
 
         #endregion
 
-        string x = "http://exhentai.org/?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=loli&f_apply=Apply+Filter";
+        string x = "https://exhentai.org/?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=loli&f_apply=Apply+Filter";
 
 
         private bool _doujinshi = false;

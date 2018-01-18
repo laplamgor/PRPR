@@ -112,7 +112,7 @@ namespace PRPR.ExReader.ViewModels
 
         public async Task Load()
         {
-            var gList = await ExGalleryList.DownloadGalleryListAsync(0, $"http://exhentai.org/?f_search={ WebUtility.UrlEncode(Key)}&{SearchConfig.ToString()}");
+            var gList = await ExGalleryList.DownloadGalleryListAsync(0, $"https://exhentai.org/?f_search={ WebUtility.UrlEncode(Key)}&{SearchConfig.ToString()}");
 
             //(this.GalleryList as ImageWallRows<ExGallery>).RowWidth = BrowseWall.ActualWidth - BrowseWall.Padding.Left - BrowseWall.Padding.Right;
             //(this.GalleryList as ImageWallRows<ExGallery>).RowHeight = BrowseWall.ActualWidth > 500 ? 300 : 150;
