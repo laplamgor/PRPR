@@ -442,8 +442,8 @@
                                                 <Setter.Value>
                                                     <TransitionCollection>
                                                         <!--<AddDeleteThemeTransition/>-->
-                                                        <EntranceThemeTransition/>
-                                                        <!--<RepositionThemeTransition IsStaggeringEnabled="False"/>-->
+                                                        <!--<EntranceThemeTransition/>-->
+                                                        <RepositionThemeTransition IsStaggeringEnabled="False"/>
                                                     </TransitionCollection>
                                                 </Setter.Value>
                                             </Setter>
