@@ -28,6 +28,7 @@ using Windows.UI.Popups;
 using Windows.Storage.Pickers;
 using System.Net;
 using Windows.UI.Xaml.Media.Animation;
+using Microsoft.QueryStringDotNET;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -109,12 +110,10 @@ namespace PRPR.BooruViewer.Views
             }
         }
 
-
-        bool IsConnectedAnimationPlayed = true;
+        
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            IsConnectedAnimationPlayed = false;
             
             Debug.WriteLine("NavigationHelper_LoadState");
             
@@ -139,14 +138,23 @@ namespace PRPR.BooruViewer.Views
                 }
 
 
-                var post1 = Post.FromXml(e.NavigationParameter as string);
-                if (this.ImagesViewModel.Posts == null)
+                if (e.PageState != null && e.PageState.ContainsKey("Index"))
                 {
-                    indexFromLastPage = 0;
+                    // The page is resuming, go to the index where the user was leaving
+                    indexFromLastPage = (int)e.PageState["Index"];
                 }
                 else
                 {
-                    indexFromLastPage = this.ImagesViewModel.Posts.IndexOf(this.ImagesViewModel.Posts.First(o => o.Id == post1.Id));
+                    // This page is a new page navigated from search list
+                    var post1 = Post.FromXml(e.NavigationParameter as string);
+                    if (this.ImagesViewModel.Posts == null)
+                    {
+                        indexFromLastPage = 0;
+                    }
+                    else
+                    {
+                        indexFromLastPage = this.ImagesViewModel.Posts.IndexOf(this.ImagesViewModel.Posts.First(o => o.Id == post1.Id));
+                    }
                 }
                 readyForConnectedAnimation = indexFromLastPage == FlipView.SelectedIndex;
 
