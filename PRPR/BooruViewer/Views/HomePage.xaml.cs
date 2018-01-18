@@ -117,23 +117,8 @@ namespace PRPR.BooruViewer.Views
                     {
                         this.HomeViewModel.Posts = new Posts();
                     }
-
-                    if (HomeViewModel.BrowsePosts == null)
-                    {
-                        var s = new ImageWallRows<Post>()
-                        {
-                            ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
-                        };
-                        HomeViewModel.BrowsePosts = s;
-                        HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
-
-                    }
-                    else
-                    {
-                        HomeViewModel.BrowsePosts.ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
-                        HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
-
-                    }
+                    
+                    HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
                 }
             }
             else // Newly entered a page
@@ -154,12 +139,7 @@ namespace PRPR.BooruViewer.Views
                 {
                     this.HomeViewModel.Posts = new Posts();
                 }
-
-                var s = new ImageWallRows<Post>()
-                {
-                    ItemsSource = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter)
-                };
-                HomeViewModel.BrowsePosts = s;
+                
                 HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
 
 

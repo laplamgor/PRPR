@@ -74,27 +74,7 @@ namespace PRPR.BooruViewer.ViewModels
         }
 
 
-        private FilteredCollection<Post, Posts> _favoritePosts = null;
-
-
-
-        public FilteredCollection<Post, Posts> FavoritePosts
-        {
-            get
-            {
-                return _favoritePosts;
-            }
-
-            set
-            {
-                _favoritePosts = value;
-                NotifyPropertyChanged(nameof(FavoritePosts));
-            }
-        }
-
-
         private FilteredCollection<Post, Posts> _searchPosts = null;
-
 
 
         public FilteredCollection<Post, Posts> SearchPosts
@@ -112,21 +92,24 @@ namespace PRPR.BooruViewer.ViewModels
         }
 
 
+        private FilteredCollection<Post, Posts> _favoritePosts = null;
 
-        public ImageWallRows<Post> BrowsePosts
+        public FilteredCollection<Post, Posts> FavoritePosts
         {
             get
             {
-                return _browsePosts;
+                return _favoritePosts;
             }
 
             set
             {
-                _browsePosts = value;
-                NotifyPropertyChanged(nameof(BrowsePosts));
+                _favoritePosts = value;
+                NotifyPropertyChanged(nameof(FavoritePosts));
             }
         }
 
+
+        
 
         public HomeViewModel()
         {
@@ -135,8 +118,5 @@ namespace PRPR.BooruViewer.ViewModels
         private List<string> FavoriteSortingMode = new List<string>() { "order:vote", "order:id", "order:id_asc" };
 
         private PostFilter _searchPostFilter = new PostFilter();
-
-       
-        private ImageWallRows<Post> _browsePosts = null;
     }
 }
