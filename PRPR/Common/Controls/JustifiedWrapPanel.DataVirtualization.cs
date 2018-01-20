@@ -17,7 +17,7 @@ namespace PRPR.Common.Controls
         {
             if (ParentScrollViewer != null && ItemsSource is ISupportIncrementalLoading)
             {
-                if (ParentScrollViewer.VerticalOffset > ParentScrollViewer.ScrollableHeight - 2 * ParentScrollViewer.ViewportHeight)
+                while (ParentScrollViewer.VerticalOffset > ParentScrollViewer.ScrollableHeight - 1.5 * ParentScrollViewer.ViewportHeight && !loading)
                 {
                     await LoadMoreItemsAsync();
                 }
