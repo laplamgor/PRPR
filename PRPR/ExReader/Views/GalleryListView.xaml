@@ -3,16 +3,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.ExReader.Views"
     xmlns:controls="using:PRPR.ExReader.Controls"
+    xmlns:CommonControl="using:PRPR.Common.Controls"
     xmlns:CommonControls="using:PRPR.Common.Views.Controls"
     xmlns:CommonConverters="using:PRPR.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:PRPR.ExReader.Models"
     xmlns:viewmodel="using:PRPR.ExReader.ViewModels"
     xmlns:Converters="using:PRPR.ExReader.Converters"
     x:Class="PRPR.ExReader.Views.GalleryListView"
     mc:Ignorable="d"
     d:DesignHeight="500"
     d:DesignWidth="330"
+    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     Loaded="UserControl_Loaded">
 
 
@@ -335,124 +339,124 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <CommonControls:ImageWall x:Name="BrowseWall" Grid.Row="1" Background="Transparent"
-                                    HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" Padding="96,0"
-                                  DataContext="{Binding GalleryList}">
-            <CommonControls:ImageWall.ItemTemplate>
-                <DataTemplate>
-                    <UserControl>
-                        <Grid x:Name="ImageGrid" Height="{Binding DisplayHeight}" Width="{Binding DisplayWidth}" BorderThickness="0">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup>
-                                    <VisualState>
-                                        <VisualState.StateTriggers>
-                                            <AdaptiveTrigger MinWindowWidth="500" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Target="ImageGrid.Padding" Value="6"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState>
-                                        <VisualState.StateTriggers>
-                                            <AdaptiveTrigger MinWindowWidth="0" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Target="ImageGrid.Padding" Value="2"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="ImageStates">
-                                    <VisualState x:Name="ImageNotLoaded">
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0" To="0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="ImageLoaded">
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity"
-                                                     Duration="0:0:0.2" To="1"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
 
-                            <Rectangle x:Name="Back" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       Stretch="UniformToFill" Fill="{Binding Converter={StaticResource RandomGrayConverter}}"/>
+        <UserControl Grid.Row="1">
+            <Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualState>
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="1200" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="BrowsePanel.RowHeight" Value="360"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState>
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="700" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="BrowsePanel.RowHeight" Value="300"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState>
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="500" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="BrowsePanel.RowHeight" Value="200"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState>
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="0" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Target="BrowsePanel.RowHeight" Value="150"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" >
+                    <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4" ItemsSource="{Binding SearchGalleryList}">
+                        <CommonControl:JustifiedWrapPanel.ItemTemplate>
+                            <DataTemplate x:DataType="model:ExGallery">
+                                <GridViewItem Tapped="BrowseGridViewItem_Tapped" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                    <Grid BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
-                            <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" BorderThickness="0" BorderBrush="#FF222222">
-                                <Image Stretch="UniformToFill" Source="{Binding ItemSource.Thumb}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                            </Border>
-
-                            <!--<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4">
-
-                                <SymbolIcon Symbol="Favorite" Foreground="#FFFF8B00" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
-                                    <SymbolIcon.RenderTransform>
-                                        <CompositeTransform ScaleX="2" ScaleY="2"/>
-                                    </SymbolIcon.RenderTransform>
-                                </SymbolIcon>
-
-                                <TextBlock Text="{Binding ItemSource.Rating}" Foreground="#FFFFFFFF"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Style="{StaticResource BaseTextBlockStyle}"
-                                   />
-                            </Grid>-->
-                            <Grid VerticalAlignment="Bottom" Height="80">
-                                <Grid.Background>
-                                    <!--<SolidColorBrush Color="#FF000000"/>-->
-                                    <LinearGradientBrush StartPoint="1,0">
-                                        <GradientStop Offset="1" Color="#FF000000"/>
-                                        <GradientStop Offset="0" Color="#00000000"/> 
-                                    </LinearGradientBrush>
-                                </Grid.Background>
-                            </Grid>
+                                        <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+                                            <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                <Border.BorderBrush>
+                                                    <SolidColorBrush Color="#FF222222"/>
+                                                </Border.BorderBrush>
+                                                <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding Thumb}" ImageOpened="Image_ImageOpened" Margin="0,0,0,0" HorizontalAlignment="Stretch" />
+                                            </Border>
 
 
 
-                            <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="40" Margin="0,0,0,0">
 
 
+                                            <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MaxHeight="40" Margin="0,0,0,0" >
+                                                <contract5Present:Rectangle VerticalAlignment="Stretch"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+                                                <contract5NotPresent:Rectangle VerticalAlignment="Stretch">
+                                                    <Rectangle.Fill>
+                                                        <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
+                                                    </Rectangle.Fill>
+                                                </contract5NotPresent:Rectangle>
+                                                <TextBlock Text="{Binding Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
+                                                           TextWrapping="Wrap" VerticalAlignment="Bottom" MaxLines="2"  Style="{StaticResource BaseTextBlockStyle}"/>
+                                            </Grid>
 
-                                <TextBlock Text="{Binding ItemSource, Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
-                                   TextWrapping="Wrap" VerticalAlignment="Top" MaxLines="2" Foreground="White"
-                                   />
-                            </Grid>
 
-
-                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}"/>
-                                </Border.Background>
-                                <TextBlock Text="{Binding ItemSource.ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
+                                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{Binding Category, Converter={StaticResource CategoryColorConverter}}"/>
+                                                </Border.Background>
+                                                <TextBlock Text="{Binding ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
                                    TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"/>
-                            </Border>
+                                            </Border>
 
 
-                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding ItemSource.Category, Converter={StaticResource CategoryColorConverter}}"/>
-                                </Border.Background>
+                                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{Binding Category, Converter={StaticResource CategoryColorConverter}}"/>
+                                                </Border.Background>
 
-                                <StackPanel Orientation="Horizontal" Height="20">
-                                    <TextBlock Text="{Binding ItemSource.FileCount}"  Margin="4,0,0,0"
+                                                <StackPanel Orientation="Horizontal" Height="20">
+                                                    <TextBlock Text="{Binding FileCount}"  Margin="6,0"
                                    TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"
                                    />
-                                    <TextBlock Text="p"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"
-                                   />
-                                </StackPanel>
-                            </Border>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
 
-
-
-                        </Grid>
-                    </UserControl>
-                </DataTemplate>
-            </CommonControls:ImageWall.ItemTemplate>
-        </CommonControls:ImageWall>
-
-
-
+                                    </Grid>
+                                </GridViewItem>
+                            </DataTemplate>
+                        </CommonControl:JustifiedWrapPanel.ItemTemplate>
+                        <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="TabNavigation" Value="Once"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Transitions">
+                                    <Setter.Value>
+                                        <TransitionCollection>
+                                            <!--<AddDeleteThemeTransition/>-->
+                                            <!--<EntranceThemeTransition/>-->
+                                            <!--<RepositionThemeTransition IsStaggeringEnabled="False"/>-->
+                                        </TransitionCollection>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </CommonControl:JustifiedWrapPanel.ItemContainerStyle>
+                    </CommonControl:JustifiedWrapPanel>
+                </ScrollViewer>
+            </Grid>
+        </UserControl>
 
         <Grid Grid.Row="0" Height="48" 
                       BorderThickness="0,0,0,1" >

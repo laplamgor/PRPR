@@ -110,12 +110,35 @@ namespace PRPR.ExReader.ViewModels
         private string _key = "";
 
 
+
+        private ExGalleryList _searchGalleryList = null;
+
+        public ExGalleryList SearchGalleryList
+        {
+            get
+            {
+                return _searchGalleryList;
+            }
+
+            set
+            {
+                _searchGalleryList = value;
+                NotifyPropertyChanged(nameof(SearchGalleryList));
+            }
+        }
+
+
+
+
+
         public async Task Load()
         {
             var gList = await ExGalleryList.DownloadGalleryListAsync(0, $"https://exhentai.org/?f_search={ WebUtility.UrlEncode(Key)}&{SearchConfig.ToString()}");
 
-            //(this.GalleryList as ImageWallRows<ExGallery>).RowWidth = BrowseWall.ActualWidth - BrowseWall.Padding.Left - BrowseWall.Padding.Right;
-            //(this.GalleryList as ImageWallRows<ExGallery>).RowHeight = BrowseWall.ActualWidth > 500 ? 300 : 150;
+
+            SearchGalleryList = gList;
+
+
             var s = new ImageWallRows<ExGallery>();
             s.ItemsSource = new FilteredCollection<ExGallery, ExGalleryList>(gList, this.GalleryFilter);
             this.GalleryList = s;

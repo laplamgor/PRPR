@@ -69,7 +69,7 @@ namespace PRPR.ExReader.Views
 
         private async void SearchKeyTextBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            BrowseWall.Focus(FocusState.Pointer);
+            this.Focus(FocusState.Pointer);
             await GalleryListViewModel.Load();
         }
 
@@ -129,6 +129,13 @@ namespace PRPR.ExReader.Views
             }
 
             VisualStateManager.GoToState(c, "ImageLoaded", true);
+        }
+
+        private void BrowseGridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            
+            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), ((sender as GridViewItem).DataContext as ExGallery).Link);
+
         }
     }
 

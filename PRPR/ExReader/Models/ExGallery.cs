@@ -256,7 +256,13 @@ namespace PRPR.ExReader.Models
             }
         }
 
-        public double PreferredRatio => throw new NotImplementedException();
+        public double PreferredRatio
+        {
+            get
+            {
+                return PreferredWidth / PreferredHeight;
+            }
+        }
 
         public static async Task<ExGallery> DownloadGalleryAsync(string link, int pagenumber, uint maxAttempt = 1)
         {
