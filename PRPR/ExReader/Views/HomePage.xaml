@@ -225,22 +225,17 @@
 
         <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False" Margin="0,-48,0,0"
                Style="{StaticResource PivotStyleNoHeader}"  Grid.Row="1" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}">
-            <Pivot.Resources>
-                <DataTemplate x:Key="EmptyHeaderTemplate">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
                     <Grid />
                 </DataTemplate>
-            </Pivot.Resources>
-            <Pivot.HeaderTemplate>
-                <StaticResource ResourceKey="EmptyHeaderTemplate" />
             </Pivot.HeaderTemplate>
-
 
             <PivotItem  Margin="0">
                 <Grid Padding="0,48,0,0">
                     <local:GalleryListView x:Name="GalleryListView"/>
                 </Grid>
             </PivotItem>
-
 
             <PivotItem  Margin="0">
                 <Grid Padding="0,48,0,0">
@@ -254,7 +249,6 @@
                 </Grid>
             </PivotItem>
 
-
             <PivotItem  Margin="0">
                 <Grid Padding="0,48,0,0">
                     <local:MoreView Grid.Row="1"/>
@@ -262,17 +256,17 @@
             </PivotItem>
         </Pivot>
 
-
-
+        <!--Header-->
         <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0">
-
+            
+            <!--Acrylic background-->
             <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
             <CU:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
             </CU:Rectangle>
-            
+
             <TextBlock x:Name="CurrentHeaderTextBlock"  Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}"/>
 
             <ListView x:Name="TabListView" SelectionMode="Single" 
@@ -308,11 +302,6 @@
                     <TextBlock x:Name="MoreTextBlock" Text="更多" Margin="0,0,16,0"/>
                 </StackPanel>
             </ListView>
-
-
         </Grid>
-
-
-
     </Grid>
 </Page>

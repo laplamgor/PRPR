@@ -301,18 +301,14 @@
 
         <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False"
                Style="{StaticResource PivotStyleNoHeader}" x:Name="FlipView"
-               Grid.Row="1" Grid.RowSpan="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" Margin="0,-48,0,0">
-            
-            <Pivot.Resources>
-                <DataTemplate x:Key="EmptyHeaderTemplate">
+               Grid.Row="1" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" Margin="0,-48,0,0">
+
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
                     <Grid />
                 </DataTemplate>
-            </Pivot.Resources>
-            
-            <Pivot.HeaderTemplate>
-                <StaticResource ResourceKey="EmptyHeaderTemplate" />
             </Pivot.HeaderTemplate>
-
+            
             <!--Feature-->
             <PivotItem Margin="0">
                 <Grid x:Name="FeatureRoot" Padding="0,48,0,0">
@@ -605,15 +601,12 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        
-        
 
+
+        <!--Header-->
         <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" EntranceNavigationTransitionInfo.IsTargetElement="False">
-            <Grid.BorderBrush>
-                <SolidColorBrush Color="White"/>
-            </Grid.BorderBrush>
 
-
+            <!--Acrylic background-->
             <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
             <CU:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>
@@ -662,7 +655,5 @@
                 </StackPanel>
             </ListView>
         </Grid>
-
-
     </Grid>
 </Page>

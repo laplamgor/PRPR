@@ -320,10 +320,6 @@
     </UserControl.Resources>
 
 
-
-
-
-
     <UserControl.DataContext>
         <viewmodel:GalleryListViewModel/>
     </UserControl.DataContext>
@@ -464,18 +460,11 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!--<Button Grid.Column="1">
-                <Button.Flyout>
-                    
-                </Button.Flyout>
-            </Button>-->
 
             <AppBarButton x:Name="FilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Flyout="{StaticResource FilterMainFlyout}"/>
-
 
             <AutoSuggestBox x:Name="SearchKeyTextBox" Grid.Column="1"
                             Text="{Binding Key, Mode=TwoWay}" PlaceholderText="Search" VerticalAlignment="Center" Margin="8,0" QuerySubmitted="SearchKeyTextBox_QuerySubmitted" QueryIcon="Find" />
         </Grid>
-
     </Grid>
 </UserControl>
