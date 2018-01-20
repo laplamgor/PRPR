@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
-
+    
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     xmlns:Converters="using:PRPR.BooruViewer.Converters"
     xmlns:Converters1="using:PRPR.Common.Converters"
@@ -300,7 +300,7 @@
               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0">
 
             <!--Button fade background-->
-            <Grid IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.75">
+            <Grid IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.5">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" ColorInterpolationMode="ScRgbLinearInterpolation">
                         <GradientStop Offset="0"/>
@@ -314,8 +314,10 @@
                 </Grid.Background>
             </Grid>
 
-            <StackPanel x:Name="MainButtons" Orientation="Horizontal" HorizontalAlignment="Center" Margin="4,80,4,4" >
-                <Button  Height="48" Width="48" x:Name="SaveButton" Foreground="White"
+
+            <StackPanel x:Name="MainButtons" Orientation="Horizontal" HorizontalAlignment="Center" Margin="4,80,4,4">
+
+                <Button  Height="48" Width="48" x:Name="SaveButton" Foreground="White" Padding="0"
                          ToolTipService.ToolTip="Save" Style="{StaticResource ButtonStyleNoBorder}">
                     <Button.Flyout>
                         <Flyout x:Name="SaveFlyout">
@@ -372,57 +374,82 @@
                             </Grid>
                         </Flyout>
                     </Button.Flyout>
-                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Symbol="Save"/>
-                    </Grid>
+                    <UserControl Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <wp:DropShadowPanel BlurRadius="20.0" ShadowOpacity="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            OffsetX="0.0" OffsetY="0.0"
+                                                            Color="Black">
+                            <TextBlock Text="&#xE105;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
+                        </wp:DropShadowPanel>
+                    </UserControl>
                 </Button>
 
-
-                <Button x:Name="UnfavoriteButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"
-                        ToolTipService.ToolTip="Unfavorite" Click="UnfavoriteButton_Click" Foreground="Gold"
+                <Button x:Name="UnfavoriteButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"  Padding="0"
+                        ToolTipService.ToolTip="Unfavorite" Click="UnfavoriteButton_Click" Foreground="Gold" 
                         Visibility="{Binding SelectedImageViewModel.IsFavorited, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Symbol="UnFavorite"/>
-                    </Grid>
+                    <UserControl Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <wp:DropShadowPanel BlurRadius="20.0" ShadowOpacity="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            OffsetX="0.0" OffsetY="0.0"
+                                                            Color="Black">
+                            <TextBlock Text="&#xE8D9;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
+                        </wp:DropShadowPanel>
+                    </UserControl>
                 </Button>
 
-                <Button x:Name="FavoriteButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"
+
+                <Button x:Name="FavoriteButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}"  Padding="0"
                         ToolTipService.ToolTip="Favorite" Click="FavoriteButton_Click" Foreground="White"
                         Visibility="{Binding SelectedImageViewModel.IsFavorited, Converter={StaticResource BooleanToInvisibilityConverter}}">
-                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Symbol="Favorite"/>
-                    </Grid>
+                    <UserControl Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <wp:DropShadowPanel BlurRadius="20.0" ShadowOpacity="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            OffsetX="0.0" OffsetY="0.0"
+                                                            Color="Black">
+                            <TextBlock Text="&#xE735;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
+                        </wp:DropShadowPanel>
+                    </UserControl>
                 </Button>
 
 
 
-                <Button Height="48" Width="48"  Foreground="White"
+                <Button Height="48" Width="48"  Foreground="White"  Padding="0"
                         Style="{StaticResource ButtonStyleNoBorder}" Click="SetWallPaperButton_Click" ToolTipService.ToolTip="Set as WallPaper">
-                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Symbol="GoToStart"/>
-                    </Grid>
+                    <UserControl Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <wp:DropShadowPanel BlurRadius="20.0" ShadowOpacity="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            OffsetX="0.0" OffsetY="0.0"
+                                                            Color="Black">
+                            <TextBlock Text="&#xE8FC;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
+                        </wp:DropShadowPanel>
+                    </UserControl>
                 </Button>
 
 
 
-                <Button Height="48" Width="48" Foreground="White"
+                <Button Height="48" Width="48" Foreground="White"  Padding="0"
                         Click="SetLockScreenButton_Click" ToolTipService.ToolTip="Set as LockScreen" Style="{StaticResource ButtonStyleNoBorder}">
-                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Symbol="SetLockScreen"/>
-                    </Grid>
+                    <UserControl Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <wp:DropShadowPanel BlurRadius="20.0" ShadowOpacity="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            OffsetX="0.0" OffsetY="0.0"
+                                                            Color="Black">
+                            <TextBlock Text="&#xE7B5;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
+                        </wp:DropShadowPanel>
+                    </UserControl>
                 </Button>
 
 
-                <Button x:Name="MoreButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}" Foreground="White"
+                <Button x:Name="MoreButton" Height="48" Width="48" Style="{StaticResource ButtonStyleNoBorder}" Foreground="White"  Padding="0"
                         ToolTipService.ToolTip="More" Click="MoreButton_Click">
-                    <Grid Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Symbol="More"/>
-                    </Grid>
-                    <!--<Button.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Text="Open in browser" Click="AppBarButton_Click"/>
-                        </MenuFlyout>
-                    </Button.Flyout>-->
+                    <UserControl Height="48" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <wp:DropShadowPanel BlurRadius="10.0" ShadowOpacity="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            OffsetX="0.0" OffsetY="0.0"
+                                                            Color="Black">
+                            <TextBlock Text="&#xE712;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
+                        </wp:DropShadowPanel>
+                    </UserControl>
                 </Button>
             </StackPanel>
         </Grid>
