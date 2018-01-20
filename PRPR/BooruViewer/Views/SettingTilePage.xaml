@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     mc:Ignorable="d"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
     NavigationCacheMode="Required">
 
@@ -259,7 +259,7 @@
                     <TextBox Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero) rating:s"/>
 
 
-                    <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
+                    <Button FCU:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Filter" Margin="0,0,4,0"/>
                             <TextBlock x:Uid="/BooruSettingPage/TextBlockFilter" Text="Filter"/>
@@ -267,8 +267,8 @@
                     </Button>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新" Click="Button_Click"  Margin="0,12,12,12"/>
-                        <Button x:Uid="/BooruSettingPage/ButtonResetTile" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="重設" Click="Button_Click_1" />
+                        <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" FCU:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新" Click="Button_Click"  Margin="0,12,12,12"/>
+                        <Button x:Uid="/BooruSettingPage/ButtonResetTile" FCU:Style="{StaticResource ButtonRevealStyle}" Content="重設" Click="Button_Click_1" />
                     </StackPanel>
 
 
@@ -290,12 +290,12 @@
 
         <!--Header-->
         <Grid>
-            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
-            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+            <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <CU:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
-            </contract5NotPresent:Rectangle>
+            </CU:Rectangle>
             <TextBlock x:Uid="/BooruAccountView/TextBlockLiveTile" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="磁貼"/>
         </Grid>
     </Grid>

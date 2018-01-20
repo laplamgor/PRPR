@@ -9,8 +9,8 @@
     xmlns:wp="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     xmlns:Converters="using:PRPR.BooruViewer.Converters"
@@ -219,13 +219,13 @@
 
 
         <!--Background-->
-        <contract5Present:Grid Grid.RowSpan="99" Grid.ColumnSpan="99">
+        <FCU:Grid Grid.RowSpan="99" Grid.ColumnSpan="99">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image x:Name="Background" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" 
                        Source="{Binding SelectedImageViewModel.Post.PreviewUrl}"/>
             </Grid>
             <Rectangle Fill="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}" />
-        </contract5Present:Grid>
+        </FCU:Grid>
 
         <!--TitleBar-->
         <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" BorderBrush="#FFFFFFFF" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
@@ -495,7 +495,7 @@
                                 <TextBlock Text="{Binding SelectedImageViewModel.Post.Rating}"/>
                             </StackPanel>
 
-                            <Button x:Uid="/BooruImagePage/ButtonOpenInBrowser" contract5Present:Style="{StaticResource ButtonRevealStyle}" Click="Button_Click" Margin="0,24"/>
+                            <Button x:Uid="/BooruImagePage/ButtonOpenInBrowser" FCU:Style="{StaticResource ButtonRevealStyle}" Click="Button_Click" Margin="0,24"/>
 
                         </StackPanel>
                     </ScrollViewer>

@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="using:PRPR.ExReader.ViewModels"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
     x:Class="PRPR.ExReader.Views.HomePage"
     mc:Ignorable="d"
@@ -223,15 +223,15 @@
         </VisualStateManager.VisualStateGroups>
 
 
-        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" contract5Present:Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" FCU:Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-            <!--<contract5Present:Grid.Background>
-                <contract5Present:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
-            </contract5Present:Grid.Background>-->
+            <!--<FCU:Grid.Background>
+                <FCU:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
+            </FCU:Grid.Background>-->
 
-            <contract5NotPresent:Grid.Background>
+            <CU:Grid.Background>
                 <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
-            </contract5NotPresent:Grid.Background>
+            </CU:Grid.Background>
 
             <TextBlock x:Name="CurrentHeaderTextBlock"  Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}"/>
 

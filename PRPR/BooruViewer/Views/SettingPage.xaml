@@ -5,8 +5,8 @@
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
     mc:Ignorable="d"
     
@@ -39,19 +39,19 @@
                 <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchDownloadPath" Header="下載時使用指定路徑" 
                               IsOn="{Binding IsDefaultDownloadPathEnabled, Source={StaticResource YandeSettings}, Mode=TwoWay}"/>
                 <TextBlock Text="{Binding DefaultDownloadPath, Source={StaticResource YandeSettings}}"/>
-                <Button x:Uid="/BooruSettingPage/ButtonChangePath" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="更改路徑" Click="Button_Click"/>
+                <Button x:Uid="/BooruSettingPage/ButtonChangePath" FCU:Style="{StaticResource ButtonRevealStyle}" Content="更改路徑" Click="Button_Click"/>
             </StackPanel>
 
         </ScrollViewer>
 
         <!--Header-->
         <Grid>
-            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
-            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+            <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <CU:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
-            </contract5NotPresent:Rectangle>
+            </CU:Rectangle>
             <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="其他設置"/>
         </Grid>
     </Grid>

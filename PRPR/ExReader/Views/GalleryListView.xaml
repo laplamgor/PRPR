@@ -15,8 +15,8 @@
     mc:Ignorable="d"
     d:DesignHeight="500"
     d:DesignWidth="330"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     Loaded="UserControl_Loaded">
 
 
@@ -398,12 +398,12 @@
 
 
                                             <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MaxHeight="40" Margin="0,0,0,0" >
-                                                <contract5Present:Rectangle VerticalAlignment="Stretch"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
-                                                <contract5NotPresent:Rectangle VerticalAlignment="Stretch">
+                                                <FCU:Rectangle VerticalAlignment="Stretch"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+                                                <CU:Rectangle VerticalAlignment="Stretch">
                                                     <Rectangle.Fill>
                                                         <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                                                     </Rectangle.Fill>
-                                                </contract5NotPresent:Rectangle>
+                                                </CU:Rectangle>
                                                 <TextBlock Text="{Binding Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
                                                            TextWrapping="Wrap" VerticalAlignment="Bottom" MaxLines="2"  Style="{StaticResource BaseTextBlockStyle}"/>
                                             </Grid>

@@ -7,8 +7,8 @@
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     x:Class="PRPR.BooruViewer.Views.SettingWallpaperPage"
     mc:Ignorable="d"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
     NavigationCacheMode="Required">
 
@@ -255,7 +255,7 @@
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockSearchTag"  Text="搜索標籤："/>
                     <TextBox x:Name="TileTextBox"  Text="{Binding WallpaperUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. kancolle score:40.."/>
 
-                    <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
+                    <Button FCU:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Filter" Margin="0,0,4,0"/>
                             <TextBlock Text="Filter"/>
@@ -268,7 +268,7 @@
                         <TextBox Text="{Binding WallpaperUpdateTaskTimeSpan, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="15-1440"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
                         <TextBlock x:Uid="/BooruSettingPage/TextBlockMinute" Text="分鐘" VerticalAlignment="Center"/>
 
-                        <Button contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
+                        <Button FCU:Style="{StaticResource ButtonRevealStyle}" Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
                     </StackPanel>
 
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockRandom" MaxWidth="500" Margin="0,24,0,0" Text="如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙" HorizontalAlignment="Left" TextWrapping="Wrap"/>
@@ -278,7 +278,7 @@
                         <TextBlock x:Uid="/BooruSettingPage/TextBlockRandomResults" Text="個搜索結果" VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" contract5Present:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,24,0,0"/>
+                    <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" FCU:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,24,0,0"/>
 
                     <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchAutoLockScreen" x:Name="AutoToggleSwitch" Header="自動於後台刷新壁紙" Margin="0,24,0,0"
                                   IsOn="{Binding WallpaperUpdateTaskEnabled, Mode=TwoWay, Source={StaticResource YandeSettings}}"/>
@@ -319,12 +319,12 @@
 
         <!--Header-->
         <Grid>
-            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
-            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+            <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <CU:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
-            </contract5NotPresent:Rectangle>
+            </CU:Rectangle>
             <TextBlock x:Uid="/BooruAccountView/TextBlockWallPaper" x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="壁紙"/>
         </Grid>
     </Grid>

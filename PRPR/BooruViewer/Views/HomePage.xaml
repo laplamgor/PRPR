@@ -12,8 +12,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:PRPR.BooruViewer.ViewModels"
-    xmlns:contract5Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:contract5NotPresent="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
     x:Class="PRPR.BooruViewer.Views.HomePage"
     mc:Ignorable="d"
@@ -326,7 +326,7 @@
                         <StackPanel Margin="0,150,0,0">
                             <Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
-                                    <Button  Padding="12,0" VerticalAlignment="Stretch" contract5Present:Style="{StaticResource ButtonRevealStyle}">
+                                    <Button  Padding="12,0" VerticalAlignment="Stretch" FCU:Style="{StaticResource ButtonRevealStyle}">
                                         <StackPanel >
                                             <TextBlock Text="{x:Bind AppVersion}"/>
                                             <TextBlock x:Uid="/BooruHomePage/TextBlockPatchNotes" Text="更新日誌"/>
@@ -454,7 +454,7 @@
                           VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
 
-                        <Button x:Name="FilterButton" HorizontalAlignment="Left" Click="FilterButton_Click" contract5Present:Style="{StaticResource ButtonRevealStyle}" 
+                        <Button x:Name="FilterButton" HorizontalAlignment="Left" Click="FilterButton_Click" FCU:Style="{StaticResource ButtonRevealStyle}" 
                                 Margin="4,0" Height="40" Width="40" BorderThickness="1" Background="#77222222">
 
                             <SymbolIcon Symbol="Filter"/>
@@ -614,12 +614,12 @@
             </Grid.BorderBrush>
 
 
-            <contract5Present:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
-            <contract5NotPresent:Rectangle Margin="0,-40,0,0" >
+            <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <CU:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
                 </Rectangle.Fill>
-            </contract5NotPresent:Rectangle>
+            </CU:Rectangle>
 
             <TextBlock x:Name="CurrentHeaderTextBlock" Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}" Visibility="Collapsed"/>
 
