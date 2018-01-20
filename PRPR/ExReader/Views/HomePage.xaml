@@ -187,7 +187,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -223,16 +222,57 @@
         </VisualStateManager.VisualStateGroups>
 
 
-        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" FCU:Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-            <!--<FCU:Grid.Background>
-                <FCU:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
-            </FCU:Grid.Background>-->
+        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False" Margin="0,-48,0,0"
+               Style="{StaticResource PivotStyleNoHeader}"  Grid.Row="1" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}">
+            <Pivot.Resources>
+                <DataTemplate x:Key="EmptyHeaderTemplate">
+                    <Grid />
+                </DataTemplate>
+            </Pivot.Resources>
+            <Pivot.HeaderTemplate>
+                <StaticResource ResourceKey="EmptyHeaderTemplate" />
+            </Pivot.HeaderTemplate>
 
-            <CU:Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAltLowColor}"/>
-            </CU:Grid.Background>
 
+            <PivotItem  Margin="0">
+                <Grid Padding="0,48,0,0">
+                    <local:GalleryListView x:Name="GalleryListView"/>
+                </Grid>
+            </PivotItem>
+
+
+            <PivotItem  Margin="0">
+                <Grid Padding="0,48,0,0">
+                    <local:FavoriteListView Grid.Row="1"/>
+                </Grid>
+            </PivotItem>
+
+            <PivotItem  Margin="0">
+                <Grid Padding="0,48,0,0">
+                    <TextBlock Text="未動工"/>
+                </Grid>
+            </PivotItem>
+
+
+            <PivotItem  Margin="0">
+                <Grid Padding="0,48,0,0">
+                    <local:MoreView Grid.Row="1"/>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+
+
+
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0">
+
+            <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
+            <CU:Rectangle Margin="0,-40,0,0" >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
+                </Rectangle.Fill>
+            </CU:Rectangle>
+            
             <TextBlock x:Name="CurrentHeaderTextBlock"  Style="{ThemeResource PageTitleTextBlockStyle}" Text="{Binding SelectedItem.Tag, ElementName=TabListView}"/>
 
             <ListView x:Name="TabListView" SelectionMode="Single" 
@@ -274,43 +314,5 @@
 
 
 
-
-        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False" Style="{StaticResource PivotStyleNoHeader}" Grid.Row="2" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}">
-            <Pivot.Resources>
-                <DataTemplate x:Key="EmptyHeaderTemplate">
-                    <Grid />
-                </DataTemplate>
-            </Pivot.Resources>
-            <Pivot.HeaderTemplate>
-                <StaticResource ResourceKey="EmptyHeaderTemplate" />
-            </Pivot.HeaderTemplate>
-
-
-            <PivotItem  Margin="0">
-                <Grid>
-                    <local:GalleryListView x:Name="GalleryListView"/>
-                </Grid>
-            </PivotItem>
-
-
-            <PivotItem  Margin="0">
-                <Grid Background="Gray">
-                    <local:FavoriteListView Grid.Row="1"/>
-                </Grid>
-            </PivotItem>
-
-            <PivotItem  Margin="0">
-                <Grid>
-                    <TextBlock Text="未動工"/>
-                </Grid>
-            </PivotItem>
-
-
-            <PivotItem  Margin="0">
-                <Grid>
-                    <local:MoreView Grid.Row="1"/>
-                </Grid>
-            </PivotItem>
-        </Pivot>
     </Grid>
 </Page>
