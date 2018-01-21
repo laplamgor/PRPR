@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[18 Jan 2018] v2.0.1
+    <value>@[22 Jan 2018] v2.0.2
 - 应用脱离公测阶段
 - 加入亮/暗主题选项
 - 加回x64编译版本
@@ -131,7 +131,8 @@ Yandere
 - 在旧版本OS(主要是无法升上16299的手机用户)上禁用一些特效以提高流畅度
 - 修正一部份闪退问题
 Ex
-- 基本没变
+- 重製搜索列表
+- 全面使用https
 @[18 November 2017] v1.9.1
 Yandere
 - 修正1703版本WIN10上的过渡动画问题
