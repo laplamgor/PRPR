@@ -127,6 +127,7 @@ namespace PRPR.BooruViewer.Views
                 if (!String.IsNullOrEmpty(e.NavigationParameter as string))
                 {
                     // Turn to the searching selection
+                    FlipView.UpdateLayout();
                     this.HomeViewModel.SelectedViewIndex = 1;
                 }
 
