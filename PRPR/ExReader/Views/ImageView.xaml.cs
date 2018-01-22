@@ -1,4 +1,5 @@
-﻿using PRPR.Common.Services;
+﻿using PRPR.ExReader.ViewModels;
+using PRPR.Common.Services;
 using PRPR.ExReader.Models;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace PRPR.ExReader.Views
         {
             get
             {
-                return this.DataContext as ExImage;
+                return (this.DataContext as ImageViewModel).Image;
             }
         }
 
@@ -141,17 +142,24 @@ namespace PRPR.ExReader.Views
 
         private async void CopyMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            IBuffer imageBuffer = null;
-
-            if (this.Image != null)
+            try
             {
-                var source = this.Image.ImageSource;
+                IBuffer imageBuffer = null;
 
-                var hc = new HttpClient();
-                imageBuffer = await hc.GetBufferAsync(new Uri(source));
+                if (this.Image != null)
+                {
+                    var source = this.Image.ImageSource;
+
+                    var hc = new HttpClient();
+                    imageBuffer = await hc.GetBufferAsync(new Uri(source));
+                }
+
+                await ClipboardService.CopyImageAsync(imageBuffer);
             }
-
-            await ClipboardService.CopyImageAsync(imageBuffer);
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }
