@@ -31,6 +31,7 @@ using PRPR.Common.Models.Global;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Notifications;
 using Microsoft.QueryStringDotNET;
+using Microsoft.EntityFrameworkCore;
 
 namespace PRPR
 {
@@ -71,6 +72,13 @@ namespace PRPR
             this.Suspending += OnSuspending;
             this.Resuming += App_Resuming;
             this.UnhandledException += App_UnhandledException;
+
+
+
+            using (var db = new AppDbContext())
+            {
+                db.Database.Migrate();
+            }
         }
 
 

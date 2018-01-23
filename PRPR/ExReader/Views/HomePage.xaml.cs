@@ -107,24 +107,6 @@ namespace PRPR.ExReader.Views
 
                 }
             }
-
-
-            //if (YandeSettings.Current.UserName != "")
-            //{
-            //    Posts favoritePost = new Posts();
-            //    try
-            //    {
-            //        favoritePost = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+order:vote");
-            //    }
-            //    catch (Exception ex)
-            //    {
-
-            //    }
-            //    FavoriteWall.DataContext = new ImageWallRows<Post>();
-            //    (FavoriteWall.DataContext as ImageWallRows<Post>).RowWidth = FavoriteWall.ActualWidth - FavoriteWall.Padding.Left - FavoriteWall.Padding.Right;
-            //    (FavoriteWall.DataContext as ImageWallRows<Post>).RowHeight = FavoriteWall.ActualWidth > 500 ? 300 : 150;
-            //    (FavoriteWall.DataContext as ImageWallRows<Post>).PostsSource = new PostsFiltered(favoritePost, (o => true));
-            //}
         }
 
 

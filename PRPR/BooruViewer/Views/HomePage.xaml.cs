@@ -425,7 +425,7 @@ namespace PRPR.BooruViewer.Views
             int lastSelecetedKeyIndex = (sender as TextBox).Text.Take(lastSelectionStart).Count(o => o == ' ');
             if (lastSelecetedKeyIndex != newSelecetedKeyIndex && newSelectionStart != (sender as TextBox).Text.Length)
             {
-                UpdateSuggestion(SearchBox);
+                UpdateSuggestions(SearchBox);
             }
             lastSelectionStart = newSelectionStart;
         }
@@ -437,7 +437,7 @@ namespace PRPR.BooruViewer.Views
             textbox.SelectionChanged -= Textbox_SelectionChanged;
         }
 
-        private void UpdateSuggestion(AutoSuggestBox sender)
+        private void UpdateSuggestions(AutoSuggestBox sender)
         {
             try
             {
@@ -487,7 +487,7 @@ namespace PRPR.BooruViewer.Views
                 //await Task.Delay(200);
                 if (args.CheckCurrent())
                 {
-                    UpdateSuggestion(sender);
+                    UpdateSuggestions(sender);
                 }
             }
         }

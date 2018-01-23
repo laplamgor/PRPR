@@ -1,4 +1,5 @@
-﻿using PRPR.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using PRPR.Common;
 using PRPR.Common.Models;
 using PRPR.ExReader.Models;
 using PRPR.ExReader.Services;
@@ -10,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -136,6 +138,35 @@ namespace PRPR.ExReader.Views
             
             (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), ((sender as GridViewItem).DataContext as ExGallery).Link);
 
+        }
+
+        private async void SearchKeyTextBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                await UpdateSuggestionsAsync(sender);
+            }
+        }
+
+        private async Task UpdateSuggestionsAsync(AutoSuggestBox sender)
+        {
+            try
+            {
+                using (var db = new AppDbContext())
+                {
+
+                    sender.ItemsSource = (await db.ExSearchRecords.ToListAsync()).Where(o => o.Keyword.StartsWith(sender.Text)).GroupBy(o => o.Keyword).Select(grp => grp.First()).OrderByDescending(o => o.DateCreated).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private async void SearchKeyTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            await UpdateSuggestionsAsync(sender as AutoSuggestBox);
         }
     }
 
