@@ -118,21 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[22 Jan 2018] v2.0.2
+    <value>@[24 Jan 2018] v2.0.3
 - End open beta
 - Add dark/light theme options 
 - Add back x64 version
+- Add Alipay/PayPal tip methods
 Yandere
 - Add next/pre buttons when viewing image
 - Add Englisg Language UI support
 - Add tag blacklist filter
+- Add held image filter
 - Remake UI with better acrylic effects
 - Improve connected animations/page transitions
 - Disable some effects in older OS (basically mobile users) for better performance
 - Fix some crashes and bugs
 Ex
 - Remake search result list
-- Switch to http completely
+- Switch to https completely
+- Add local search history
 @Older patch notes are only available in Chinese Version</value>
   </data>
 </root>
