@@ -317,6 +317,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AliPay_logo.svg" />
+    <Content Include="Assets\AliPay_QR.svg" />
+    <Content Include="Assets\PayPal_logo.svg" />
     <Content Include="Assets\Square310x310Logo.scale-100.png" />
     <Content Include="Assets\Square310x310Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-256_altform-unplated.png" />
