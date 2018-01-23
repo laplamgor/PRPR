@@ -150,13 +150,28 @@ namespace PRPR.BooruViewer.Models
             set
             {
                 _isFilterAllowHidden = value;
-
+                NotifyPropertyChanged(nameof(IsFilterAllowHidden));
                 NotifyPropertyChanged(nameof(Function));
             }
         }
 
 
+        private bool _isFilterAllowHeld = false;
 
+        public bool IsFilterAllowHeld
+        {
+            get
+            {
+                return _isFilterAllowHeld;
+            }
+
+            set
+            {
+                _isFilterAllowHeld = value;
+                NotifyPropertyChanged(nameof(IsFilterAllowHeld));
+                NotifyPropertyChanged(nameof(Function));
+            }
+        }
 
 
 
@@ -238,6 +253,7 @@ namespace PRPR.BooruViewer.Models
             var v = IsFilterVertical;
 
             var a = IsFilterAllowHidden;
+            var b = IsFilterAllowHeld;
 
             var tbl = TagBlacklist.Split(' ').ToList();
 
@@ -246,6 +262,8 @@ namespace PRPR.BooruViewer.Models
                          ((o.Width >= o.Height && h) || (o.Width < o.Height && v))
                          &&
                          ((o.IsShownInIndex || a))
+                         &&
+                         ((b || !o.IsHeld))
                          &&
                          (o.Tags.Split(' ').ToList().FirstOrDefault(tag => tbl.FirstOrDefault(t => String.Compare(t, tag, true) == 0) != default(string)) == default(string))
                          );

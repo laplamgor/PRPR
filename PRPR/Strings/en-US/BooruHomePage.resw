@@ -144,8 +144,11 @@
   <data name="StackPanelHeaderMore.Tag" xml:space="preserve">
     <value>More</value>
   </data>
+  <data name="TextBlockAllowHeld.Text" xml:space="preserve">
+    <value>Some images recently uploaded but not yet tagged will be held up temporarily. You may disclose these images before they are ready, but blacklists will not work on these images.</value>
+  </data>
   <data name="TextBlockAllowHidden.Text" xml:space="preserve">
-    <value>Usually images containing a lot of text are hidden by default. You can unhidden them in the search result.</value>
+    <value>Usually images containing a lot of text are hidden by default.</value>
   </data>
   <data name="TextBlockAllowHiddenItem.Text" xml:space="preserve">
     <value>Hidden Images</value>
@@ -185,6 +188,9 @@
   </data>
   <data name="TextBoxBlacklist.Header" xml:space="preserve">
     <value>Tag Blacklist</value>
+  </data>
+  <data name="ToggleSwitchAllowHeld.Header" xml:space="preserve">
+    <value>Show held images</value>
   </data>
   <data name="ToggleSwitchAllowHidden.Header" xml:space="preserve">
     <value>Show hidden images</value>

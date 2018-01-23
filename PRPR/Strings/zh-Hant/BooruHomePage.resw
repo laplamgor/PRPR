@@ -144,8 +144,11 @@
   <data name="StackPanelHeaderMore.Tag" xml:space="preserve">
     <value>更多</value>
   </data>
+  <data name="TextBlockAllowHeld.Text" xml:space="preserve">
+    <value>一些剛上傳但未被標籤的圖片都會可能會暫時被攔截。您可以選擇提前看到這些新圖，但黑名單可能對它們沒有效果。</value>
+  </data>
   <data name="TextBlockAllowHidden.Text" xml:space="preserve">
-    <value>一般以文字為主的圖片都會被預設隱藏。您可以選擇在搜索結果中顯示它們。</value>
+    <value>一般以文字為主的圖片都會被預設隱藏。</value>
   </data>
   <data name="TextBlockAllowHiddenItem.Text" xml:space="preserve">
     <value>隱藏圖片</value>
@@ -185,6 +188,9 @@
   </data>
   <data name="TextBoxBlacklist.Header" xml:space="preserve">
     <value>黑名單標籤</value>
+  </data>
+  <data name="ToggleSwitchAllowHeld.Header" xml:space="preserve">
+    <value>顯示被攔截的圖片</value>
   </data>
   <data name="ToggleSwitchAllowHidden.Header" xml:space="preserve">
     <value>顯示被隱藏的圖片</value>
