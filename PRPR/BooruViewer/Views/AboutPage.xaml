@@ -9,6 +9,7 @@
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+
     x:Class="PRPR.BooruViewer.Views.AboutPage"
     mc:Ignorable="d"
     
@@ -25,7 +26,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="1">
+        <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="2">
             <StackPanel Padding="12,162,12,0">
                 <TextBlock Text="Author："/>
                 <HyperlinkButton NavigateUri="mailto:laplamgor2@gmail.com">
@@ -46,6 +47,31 @@
                         <Run Text="387526263"/>
                     </Paragraph>
                 </RichTextBlock>
+                <TextBlock Text=""/>
+
+                <TextBlock Text="Tip me via PayPal："/>
+                <HyperlinkButton NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RZJWCKCL9N6RU">
+                    <Image Width="200" HorizontalAlignment="Left" Stretch="Uniform">
+                        <Image.Source>
+                            <SvgImageSource UriSource="/Assets/PayPal_logo.svg" RasterizePixelHeight="271" RasterizePixelWidth="1024" />
+                        </Image.Source>
+                    </Image>
+                </HyperlinkButton>
+                <TextBlock Text=""/>
+
+
+                <TextBlock Text="Tip me via Alipay："/>
+                <Image Width="200" HorizontalAlignment="Left" Stretch="Uniform">
+                    <Image.Source>
+                        <SvgImageSource UriSource="/Assets/AliPay_logo.svg" RasterizePixelHeight="341" RasterizePixelWidth="1024" />
+                    </Image.Source>
+                </Image>
+                <Image Height="200" Width="200" HorizontalAlignment="Left">
+                    <Image.Source>
+                        <SvgImageSource UriSource="/Assets/AliPay_QR.svg"  RasterizePixelHeight="296"
+                    RasterizePixelWidth="296" />
+                    </Image.Source>
+                </Image>
                 <TextBlock Text=""/>
 
                 <TextBlock Text="歡迎回報BUG或提出改善建議"/>
