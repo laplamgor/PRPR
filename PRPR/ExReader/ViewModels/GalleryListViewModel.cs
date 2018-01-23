@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace PRPR.ExReader.ViewModels
 {
@@ -25,22 +26,6 @@ namespace PRPR.ExReader.ViewModels
         }
 
         #endregion
-
-        private ImageWallRows<ExGallery> _galleryList = null;
-
-        public ImageWallRows<ExGallery> GalleryList
-        {
-            get
-            {
-                return _galleryList;
-            }
-
-            set
-            {
-                _galleryList = value;
-                NotifyPropertyChanged(nameof(GalleryList));
-            }
-        }
         
 
 
@@ -111,9 +96,9 @@ namespace PRPR.ExReader.ViewModels
 
 
 
-        private ExGalleryList _searchGalleryList = null;
+        private FilteredCollection<ExGallery, ExGalleryList> _searchGalleryList = null;
 
-        public ExGalleryList SearchGalleryList
+        public FilteredCollection<ExGallery, ExGalleryList> SearchGalleryList
         {
             get
             {
@@ -135,14 +120,26 @@ namespace PRPR.ExReader.ViewModels
         {
             var gList = await ExGalleryList.DownloadGalleryListAsync(0, $"https://exhentai.org/?f_search={ WebUtility.UrlEncode(Key)}&{SearchConfig.ToString()}");
 
+            var gList2 = new FilteredCollection<ExGallery, ExGalleryList>(gList, this.GalleryFilter);
 
-            SearchGalleryList = gList;
+            SearchGalleryList = gList2;
 
-
-            var s = new ImageWallRows<ExGallery>();
-            s.ItemsSource = new FilteredCollection<ExGallery, ExGalleryList>(gList, this.GalleryFilter);
-            this.GalleryList = s;
+            // Add the search record to DB if user defined keywords
+            if (!String.IsNullOrWhiteSpace(Key))
+            {
+                try
+                {
+                    using (var db = new AppDbContext())
+                    {
+                        db.ExSearchRecords.Add(ExSearchRecord.Create(Key));
+                        db.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await new MessageDialog(ex.Message, "Fail to save search record").ShowAsync();
+                }
+            }
         }
-
     }
 }
