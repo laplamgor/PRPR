@@ -49,7 +49,7 @@ namespace PRPR.BooruViewer.ViewModels
             Images.Add(image);
         }
 
-        public ImagesViewModel(FilteredCollection<Post, Posts> posts)
+        public ImagesViewModel(ObservableCollection<Post> posts)
         {
             _posts = posts;
 
@@ -115,9 +115,9 @@ namespace PRPR.BooruViewer.ViewModels
 
 
 
-        FilteredCollection<Post, Posts> _posts = null;
+        ObservableCollection<Post> _posts = null;
 
-        public FilteredCollection<Post, Posts> Posts { get => _posts; }
+        public ObservableCollection<Post> Posts { get => _posts; }
 
 
 

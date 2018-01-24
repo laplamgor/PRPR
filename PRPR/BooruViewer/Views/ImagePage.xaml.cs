@@ -29,6 +29,7 @@ using Windows.Storage.Pickers;
 using System.Net;
 using Windows.UI.Xaml.Media.Animation;
 using Microsoft.QueryStringDotNET;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -124,9 +125,9 @@ namespace PRPR.BooruViewer.Views
                 // Get Posts
                 if (App.Current.Resources.ContainsKey("Posts"))
                 {
-                    if (this.ImagesViewModel.Posts !=  App.Current.Resources["Posts"] as FilteredCollection<Post, Posts>)
+                    if (this.ImagesViewModel.Posts !=  App.Current.Resources["Posts"] as ObservableCollection<Post>)
                     {
-                        this.ImagesViewModel = new ImagesViewModel(App.Current.Resources["Posts"] as FilteredCollection<Post, Posts>);
+                        this.ImagesViewModel = new ImagesViewModel(App.Current.Resources["Posts"] as ObservableCollection<Post>);
                     }
                 }
                 else
@@ -636,9 +637,9 @@ namespace PRPR.BooruViewer.Views
             if (ImagesViewModel.SelectedIndex >= ImagesViewModel.Images.Count - 10)
             {
                 uint newItemCount = 0;
-                while (ImagesViewModel.Posts != null && ImagesViewModel.Posts.HasMoreItems && newItemCount == 0)
+                while (ImagesViewModel.Posts != null && ImagesViewModel.Posts is ISupportIncrementalLoading && (ImagesViewModel.Posts as ISupportIncrementalLoading).HasMoreItems && newItemCount == 0)
                 {
-                    var result = await ImagesViewModel.Posts.LoadMoreItemsAsync(10);
+                    var result = await (ImagesViewModel.Posts as ISupportIncrementalLoading).LoadMoreItemsAsync(10);
                     newItemCount = result.Count;
                 }
             }
