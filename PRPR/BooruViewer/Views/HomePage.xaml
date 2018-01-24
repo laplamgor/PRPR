@@ -115,7 +115,7 @@
                 </Style>
             </Flyout.FlyoutPresenterStyle>
 
-            <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding SearchPostFilter}" IsHitTestVisible="{Binding IsRatingFilterUnlocked, Source={StaticResource YandeSettings}}">
+            <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding SearchPostFilter}" >
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromHorizontalOffset="56"/>
