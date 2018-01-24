@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[24 Jan 2018] v2.0.3
+    <value>@[25 Jan 2018] v2.0.4
 - End open beta
 - Add dark/light theme options 
 - Add back x64 version
