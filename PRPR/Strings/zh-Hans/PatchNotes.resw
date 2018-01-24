@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[24 Jan 2018] v2.0.3
+    <value>@[25 Jan 2018] v2.0.4
 - 应用脱离公测阶段
 - 加入亮/暗主题选项
 - 加回x64编译版本
