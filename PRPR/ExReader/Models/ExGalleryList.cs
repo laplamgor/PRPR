@@ -93,7 +93,7 @@ namespace PRPR.ExReader.Models
             }
             catch (Exception ex)
             {
-
+                return new LoadMoreItemsResult { Count = 0 };
             }
         }
         
