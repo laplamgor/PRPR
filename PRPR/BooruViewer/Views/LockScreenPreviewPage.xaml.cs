@@ -200,6 +200,12 @@ namespace PRPR.BooruViewer.Views
 
             }
         }
+
+        private void BitmapImage_DownloadProgress(object sender, Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs e)
+        {
+            // Update progress bar
+            DownloadProgressBar.Value = e.Progress;
+        }
     }
 
 

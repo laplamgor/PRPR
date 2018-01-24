@@ -61,7 +61,7 @@
 
         <Grid x:Name="SetLockScreenPreview" Grid.Row="1" Visibility="Visible">
 
-            <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="True" Width="40" Height="40" Margin="0,0,0,50"/>
+            <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Center" VerticalAlignment="Center" Value="0" MinWidth="100" Margin="0,0,0,50"/>
             <TextBlock x:Uid="/BooruImagePage/TextBlockDownloading" HorizontalAlignment="Center" VerticalAlignment="Center" Text="正在下載原圖，請耐心等候" Margin="0,40,0,0"/>
 
             <ScrollViewer x:Name="SetLockScreenPreViewScrollViewer"  
@@ -75,8 +75,13 @@
                           >
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
 
+
                     <Image x:Name="SetLockScreenPreviewImage" Stretch="Uniform" SizeChanged="Image_SizeChanged" 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Post.JpegUrl}"/>
+                           VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding Post.JpegUrl}" DownloadProgress="BitmapImage_DownloadProgress"/>
+                        </Image.Source>
+                    </Image>
 
                 </Grid>
             </ScrollViewer>
