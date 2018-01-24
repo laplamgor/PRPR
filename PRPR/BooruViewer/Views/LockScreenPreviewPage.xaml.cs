@@ -98,8 +98,11 @@ namespace PRPR.BooruViewer.Views
             else
             {
                 ApplicationView.GetForCurrentView().VisibleBoundsChanged += LockScreenPreviewPage_VisibleBoundsChanged;
-
             }
+
+            PreviewTextBlock.Text = DateTimeOffset.Now.ToString("%H");
+            PreviewTextBlock2.Text = DateTimeOffset.Now.ToString("mm");
+            PreviewTextBlock3.Text = DateTimeOffset.Now.ToString("dddd, MMMM d");
         }
 
         private void LockScreenPreviewPage_VisibleBoundsChanged(ApplicationView sender, object args)
