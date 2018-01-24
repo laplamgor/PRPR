@@ -90,6 +90,21 @@ namespace PRPR.BooruViewer.Models.Global
         #endregion
 
 
+        
+
+        public bool IsRatingFilterUnlocked
+        {
+            get
+            {
+                return GetValueOrDefault<bool>(GetCallerName(), false, false);
+            }
+            set
+            {
+                AddOrUpdateValue(GetCallerName(), value, false);
+            }
+        }
+
+
 
 
         private PostFilter _searchPostFilter = null;

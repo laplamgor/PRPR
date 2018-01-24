@@ -108,17 +108,8 @@ namespace PRPR.BooruViewer.Views
                 {
                     SearchBox.Text = e.PageState["Tags"] as string;
                     FlipView.SelectedIndex = (int) (e.PageState["Tab"]);
-                    try
-                    {
-                        this.HomeViewModel.Posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(SearchBox.Text)}");
 
-                    }
-                    catch (Exception ex)
-                    {
-                        this.HomeViewModel.Posts = new Posts();
-                    }
-                    
-                    HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+                    await HomeViewModel.SearchAsync(SearchBox.Text);
                 }
             }
             else // Newly entered a page
@@ -132,16 +123,8 @@ namespace PRPR.BooruViewer.Views
                 }
 
                 SearchBox.Text = e.NavigationParameter as string;
-                try
-                {
-                    this.HomeViewModel.Posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(SearchBox.Text)}");
-                }
-                catch (Exception ex)
-                {
-                    this.HomeViewModel.Posts = new Posts();
-                }
-                
-                HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+
+                await HomeViewModel.SearchAsync(SearchBox.Text);
 
 
                 // Load the favorites if logged in
@@ -392,15 +375,9 @@ namespace PRPR.BooruViewer.Views
 
         private async void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            try
-            {
-                this.HomeViewModel.Posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(SearchBox.Text)}");
-            }
-            catch (Exception ex)
-            {
 
-            }
-            HomeViewModel.SearchPosts = new FilteredCollection<Post, Posts>(this.HomeViewModel.Posts, this.HomeViewModel.SearchPostFilter);
+
+            await HomeViewModel.SearchAsync(SearchBox.Text);
         }
 
 

@@ -132,6 +132,18 @@
   <data name="CheckBoxRatioVertical.Content" xml:space="preserve">
     <value>纵向</value>
   </data>
+  <data name="MessageDialogRatingTag.Content" xml:space="preserve">
+    <value>评级标籤会与本地过滤器冲突，因此无法在本应用使用。</value>
+  </data>
+  <data name="MessageDialogRatingTag.Title" xml:space="preserve">
+    <value>评级标籤已被禁用</value>
+  </data>
+  <data name="MessageDialogTooManyTags.Content" xml:space="preserve">
+    <value>搜索时最多使用6个标签。</value>
+  </data>
+  <data name="MessageDialogTooManyTags.Title" xml:space="preserve">
+    <value>关键字过多</value>
+  </data>
   <data name="StackPanelHeaderBrowse.Tag" xml:space="preserve">
     <value>浏览</value>
   </data>
@@ -175,7 +187,7 @@
     <value>更新日誌</value>
   </data>
   <data name="TextBlockRating.Text" xml:space="preserve">
-    <value>所有图片取自网络，不由此应用开发者直接提供。更改此设定前请务必确保这在您的地区是合法的。开发者不负任何相关责任。</value>
+    <value>基于应用商店政策，此设定目前不可用。</value>
   </data>
   <data name="TextBlockRatingItem.Text" xml:space="preserve">
     <value>评级</value>

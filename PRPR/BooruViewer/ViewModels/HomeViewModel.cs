@@ -7,9 +7,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
@@ -42,22 +45,7 @@ namespace PRPR.BooruViewer.ViewModels
                 NotifyPropertyChanged(nameof(SelectedViewIndex));
             }
         }
-
-        private Posts _posts = null;
-
-        public Posts Posts
-        {
-            get
-            {
-                return _posts;
-            }
-
-            set
-            {
-                _posts = value;
-                NotifyPropertyChanged(nameof(HomeViewModel.Posts));
-            }
-        }
+        
 
         public PostFilter SearchPostFilter
         {
@@ -108,7 +96,54 @@ namespace PRPR.BooruViewer.ViewModels
             }
         }
 
+        public async Task SearchAsync(string keyword)
+        {
+            // Validate the keyword
 
+
+
+
+
+
+
+            // Dont search if there is more than 6 tags
+            if (keyword.Split(' ').Where( o=> !String.IsNullOrWhiteSpace(o)).Count() > 6)
+            {
+                var resourceLoader = ResourceLoader.GetForCurrentView();
+                await new MessageDialog(resourceLoader.GetString("/BooruHomePage/MessageDialogTooManyTags/Content"),
+                    resourceLoader.GetString("/BooruHomePage/MessageDialogTooManyTags/Title")).ShowAsync();
+                return;
+            }
+
+            // Dont search if there is any rating metatag
+            if (keyword.Split(' ').FirstOrDefault(o => o.Contains("rating:")) != default(String))
+            {
+                // Unlock the rating filter
+                if (!YandeSettings.Current.IsRatingFilterUnlocked)
+                {
+                    YandeSettings.Current.IsRatingFilterUnlocked = true;
+                }
+                var resourceLoader = ResourceLoader.GetForCurrentView();
+                await new MessageDialog(resourceLoader.GetString("/BooruHomePage/MessageDialogRatingTag/Content"),
+                    resourceLoader.GetString("/BooruHomePage/MessageDialogRatingTag/Title")).ShowAsync();
+                return;
+            }
+
+
+
+
+            // Updated the search results
+            Posts posts;
+            try
+            {
+                posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(keyword)}");
+            }
+            catch (Exception ex)
+            {
+                posts = new Posts();
+            }
+            SearchPosts = new FilteredCollection<Post, Posts>(posts, SearchPostFilter);
+        }
         
 
         public HomeViewModel()

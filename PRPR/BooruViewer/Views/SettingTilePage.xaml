@@ -119,13 +119,14 @@
 
                 <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingSafe" Content="Safe" IsChecked="{Binding IsFilterSafe, Mode=TwoWay}" 
                           IsEnabled="{Binding IsFilterSafeUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding IsFilterQuestionable, Mode=TwoWay}" 
+                <StackPanel Orientation="Vertical" Visibility="{Binding IsRatingFilterUnlocked, Source={StaticResource YandeSettings}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingQuestionable" Content="Questionable" IsChecked="{Binding IsFilterQuestionable, Mode=TwoWay}" 
                           IsEnabled="{Binding IsFilterQuestionableUnlocked}"/>
-                <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding IsFilterExplicit, Mode=TwoWay}"
+                    <CheckBox x:Uid="/BooruHomePage/CheckBoxRatingExplicit" Content="Explicit" IsChecked="{Binding IsFilterExplicit, Mode=TwoWay}"
                           IsEnabled="{Binding IsFilterExplicitUnlocked}"/>
-                <TextBlock x:Uid="/BooruHomePage/TextBlockRating" Text="All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK." TextWrapping="Wrap"/>
+                </StackPanel>
+                <TextBlock x:Uid="/BooruHomePage/TextBlockRating" TextWrapping="Wrap" Visibility="{Binding IsRatingFilterUnlocked, Source={StaticResource YandeSettings}, Converter={StaticResource BooleanToInvisibilityConverter}}"/>
             </StackPanel>
-
         </Flyout>
 
         <Flyout Placement="Bottom" x:Key="FilterRatioFlyout">

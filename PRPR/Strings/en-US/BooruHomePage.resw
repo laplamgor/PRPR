@@ -132,6 +132,18 @@
   <data name="CheckBoxRatioVertical.Content" xml:space="preserve">
     <value>Vertical</value>
   </data>
+  <data name="MessageDialogRatingTag.Content" xml:space="preserve">
+    <value>Rating metatag is not available in this app because it will conflict with the local filter.</value>
+  </data>
+  <data name="MessageDialogRatingTag.Title" xml:space="preserve">
+    <value>Rating Metatag Disabled</value>
+  </data>
+  <data name="MessageDialogTooManyTags.Content" xml:space="preserve">
+    <value>You can at most use 6 tags when searching.</value>
+  </data>
+  <data name="MessageDialogTooManyTags.Title" xml:space="preserve">
+    <value>Too Many Keywords</value>
+  </data>
   <data name="StackPanelHeaderBrowse.Tag" xml:space="preserve">
     <value>Browse</value>
   </data>
@@ -175,7 +187,7 @@
     <value>Patch Notes</value>
   </data>
   <data name="TextBlockRating.Text" xml:space="preserve">
-    <value>All contents are from the Internet and not provided by the developer of this application. Modify these settings only if it is legal in your territory or country. Modify them AT YOUR OWN RISK.</value>
+    <value>This setting is not available due to the Windows Store policy.</value>
   </data>
   <data name="TextBlockRatingItem.Text" xml:space="preserve">
     <value>Rating</value>
