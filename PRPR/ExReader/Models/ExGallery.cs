@@ -22,6 +22,23 @@ namespace PRPR.ExReader.Models
 {
     public class ExGallery : ObservableCollection<ExGalleryImageListItem>, ISupportIncrementalLoading, IImageWallItemImage
     {
+        public static ExGallery GetGalleryListItemFromNode(HtmlNode node)
+        {
+
+            var g = new ExGallery()
+            {
+                Title = WebUtility.HtmlDecode(node.SelectSingleNode(".//div[@class='id2']/a").InnerText),
+                Link = node.SelectSingleNode(".//div[@class='id2']/a").GetAttributeValue("href", null),
+                FileCount = int.Parse(node.SelectSingleNode(".//div[@class='id42']").InnerText.Replace(" files", "")),
+                Category = node.SelectSingleNode(".//div[@class='id41']").GetAttributeValue("title", ""),
+                Thumb = node.SelectSingleNode(".//div[@class='id3']//img").GetAttributeValue("src", null),
+                Rating = GetRatingFromStars(node)
+            };
+            return g;
+        }
+
+
+
         public string Gid
         {
             get
@@ -57,8 +74,7 @@ namespace PRPR.ExReader.Models
 
         // Details
         public int FileCount { get; set; }
-
-
+        
         public LanguageType ParsedLanguage
         {
             get
@@ -179,40 +195,6 @@ namespace PRPR.ExReader.Models
 
 
 
-
-
-        async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
-        {
-            try
-            {
-                var nextPageList = await DownloadGalleryAsync(this.Link, this.CurrentPageNumber + 1, 3);
-
-                if (nextPageList.CurrentPageNumber == this.CurrentPageNumber + 1)
-                {
-                    foreach (var item in nextPageList)
-                    {
-                        this.Add(item);
-                    }
-
-                    this.CurrentPageNumber = nextPageList.CurrentPageNumber;
-                    this.PageCount = nextPageList.PageCount;
-                    return new LoadMoreItemsResult { Count = (uint)nextPageList.Count };
-                }
-                else
-                {
-                    return new LoadMoreItemsResult { Count = 0 };
-                }
-
-            }
-            catch (Exception ex)
-            {
-                return new LoadMoreItemsResult { Count = 0 };
-            }
-        }
-
-
-
-
         public DateTime Published { get; set; }
 
         public double PreferredWidth
@@ -297,7 +279,8 @@ namespace PRPR.ExReader.Models
         }
 
 
-        public static ExGallery GetExGalleryFromHtml(string link, string htmlSource)
+        #region HTML parser
+        private static ExGallery GetExGalleryFromHtml(string link, string htmlSource)
         {
             if (htmlSource == null)
             {
@@ -462,8 +445,7 @@ namespace PRPR.ExReader.Models
                 return null;
             }
         }
-
-
+        
         private static bool ReadIsFavorited(HtmlDocument htmlDocument)
         {
             var c = htmlDocument.DocumentNode.SelectSingleNode("//a[@id='favoritelink']/text()");
@@ -476,8 +458,7 @@ namespace PRPR.ExReader.Models
                 return false;
             }
         }
-
-
+        
         private static ObservableCollection<ExTag> ReadTags(HtmlDocument htmlDocument)
         {
             ObservableCollection<ExTag> tags = new ObservableCollection<ExTag>();
@@ -491,10 +472,7 @@ namespace PRPR.ExReader.Models
 
             return tags;
         }
-
-
-
-
+        
         private static int ReadCurrentPageNumber(HtmlDocument htmlDocument)
         {
             var c = htmlDocument.DocumentNode.SelectSingleNode("//table[@class='ptt']//td[@class='ptds']/a");
@@ -507,23 +485,7 @@ namespace PRPR.ExReader.Models
                 return 0;
             }
         }
-
-
-        public static ExGallery GetGalleryListItemFromNode(HtmlNode node)
-        {
-
-            var g = new ExGallery()
-            {
-                Title = WebUtility.HtmlDecode(node.SelectSingleNode(".//div[@class='id2']/a").InnerText),
-                Link = node.SelectSingleNode(".//div[@class='id2']/a").GetAttributeValue("href", null),
-                FileCount = int.Parse(node.SelectSingleNode(".//div[@class='id42']").InnerText.Replace(" files", "")),
-                Category = node.SelectSingleNode(".//div[@class='id41']").GetAttributeValue("title", ""),
-                Thumb = node.SelectSingleNode(".//div[@class='id3']//img").GetAttributeValue("src", null),
-                Rating = GetRatingFromStars(node)
-            };
-            return g;
-        }
-
+        
         private static double GetRatingFromStars(HtmlNode node)
         {
             // background-position:-16px -21px; opacity:1; margin-top:2px
@@ -534,16 +496,41 @@ namespace PRPR.ExReader.Models
             return 5.0 * (80.0 + int.Parse(numbers[0])) / 80.0 - 0.5 * ((int.Parse(numbers[1]) + 1)) / -20.0;
         }
 
+        #endregion
 
 
+        private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
+        {
+            try
+            {
+                var nextPageList = await DownloadGalleryAsync(this.Link, this.CurrentPageNumber + 1, 3);
 
+                if (nextPageList.CurrentPageNumber == this.CurrentPageNumber + 1)
+                {
+                    foreach (var item in nextPageList)
+                    {
+                        this.Add(item);
+                    }
 
+                    this.CurrentPageNumber = nextPageList.CurrentPageNumber;
+                    this.PageCount = nextPageList.PageCount;
+                    return new LoadMoreItemsResult { Count = (uint)nextPageList.Count };
+                }
+                else
+                {
+                    return new LoadMoreItemsResult { Count = 0 };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new LoadMoreItemsResult { Count = 0 };
+            }
+        }
 
         public async Task PostCommentAsync(string comment)
         {
             var requestBody = $"commenttext={WebUtility.UrlEncode(comment)}&postcomment=Post+Comment";
-
-
             
 
             var httpClient = new Windows.Web.Http.HttpClient(new HttpBaseProtocolFilter());
