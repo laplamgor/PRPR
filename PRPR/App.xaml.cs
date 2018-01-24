@@ -91,8 +91,8 @@ namespace PRPR
         {
             e.Handled = false;
 
-            ToastService.ToastDebug("應用閃退StackTrace", e.Exception.StackTrace);
-            ToastService.ToastDebug("應用閃退Exception", e.Exception.Message);
+            ToastService.ToastDebug("ERROR StackTrace", e.Exception.StackTrace);
+            ToastService.ToastDebug("ERROR Exception", e.Exception.Message);
 
         }
 
@@ -203,47 +203,40 @@ namespace PRPR
             {
                 var e = (ProtocolActivatedEventArgs)args;
                 
+
                 AppShell shell = await PrepareAppShellAsync(e.PreviousExecutionState);
+
+
                 // Back to the first(home) page if the app already have pages
                 while (shell.AppFrame.CanGoBack)
                 {
                     shell.AppFrame.GoBack();
                 }
+
+
+                if (shell.AppFrame.Content == null)
+                {
+                    shell.AppFrame.Navigate(typeof(BooruViewer.Views.HomePage), "");
+                }
                 
 
-                switch (e.Uri.AbsolutePath)
-                {
-                    case "/post":
-                        break;
-                    case "/index.html":
-                        break;
-                    case "/sports.html":
-                        break;
-                    case "/technology.html":
-                        break;
-                    case "/business.html":
-                        break;
-                    case "/science.html":
-                        break;
-                }
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
+                // Ensure the current window is active
+                Window.Current.Activate();
+
+
+                
                 
 
                 if (e.Uri.AbsolutePath.StartsWith("/post/show/", StringComparison.OrdinalIgnoreCase))
                 {
-
+                    // Jump to a image page
                     int postId = 3;
                     var idString = e.Uri.AbsolutePath.Substring("/post/show/".Length);
 
                     if (int.TryParse(idString, out postId))
                     {
-
-                        // Add a home page in the back stack if there isnt one
-                        if (shell.AppFrame.Content == null)
-                        {
-                            shell.AppFrame.BackStack.Add(new PageStackEntry(typeof(BooruViewer.Views.HomePage), "", new EntranceNavigationTransitionInfo()));
-                        }
-
-
                         var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ "id%3A" + postId }");
                         App.Current.Resources["Posts"] = posts;
 
