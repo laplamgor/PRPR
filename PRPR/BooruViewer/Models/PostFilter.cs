@@ -198,7 +198,7 @@ namespace PRPR.BooruViewer.Models
         }
 
         // All the blacklisted tags as fucking Microsoft Store testers think sexually suggestive
-        private string _tagBlacklist = String.Join(" ", new List<string>{ "swimsuits", "swimsuit", "bikini", "bikini_armor", "buruma", "ass", "pantsu", "bra", "cleavage", "underboob", "breast_hold" });
+        private string _tagBlacklist = String.Join(" ", new List<string>{"bikini", "buruma", "ass", "pantsu", "bra", "torn_clothes", "no_pan" });
 
         public string TagBlacklist
         {
