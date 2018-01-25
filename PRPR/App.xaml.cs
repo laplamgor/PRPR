@@ -1,4 +1,4 @@
-﻿using PRPR.Common;
+﻿using   PRPR.Common;
 using PRPR.ExReader.Views;
 using PRPR.BooruViewer.Views;
 using System;
@@ -32,6 +32,9 @@ using Windows.ApplicationModel.Background;
 using Windows.UI.Notifications;
 using Microsoft.QueryStringDotNET;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using PRPR.BooruViewer.Models;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace PRPR
 {
@@ -88,8 +91,8 @@ namespace PRPR
         {
             e.Handled = false;
 
-            ToastService.ToastDebug("應用閃退StackTrace", e.Exception.StackTrace);
-            ToastService.ToastDebug("應用閃退Exception", e.Exception.Message);
+            ToastService.ToastDebug("ERROR StackTrace", e.Exception.StackTrace);
+            ToastService.ToastDebug("ERROR Exception", e.Exception.Message);
 
         }
 
@@ -193,6 +196,84 @@ namespace PRPR
 
 
 
+        protected override async void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                var e = (ProtocolActivatedEventArgs)args;
+                
+
+                AppShell shell = await PrepareAppShellAsync(e.PreviousExecutionState);
+
+
+                // Back to the first(home) page if the app already have pages
+                while (shell.AppFrame.CanGoBack)
+                {
+                    shell.AppFrame.GoBack();
+                }
+
+
+                if (shell.AppFrame.Content == null)
+                {
+                    shell.AppFrame.Navigate(typeof(BooruViewer.Views.HomePage), "");
+                }
+                
+
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
+                // Ensure the current window is active
+                Window.Current.Activate();
+
+
+                
+                
+
+                if (e.Uri.AbsolutePath.StartsWith("/post/show/", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Jump to a image page
+                    int postId = 3;
+                    var idString = e.Uri.AbsolutePath.Substring("/post/show/".Length);
+
+                    if (int.TryParse(idString, out postId))
+                    {
+                        var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ "id%3A" + postId }");
+                        App.Current.Resources["Posts"] = posts;
+
+
+
+                        shell.AppFrame.Navigate(typeof(ImagePage), posts.First().ToXml());
+                    }
+                    
+                }
+                else if (e.Uri.AbsolutePath.StartsWith("/post", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    // Search tags
+                    shell.AppFrame.Navigate(typeof(BooruViewer.Views.HomePage), $"");
+                } else
+                {
+
+                }
+
+
+
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
+                // Ensure the current window is active
+                Window.Current.Activate();
+
+                AppSettings.Current.ScreenHeight = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
+                AppSettings.Current.ScreenWidth = DisplayInformation.GetForCurrentView().ScreenWidthInRawPixels;
+                
+            }
+            else
+            {
+
+            }
+        }
+
+
 
         private void App_Resuming(object sender, object e)
         {
@@ -214,50 +295,13 @@ namespace PRPR
             }
 #endif
 
-            AppShell shell = Window.Current.Content as AppShell;
-
-            
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (shell == null)
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                shell = new AppShell();
-
-                //Associate the frame with a SuspensionManager key
-                SuspensionManager.RegisterFrame(shell.AppFrame, "AppFrame");
-
-                shell.AppFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // Restore the saved session state only when appropriate
-                    try
-                    {
-                        await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
-                        // Something went wrong restoring state.
-                        // Assume there is no state and continue
-                    }
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = shell;
-            }
+            AppShell shell = await PrepareAppShellAsync(e.PreviousExecutionState);
 
 
             // Back to the first(home) page if the app already have pages
             while (shell.AppFrame.CanGoBack)
             {
                 shell.AppFrame.GoBack();
-            }
-
-            foreach (var item in shell.AppFrame.BackStack)
-            {
-                Debug.WriteLine(item.SourcePageType);
             }
             
 
@@ -284,10 +328,10 @@ namespace PRPR
 
             // Ensure the current window is active
             Window.Current.Activate();
-            
+
             AppSettings.Current.ScreenHeight = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
             AppSettings.Current.ScreenWidth = DisplayInformation.GetForCurrentView().ScreenWidthInRawPixels;
-            
+
 
             // Update Tags
             if (TagDataBase.AllTags.Count == 0)
@@ -304,7 +348,6 @@ namespace PRPR
                 }
             }
 
-
             // TODO: reenable after debug
             BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
             BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
@@ -314,10 +357,43 @@ namespace PRPR
             };
             builder.SetTrigger(new ToastNotificationActionTrigger());
             BackgroundTaskRegistration registration = builder.Register();
+        }
 
+        private async Task<AppShell> PrepareAppShellAsync(ApplicationExecutionState previousExecutionState)
+        {
+            AppShell shell = Window.Current.Content as AppShell;
 
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (shell == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+                shell = new AppShell();
 
-            //await new MessageDialog("這是公測版應用，所有內容和功能不代表最終成品。公測者有義務不定期使用ＱＱ或電郵提出反饋和改善建議。請勿在應用商店就內測版內容作出評分或評論。如果無法理解或者無法同意此守則，請卸載本應用。電郵：laplamgor2@gmail.com", "使用須知").ShowAsync();
+                //Associate the frame with a SuspensionManager key
+                SuspensionManager.RegisterFrame(shell.AppFrame, "AppFrame");
+
+                shell.AppFrame.NavigationFailed += OnNavigationFailed;
+
+                if (previousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    // Restore the saved session state only when appropriate
+                    try
+                    {
+                        await SuspensionManager.RestoreAsync();
+                    }
+                    catch (SuspensionManagerException)
+                    {
+                        // Something went wrong restoring state.
+                        // Assume there is no state and continue
+                    }
+                }
+
+                // Place the frame in the current Window
+                Window.Current.Content = shell;
+            }
+
+            return shell;
         }
 
         /// <summary>

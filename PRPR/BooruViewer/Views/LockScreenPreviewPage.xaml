@@ -26,6 +26,8 @@
                     <VisualState.Setters>
                         <Setter Target="PreviewTextBlock.FontSize" Value="158"/>
                         <Setter Target="PreviewTextBlocks.Margin" Value="64,0,0,268"/>
+                        <Setter Target="PreviewTextBlock3.FontSize" Value="64.5"/>
+                        <Setter Target="PreviewTextBlock3.Margin" Value="70,0,0,189"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -35,6 +37,8 @@
                     <VisualState.Setters>
                         <Setter Target="PreviewTextBlock.FontSize" Value="128"/>
                         <Setter Target="PreviewTextBlocks.Margin" Value="28,0,0,184"/>
+                        <Setter Target="PreviewTextBlock3.FontSize" Value="56"/>
+                        <Setter Target="PreviewTextBlock3.Margin" Value="36,0,0,112"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -44,6 +48,8 @@
                     <VisualState.Setters>
                         <Setter Target="PreviewTextBlock.FontSize" Value="96"/>
                         <Setter Target="PreviewTextBlocks.Margin" Value="20,0,0,140"/>
+                        <Setter Target="PreviewTextBlock3.FontSize" Value="46"/>
+                        <Setter Target="PreviewTextBlock3.Margin" Value="22,0,0,78"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -53,6 +59,8 @@
                     <VisualState.Setters>
                         <Setter Target="PreviewTextBlock.FontSize" Value="72"/>
                         <Setter Target="PreviewTextBlocks.Margin" Value="20,0,0,112"/>
+                        <Setter Target="PreviewTextBlock3.FontSize" Value="24"/>
+                        <Setter Target="PreviewTextBlock3.Margin" Value="25,0,0,72"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -61,7 +69,7 @@
 
         <Grid x:Name="SetLockScreenPreview" Grid.Row="1" Visibility="Visible">
 
-            <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="True" Width="40" Height="40" Margin="0,0,0,50"/>
+            <ProgressBar x:Name="DownloadProgressBar" HorizontalAlignment="Center" VerticalAlignment="Center" Value="0" MinWidth="100" Margin="0,0,0,50"/>
             <TextBlock x:Uid="/BooruImagePage/TextBlockDownloading" HorizontalAlignment="Center" VerticalAlignment="Center" Text="正在下載原圖，請耐心等候" Margin="0,40,0,0"/>
 
             <ScrollViewer x:Name="SetLockScreenPreViewScrollViewer"  
@@ -75,17 +83,24 @@
                           >
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
 
+
                     <Image x:Name="SetLockScreenPreviewImage" Stretch="Uniform" SizeChanged="Image_SizeChanged" 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Post.JpegUrl}"/>
+                           VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding Post.JpegUrl}" DownloadProgress="BitmapImage_DownloadProgress"/>
+                        </Image.Source>
+                    </Image>
 
                 </Grid>
             </ScrollViewer>
             <Rectangle Fill="Black" Opacity="0.2" IsHitTestVisible="False"/>
             <StackPanel x:Name="PreviewTextBlocks" Orientation="Horizontal"  Margin="20,0,0,112" VerticalAlignment="Bottom">
                 <TextBlock x:Name="PreviewTextBlock" Foreground="White" IsHitTestVisible="False" Text="9"  FontSize="72" IsTextScaleFactorEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="TrimToBaseline" VerticalAlignment="Bottom"/>
-                <TextBlock  Foreground="White" IsHitTestVisible="False" Text=":" FontSize="{Binding FontSize, ElementName=PreviewTextBlock}" IsTextScaleFactorEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="Tight" VerticalAlignment="Center" />
-                <TextBlock Foreground="White" IsHitTestVisible="False" VerticalAlignment="Bottom" Text="28" FontSize="{Binding FontSize, ElementName=PreviewTextBlock}" IsTextScaleFactorEnabled="False"  FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="TrimToBaseline"/>
+                <TextBlock Foreground="White" IsHitTestVisible="False" Text=":" FontSize="{Binding FontSize, ElementName=PreviewTextBlock}" IsTextScaleFactorEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="Tight" VerticalAlignment="Center" />
+                <TextBlock x:Name="PreviewTextBlock2" Foreground="White" IsHitTestVisible="False" VerticalAlignment="Bottom" Text="28" FontSize="{Binding FontSize, ElementName=PreviewTextBlock}" IsTextScaleFactorEnabled="False"  FontWeight="Light" FontFamily="Segoe UI Light" TextLineBounds="TrimToBaseline"/>
             </StackPanel>
+            <TextBlock x:Name="PreviewTextBlock3" Foreground="White" IsHitTestVisible="False"  Margin="20,0,0,80" VerticalAlignment="Bottom" Text="45345345" FontSize="50" IsTextScaleFactorEnabled="False"  FontWeight="SemiLight" FontFamily="Segoe UI Light" TextLineBounds="TrimToBaseline"/>
+
         </Grid>
 
 

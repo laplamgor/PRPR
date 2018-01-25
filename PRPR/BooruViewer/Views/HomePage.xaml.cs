@@ -115,7 +115,7 @@ namespace PRPR.BooruViewer.Views
             else // Newly entered a page
             {
 
-                if (!String.IsNullOrEmpty(e.NavigationParameter as string))
+                if (e.NavigationParameter != null && !String.IsNullOrEmpty(e.NavigationParameter as string))
                 {
                     // Turn to the searching selection
                     FlipView.UpdateLayout();
