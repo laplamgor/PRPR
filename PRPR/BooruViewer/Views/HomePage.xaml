@@ -451,38 +451,64 @@
                         </Grid>
                     </UserControl>
 
-                    <Grid x:Name="BrowseTopSearchBar" Grid.RowSpan="1" Height="48"  
-                          VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <CommandBar Grid.RowSpan="1" 
+                                HorizontalContentAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                IsDynamicOverflowEnabled="False"
+                                >
+                        <CommandBar.CommandBarOverflowPresenterStyle>
+                            <Style TargetType="CommandBarOverflowPresenter">
+                                <Setter Property="Background" Value="{ThemeResource SystemControlBaseHighAcrylicElementBrush}"/>
+                            </Style>
+                        </CommandBar.CommandBarOverflowPresenterStyle>
 
 
-                        <Button x:Name="FilterButton" HorizontalAlignment="Left" Click="FilterButton_Click" FCU:Style="{StaticResource ButtonRevealStyle}" 
-                                Margin="4,0" Height="40" Width="40" BorderThickness="1" Background="#77222222">
+                        <CommandBar.Background>
+                            <FCU:AcrylicBrush TintColor="{ThemeResource SystemAltHighColor}" TintOpacity="0.5" FallbackColor="{ThemeResource SystemBaseMediumLowColor}"/>
+                        </CommandBar.Background>
 
-                            <SymbolIcon Symbol="Filter"/>
-                        </Button>
+                        <CommandBar.Content>
+                            <Grid HorizontalAlignment="Stretch" Height="48" Padding="4">
+                                <AutoSuggestBox x:Name="SearchBox" HorizontalAlignment="Stretch"
+                                                QuerySubmitted="SearchBox_QuerySubmitted" 
+                                                QueryIcon="Find" 
+                                                TextChanged="SearchBox_TextChanged" BorderThickness="1"
+                                                VerticalAlignment="Center"
+                                                FontSize="18" VerticalContentAlignment="Center"
+                                                Loaded="SearchBox_Loaded" Unloaded="SearchBox_Unloaded">
+                                    <AutoSuggestBox.TextBoxStyle>
+                                        <Style TargetType="TextBox" BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Height" Value="40"/>
+                                        </Style>
+                                    </AutoSuggestBox.TextBoxStyle>
+                                    <AutoSuggestBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Padding="8" Orientation="Horizontal" Margin="0,4">
 
-                        <AutoSuggestBox x:Name="SearchBox" 
-                                        QuerySubmitted="SearchBox_QuerySubmitted" QueryIcon="Find" 
-                                        TextChanged="SearchBox_TextChanged" BorderThickness="1"
-                                        VerticalAlignment="Center" Margin="48,0,4,0" 
-                                        FontSize="18" VerticalContentAlignment="Center" Height="40" 
-                                        Loaded="SearchBox_Loaded" Unloaded="SearchBox_Unloaded"
-                                        Style="{StaticResource AutoSuggestBoxStyle1}">
-                            <AutoSuggestBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Padding="8" Orientation="Horizontal" Margin="0,4">
+                                                <StackPanel.Background>
+                                                    <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
+                                                </StackPanel.Background>
 
-                                        <StackPanel.Background>
-                                            <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
-                                        </StackPanel.Background>
+                                                <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}"/>
+                                                <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </AutoSuggestBox.ItemTemplate>
+                                </AutoSuggestBox>
+                            </Grid>
+                        </CommandBar.Content>
 
-                                        <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}"/>
-                                        <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </AutoSuggestBox.ItemTemplate>
-                        </AutoSuggestBox>
-                    </Grid>
+
+                        <AppBarButton x:Name="FilterButton" Icon="Filter" Click="FilterButton_Click"  FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
+
+                        <CommandBar.SecondaryCommands>
+                            <AppBarButton Icon="Filter"/>
+                            <AppBarButton/>
+                            <AppBarButton/>
+                            <AppBarButton/>
+                        </CommandBar.SecondaryCommands>
+                    </CommandBar>
                 </Grid>
             </PivotItem>
 
@@ -609,7 +635,8 @@
 
 
         <!--Header-->
-        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" EntranceNavigationTransitionInfo.IsTargetElement="False">
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" EntranceNavigationTransitionInfo.IsTargetElement="False" 
+              BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlForegroundChromeHighBrush}">
 
             <!--Acrylic background-->
             <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
@@ -655,8 +682,8 @@
                     <TextBlock x:Uid="/BooruHomePage/TextBlockHeaderFavorite" x:Name="FavoriteTextBlock" Margin="0,0,16,0"/>
                 </StackPanel>
                 <StackPanel x:Uid="/BooruHomePage/StackPanelHeaderMore" Tag="更多" Orientation="Horizontal">
-                    <SymbolIcon Symbol="More" Width="48" />
-                    <TextBlock x:Uid="/BooruHomePage/TextBlockHeaderMore" x:Name="MoreTextBlock" Margin="0,0,16,0"/>
+                    <SymbolIcon Symbol="Setting" Width="48" />
+                    <TextBlock x:Name="MoreTextBlock" Margin="0,0,0,0"/>
                 </StackPanel>
             </ListView>
         </Grid>
