@@ -7,6 +7,10 @@
     xmlns:global="using:PRPR.ExReader.Models.Global"
     xmlns:global2="using:PRPR.BooruViewer.Models.Global"
     xmlns:global3="using:PRPR.Common.Models.Global"
+    
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+
     >
 
     <Application.Resources>
@@ -40,13 +44,18 @@
         <x:Double x:Key="ListViewItemMinWidth">10</x:Double>
         <x:Double x:Key="ListViewItemMinHeight">10</x:Double>
         <Thickness x:Key="ListViewItemCompactSelectedBorderThemeThickness">4</Thickness>
-        
-        
-        
-        
-        
-        
-        
+
+
+        <FCU:AcrylicBrush x:Key="CommandBarAcrylicBackgroundBrush" TintColor="{ThemeResource SystemAltHighColor}" TintOpacity="0.5" FallbackColor="{ThemeResource SystemBaseMediumLowColor}"/>
+
+
+        <FCU:Style x:Key="CommandBarOverflowPresenterStyleAcrylic"  TargetType="CommandBarOverflowPresenter">
+            <Setter Property="Background" Value="{ThemeResource SystemControlBaseHighAcrylicElementBrush}"/>
+        </FCU:Style>
+
+        <CU:Style x:Key="CommandBarOverflowPresenterStyleAcrylic"  TargetType="CommandBarOverflowPresenter">
+        </CU:Style>
+
         <Style x:Key="PivotStyleNoHeader" TargetType="Pivot">
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>

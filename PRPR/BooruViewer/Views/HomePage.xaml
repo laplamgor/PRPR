@@ -455,18 +455,10 @@
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
                                 IsDynamicOverflowEnabled="False"
+                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
+                                FCU:Background="{ThemeResource SystemControlBaseHighAcrylicElementMediumBrush}"
+                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
                                 >
-                        <CommandBar.CommandBarOverflowPresenterStyle>
-                            <Style TargetType="CommandBarOverflowPresenter">
-                                <Setter Property="Background" Value="{ThemeResource SystemControlBaseHighAcrylicElementBrush}"/>
-                            </Style>
-                        </CommandBar.CommandBarOverflowPresenterStyle>
-
-
-                        <CommandBar.Background>
-                            <FCU:AcrylicBrush TintColor="{ThemeResource SystemAltHighColor}" TintOpacity="0.5" FallbackColor="{ThemeResource SystemBaseMediumLowColor}"/>
-                        </CommandBar.Background>
-
                         <CommandBar.Content>
                             <Grid HorizontalAlignment="Stretch" Height="48" Padding="4">
                                 <AutoSuggestBox x:Name="SearchBox" HorizontalAlignment="Stretch"
