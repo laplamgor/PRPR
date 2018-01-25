@@ -299,7 +299,7 @@
                 </StackPanel>
                 <StackPanel Tag="更多" Orientation="Horizontal">
                     <SymbolIcon Symbol="More" Width="48" />
-                    <TextBlock x:Name="MoreTextBlock" Text="更多" Margin="0,0,16,0"/>
+                    <TextBlock x:Name="MoreTextBlock"  Margin="0"/>
                 </StackPanel>
             </ListView>
         </Grid>

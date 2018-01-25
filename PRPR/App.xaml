@@ -52,7 +52,7 @@
         <FCU:Style x:Key="CommandBarOverflowPresenterStyleAcrylic"  TargetType="CommandBarOverflowPresenter">
             <Setter Property="Background" Value="{ThemeResource SystemControlBaseHighAcrylicElementBrush}"/>
         </FCU:Style>
-
+        
         <CU:Style x:Key="CommandBarOverflowPresenterStyleAcrylic"  TargetType="CommandBarOverflowPresenter">
         </CU:Style>
 

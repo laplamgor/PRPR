@@ -456,32 +456,30 @@
                                 HorizontalAlignment="Stretch"
                                 IsDynamicOverflowEnabled="False"
                                 CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
-                                FCU:Background="{ThemeResource SystemControlBaseHighAcrylicElementMediumBrush}"
+                                FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
                                 CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
                                 >
                         <CommandBar.Content>
-                            <Grid HorizontalAlignment="Stretch" Height="48" Padding="4">
+                            <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
                                 <AutoSuggestBox x:Name="SearchBox" HorizontalAlignment="Stretch"
                                                 QuerySubmitted="SearchBox_QuerySubmitted" 
                                                 QueryIcon="Find" 
                                                 TextChanged="SearchBox_TextChanged" BorderThickness="1"
                                                 VerticalAlignment="Center"
                                                 FontSize="18" VerticalContentAlignment="Center"
+                                                
                                                 Loaded="SearchBox_Loaded" Unloaded="SearchBox_Unloaded">
                                     <AutoSuggestBox.TextBoxStyle>
                                         <Style TargetType="TextBox" BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}">
                                             <Setter Property="Background" Value="Transparent"/>
-                                            <Setter Property="Height" Value="40"/>
                                         </Style>
                                     </AutoSuggestBox.TextBoxStyle>
                                     <AutoSuggestBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Padding="8" Orientation="Horizontal" Margin="0,4">
-
                                                 <StackPanel.Background>
                                                     <SolidColorBrush Color="{Binding Type, Converter={StaticResource TagTypeColorConverter}}"/>
                                                 </StackPanel.Background>
-
                                                 <SymbolIcon Symbol="{Binding Type, Converter={StaticResource TagTypeSymbolConverter}}"/>
                                                 <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
                                             </StackPanel>
