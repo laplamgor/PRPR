@@ -177,6 +177,24 @@
   <data name="TextBlockBlacklistItem.Text" xml:space="preserve">
     <value>黑名單</value>
   </data>
+  <data name="TextBlockFavoriteSorting.Text" xml:space="preserve">
+    <value>排序：</value>
+  </data>
+  <data name="TextBlockFavoriteSortingFavorite.Text" xml:space="preserve">
+    <value>收藏日期</value>
+  </data>
+  <data name="TextBlockFavoriteSortingHighScore.Text" xml:space="preserve">
+    <value>高分優先</value>
+  </data>
+  <data name="TextBlockFavoriteSortingLowScore.Text" xml:space="preserve">
+    <value>低分優先</value>
+  </data>
+  <data name="TextBlockFavoriteSortingNewPost.Text" xml:space="preserve">
+    <value>新圖優先</value>
+  </data>
+  <data name="TextBlockFavoriteSortingOldPost.Text" xml:space="preserve">
+    <value>舊圖優先</value>
+  </data>
   <data name="TextBlockHeaderBrowse.Text" xml:space="preserve">
     <value>瀏覽</value>
   </data>

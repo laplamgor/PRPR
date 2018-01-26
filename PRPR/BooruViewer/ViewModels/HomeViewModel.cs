@@ -150,8 +150,56 @@ namespace PRPR.BooruViewer.ViewModels
         {
         }
 
-        private List<string> FavoriteSortingMode = new List<string>() { "order:vote", "order:id", "order:id_asc" };
+        private List<string> FavoriteSortingMode = new List<string>()
+        {
+            "order:vote",
+            "order:id_asc",
+            "order:id",
+            "order:score",
+            "order:score_asc"
+        };
+
+        private int _favoriteSortingModeSelectedIndex = 0;
+
+
+        public int FavoriteSortingModeSelectedIndex
+        {
+            get
+            {
+                return _favoriteSortingModeSelectedIndex;
+            }
+
+            set
+            {
+                _favoriteSortingModeSelectedIndex = value;
+                NotifyPropertyChanged(nameof(FavoriteSortingModeSelectedIndex));
+            }
+        }
 
         private PostFilter _searchPostFilter = new PostFilter();
+
+
+        public async Task UpdateFavoriteListAsync()
+        {
+            if (YandeSettings.Current.UserName != "")
+            {
+                Posts favoritePost = null;
+                try
+                {
+                    string sortString = FavoriteSortingMode.First();
+                    if (FavoriteSortingModeSelectedIndex >= 0 || FavoriteSortingModeSelectedIndex < FavoriteSortingMode.Count)
+                    {
+                        sortString = FavoriteSortingMode[FavoriteSortingModeSelectedIndex];
+                    }
+
+                    favoritePost = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+{sortString}");
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
+                FavoritePosts = new FilteredCollection<Post, Posts>(favoritePost, this.SearchPostFilter);
+            }
+        }
     }
 }

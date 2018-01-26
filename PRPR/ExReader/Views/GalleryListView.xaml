@@ -451,39 +451,64 @@
             </Grid>
         </UserControl>
 
-        <Grid Grid.Row="0" Height="48" 
-                      BorderThickness="0,0,0,1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <AppBarButton x:Name="FilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Flyout="{StaticResource FilterMainFlyout}"/>
 
-            <AutoSuggestBox x:Name="SearchKeyTextBox" Grid.Column="1"
-                            Text="{Binding Key, Mode=TwoWay}" PlaceholderText="Search" 
-                            VerticalAlignment="Center" Margin="8,0" 
-                            QuerySubmitted="SearchKeyTextBox_QuerySubmitted" 
+        <CommandBar Grid.RowSpan="1" 
+                                HorizontalContentAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                IsDynamicOverflowEnabled="False"
+                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
+                                FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
+                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
+                                >
+            <CommandBar.Content>
+                <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
+
+
+                    <AutoSuggestBox x:Name="SearchKeyTextBox" HorizontalAlignment="Stretch"
+                                    Text="{Binding Key, Mode=TwoWay}" PlaceholderText="Search" 
+                                    BorderThickness="1"
+                                                VerticalAlignment="Center"
+                                                FontSize="18" VerticalContentAlignment="Center"
+                                    QuerySubmitted="SearchKeyTextBox_QuerySubmitted" 
                             QueryIcon="Find" TextChanged="SearchKeyTextBox_TextChanged" 
-                            GotFocus="SearchKeyTextBox_GotFocus">
-                <AutoSuggestBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid  Margin="0,8" HorizontalAlignment="Stretch">
-                            <TextBlock Text="{Binding Keyword}" />
+                            GotFocus="SearchKeyTextBox_GotFocus"
+                                    >
+                        <AutoSuggestBox.TextBoxStyle>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </AutoSuggestBox.TextBoxStyle>
 
-                            <SymbolIcon Symbol="Clock" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
-                        </Grid>
-                    </DataTemplate>
-                </AutoSuggestBox.ItemTemplate>
-                <AutoSuggestBox.ItemContainerStyle>
+                        <AutoSuggestBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid  Margin="0,8" HorizontalAlignment="Stretch">
+                                    <TextBlock Text="{Binding Keyword}" />
 
-                    <Style TargetType="ContentControl">
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </AutoSuggestBox.ItemContainerStyle>
-            </AutoSuggestBox>
+                                    <SymbolIcon Symbol="Clock" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </AutoSuggestBox.ItemTemplate>
+                        <AutoSuggestBox.ItemContainerStyle>
 
-        </Grid>
+                            <Style TargetType="ContentControl">
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </AutoSuggestBox.ItemContainerStyle>
+                    </AutoSuggestBox>
+                </Grid>
+            </CommandBar.Content>
+
+
+            <AppBarButton x:Name="FilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Flyout="{StaticResource FilterMainFlyout}" FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
+
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton  Label="{Binding SearchPosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
+                <AppBarButton  Label="{Binding SearchPosts.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
+                <AppBarButton  Label="{Binding SearchPosts.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Filtered: {0}'}" IsEnabled="False"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
     </Grid>
 </UserControl>

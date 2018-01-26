@@ -26,13 +26,8 @@
     </Page.DataContext>
 
     <Page.Resources>
-
         <CommonConverters:RandomGrayConverter x:Key="RandomGrayConverter"/>
-
-        <CommonConverters:StringFormatConverter x:Key="StringFormatConverter"/>
-
         <Converters:TagTypeSymbolConverter x:Key="TagTypeSymbolConverter"/>
-
         <Converters:TagTypeColorConverter x:Key="TagTypeColorConverter"/>
 
         
@@ -596,22 +591,41 @@
                     </UserControl>
 
 
-                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
+                    <CommandBar Grid.RowSpan="1" 
+                                HorizontalContentAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                IsDynamicOverflowEnabled="False"
+                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
+                                FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
+                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
+                                >
+                        <CommandBar.Content>
+                            <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
+                                <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="0,0">
+                                    <TextBlock x:Uid="/BooruHomePage/TextBlockFavoriteSorting" Text="Sorting:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <ComboBox VerticalAlignment="Center" Background="Transparent" 
+                                              BorderThickness="1"
+                                              SelectionChanged="ComboBox_SelectionChanged"
+                                              SelectedIndex="{Binding FavoriteSortingModeSelectedIndex, Mode=TwoWay}">
+                                        <TextBlock x:Uid="/BooruHomePage/TextBlockFavoriteSortingFavorite" Text="Favorite Date"/>
+                                        <TextBlock x:Uid="/BooruHomePage/TextBlockFavoriteSortingNewPost" Text="New Post First"/>
+                                        <TextBlock x:Uid="/BooruHomePage/TextBlockFavoriteSortingOldPost" Text="Old Post First"/>
+                                        <TextBlock x:Uid="/BooruHomePage/TextBlockFavoriteSortingHighScore" Text="High Score First"/>
+                                        <TextBlock x:Uid="/BooruHomePage/TextBlockFavoriteSortingLowScore" Text="Low Score First"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Grid>
+                        </CommandBar.Content>
 
-                        <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="12,0">
-                            <TextBlock Text="Sorting(Coming soon):" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                            <ComboBox VerticalAlignment="Center" SelectedIndex="0">
-                                <TextBlock Text="Favorite Date"/>
-                                <!--<TextBlock Text="Favorite Date (Ord First)"/>
-                                <TextBlock Text="Post Date (New Firts)"/>
-                                <TextBlock Text="Post Date (Ord First)"/>-->
-                            </ComboBox>
-                        </StackPanel>
+                        <AppBarButton  x:Name="FavoriteRefreshButton" Label="Refresh" HorizontalAlignment="Right" Icon="Refresh" Click="FavoriteRefreshButton_Click" />
 
-                        <AppBarButton  x:Name="FavoriteRefreshButton" Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="FavoriteRefreshButton_Click" >
-                        </AppBarButton>
 
-                    </Grid>
+
+                        <CommandBar.SecondaryCommands>
+                            <AppBarButton  Label="{Binding FavoritePosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
+                            <AppBarButton  Label="{Binding FavoritePosts.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
+                        </CommandBar.SecondaryCommands>
+                    </CommandBar>
                 </Grid>
             </PivotItem>
 

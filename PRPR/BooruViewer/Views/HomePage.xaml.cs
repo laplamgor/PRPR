@@ -125,22 +125,7 @@ namespace PRPR.BooruViewer.Views
                 SearchBox.Text = e.NavigationParameter as string;
 
                 await HomeViewModel.SearchAsync(SearchBox.Text);
-
-
-                // Load the favorites if logged in
-                if (YandeSettings.Current.IsLoggedIn)
-                {
-                    Posts favoritePost = new Posts();
-                    try
-                    {
-                        favoritePost = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+order:vote");
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-                    HomeViewModel.FavoritePosts = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
-                }
+                
             }
         }
         
@@ -334,20 +319,7 @@ namespace PRPR.BooruViewer.Views
 
         private async void FavoriteRefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            if (YandeSettings.Current.UserName != "")
-            {
-                Posts favoritePost = null;
-                try
-                {
-                    favoritePost = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+order:vote");
-
-                }
-                catch (Exception ex)
-                {
-                    return;
-                }
-                HomeViewModel.FavoritePosts = new FilteredCollection<Post, Posts>(favoritePost, this.HomeViewModel.SearchPostFilter);
-            }
+            await HomeViewModel.UpdateFavoriteListAsync();
         }
         
 
@@ -513,5 +485,9 @@ namespace PRPR.BooruViewer.Views
             }
         }
 
+        private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await HomeViewModel.UpdateFavoriteListAsync();
+        }
     }
 }
