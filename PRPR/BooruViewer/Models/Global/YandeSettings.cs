@@ -432,7 +432,7 @@ namespace PRPR.BooruViewer.Models.Global
         {
             get
             {
-                return GetValueOrDefault<string>(GetCallerName(), "rating:s", false);
+                return GetValueOrDefault<string>(GetCallerName(), "", false);
             }
             set
             {

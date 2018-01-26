@@ -260,7 +260,7 @@
                 <StackPanel Padding="12,162,12,0">
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockLiveTileIcons"  Text="磁貼動態動漫頭像" Style="{StaticResource SubtitleTextBlockStyle}"/>
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockSearchTag" Text="搜索標籤："/>
-                    <TextBox Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero) rating:s"/>
+                    <TextBox Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero)"/>
 
 
                     <Button FCU:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
