@@ -28,6 +28,9 @@
     <Page.Resources>
 
         <CommonConverters:RandomGrayConverter x:Key="RandomGrayConverter"/>
+
+        <CommonConverters:StringFormatConverter x:Key="StringFormatConverter"/>
+
         <Converters:TagTypeSymbolConverter x:Key="TagTypeSymbolConverter"/>
 
         <Converters:TagTypeColorConverter x:Key="TagTypeColorConverter"/>
@@ -461,13 +464,13 @@
                                 >
                         <CommandBar.Content>
                             <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
-                                <AutoSuggestBox x:Name="SearchBox" HorizontalAlignment="Stretch"
+                                <AutoSuggestBox x:Uid="/BooruHomePage/AutoSuggestBoxSearch" x:Name="SearchBox" HorizontalAlignment="Stretch"
                                                 QuerySubmitted="SearchBox_QuerySubmitted" 
                                                 QueryIcon="Find" 
                                                 TextChanged="SearchBox_TextChanged" BorderThickness="1"
                                                 VerticalAlignment="Center"
                                                 FontSize="18" VerticalContentAlignment="Center"
-                                                
+                                                PlaceholderText="Search for tags"
                                                 Loaded="SearchBox_Loaded" Unloaded="SearchBox_Unloaded">
                                     <AutoSuggestBox.TextBoxStyle>
                                         <Style TargetType="TextBox" BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}">
@@ -490,13 +493,12 @@
                         </CommandBar.Content>
 
 
-                        <AppBarButton x:Name="FilterButton" Icon="Filter" Click="FilterButton_Click"  FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
+                        <AppBarButton x:Uid="/BooruHomePage/AppBarButtonFilter" x:Name="FilterButton" Icon="Filter" Label="Filter" Click="FilterButton_Click"  FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
 
                         <CommandBar.SecondaryCommands>
-                            <AppBarButton Icon="Filter"/>
-                            <AppBarButton/>
-                            <AppBarButton/>
-                            <AppBarButton/>
+                            <AppBarButton  Label="{Binding SearchPosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
+                            <AppBarButton  Label="{Binding SearchPosts.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
+                            <AppBarButton  Label="{Binding SearchPosts.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Filtered: {0}'}" IsEnabled="False"/>
                         </CommandBar.SecondaryCommands>
                     </CommandBar>
                 </Grid>
@@ -626,7 +628,7 @@
 
         <!--Header-->
         <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0" EntranceNavigationTransitionInfo.IsTargetElement="False" 
-              BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlForegroundChromeHighBrush}">
+              BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}">
 
             <!--Acrylic background-->
             <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>

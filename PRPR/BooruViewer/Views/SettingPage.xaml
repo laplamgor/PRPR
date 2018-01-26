@@ -45,7 +45,8 @@
         </ScrollViewer>
 
         <!--Header-->
-        <Grid>
+        <Grid
+              BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}">
             <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
             <CU:Rectangle Margin="0,-40,0,0" >
                 <Rectangle.Fill>

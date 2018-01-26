@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppBarButtonFilter.Label" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="AutoSuggestBoxSearch.PlaceholderText" xml:space="preserve">
+    <value>搜索标籤</value>
+  </data>
   <data name="CheckBoxRatingExplicit.Content" xml:space="preserve">
     <value>明显</value>
   </data>

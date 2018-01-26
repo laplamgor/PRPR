@@ -257,7 +257,8 @@
         </Pivot>
 
         <!--Header-->
-        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0">
+        <Grid Grid.Row="0" Margin="0,-40,0,0" Padding="0,40,0,0"
+              BorderThickness="0,0,0,1" BorderBrush="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}">
             
             <!--Acrylic background-->
             <FCU:Rectangle Margin="0,-40,0,0"  Fill="{ThemeResource SystemControlAcrylicElementBrush}"/>
@@ -298,7 +299,7 @@
                     <TextBlock x:Name="DownloadTextBlock" Text="下載" Margin="0,0,16,0"/>
                 </StackPanel>
                 <StackPanel Tag="更多" Orientation="Horizontal">
-                    <SymbolIcon Symbol="More" Width="48" />
+                    <SymbolIcon Symbol="Setting" Width="48" />
                     <TextBlock x:Name="MoreTextBlock"  Margin="0"/>
                 </StackPanel>
             </ListView>
