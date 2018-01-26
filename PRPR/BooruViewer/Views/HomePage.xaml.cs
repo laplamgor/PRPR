@@ -193,7 +193,7 @@ namespace PRPR.BooruViewer.Views
             var post = (sender as GridViewItem).DataContext as Post;
 
             // Navigate to image page
-            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)HomeViewModel.FavoritePosts;
+            App.Current.Resources["Posts"] = HomeViewModel.FavoritePosts;
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
 

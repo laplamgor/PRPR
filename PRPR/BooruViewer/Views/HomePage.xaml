@@ -622,8 +622,8 @@
 
 
                         <CommandBar.SecondaryCommands>
-                            <AppBarButton  Label="{Binding FavoritePosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
-                            <AppBarButton  Label="{Binding FavoritePosts.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
+                            <AppBarButton  Label="{Binding FavoritePosts.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
+                            <AppBarButton  Label="{Binding FavoritePosts.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
                         </CommandBar.SecondaryCommands>
                     </CommandBar>
                 </Grid>

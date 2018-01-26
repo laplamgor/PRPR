@@ -80,9 +80,9 @@ namespace PRPR.BooruViewer.ViewModels
         }
 
 
-        private FilteredCollection<Post, Posts> _favoritePosts = null;
+        private ObservableCollection<Post> _favoritePosts = null;
 
-        public FilteredCollection<Post, Posts> FavoritePosts
+        public ObservableCollection<Post> FavoritePosts
         {
             get
             {
@@ -198,7 +198,7 @@ namespace PRPR.BooruViewer.ViewModels
                 {
                     return;
                 }
-                FavoritePosts = new FilteredCollection<Post, Posts>(favoritePost, this.SearchPostFilter);
+                this.FavoritePosts = favoritePost;
             }
         }
     }
