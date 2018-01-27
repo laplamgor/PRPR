@@ -14,6 +14,7 @@ using Windows.UI.Core;
 using Windows.Web.Http.Filters;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
+using System.Linq;
 
 namespace PRPR.ExReader.Services
 {
@@ -53,11 +54,20 @@ namespace PRPR.ExReader.Services
 
 
 
+        static HttpCookieManager CookieManager = null;
 
 
         internal static void SignOut()
         {
             ExSettings.Current.ECookie = "";
+
+            // Remove all cookies used by the app
+            HttpBaseProtocolFilter f = new HttpBaseProtocolFilter();
+            var cookies = f.CookieManager.GetCookies(new Uri("https://exhentai.org/"));
+            foreach (var cookie in cookies)
+            {
+                f.CookieManager.DeleteCookie(cookie);
+            }
         }
 
         
@@ -65,11 +75,23 @@ namespace PRPR.ExReader.Services
 
         public static async Task<string> GetStringWithExCookie(string uriString, string uconfig = "")
         {
-            var client = new Windows.Web.Http.HttpClient();
+            HttpBaseProtocolFilter f = new HttpBaseProtocolFilter();
+            var c2 = f.CookieManager.GetCookies(new Uri("https://exhentai.org/"));
+            if (c2.FirstOrDefault(o=>o.Name == "igneous") != null)
+            {
+                // Remove the igneous:mystery cookie which cause sadpanda for new logins
+                if (c2.FirstOrDefault(o => o.Name == "igneous").Value == "mystery")
+                {
+                    f.CookieManager.DeleteCookie(c2.FirstOrDefault(o => o.Name == "igneous"));
+                }
+            }
+
+            var client = new Windows.Web.Http.HttpClient(f);
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Cookie", await GetExCookieAsync(uconfig));
             client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
             var str = await client.GetStringAsync(new Uri(uriString));
+            
             return str;
         }
 
