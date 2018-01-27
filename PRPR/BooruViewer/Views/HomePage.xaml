@@ -488,7 +488,9 @@
                         </CommandBar.Content>
 
 
-                        <AppBarButton x:Uid="/BooruHomePage/AppBarButtonFilter" x:Name="FilterButton" Icon="Filter" Label="Filter" Click="FilterButton_Click"  FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
+                        <AppBarButton x:Uid="/BooruHomePage/AppBarButtonFilter" x:Name="FilterButton" Icon="Filter" Label="Filter" 
+                                      AllowFocusOnInteraction ="True"
+                                      Click="FilterButton_Click"  FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
 
                         <CommandBar.SecondaryCommands>
                             <AppBarButton  Label="{Binding SearchPosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
