@@ -118,7 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[25 Jan 2018] v2.0.4
+    <value>@[27 Jan 2018] v2.1.0
+Yandere
+- Remake search bar UI
+- Add current search stat numbers
+- Add sorting options for favorite
+- Improve lockscreen preview page
+Ex
+- Fix login
+@[25 Jan 2018] v2.0.4
 - End open beta
 - Add dark/light theme options 
 - Add back x64 version

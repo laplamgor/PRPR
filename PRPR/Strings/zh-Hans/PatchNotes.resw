@@ -118,7 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[25 Jan 2018] v2.0.4
+    <value>@[27 Jan 2018] v2.1.0
+Yandere
+- 重製搜索列界面
+- 加入当前搜索统计数字
+- 加入收藏列表排序选项
+- 改善锁屏预览页面
+Ex
+- 修正无法登陆
+@[25 Jan 2018] v2.0.4
 - 应用脱离公测阶段
 - 加入亮/暗主题选项
 - 加回x64编译版本
