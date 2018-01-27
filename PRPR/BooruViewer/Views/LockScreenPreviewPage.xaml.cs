@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Globalization.DateTimeFormatting;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -102,7 +103,17 @@ namespace PRPR.BooruViewer.Views
 
             PreviewTextBlock.Text = DateTimeOffset.Now.ToString("%H");
             PreviewTextBlock2.Text = DateTimeOffset.Now.ToString("mm");
-            PreviewTextBlock3.Text = DateTimeOffset.Now.ToString("dddd, MMMM d");
+
+            try
+            {
+                var f = DateTimeFormatter.LongDate;
+                var formateWithoutYear = new DateTimeFormatter(YearFormat.None, MonthFormat.Full, DayFormat.Default, DayOfWeekFormat.Full, f.IncludeHour, f.IncludeMinute, f.IncludeSecond, Windows.System.UserProfile.GlobalizationPreferences.Languages);
+                PreviewTextBlock3.Text = formateWithoutYear.Format(DateTimeOffset.Now);
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
 
         private void LockScreenPreviewPage_VisibleBoundsChanged(ApplicationView sender, object args)
