@@ -165,7 +165,7 @@ namespace PRPR.BooruViewer.Views
             var post = (sender as GridViewItem).DataContext as Post;
             
             // Navigate to image page
-            App.Current.Resources["Posts"] = (FilteredCollection<Post, Posts>)HomeViewModel.SearchPosts;
+            ImagePage.PostDataStack.Push((FilteredCollection<Post, Posts>)HomeViewModel.SearchPosts);
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
 
         }
@@ -193,7 +193,7 @@ namespace PRPR.BooruViewer.Views
             var post = (sender as GridViewItem).DataContext as Post;
 
             // Navigate to image page
-            App.Current.Resources["Posts"] = HomeViewModel.FavoritePosts;
+            ImagePage.PostDataStack.Push(HomeViewModel.FavoritePosts);
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
 

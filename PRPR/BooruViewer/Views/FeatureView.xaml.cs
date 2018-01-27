@@ -3,6 +3,7 @@ using PRPR.BooruViewer.ViewModels;
 using PRPR.ExReader.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -72,7 +73,7 @@ namespace PRPR.BooruViewer.Views
 
             if ((sender as Button).DataContext is Post post)
             {
-                App.Current.Resources.Remove("Posts");
+                ImagePage.PostDataStack.Push(null);
                 (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
             }
         }

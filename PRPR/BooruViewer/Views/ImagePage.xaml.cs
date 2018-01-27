@@ -56,6 +56,10 @@ namespace PRPR.BooruViewer.Views
             get { return this.navigationHelper; }
         }
 
+
+        public static Stack<ObservableCollection<Post>> PostDataStack { get; } = new Stack<ObservableCollection<Post>>();
+
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
@@ -65,9 +69,16 @@ namespace PRPR.BooruViewer.Views
         {
             this.navigationHelper.OnNavigatedFrom(e);
 
-            // Prepare backward transition connected animation
             if (e.NavigationMode == NavigationMode.Back)
             {
+                // Remove a level of post list data from stack
+                if (PostDataStack.Count > 0)
+                {
+                    PostDataStack.Pop();
+                }
+
+
+                // Prepare backward transition connected animation
                 // Pre-fall creator has different image loading order
                 // unable to share same connected animation code without breaking the UI
                 if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
@@ -125,9 +136,9 @@ namespace PRPR.BooruViewer.Views
                 // Get Posts
                 if (App.Current.Resources.ContainsKey("Posts"))
                 {
-                    if (this.ImagesViewModel.Posts !=  App.Current.Resources["Posts"] as ObservableCollection<Post>)
+                    if (this.ImagesViewModel.Posts !=  ImagePage.PostDataStack.Peek() as ObservableCollection<Post>)
                     {
-                        this.ImagesViewModel = new ImagesViewModel(App.Current.Resources["Posts"] as ObservableCollection<Post>);
+                        this.ImagesViewModel = new ImagesViewModel(ImagePage.PostDataStack.Peek() as ObservableCollection<Post>);
                     }
                 }
                 else

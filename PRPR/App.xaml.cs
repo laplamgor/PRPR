@@ -238,17 +238,14 @@ namespace PRPR
                     if (int.TryParse(idString, out postId))
                     {
                         var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ "id%3A" + postId }");
-                        App.Current.Resources["Posts"] = posts;
 
-
-
+                        ImagePage.PostDataStack.Push(posts);
                         shell.AppFrame.Navigate(typeof(ImagePage), posts.First().ToXml());
                     }
                     
                 }
                 else if (e.Uri.AbsolutePath.StartsWith("/post", StringComparison.OrdinalIgnoreCase))
                 {
-
                     // Search tags
                     shell.AppFrame.Navigate(typeof(BooruViewer.Views.HomePage), $"");
                 } else
