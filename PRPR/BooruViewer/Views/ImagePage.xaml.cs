@@ -134,7 +134,7 @@ namespace PRPR.BooruViewer.Views
                 readyForConnectedAnimation = false;
 
                 // Get Posts
-                if (ImagePage.PostDataStack.Count > 0)
+                if (ImagePage.PostDataStack.Peek() != null)
                 {
                     if (this.ImagesViewModel.Posts !=  ImagePage.PostDataStack.Peek() as ObservableCollection<Post>)
                     {
