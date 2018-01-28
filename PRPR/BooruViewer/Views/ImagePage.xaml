@@ -455,7 +455,7 @@
         </Grid>
 
         <!--Details-->
-        <Grid x:Name="DetailBlock" Grid.Row="2" Grid.Column="0" Visibility="Visible" Height="0" Width="0">
+        <Grid x:Name="DetailBlock" Grid.Row="2" Grid.Column="0" Visibility="Visible" Height="0" Width="0" Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <Pivot MinWidth="320" MinHeight="320" HorizontalAlignment="Right">
 
                 <PivotItem Margin="0">
@@ -485,6 +485,7 @@
 
                                         <Ellipse  Width="80" Height="80" Stroke="Gray" StrokeThickness="2" >
                                             <Ellipse.Fill>
+                                                
                                                 <ImageBrush ImageSource="{Binding SelectedImageViewModel.Post.CreatorId, Converter={StaticResource AvatarUriConverter}}"/>
 
                                             </Ellipse.Fill>
@@ -515,12 +516,29 @@
                                 <TextBlock Text="{Binding SelectedImageViewModel.Post.CreatedAtUtc}"/>
                             </StackPanel>
 
-
-
                             <TextBlock x:Uid="/BooruImagePage/TextBlockRating" Foreground="Gray" Margin="0,24,0,0"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding SelectedImageViewModel.Post.Rating}"/>
                             </StackPanel>
+                            
+                            <StackPanel Visibility="{Binding SelectedImageViewModel.ImageSourceLinkUri, Converter={StaticResource StringToVisibilityConverter}}">
+                                <TextBlock x:Uid="/BooruImagePage/TextBlockSource" Text="Source" Foreground="Gray" Margin="0,24,0,0"/>
+                                <HyperlinkButton NavigateUri="{Binding SelectedImageViewModel.ImageSourceLinkUri}" ToolTipService.ToolTip="{Binding SelectedImageViewModel.Post.Source}">
+                                    <TextBlock Text="{Binding SelectedImageViewModel.ImageSourceLinkUri}" TextWrapping="Wrap"/>
+                                </HyperlinkButton>
+                            </StackPanel>
+
+                            <HyperlinkButton Click="ChildrenButton_Click" Margin="0,24,0,0"
+                                             Visibility="{Binding SelectedImageViewModel.Post.HasChildren, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock x:Uid="/BooruImagePage/TextBlockChildren" Text="Search for children post"/>
+                            </HyperlinkButton>
+                            
+                            <HyperlinkButton Click="ParentButton_Click" Margin="0,24,0,0" 
+                                             Visibility="{Binding SelectedImageViewModel.Post.ParentId, Converter={StaticResource StringToVisibilityConverter}}">
+                                <TextBlock x:Uid="/BooruImagePage/TextBlockParent" Text="Search for parent post"/>
+                            </HyperlinkButton>
+
+
 
                             <Button x:Uid="/BooruImagePage/ButtonOpenInBrowser" FCU:Style="{StaticResource ButtonRevealStyle}" Click="Button_Click" Margin="0,24"/>
 

@@ -120,6 +120,9 @@
   <data name="ButtonOpenInBrowser.Content" xml:space="preserve">
     <value>Open in Browser</value>
   </data>
+  <data name="TextBlockChildren.Text" xml:space="preserve">
+    <value>Search for child posts</value>
+  </data>
   <data name="TextBlockDownloading.Text" xml:space="preserve">
     <value>Downloading the full size image, please wait...</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="TextBlockNoComment.Text" xml:space="preserve">
     <value>No Comment</value>
   </data>
+  <data name="TextBlockParent.Text" xml:space="preserve">
+    <value>Search for parent post</value>
+  </data>
   <data name="TextBlockRating.Text" xml:space="preserve">
     <value>Rating</value>
   </data>
   <data name="TextBlockScore.Text" xml:space="preserve">
     <value>Score</value>
+  </data>
+  <data name="TextBlockSource.Text" xml:space="preserve">
+    <value>Source</value>
   </data>
   <data name="TextBlockUploadDate.Text" xml:space="preserve">
     <value>Upload at (UTC)</value>

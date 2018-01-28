@@ -110,10 +110,7 @@ namespace PRPR.BooruViewer.ViewModels
         }
 
 
-
-
-
-
+        
 
         ObservableCollection<Post> _posts = null;
 
@@ -157,6 +154,7 @@ namespace PRPR.BooruViewer.ViewModels
             {
                 _post = value;
                 NotifyPropertyChanged(nameof(Post));
+                NotifyPropertyChanged(nameof(ImageSourceLinkUri));
             }
         }
 
@@ -210,7 +208,28 @@ namespace PRPR.BooruViewer.ViewModels
 
 
 
-        
+
+
+        public string ImageSourceLinkUri
+        {
+            get
+            {
+                var source = Post.Source;
+
+                // Convert pixiv link
+                if (source.StartsWith("https://i.pximg.net/img-original/img/"))
+                {
+                    var uri = new Uri(source);
+
+                    source = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=" + uri.LocalPath.Split('/').LastOrDefault()?.Split('_').FirstOrDefault();
+                }
+
+                return source;
+            }
+        }
+
+
+
 
 
         public async Task Favorite()
@@ -225,6 +244,7 @@ namespace PRPR.BooruViewer.ViewModels
             await YandeClient.RemoveFavoriteAsync(Post.Id);
             this.IsFavorited = false;
         }
+
 
 
 

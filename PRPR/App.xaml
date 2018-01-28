@@ -17,6 +17,7 @@
         <!--Common Converters-->
         <converter:BooleanToInvisibilityConverter x:Key="BooleanToInvisibilityConverter"/>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         <converter:TransparentColorConverter x:Key="TransparentColorConverter"/>
         <converter:StringFormatConverter x:Key="StringFormatConverter"/>
 

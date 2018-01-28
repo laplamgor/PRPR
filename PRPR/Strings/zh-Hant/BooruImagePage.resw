@@ -120,6 +120,9 @@
   <data name="ButtonOpenInBrowser.Content" xml:space="preserve">
     <value>在瀏覽器中打開</value>
   </data>
+  <data name="TextBlockChildren.Text" xml:space="preserve">
+    <value>搜索相關附属子貼圖</value>
+  </data>
   <data name="TextBlockDownloading.Text" xml:space="preserve">
     <value>正在下載原圖，請耐心等候</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="TextBlockNoComment.Text" xml:space="preserve">
     <value>沒有評論</value>
   </data>
+  <data name="TextBlockParent.Text" xml:space="preserve">
+    <value>搜索相關所属母貼圖</value>
+  </data>
   <data name="TextBlockRating.Text" xml:space="preserve">
     <value>評級</value>
   </data>
   <data name="TextBlockScore.Text" xml:space="preserve">
     <value>分數</value>
+  </data>
+  <data name="TextBlockSource.Text" xml:space="preserve">
+    <value>圖源</value>
   </data>
   <data name="TextBlockUploadDate.Text" xml:space="preserve">
     <value>上傳日期 (UTC)</value>

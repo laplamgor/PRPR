@@ -15,22 +15,20 @@ namespace PRPR.BooruViewer.Models
     [XmlType("post")]
     public class Post : IImageWallItemImage
     {
-        public static string test = @"<?xml version=""1.0"" encoding=""utf-16""?>
-<post id=""361174"" 
-tags=""dress gothic_lolita inaba_sunimi kanzaki_ranko lolita_fashion the_idolm@ster the_idolm@ster_cinderella_girls"" created_at=""1468339249"" 
-creator_id=""25882"" author=""Mr_GT"" change=""1916218"" 
-source=""http://i3.pixiv.net/img-original/img/2016/07/13/00/58/28/57878838_p0.png"" score=""0"" 
-md5=""2795ff2560dd993ab027443d40f5dda7"" file_size=""2432738"" 
-file_url=""https://files.yande.re/image/2795ff2560dd993ab027443d40f5dda7/yande.re%20361174%20dress%20gothic_lolita%20inaba_sunimi%20kanzaki_ranko%20lolita_fashion%20the_idolm%40ster%20the_idolm%40ster_cinderella_girls.png"" 
-is_shown_in_index=""true"" preview_url=""https://assets.yande.re/data/preview/27/95/2795ff2560dd993ab027443d40f5dda7.jpg"" 
-preview_width=""106"" preview_height=""150"" actual_preview_width=""213"" actual_preview_height=""300"" 
-sample_url=""https://files.yande.re/sample/2795ff2560dd993ab027443d40f5dda7/yande.re%20361174%20sample%20dress%20gothic_lolita%20inaba_sunimi%20kanzaki_ranko%20lolita_fashion%20the_idolm%40ster%20the_idolm%40ster_cinderella_girls.jpg"" 
-sample_width=""1063"" sample_height=""1500"" sample_file_size=""497886"" 
-jpeg_url=""https://files.yande.re/jpeg/2795ff2560dd993ab027443d40f5dda7/yande.re%20361174%20dress%20gothic_lolita%20inaba_sunimi%20kanzaki_ranko%20lolita_fashion%20the_idolm%40ster%20the_idolm%40ster_cinderella_girls.jpg"" 
-jpeg_width=""1200"" jpeg_height=""1694"" jpeg_file_size=""688109"" 
-rating=""s"" has_children=""false"" parent_id="""" status=""active"" 
-width=""1200"" height=""1694"" is_held=""false"" frames_pending_string="""" frames_string=""""/>
-";
+        /*
+<post id="431721" tags="ass breasts cameltoe christmas nipples no_bra pantsu string_panties tenzeru thighhighs topless" created_at="1517064967" updated_at="1517064969" 
+creator_id="25882" approver_id="" author="Mr_GT" change="2277917" source="https://i.pximg.net/img-original/img/2017/12/29/07/19/48/66514457_p1.jpg" score="46" 
+md5="163cb181d72511897fb445aee5b54c87" file_size="8034985" file_ext="jpg" file_url="https://files.yande.re/image/163cb181d72511897fb445aee5b54c87/yande.re%20431721%20ass%20breasts%20cameltoe%20christmas%20nipples%20no_bra%20pantsu%20string_panties%20tenzeru%20thighhighs%20topless.jpg" 
+is_shown_in_index="true" preview_url="https://assets.yande.re/data/preview/16/3c/163cb181d72511897fb445aee5b54c87.jpg" 
+preview_width="96" preview_height="150" actual_preview_width="192" actual_preview_height="300" 
+sample_url="https://files.yande.re/sample/163cb181d72511897fb445aee5b54c87/yande.re%20431721%20sample%20ass%20breasts%20cameltoe%20christmas%20nipples%20no_bra%20pantsu%20string_panties%20tenzeru%20thighhighs%20topless.jpg" 
+sample_width="961" sample_height="1500" sample_file_size="373313" 
+jpeg_url="https://files.yande.re/image/163cb181d72511897fb445aee5b54c87/yande.re%20431721%20ass%20breasts%20cameltoe%20christmas%20nipples%20no_bra%20pantsu%20string_panties%20tenzeru%20thighhighs%20topless.jpg" 
+jpeg_width="2976" jpeg_height="4644" jpeg_file_size="0" rating="q" is_rating_locked="false" 
+has_children="false" parent_id="" status="active" is_pending="false" width="2976" height="4644" is_held="false" 
+frames_pending_string="" frames_string="" is_note_locked="false" last_noted_at="0" last_commented_at="0"/>
+        */
+
 
         public static Post FromXml(string xml)
         {

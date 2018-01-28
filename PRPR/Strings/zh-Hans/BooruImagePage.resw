@@ -120,6 +120,9 @@
   <data name="ButtonOpenInBrowser.Content" xml:space="preserve">
     <value>在浏览器中打开</value>
   </data>
+  <data name="TextBlockChildren.Text" xml:space="preserve">
+    <value>搜索相关附属子贴图</value>
+  </data>
   <data name="TextBlockDownloading.Text" xml:space="preserve">
     <value>正在下载原图，请耐心等候</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="TextBlockNoComment.Text" xml:space="preserve">
     <value>没有评论</value>
   </data>
+  <data name="TextBlockParent.Text" xml:space="preserve">
+    <value>搜索相关所属母贴图</value>
+  </data>
   <data name="TextBlockRating.Text" xml:space="preserve">
     <value>评级</value>
   </data>
   <data name="TextBlockScore.Text" xml:space="preserve">
     <value>分数</value>
+  </data>
+  <data name="TextBlockSource.Text" xml:space="preserve">
+    <value>图源</value>
   </data>
   <data name="TextBlockUploadDate.Text" xml:space="preserve">
     <value>上传日期 (UTC)</value>

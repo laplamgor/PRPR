@@ -192,6 +192,7 @@
     <Compile Include="Common\Converters\RandomGrayConverter.cs" />
     <Compile Include="Common\Converters\SignedNumberConverter.cs" />
     <Compile Include="Common\Converters\StringFormatConverter.cs" />
+    <Compile Include="Common\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\TransparentColorConverter.cs" />
     <Compile Include="Common\Converters\ZeroCountToVisibliltyConverter.cs" />
     <Compile Include="Common\FilteredCollection.cs" />

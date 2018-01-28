@@ -278,13 +278,7 @@ namespace PRPR.BooruViewer.Views
         }
 
 
-
-
-        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/post/show/{ImagesViewModel.SelectedImageViewModel.Post.Id}"));
-        }
-
+        
         private void ScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var scrollViewer = (sender as ScrollViewer);
@@ -504,7 +498,6 @@ namespace PRPR.BooruViewer.Views
 
         private void TagButton_Click(object sender, RoutedEventArgs e)
         {
-
             // Search tags
             this.Frame.Navigate(typeof(HomePage), $"{((sender as Button).DataContext as TagDetail).Name}");
         }
@@ -635,9 +628,6 @@ namespace PRPR.BooruViewer.Views
 
         private async void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine($"Index={ImagesViewModel.SelectedIndex}, {(sender as FlipView).SelectedIndex}");
-
-
             FlipView.UpdateLayout();
             if (FlipView.SelectedIndex == indexFromLastPage && readyForConnectedAnimation)
             {
@@ -661,7 +651,6 @@ namespace PRPR.BooruViewer.Views
                 var tasks = new List<Task>();
                 tasks.Add(ImagesViewModel.SelectedImageViewModel.UpdateIsFavorited());
                 tasks.Add(ImagesViewModel.SelectedImageViewModel.UpdateComments());
-
                 //await Task.WhenAll(tasks);
             }
         }
@@ -679,6 +668,20 @@ namespace PRPR.BooruViewer.Views
         {
             // Reset the scroll and zoom of the image
             (sender as ScrollViewer).ZoomToFactor(1);
+        }
+
+        private void ChildrenButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Search for the child posts
+            this.Frame.Navigate(typeof(HomePage), $"parent:{ImagesViewModel.SelectedImageViewModel.Post.Id}");
+        }
+
+        private void ParentButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Search for the parent post
+            // Indeed there will be at most one parent and not worth a search
+            // But going to a search list will make the navigation much cleaner and more consistent
+            this.Frame.Navigate(typeof(HomePage), $"id:{ImagesViewModel.SelectedImageViewModel.Post.ParentId}");
         }
     }
 }
