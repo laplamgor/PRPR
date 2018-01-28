@@ -27,6 +27,9 @@ namespace PRPR.ExReader.Models
         public DateTime DateCreated { get; set; }
 
 
-        
+        public override string ToString()
+        {
+            return Keyword;
+        }
     }
 }
