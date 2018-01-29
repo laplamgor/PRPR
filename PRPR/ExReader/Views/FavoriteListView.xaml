@@ -109,7 +109,21 @@
                                 FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
                                 CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
                                 >
-            
+
+            <CommandBar.Content>
+                <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
+                    <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="4,0">
+                        <TextBlock x:Uid="/ExFavoriteListView/TextBlockFavoriteSorting" Text="Sorting:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <ComboBox VerticalAlignment="Center" Background="Transparent" 
+                                BorderThickness="1"
+                                SelectionChanged="ComboBox_SelectionChanged"
+                                SelectedIndex="{Binding FavoriteSortingModeSelectedIndex, Mode=TwoWay}">
+                            <TextBlock x:Uid="/ExFavoriteListView/TextBlockFavoriteSortingFavorite" Text="Favorite Date"/>
+                            <TextBlock x:Uid="/ExFavoriteListView/TextBlockFavoriteSortingLastUpdate" Text="Last Update"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </CommandBar.Content>
 
 
             <AppBarButton HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click" Label="Refresh" FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>

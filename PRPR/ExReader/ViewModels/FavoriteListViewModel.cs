@@ -37,5 +37,29 @@ namespace PRPR.ExReader.ViewModels
             }
         }
 
+
+        private int _favoriteSortingModeSelectedIndex = 0;
+
+
+        public async Task UpdateFavoriteListAsync()
+        {
+            FavoriteList = await ExFavoriteList.DownloadFavoritesAsync(1, FavoriteSortingModeSelectedIndex == 1? ExFavoriteSortingMode.Published : ExFavoriteSortingMode.Favorited);
+        }
+
+        public int FavoriteSortingModeSelectedIndex
+        {
+            get
+            {
+                return _favoriteSortingModeSelectedIndex;
+            }
+
+            set
+            {
+                _favoriteSortingModeSelectedIndex = value;
+                NotifyPropertyChanged(nameof(FavoriteSortingModeSelectedIndex));
+            }
+        }
+
+
     }
 }

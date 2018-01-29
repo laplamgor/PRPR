@@ -18,8 +18,7 @@ namespace PRPR.ExReader.Models
         public int PageCount { get; set; } = 0;
 
         public int CurrentPageNumber { get; set; } = 0;
-
-
+        
 
         public bool HasMoreItems
         {
@@ -34,21 +33,13 @@ namespace PRPR.ExReader.Models
             return AsyncInfo.Run((c) => LoadMoreItemsAsync(c, count));
         }
 
-
-
-
-
-
-
-
-
-
+        
 
         async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
             try
             {
-                var nextPageList = await DownloadFavoritesAsync(this.CurrentPageNumber + 1);
+                var nextPageList = await DownloadFavoritesAsync(this.CurrentPageNumber + 1, SortingMode);
                 foreach (var item in nextPageList)
                 {
                     this.Add(item);
@@ -65,24 +56,21 @@ namespace PRPR.ExReader.Models
             }
         }
 
-        public static async Task<ExFavoriteList> DownloadFavoritesAsync(int pagenumber)
+        public static async Task<ExFavoriteList> DownloadFavoritesAsync(int pagenumber, ExFavoriteSortingMode sortingMode)
         {
             try
             {
                 // Get page html
                 if (pagenumber == 1)
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php", "dm_l");
-                    return ExFavoriteList.FromHtml(htmlStr);
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php", $"dm_l-{SORTING_STRING[(int)sortingMode]}");
+                    return ExFavoriteList.FromHtml(htmlStr, sortingMode);
                 }
                 else
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?page= {pagenumber - 1}");
-                    return ExFavoriteList.FromHtml(htmlStr);
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?page={pagenumber - 1}", $"{SORTING_STRING[(int)sortingMode]}");
+                    return ExFavoriteList.FromHtml(htmlStr, sortingMode);
                 }
-
-
-                //return await client.GetStringAsync(uri);
             }
             catch (Exception ex)
             {
@@ -90,7 +78,7 @@ namespace PRPR.ExReader.Models
             }
         }
 
-        private static ExFavoriteList FromHtml(string htmlSource)
+        private static ExFavoriteList FromHtml(string htmlSource, ExFavoriteSortingMode sortingMode)
         {
             if (htmlSource == null)
             {
@@ -118,6 +106,7 @@ namespace PRPR.ExReader.Models
                 throw new Exception("Cannot load favorite list html");
             }
 
+            l.SortingMode = sortingMode;
             return l;
         }
 
@@ -149,7 +138,19 @@ namespace PRPR.ExReader.Models
             {
                 return 0;
             }
-
         }
+
+        public ExFavoriteSortingMode SortingMode = ExFavoriteSortingMode.Favorited;
+
+
+
+        private static readonly IReadOnlyList<string> SORTING_STRING = new List<string>() { "fs_f", "fs_p" }.AsReadOnly();
     }
+
+    public enum ExFavoriteSortingMode
+    {
+        Favorited = 0,
+        Published = 1
+    }
+
 }

@@ -48,9 +48,7 @@ namespace PRPR.ExReader.Views
                 try
                 {
                     // Get page html
-                    FavoriteListViewModel.FavoriteList = await ExFavoriteList.DownloadFavoritesAsync(1);
-
-                    //return await client.GetStringAsync(uri);
+                    await FavoriteListViewModel.UpdateFavoriteListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -70,15 +68,18 @@ namespace PRPR.ExReader.Views
         {
             try
             {
-                FavoriteListViewModel.FavoriteList = await ExFavoriteList.DownloadFavoritesAsync(1);
-
+                await FavoriteListViewModel.UpdateFavoriteListAsync();
             }
             catch (Exception ex)
             {
-
                 await new MessageDialog(ex.Message, "AppBarButton_Click").ShowAsync();
             }
 
+        }
+
+        private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await FavoriteListViewModel.UpdateFavoriteListAsync();
         }
     }
 
