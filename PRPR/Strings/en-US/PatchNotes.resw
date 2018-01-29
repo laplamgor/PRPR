@@ -118,7 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[27 Jan 2018] v2.1.0
+    <value>@[29 Jan 2018] v2.2.0
+Yandere
+- Add search for child/parent posts
+- Add link to image source
+- No longer need refresh after filter changes
+- Fix a bug in blacklist
+- Fix a back button navigation bug
+- Fix a rare crash when resizing windows
+Ex
+- Fix a bug in search history
+- Add current search stat numbers
+- Improve some UI
+@[27 Jan 2018] v2.1.0
 Yandere
 - Remake search bar UI
 - Add current search stat numbers

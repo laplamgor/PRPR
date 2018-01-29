@@ -118,7 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[27 Jan 2018] v2.1.0
+    <value>@[29 Jan 2018] v2.2.0
+Yandere
+- 加入母圖/子圖連結
+- 加入圖源連結
+- 更改篩選器後不必再刷新
+- 修正黑名單Bug
+- 修正返回錯頁問題
+- 修正個別情況下改變視窗大小時閃退
+Ex
+- 修正搜索紀錄Bug
+- 加入當前搜索統計數字
+- 改善部份界面
+@[27 Jan 2018] v2.1.0
 Yandere
 - 重製搜索列界面
 - 加入當前搜索統計數字
@@ -135,8 +147,8 @@ Yandere
 - 加入在看大圖時的上/下一張按鈕
 - 支持英語/簡體中文界面
 - 重製界面, 首面毛玻璃更自然, 空間感更大
-- 加入黑名單過濾器選項
-- 加入held過濾器選項
+- 加入黑名單篩選器選項
+- 加入held篩選器選項
 - 改善過渡動畫
 - 在舊版本OS(主要是無法升上16299的手機用戶)上禁用一些特效以提高流暢度
 - 修正一部份閃退問題
