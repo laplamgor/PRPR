@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -21,12 +23,41 @@ namespace PRPR.Common.Controls
             set { SetValue(ItemsSourceProperty, value); }
         }
 
+        private async void ItemsSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                RecycleAll();
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                if (UpdateActiveRange(ParentScrollViewer.VerticalOffset, ParentScrollViewer.ViewportHeight, DesiredSize.Width - Margin.Left - Margin.Right, true))
+                {
+                    RevirtualizeAll();
+                }
+            }
+        }
+
+
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(JustifiedWrapPanel), new PropertyMetadata(null, OnItemSourceChanged));
 
         public static async void OnItemSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var p = (d as JustifiedWrapPanel);
+
+
+            // Reassign the handler to new item set
+            if (e.OldValue is INotifyCollectionChanged)
+            {
+                (e.OldValue as INotifyCollectionChanged).CollectionChanged -= p.ItemsSource_CollectionChanged;
+            }
+            if (e.NewValue is INotifyCollectionChanged)
+            {
+                (e.NewValue as INotifyCollectionChanged).CollectionChanged += p.ItemsSource_CollectionChanged;
+            }
+
+
 
             if (e.OldValue is IList itemsSource)
             {
@@ -48,8 +79,6 @@ namespace PRPR.Common.Controls
                 await p.CheckNeedMoreItemAsync();
             }
         }
-
-        
         
 
 

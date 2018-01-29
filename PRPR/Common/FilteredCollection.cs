@@ -55,13 +55,22 @@ namespace PRPR.Common
         private void Refilter()
         {
             this.Clear();
-            if (_source != null)
+            if (Source != null)
             {
-                //var newSourceItems = Source.Where(filter.Function);
-                //foreach (var item in newSourceItems)
-                //{
-                //    this.Add(item);
-                //}
+                var newSourceItems = Source.Where(filter.Function);
+
+                if (this.Count == 0)
+                {
+                    foreach (var item in newSourceItems)
+                    {
+                        this.Add(item);
+                    }
+                }
+                else
+                {
+                    // There are other items loaded during this download
+                    // Prevent duplicate items
+                }
             }
             else
             {
