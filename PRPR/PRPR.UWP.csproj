@@ -104,6 +104,9 @@
     <Compile Include="Common\Controls\JustifiedWrapPanel.DataVirtualization.cs" />
     <None Include="PRPR.UWP_StoreKey.pfx" />
     <None Include="PRPR.UWP_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\zh-Hans\ExGalleryListView.resw" />
+    <PRIResource Include="Strings\zh-Hant\ExGalleryListView.resw" />
+    <PRIResource Include="Strings\en-US\ExGalleryListView.resw" />
     <PRIResource Include="Strings\en-US\ExHomePage.resw" />
     <PRIResource Include="Strings\zh-Hans\ExHomePage.resw" />
     <PRIResource Include="Strings\zh-Hant\ExHomePage.resw" />

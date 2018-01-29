@@ -147,16 +147,56 @@
 
 
                 <StackPanel DataContext="{Binding SearchConfig}">
-                    <CheckBox Content="Doujinshi" IsChecked="{Binding Doujinshi, Mode=TwoWay}"/>
-                    <CheckBox Content="Manga" IsChecked="{Binding Manga, Mode=TwoWay}"/>
-                    <CheckBox Content="Artist CG" IsChecked="{Binding ArtistCG, Mode=TwoWay}"/>
-                    <CheckBox Content="Game CG" IsChecked="{Binding GameCG, Mode=TwoWay}"/>
-                    <CheckBox Content="Western" IsChecked="{Binding Western, Mode=TwoWay}"/>
-                    <CheckBox Content="Non-H" IsChecked="{Binding NonH, Mode=TwoWay}"/>
-                    <CheckBox Content="Image Set" IsChecked="{Binding ImageSet, Mode=TwoWay}"/>
-                    <CheckBox Content="Cosplay" IsChecked="{Binding Cosplay, Mode=TwoWay}"/>
-                    <CheckBox Content="AsianPorn" IsChecked="{Binding AsianPorn, Mode=TwoWay}"/>
-                    <CheckBox Content="Misc" IsChecked="{Binding Misc, Mode=TwoWay}"/>
+                    <CheckBox IsChecked="{Binding Doujinshi, Mode=TwoWay}">
+                        <Border Background="#FFD13438" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryDoujinshi" Text="Doujinshi"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding Manga, Mode=TwoWay}">
+                        <Border Background="#FFCA5010" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryManga" Text="Manga"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding ArtistCG, Mode=TwoWay}">
+                        <Border Background="#FFFFB900" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryArtistCG" Text="Artist CG"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding GameCG, Mode=TwoWay}">
+                        <Border Background="#FF107C10" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryGameCG" Text="Game CG"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding Western, Mode=TwoWay}">
+                        <Border Background="#FF647C64" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryWestern" Text="Western"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding NonH, Mode=TwoWay}">
+                        <Border Background="#FF0078D7" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryNonH" Text="Non-H"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding ImageSet, Mode=TwoWay}">
+                        <Border Background="#FF301798" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryImageSet" Text="Image Set"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding Cosplay, Mode=TwoWay}">
+                        <Border Background="#FF881798" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryCosplay" Text="Cosplay"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding AsianPorn, Mode=TwoWay}">
+                        <Border Background="#FFE300BC" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryAsianPorn" Text="Asian Porn"/>
+                        </Border>
+                    </CheckBox>
+                    <CheckBox IsChecked="{Binding Misc, Mode=TwoWay}">
+                        <Border Background="#FF767676" Padding="8,0" RequestedTheme="Dark" CornerRadius="10">
+                            <TextBlock x:Uid="/ExGalleryListView/TextBlockCategoryMisc" Text="Misc"/>
+                        </Border>
+                    </CheckBox>
                 </StackPanel>
             </StackPanel>
 
@@ -500,14 +540,15 @@
                 </Grid>
             </CommandBar.Content>
 
+            <!--<AppBarButton x:Uid="/ExGalleryListView/AppBarButtonConfig" Label="Options" x:Name="ConfigButton" Width="48" HorizontalAlignment="Left" Icon="AllApps" Flyout="{StaticResource FilterMainFlyout}" FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>-->
 
-            <AppBarButton x:Name="FilterButton" Width="48" HorizontalAlignment="Left" Icon="Filter" Flyout="{StaticResource FilterMainFlyout}" FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
+            <AppBarButton x:Uid="/ExGalleryListView/AppBarButtonFilter" Label="Filter" x:Name="FilterButton" Icon="Filter" Flyout="{StaticResource FilterMainFlyout}" FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
 
 
             <CommandBar.SecondaryCommands>
-                <AppBarButton  Label="{Binding SearchPosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
-                <AppBarButton  Label="{Binding SearchPosts.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
-                <AppBarButton  Label="{Binding SearchPosts.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Filtered: {0}'}" IsEnabled="False"/>
+                <AppBarButton  Label="{Binding SearchGalleryList.Source.EstimatedTotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
+                <AppBarButton  Label="{Binding SearchGalleryList.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
+                <AppBarButton  Label="{Binding SearchGalleryList.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Filtered: {0}'}" IsEnabled="False"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>

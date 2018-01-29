@@ -11,11 +11,21 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using PRPR.ExReader.Services;
 using PRPR.ExReader.Models.Global;
+using System.ComponentModel;
 
 namespace PRPR.ExReader.Models
 {
-    public class ExGalleryList : ObservableCollection<ExGallery>, ISupportIncrementalLoading
+    public class ExGalleryList : ObservableCollection<ExGallery>, ISupportIncrementalLoading, INotifyPropertyChanged
     {
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
         
         public static async Task<ExGalleryList> DownloadGalleryListAsync(int pagenumber, string uri)
         {
@@ -36,7 +46,21 @@ namespace PRPR.ExReader.Models
         
 
 
-
+        public int EstimatedTotalCount {
+            get
+            {
+                if (CurrentPageNumber >= PageCount - 1)
+                {
+                    // The number is correctly calculated if it is the last page
+                    return Count;
+                }
+                else
+                {
+                    // Estimate the count by page number only
+                    return 25 * PageCount;
+                }
+            }
+        }
 
 
 
@@ -58,7 +82,7 @@ namespace PRPR.ExReader.Models
         {
             get
             {
-                return this.CurrentPageNumber < PageCount;
+                return this.CurrentPageNumber < PageCount - 1;
             }
         }
 
@@ -85,9 +109,11 @@ namespace PRPR.ExReader.Models
                 {
                     this.Add(item);
                 }
-
+                
                 this.CurrentPageNumber = nextPageList.CurrentPageNumber;
                 this.PageCount = nextPageList.PageCount;
+                NotifyPropertyChanged(nameof(EstimatedTotalCount));
+                NotifyPropertyChanged(nameof(Count));
 
                 return new LoadMoreItemsResult { Count = (uint)nextPageList.Count };
             }
