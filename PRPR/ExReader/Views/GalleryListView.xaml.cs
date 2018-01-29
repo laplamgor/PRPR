@@ -37,8 +37,7 @@ namespace PRPR.ExReader.Views
             this.InitializeComponent();
 
         }
-
-
+        
 
         public GalleryListViewModel GalleryListViewModel
         {
@@ -47,28 +46,18 @@ namespace PRPR.ExReader.Views
                 return this.DataContext as GalleryListViewModel;
             }
         }
-
-        public TestList TestList
-        {
-            get
-            {
-                return null;
-            }
-        }
+        
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), (e.ClickedItem as ImageWallItem<ExGallery>).ItemSource.Link);
         }
-
-        private bool isFirstLoad = true;
-
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
-
-
+        
         private async void SearchKeyTextBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             this.Focus(FocusState.Pointer);
@@ -169,25 +158,4 @@ namespace PRPR.ExReader.Views
             await UpdateSuggestionsAsync(sender as AutoSuggestBox);
         }
     }
-
-
-    public class TestList : ObservableCollection<string>, ISupportIncrementalLoading
-    {
-
-        public bool HasMoreItems
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-
-    
 }
