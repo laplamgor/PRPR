@@ -15,12 +15,10 @@ namespace PRPR.Common.Controls
 
 		public async Task CheckNeedMoreItemAsync()
         {
-            if (ParentScrollViewer != null && ItemsSource is ISupportIncrementalLoading)
+            while (ParentScrollViewer != null && ParentScrollViewer.VerticalOffset > ParentScrollViewer.ScrollableHeight - 1.5 * ParentScrollViewer.ViewportHeight &&
+                !loading && ItemsSource is ISupportIncrementalLoading && ((ISupportIncrementalLoading)ItemsSource).HasMoreItems)
             {
-                while (ParentScrollViewer.VerticalOffset > ParentScrollViewer.ScrollableHeight - 1.5 * ParentScrollViewer.ViewportHeight && !loading && ItemsSource is ISupportIncrementalLoading && ((ISupportIncrementalLoading)ItemsSource).HasMoreItems )
-                {
-                    await LoadMoreItemsAsync();
-                }
+                await LoadMoreItemsAsync();
             }
         }
 
