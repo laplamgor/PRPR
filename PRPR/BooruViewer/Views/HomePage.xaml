@@ -416,10 +416,7 @@
                                         <DataTemplate x:DataType="m:Post">
                                             <GridViewItem Tapped="BrowseGridViewItem_Tapped">
                                                 <Grid BorderThickness="0">
-                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                        <Border.BorderBrush>
-                                                            <SolidColorBrush Color="#FF222222"/>
-                                                        </Border.BorderBrush>
+                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                                                         <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
                                                     </Border>
                                                 </Grid>
@@ -559,10 +556,7 @@
                                         <DataTemplate x:DataType="m:Post">
                                             <GridViewItem Tapped="FavoriteGridViewItem_Tapped">
                                                 <Grid BorderThickness="0" >
-                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                        <Border.BorderBrush>
-                                                            <SolidColorBrush Color="#FF222222"/>
-                                                        </Border.BorderBrush>
+                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                                                         <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
                                                     </Border>
                                                 </Grid>
