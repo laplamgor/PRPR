@@ -9,6 +9,8 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     Loaded="UserControl_Loaded">
 
 
@@ -84,22 +86,40 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
 
 
 
-        <ListView ItemsSource="{Binding FavoriteList}" Grid.Row="0" 
+        <ListView ItemsSource="{Binding FavoriteList}" Grid.Row="1" 
                   ItemTemplate="{StaticResource ListItemTemplate}"
                   IsItemClickEnabled="True" SelectionMode="None" 
                   ItemClick="ListView_ItemClick">
         </ListView>
 
 
-        <CommandBar x:Name="CommandBar" Grid.Row="1">
-            <AppBarButton HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click" Label="Refresh"/>
+
+        <CommandBar Grid.RowSpan="1" 
+                                HorizontalContentAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                IsDynamicOverflowEnabled="False"
+                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
+                                FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
+                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
+                                >
+            
+
+
+            <AppBarButton HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click" Label="Refresh" FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
+
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton  Label="{Binding FavoriteList.EstimatedTotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
+                <AppBarButton  Label="{Binding FavoriteList.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
+                <AppBarButton  Label="{Binding SearchGalleryList.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Filtered: {0}'}" IsEnabled="False"/>
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>
 </UserControl>
