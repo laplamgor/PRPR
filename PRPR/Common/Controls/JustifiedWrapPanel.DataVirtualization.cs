@@ -15,7 +15,7 @@ namespace PRPR.Common.Controls
 
 		public async Task CheckNeedMoreItemAsync()
         {
-            while (ParentScrollViewer != null && ParentScrollViewer.VerticalOffset > ParentScrollViewer.ScrollableHeight - 1.5 * ParentScrollViewer.ViewportHeight &&
+            if (ParentScrollViewer != null && ParentScrollViewer.VerticalOffset > ParentScrollViewer.ScrollableHeight - 1.5 * ParentScrollViewer.ViewportHeight &&
                 !loading && ItemsSource is ISupportIncrementalLoading && ((ISupportIncrementalLoading)ItemsSource).HasMoreItems)
             {
                 await LoadMoreItemsAsync();
@@ -31,6 +31,7 @@ namespace PRPR.Common.Controls
 
         async Task LoadMoreItemsAsync(uint count)
         {
+            var itemsSourceAtStart = ItemsSource;
             if (ItemsSource is ISupportIncrementalLoading items)
             {
 				// Lock the loading so it wont be call repeatedly while waiting new items incoming
@@ -40,7 +41,7 @@ namespace PRPR.Common.Controls
 
 					// Load as many as possible to meet the requested number
                     uint loaded = 0;
-					while (items.HasMoreItems && loaded < count)
+					while (items.HasMoreItems && loaded < count && itemsSourceAtStart == ItemsSource)
 					{
                         try
                         {

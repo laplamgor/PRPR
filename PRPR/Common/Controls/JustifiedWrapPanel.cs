@@ -379,7 +379,7 @@ namespace PRPR.Common.Controls
                 }
                 ArrangeRow(currentRow, new Rect(0, currentY, finalSize.Width, RowHeight), items.Count - 1 == LastActive);
             }
-            
+            CheckNeedMoreItemAsync();
             return finalSize;
         }
 

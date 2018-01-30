@@ -57,10 +57,11 @@ namespace PRPR.Common
             this.Clear();
             if (Source != null)
             {
-                var newSourceItems = Source.Where(filter.Function);
 
                 if (this.Count == 0)
                 {
+                    // The ToList is not necessary but is running faster in Debug mode
+                    var newSourceItems = Source.Where(filter.Function).ToList();
                     foreach (var item in newSourceItems)
                     {
                         this.Add(item);
