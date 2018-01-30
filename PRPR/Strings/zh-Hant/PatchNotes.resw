@@ -118,7 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[29 Jan 2018] v2.2.0
+    <value>@[31 Jan 2018] v2.2.1
+- 修復一個增加不必要流量的BUG
+Yandere
+- 加上圖片邊框以修正亮色主題背景問題
+Ex
+- 加入收藏列表排序選項
+@[29 Jan 2018] v2.2.0
 Yandere
 - 加入母圖/子圖連結
 - 加入圖源連結
