@@ -42,19 +42,7 @@ namespace PRPR.ExReader.Views
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (isFirstLoad)
-            {
-                isFirstLoad = false;
-                try
-                {
-                    // Get page html
-                    await FavoriteListViewModel.UpdateFavoriteListAsync();
-                }
-                catch (Exception ex)
-                {
 
-                }
-            }
         }
 
 
@@ -79,7 +67,14 @@ namespace PRPR.ExReader.Views
 
         private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            await FavoriteListViewModel.UpdateFavoriteListAsync();
+            try
+            {
+                await FavoriteListViewModel.UpdateFavoriteListAsync();
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
+            }
         }
     }
 
