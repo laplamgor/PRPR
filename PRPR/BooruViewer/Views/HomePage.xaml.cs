@@ -509,9 +509,5 @@ namespace PRPR.BooruViewer.Views
         {
             await HomeViewModel.UpdateFavoriteListAsync();
         }
-
-        private async void MainPivot_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

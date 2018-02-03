@@ -80,11 +80,13 @@ namespace PRPR.BooruViewer.Models
 
         public static async Task<Posts> DownloadPostsAsync(int page, string uri)
         {
-            HttpClient httpClient = new HttpClient();
-            var xml = await httpClient.GetStringAsync(new Uri($"{uri}&page={page}&limit={limit}"));
-            var p = Posts.ReadFromXml(xml);
-            p.Uri = uri;
-            return p;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var xml = await httpClient.GetStringAsync(new Uri($"{uri}&page={page}&limit={limit}"));
+                var p = Posts.ReadFromXml(xml);
+                p.Uri = uri;
+                return p;
+            }
         }
 
         private static Posts ReadFromXml(string xml)

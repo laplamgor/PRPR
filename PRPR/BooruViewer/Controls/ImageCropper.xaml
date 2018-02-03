@@ -16,12 +16,12 @@
         <ScrollViewer x:Name="Resizer" Loaded="Resizer_Loaded"
                   HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled" 
                   HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" 
-                  IsHitTestVisible="False" Unloaded="Resizer_Unloaded">
+                  IsHitTestVisible="False">
 
             <Image x:Name="InnerImage" Loaded="InnerImage_Loaded"
                    HorizontalAlignment="Center" VerticalAlignment="Center" 
                    Source="{Binding ImageSource, ElementName=userControl}"
-                   Stretch="None" ImageOpened="InnerImage_ImageOpened" Unloaded="InnerImage_Unloaded">
+                   Stretch="None" ImageOpened="InnerImage_ImageOpened">
             </Image>
 
         </ScrollViewer>
@@ -29,7 +29,7 @@
         <Image x:Name="ProxyImage" Loaded="ProxyImage_Loaded" SizeChanged="ProxyImage_SizeChanged"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0"
                    Source="{Binding ProxySource, ElementName=userControl}"
-                   Stretch="None" ImageOpened="ProxyImage_ImageOpened" Unloaded="ProxyImage_Unloaded">
+                   Stretch="None" ImageOpened="ProxyImage_ImageOpened">
         </Image>
     </Grid>
 </UserControl>

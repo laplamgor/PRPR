@@ -30,7 +30,6 @@ namespace PRPR.BooruViewer.Controls
         public ImageCropper()
         {
             this.InitializeComponent();
-            
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -68,8 +67,7 @@ namespace PRPR.BooruViewer.Controls
                 UpdatePosition();
             }
         }
-
-
+        
         void UpdatePosition()
         {
             var imageSize = new Size(InnerImage.ActualWidth, InnerImage.ActualHeight);
@@ -99,10 +97,7 @@ namespace PRPR.BooruViewer.Controls
             {
                 
             }
-            
-        }
-
-        
+        }        
        
         public string ProxySource
         {
@@ -127,10 +122,9 @@ namespace PRPR.BooruViewer.Controls
                 SetValue(ImageSourceProperty, value);
             }
         }
-        
 
         public static readonly DependencyProperty ProxySourceProperty =
-            DependencyProperty.Register(nameof(ProxySource), typeof(string), typeof(ImageCropper), null);// new PropertyMetadata(null, new PropertyChangedCallback(OnProxyChanged)));
+            DependencyProperty.Register(nameof(ProxySource), typeof(string), typeof(ImageCropper), null);
 
 
         public static readonly DependencyProperty ImageSourceProperty =
@@ -144,7 +138,6 @@ namespace PRPR.BooruViewer.Controls
                 UpdatePosition();
             }
         }
-
 
         public static IEnumerable<Rect> ScaleFaces(IEnumerable<Rect> faces, Size imageSize, Size proxySize)
         {
@@ -170,32 +163,25 @@ namespace PRPR.BooruViewer.Controls
             // Download
             IBuffer proxyResult = null;
 
-            HttpClient client = new HttpClient();
-            try
+            using (HttpClient client = new HttpClient())
             {
-                proxyResult = await client.GetBufferAsync(new Uri(ProxySource));
-            }
-            catch (Exception ex)
-            {
-                return;
+                try
+                {
+                    proxyResult = await client.GetBufferAsync(new Uri(ProxySource));
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
             }
             
-            // Detect
+            
             var factor = 1.05;
             var min = 3;
             var size = 25;
-            BitmapDecoder bd = await BitmapDecoder.CreateAsync(proxyResult.AsStream().AsRandomAccessStream());
-            BitmapFrame bf = await bd.GetFrameAsync(0);
-
-
-
-            //c.LoadCascadeFile();
-
             try
             {
-                //await DetectBitmapInBackgroundAsync(c, bf, factor, min, size);
-
-                await Task.Run(async () => await DetectBitmapInBackgroundAsync(bf, factor, min, size, this));
+                await Task.Run(async () => await DetectBitmapInBackgroundAsync(proxyResult, factor, min, size, this));
             }
             catch (Exception ex)
             {
@@ -203,9 +189,14 @@ namespace PRPR.BooruViewer.Controls
             }
         }
 
-        async Task DetectBitmapInBackgroundAsync(BitmapFrame bf, double factor, int min, int size, ImageCropper parent)
+        async Task DetectBitmapInBackgroundAsync(IBuffer proxyResult, double factor, int min, int size, ImageCropper parent)
         {
+            // Decode
+            BitmapDecoder bd = await BitmapDecoder.CreateAsync(proxyResult.AsStream().AsRandomAccessStream());
+            BitmapFrame bf = await bd.GetFrameAsync(0);
 
+
+            // Detect
             AnimeFaceDetector c = new AnimeFaceDetector();
             c.LoadCascade();
             var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
@@ -214,67 +205,28 @@ namespace PRPR.BooruViewer.Controls
             {
                 parent.Rects = s.ToList();
             });
-            //Rects = s.ToList();
         }
+
         async Task DetectBitmapInBackgroundAsync(AnimeFaceDetector c, BitmapFrame bf, double factor, int min, int size)
         {
             c.LoadCascade();
             var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
             Rects = s.ToList();
         }
-
-
-        bool ImageLoaded = false;
+        
         private void InnerImage_Loaded(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("ProxyImage_Loaded");
-
-            ImageLoaded = true;
-            
+        {            
             UpdatePosition();
         }
-        
-        private void InnerImage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            ImageLoaded = false;
-        }
-
-
-
-
-        bool ProxyLoaded = false;
 
         private void ProxyImage_Loaded(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("ProxyImage_Loaded");
-
-            ProxyLoaded = true;
-            
             UpdatePosition();
         }
-
-        private void ProxyImage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            ProxyLoaded = false;
-        }
-
-
-
-
-
-
-        bool ResizerLoaded = false;
 
         private void Resizer_Loaded(object sender, RoutedEventArgs e)
         {
-            ResizerLoaded = true;
-            
             UpdatePosition();
-        }
-
-        private void Resizer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            ResizerLoaded = false;
         }
 
         private void ProxyImage_SizeChanged(object sender, SizeChangedEventArgs e)

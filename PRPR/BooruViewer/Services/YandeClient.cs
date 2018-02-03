@@ -1,4 +1,4 @@
-﻿using PRPR.BooruViewer.Models.Global;
+﻿                using PRPR.BooruViewer.Models.Global;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
