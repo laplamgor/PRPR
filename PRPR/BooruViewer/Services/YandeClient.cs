@@ -1,18 +1,13 @@
-﻿                using PRPR.BooruViewer.Models.Global;
+﻿using PRPR.BooruViewer.Models.Global;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Shapes;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Windows.Web.Http.Headers;
@@ -21,7 +16,6 @@ namespace PRPR.BooruViewer.Services
 {
     public class YandeClient
     {
-
         private static string HashPassword(string password)
         {
             var hashAlgorithmProvider = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha1);
@@ -136,6 +130,7 @@ namespace PRPR.BooruViewer.Services
             var uri = $"https://yande.re/user/set_avatar/{postId}";
 
             // TODO: implement setting avatar
+            throw new NotImplementedException();
         }
 
 
@@ -148,12 +143,9 @@ namespace PRPR.BooruViewer.Services
 
                 string requestBody = $"authenticity_token={token}&url=&user%5Bname%5D={userName}&user%5Bpassword%5D={password}&commit=Login";
                 
-
                 
-                var httpClient = new Windows.Web.Http.HttpClient(new HttpBaseProtocolFilter());
-                var message = new Windows.Web.Http.HttpRequestMessage(
-                    new Windows.Web.Http.HttpMethod("POST"),
-                    new Uri($"https://yande.re/user/authenticate"))
+                var httpClient = new HttpClient(new HttpBaseProtocolFilter());
+                var message = new HttpRequestMessage(new HttpMethod("POST"), new Uri($"https://yande.re/user/authenticate"))
                 {
                     Content = new HttpStringContent(requestBody)
                 };
@@ -197,6 +189,7 @@ namespace PRPR.BooruViewer.Services
         public static async Task SubmitCommentAsync()
         {
             // TODO: submit the comment to the server
+            throw new NotImplementedException();
         }
         
         public static async Task AddFavoriteAsync(int postId)

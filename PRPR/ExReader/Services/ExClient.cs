@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
@@ -18,45 +17,8 @@ using System.Linq;
 
 namespace PRPR.ExReader.Services
 {
-    public class ExClient : INotifyPropertyChanged
+    public class ExClient
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // NotifyPropertyChanged will raise the PropertyChanged event, 
-        // passing the source property that is being updated.
-        public async void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                try
-                {
-                    CoreDispatcher dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                    });
-
-                }
-                catch (Exception ex)
-                {
-                    while (ex != null)
-                    {
-                        Debug.WriteLine(ex.Message);
-                        ex = ex.InnerException;
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-
-
-        static HttpCookieManager CookieManager = null;
-
-
         internal static void SignOut()
         {
             ExSettings.Current.ECookie = "";
@@ -69,9 +31,6 @@ namespace PRPR.ExReader.Services
                 f.CookieManager.DeleteCookie(cookie);
             }
         }
-
-        
-
 
         public static async Task<string> GetStringWithExCookie(string uriString, string uconfig = "")
         {
@@ -86,11 +45,14 @@ namespace PRPR.ExReader.Services
                 }
             }
 
-            var client = new Windows.Web.Http.HttpClient(f);
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Cookie", await GetExCookieAsync(uconfig));
-            client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
-            var str = await client.GetStringAsync(new Uri(uriString));
+            string str;
+            using (var client = new HttpClient(f))
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("Cookie", await GetExCookieAsync(uconfig));
+                client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
+                str = await client.GetStringAsync(new Uri(uriString));
+            }
             
             return str;
         }
@@ -100,22 +62,25 @@ namespace PRPR.ExReader.Services
 
         private static async Task GetECookie(string username, string password)
         {
+            // Prepare the login request
             string requestBody = $"UserName={username}&PassWord={password}&CookieDate=1";
-            
-            var httpClient = new Windows.Web.Http.HttpClient(new HttpBaseProtocolFilter());
-            var message = new Windows.Web.Http.HttpRequestMessage(
-                new Windows.Web.Http.HttpMethod("POST"),
-                new Uri("https://forums.e-hentai.org/index.php?act=Login&CODE=01"))
+            var message = new HttpRequestMessage(new HttpMethod("POST"), new Uri("https://forums.e-hentai.org/index.php?act=Login&CODE=01"))
             {
                 Content = new HttpStringContent(requestBody)
             };
             message.Content.Headers.ContentType = new HttpMediaTypeHeaderValue("application/x-www-form-urlencoded");
-            var response = await httpClient.SendRequestAsync(message);
+
+            // Send request for the response
+            HttpResponseMessage response;
+            using (var httpClient = new HttpClient(new HttpBaseProtocolFilter()))
+            {
+                response = await httpClient.SendRequestAsync(message);
+            }
             
+            // Extract the e-hentai cookie
             string eCookie = response.Headers["Set-Cookie"];
             if (eCookie.IndexOf("expires=") >= 0)
             {
-
                 var start = eCookie.IndexOf("expires=") + ("expires=".Length);
                 var end = eCookie.IndexOf(";", start);
                 var s = eCookie.Substring(start, end - start);
@@ -159,7 +124,6 @@ namespace PRPR.ExReader.Services
                     string responseString = reader.ReadToEnd();
                 }
             }
-            
         }
 
         public static async Task RemoveFromFavorite(string gid)
@@ -175,21 +139,13 @@ namespace PRPR.ExReader.Services
             {
                 await stream.WriteAsync(data, 0, data.Length);
             }
-
-
-            //using (HttpWebResponse logResponse = (HttpWebResponse)(await loginRequest.GetResponseAsync()))
-            //{
-
-            //}
         }
 
         public static bool HasVaildECookie()
         {
             return ExSettings.Current.ECookie != "" && DateTime.UtcNow.Subtract(ExSettings.Current.ECookieExpire).TotalSeconds < 0;
         }
-
-
-
+        
         public static async Task<string> GetExCookieAsync(string uconfig)
         {
             if (!HasVaildECookie())
@@ -220,7 +176,6 @@ namespace PRPR.ExReader.Services
 
             var _exCookie = $"ipb_member_id={manberid}; " + passhash + "; " + $"uconfig={uconfig};";
             return _exCookie;
-
         }
 
         private static string CheckForPassHash(string cookie)
@@ -250,10 +205,5 @@ namespace PRPR.ExReader.Services
                 throw new Exception("Login Error");
             }
         }
-
-
-
-
-
     }
 }

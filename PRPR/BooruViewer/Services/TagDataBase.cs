@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
@@ -33,10 +32,10 @@ namespace PRPR.BooruViewer.Services
 
         public static async Task DownloadLatestTagDBAsync()
         {
-            Debug.WriteLine("DownloadLatestTagDBAsync + ");
-            HttpClient httpClient = new HttpClient();
-            var json = await httpClient.GetStringAsync(new Uri(SUMMARY_URI));
-
+            Windows.Web.Http.HttpClient httpClient2 = new Windows.Web.Http.HttpClient();
+            var json = await httpClient2.GetStringAsync(new Uri(SUMMARY_URI));
+            
+            
             JsonObject root = JsonValue.Parse(json).GetObject();
             var version = root.GetNamedNumber("version");
             var data = root.GetNamedString("data");
@@ -66,7 +65,6 @@ namespace PRPR.BooruViewer.Services
                     }
                 }
             }
-            Debug.WriteLine("DownloadLatestTagDBAsync - ");
         }
 
 
