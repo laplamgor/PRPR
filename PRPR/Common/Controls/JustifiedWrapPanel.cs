@@ -350,7 +350,7 @@ namespace PRPR.Common.Controls
             if (ItemsSource is IList items && items.Count > 0)
             {
                 IImageWallItemImage item;
-                for (int i = 0; i <= LastActive; i++) // Dont care about items after last active item
+                for (int i = 0; i <= Math.Min(items.Count - 1, LastActive); i++) // Dont care about items after last active item
                 {
                     item = items[i] as IImageWallItemImage;
                     var itemWidth = ScaledWidth(item, RowHeight);

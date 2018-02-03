@@ -301,9 +301,9 @@
 
 
         </VisualStateManager.VisualStateGroups>
-
-        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False"
-               Style="{StaticResource PivotStyleNoHeader}" x:Name="FlipView"
+        
+        <Pivot EntranceNavigationTransitionInfo.IsTargetElement="False" Loaded="MainPivot_Loaded"
+               Style="{StaticResource PivotStyleNoHeader}" x:Name="MainPivot"
                Grid.Row="1" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" Margin="0,-48,0,0">
 
             <Pivot.HeaderTemplate>

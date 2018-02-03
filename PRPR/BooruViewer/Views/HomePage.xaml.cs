@@ -107,7 +107,6 @@ namespace PRPR.BooruViewer.Views
                 if (SearchBox.Text != e.PageState["Tags"] as string)
                 {
                     SearchBox.Text = e.PageState["Tags"] as string;
-                    FlipView.SelectedIndex = (int) (e.PageState["Tab"]);
 
                     await HomeViewModel.SearchAsync(SearchBox.Text);
                 }
@@ -118,7 +117,7 @@ namespace PRPR.BooruViewer.Views
                 if (e.NavigationParameter != null && !String.IsNullOrEmpty(e.NavigationParameter as string))
                 {
                     // Turn to the searching selection
-                    FlipView.UpdateLayout();
+                    MainPivot.UpdateLayout();
                     this.HomeViewModel.SelectedViewIndex = 1;
                 }
 
@@ -132,7 +131,7 @@ namespace PRPR.BooruViewer.Views
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
             e.PageState["Tags"] = SearchBox.Text;
-            e.PageState["Tab"] = FlipView.SelectedIndex;
+            e.PageState["Tab"] = MainPivot.SelectedIndex;
         }
 
         private void ScrollingHost_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -202,10 +201,31 @@ namespace PRPR.BooruViewer.Views
         {
             try
             {
-                // Jump to the page item if this is a back button action
                 var frameState = SuspensionManager.SessionStateForFrame(this.Frame);
+
+
                 if (this.Frame.CanGoForward && frameState.ContainsKey("Page-" + (this.Frame.BackStackDepth + 1)))
                 {
+
+
+                    // Jump to the pivot where user left
+                    if (frameState.ContainsKey("Page-" + (this.Frame.BackStackDepth)))
+                    {
+                        var thisPageParameters = frameState["Page-" + (this.Frame.BackStackDepth)] as IDictionary<string, object>;
+                        if (thisPageParameters.ContainsKey("Tab") && MainPivot.SelectedIndex != (int)(thisPageParameters["Tab"]))
+                        {
+                            // Work around to disable to pivot turning animation by changing the index twice                            
+                            MainPivot.SelectedIndex = (MainPivot.SelectedIndex + 2) % 4;
+                            MainPivot.SelectedIndex = (MainPivot.SelectedIndex + 1) % 4;
+                            MainPivot.SelectedIndex = (int)(thisPageParameters["Tab"]);
+
+                            //MainPivot.UpdateLayout();
+                        }
+                    }
+
+
+                    
+                    // Jump to the page item if this is a back button action
                     var lastPageParameters = frameState["Page-" + (this.Frame.BackStackDepth + 1)] as IDictionary<string, object>;
                     if (lastPageParameters.ContainsKey("Index") && lastPageParameters.ContainsKey("PostId"))
                     {
@@ -488,6 +508,10 @@ namespace PRPR.BooruViewer.Views
         private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             await HomeViewModel.UpdateFavoriteListAsync();
+        }
+
+        private async void MainPivot_Loaded(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
