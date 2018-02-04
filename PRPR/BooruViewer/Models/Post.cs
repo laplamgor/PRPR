@@ -1,6 +1,6 @@
 ﻿using PRPR.BooruViewer.Services;
+using PRPR.Common.Controls;
 using PRPR.Common.Models;
-using PRPR.Common.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 namespace PRPR.BooruViewer.Models
 {
     [XmlType("post")]
-    public class Post : IImageWallItemImage
+    public class Post : IJustifiedWrapPanelItem
     {
         /*
 <post id="431721" tags="ass breasts cameltoe christmas nipples no_bra pantsu string_panties tenzeru thighhighs topless" created_at="1517064967" updated_at="1517064969" 

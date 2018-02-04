@@ -254,7 +254,7 @@ namespace PRPR.Common.Controls
                         }
                     }
 
-                    var childImage = (child as IImageWallItemImage);
+                    var childImage = (child as IJustifiedWrapPanelItem);
                     var childWidth = ScaledWidth(childImage, RowHeight);
 
 
@@ -307,7 +307,7 @@ namespace PRPR.Common.Controls
 
                 var maxRowRatio = maxRowWidth / RowHeight;
                 var currectRowRatio = 0.0;
-                foreach (IImageWallItemImage item in items)
+                foreach (IJustifiedWrapPanelItem item in items)
                 {
                     bool newRow = (item.PreferredRatio + currectRowRatio > maxRowRatio) && (currentY != 0 || currectRowRatio != 0);
                     if (newRow)
@@ -349,10 +349,10 @@ namespace PRPR.Common.Controls
 
             if (ItemsSource is IList items && items.Count > 0)
             {
-                IImageWallItemImage item;
+                IJustifiedWrapPanelItem item;
                 for (int i = 0; i <= Math.Min(items.Count - 1, LastActive); i++) // Dont care about items after last active item
                 {
-                    item = items[i] as IImageWallItemImage;
+                    item = items[i] as IJustifiedWrapPanelItem;
                     var itemWidth = ScaledWidth(item, RowHeight);
 
 
@@ -386,14 +386,14 @@ namespace PRPR.Common.Controls
         private void MeasureRow(List<UIElement> items, Rect rowSpace, bool isLastRow)
         {
             // Calculate the scale factor
-            var scaleX = isLastRow ? 1 : rowSpace.Width / (items.Sum(o => ((o as ContentControl).Content as IImageWallItemImage).PreferredRatio) * rowSpace.Height);
+            var scaleX = isLastRow ? 1 : rowSpace.Width / (items.Sum(o => ((o as ContentControl).Content as IJustifiedWrapPanelItem).PreferredRatio) * rowSpace.Height);
 
             double currentX = 0;
             var scaledHeight = rowSpace.Height * scaleX;
             foreach (var item in items)
             {
                 // Place the item
-                var itemWidth = ((item as ContentControl).Content as IImageWallItemImage).PreferredRatio * scaledHeight;
+                var itemWidth = ((item as ContentControl).Content as IJustifiedWrapPanelItem).PreferredRatio * scaledHeight;
                 var itemSize = new Size(itemWidth, rowSpace.Height);
                 item.Measure(itemSize);
                 currentX += itemWidth;
@@ -405,13 +405,13 @@ namespace PRPR.Common.Controls
         {
             // Calculate the scale factor
             var scaleX = isLastRow ? 1 : rowSpace.Width / items.Sum( o =>
-            ScaledWidth((o as ContentControl).Content as IImageWallItemImage, rowSpace.Height));
+            ScaledWidth((o as ContentControl).Content as IJustifiedWrapPanelItem, rowSpace.Height));
 
             double currentX = 0;
             foreach (var item in items)
             {
                 // Place the item
-                var itemWidth = ScaledWidth((item as ContentControl).Content as IImageWallItemImage, rowSpace.Height) * scaleX;
+                var itemWidth = ScaledWidth((item as ContentControl).Content as IJustifiedWrapPanelItem, rowSpace.Height) * scaleX;
                 var itemRect = new Rect(rowSpace.X + currentX, rowSpace.Y, itemWidth, rowSpace.Height);
                 item.Arrange(itemRect);
                 currentX += itemWidth;
@@ -419,7 +419,7 @@ namespace PRPR.Common.Controls
         }
 
 
-        double ScaledWidth(IImageWallItemImage item, double height)
+        double ScaledWidth(IJustifiedWrapPanelItem item, double height)
         {
             return item.PreferredWidth / item.PreferredHeight * height;
         }
@@ -472,7 +472,7 @@ namespace PRPR.Common.Controls
                 var currectRowRatio = 0.0;
                 for (int i = 0; i <= index; i++)
                 {
-                    var item = items[i] as IImageWallItemImage;
+                    var item = items[i] as IJustifiedWrapPanelItem;
                     bool newRow = (item.PreferredRatio + currectRowRatio > maxRowRatio) && (currentY != 0 || currectRowRatio != 0);
                     if (newRow)
                     {

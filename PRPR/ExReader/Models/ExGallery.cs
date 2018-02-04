@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using PRPR.Common.Controls;
 using PRPR.Common.Models;
 using PRPR.ExReader.Services;
 using System;
@@ -20,7 +21,7 @@ using Windows.Web.Http.Headers;
 
 namespace PRPR.ExReader.Models
 {
-    public class ExGallery : ObservableCollection<ExGalleryImageListItem>, ISupportIncrementalLoading, IImageWallItemImage
+    public class ExGallery : ObservableCollection<ExGalleryImageListItem>, ISupportIncrementalLoading, IJustifiedWrapPanelItem
     {
         public static ExGallery GetGalleryListItemFromNode(HtmlNode node)
         {
@@ -570,7 +571,7 @@ namespace PRPR.ExReader.Models
 
     
 
-    public class ExGalleryImageListItem : IImageWallItemImage
+    public class ExGalleryImageListItem : IJustifiedWrapPanelItem
     {
         public string Link { get; set; }
 

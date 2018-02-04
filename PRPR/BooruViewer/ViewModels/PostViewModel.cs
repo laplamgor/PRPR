@@ -1,4 +1,5 @@
 ﻿using PRPR.BooruViewer.Models;
+using PRPR.Common.Controls;
 using PRPR.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PRPR.BooruViewer.ViewModels
 {
-    public class PostViewModel : IImageWallItemImage
+    public class PostViewModel : IJustifiedWrapPanelItem
     {
         public readonly Post Post;
 

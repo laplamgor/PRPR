@@ -47,12 +47,6 @@ namespace PRPR.ExReader.Views
             }
         }
         
-
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), (e.ClickedItem as ImageWallItem<ExGallery>).ItemSource.Link);
-        }
-        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 

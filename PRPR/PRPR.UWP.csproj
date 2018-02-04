@@ -101,6 +101,7 @@
     <Compile Include="BooruViewer\ViewModels\PostViewModel.cs" />
     <Compile Include="Common\AppDbContext.cs" />
     <Compile Include="Common\Controls\FaceDetectedImage.cs" />
+    <Compile Include="Common\Controls\IJustifiedWrapPanelItem.cs" />
     <Compile Include="Common\Controls\JustifiedWrapPanel.DataVirtualization.cs" />
     <None Include="PRPR.UWP_StoreKey.pfx" />
     <None Include="PRPR.UWP_TemporaryKey.pfx" />
@@ -202,17 +203,12 @@
     <Compile Include="Common\IConfigableFilter.cs" />
     <Compile Include="Common\Models\Global\AppSettings.cs" />
     <Compile Include="Common\Models\Global\SettingsBase.cs" />
-    <Compile Include="Common\Models\ImageWallItem.cs" />
-    <Compile Include="Common\Models\ImageWallRow.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\Services\ClipboardService.cs" />
     <Compile Include="Common\Services\SerializationService.cs" />
     <Compile Include="Common\Services\ToastService.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Common\Views\Controls\ImageWall.xaml.cs">
-      <DependentUpon>ImageWall.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ExReader\Converters\BoolToFlowDirection.cs" />
     <Compile Include="ExReader\Converters\LanguageConverter.cs" />
     <Compile Include="ExReader\Converters\CategoryColorConverter.cs" />
@@ -289,9 +285,6 @@
     <Compile Include="BooruViewer\Models\Global\YandeSettings.cs" />
     <Compile Include="BooruViewer\Models\Post.cs" />
     <Compile Include="BooruViewer\Models\Posts.cs" />
-    <Compile Include="BooruViewer\Models\PostsFiltered.cs" />
-    <Compile Include="BooruViewer\Models\PostsRowItem.cs" />
-    <Compile Include="Common\Models\ImageWallRows.cs" />
     <Compile Include="BooruViewer\Models\Tag.cs" />
     <Compile Include="BooruViewer\Models\TagSearchResult.cs" />
     <Compile Include="BooruViewer\Services\AnimePersonalization.cs" />
@@ -377,10 +370,6 @@
     <Page Include="BooruViewer\Views\SettingWallpaperPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Common\Views\Controls\ImageWall.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="ExReader\Views\AppShell.xaml">
       <SubType>Designer</SubType>
@@ -508,6 +497,7 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\Views\" />
     <Folder Include="Database\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

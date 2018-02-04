@@ -27,7 +27,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using Windows.ApplicationModel;
-using PRPR.Common.Views.Controls;
 using PRPR.Common.Models;
 using System.Collections;
 using PRPR.Common.Services;
