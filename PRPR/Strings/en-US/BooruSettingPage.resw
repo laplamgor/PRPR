@@ -129,6 +129,9 @@
   <data name="CheckBoxMeteredNetwork.Content" xml:space="preserve">
     <value>Auto update even in metered network</value>
   </data>
+  <data name="ComboBoxCropMethod.Header" xml:space="preserve">
+    <value>Auto Crop</value>
+  </data>
   <data name="ComboBoxItemCropCenter.Content" xml:space="preserve">
     <value>Center</value>
   </data>
@@ -165,17 +168,14 @@
   <data name="ComboBoxItemImageQualityMedium.Content" xml:space="preserve">
     <value>Medium</value>
   </data>
+  <data name="ComboBoxQuality.Header" xml:space="preserve">
+    <value>Image Quality</value>
+  </data>
   <data name="ComboBoxTheme.Header" xml:space="preserve">
     <value>Application Theme</value>
   </data>
-  <data name="TextBlockAutoCrop.Text" xml:space="preserve">
-    <value>Auto Crop:</value>
-  </data>
   <data name="TextBlockFilter.Text" xml:space="preserve">
     <value>Filter</value>
-  </data>
-  <data name="TextBlockImageQuality.Text" xml:space="preserve">
-    <value>Image Quality:</value>
   </data>
   <data name="TextBlockLiveTileIcons.Text" xml:space="preserve">
     <value>Live Tile Icons</value>
@@ -187,13 +187,13 @@
     <value>If your search tags are not that popular and do not have a lot of new images. You can random shuffle the top N search results so that at least it will not stuck at the most recently uploaded image.</value>
   </data>
   <data name="TextBlockRandomFirst.Text" xml:space="preserve">
-    <value>Randomly pick one from first</value>
+    <value>Randomly Picking</value>
   </data>
   <data name="TextBlockRandomResults.Text" xml:space="preserve">
-    <value>results.</value>
+    <value>search results</value>
   </data>
-  <data name="TextBlockSearchTag.Text" xml:space="preserve">
-    <value>Search Tags:</value>
+  <data name="TextBlockRecords.Text" xml:space="preserve">
+    <value>Records</value>
   </data>
   <data name="TextBlockTheme.Text" xml:space="preserve">
     <value>The application needs to be restarted to take effect</value>
@@ -209,6 +209,9 @@
   </data>
   <data name="TextBlockUpdateInterval.Text" xml:space="preserve">
     <value>Update Interval</value>
+  </data>
+  <data name="TextBoxTags.Header" xml:space="preserve">
+    <value>Search Tags</value>
   </data>
   <data name="ToggleSwitchAutoLiveTile.Header" xml:space="preserve">
     <value>Auto update live tile in background</value>

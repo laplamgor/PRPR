@@ -256,55 +256,60 @@
         <Grid Grid.Row="1">
             <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
                 <StackPanel Padding="12,162,12,0">
-                    <TextBlock x:Uid="/BooruSettingPage/TextBlockSearchTag"  Text="搜索標籤："/>
-                    <TextBox x:Name="TileTextBox"  Text="{Binding WallpaperUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. kancolle score:40.."/>
+
+
+                    <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchAutoLockScreen" x:Name="AutoToggleSwitch" Header="自動於後台刷新壁紙" Margin="0,12,0,24"
+                                  IsOn="{Binding WallpaperUpdateTaskEnabled, Mode=TwoWay, Source={StaticResource YandeSettings}}"/>
+
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockUpdateInterval" Text="換圖間隔"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,12">
+                        <TextBox Text="{Binding WallpaperUpdateTaskTimeSpan, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="15-1440"  Margin="0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
+                        <TextBlock x:Uid="/BooruSettingPage/TextBlockMinute" Text="分鐘" VerticalAlignment="Center" Margin="12,0"/>
+                        <Button FCU:Style="{StaticResource ButtonRevealStyle}" Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
+                    </StackPanel>
+                    
+                    
+                    <CheckBox x:Uid="/BooruSettingPage/CheckBoxMeteredNetwork" Content="計費網絡" 
+                              IsChecked="{Binding WallpaperUpdateTaskOnMeteredNetwork, Mode=TwoWay, Source={StaticResource YandeSettings}}" 
+                              Margin="0,12,0,0" IsEnabled="{Binding IsOn, ElementName=AutoToggleSwitch}"/>
+                    
+                    <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" FCU:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,12,0,12"/>
+
+
+
+                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
+
+
+
+                    <TextBox x:Uid="/BooruSettingPage/TextBoxTags" x:Name="TileTextBox" Header="搜索標籤" Text="{Binding WallpaperUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. kancolle score:40.."/>
 
                     <Button FCU:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Filter" Margin="0,0,4,0"/>
-                            <TextBlock Text="Filter"/>
+                            <TextBlock  x:Uid="/BooruSettingPage/TextBlockFilter" Text="Filter"/>
                         </StackPanel>
                     </Button>
 
 
-                    <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
-                        <TextBlock x:Uid="/BooruSettingPage/TextBlockUpdateInterval" Text="換圖間隔：" VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding WallpaperUpdateTaskTimeSpan, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="15-1440"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
-                        <TextBlock x:Uid="/BooruSettingPage/TextBlockMinute" Text="分鐘" VerticalAlignment="Center"/>
-
-                        <Button FCU:Style="{StaticResource ButtonRevealStyle}" Content="?" Click="Button_Click_1" Margin="24,0,0,0"/>
-                    </StackPanel>
-
-                    <TextBlock x:Uid="/BooruSettingPage/TextBlockRandom" MaxWidth="500" Margin="0,24,0,0" Text="如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockRandomFirst" Text="隨機選取" VerticalAlignment="Center" Margin="0,24,0,12"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Uid="/BooruSettingPage/TextBlockRandomFirst" Text="隨機選取首" VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding WallpaperUpdateTaskShuffleCount, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="1-20"  Margin="12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
+                        <TextBox Text="{Binding WallpaperUpdateTaskShuffleCount, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="1-20"  Margin="0,0,12,0" InputScope="Digits" VerticalAlignment="Center" MinWidth="0"/>
                         <TextBlock x:Uid="/BooruSettingPage/TextBlockRandomResults" Text="個搜索結果" VerticalAlignment="Center"/>
                     </StackPanel>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockRandom" MaxWidth="500" Margin="0,12,0,24" Text="如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙" HorizontalAlignment="Left" TextWrapping="Wrap"/>
 
-                    <Button x:Uid="/BooruSettingPage/ButtonManualUpdate" FCU:Style="{StaticResource ButtonRevealStyle}" Content="手動刷新看看" Click="Button_Click"  Margin="0,24,0,0"/>
-
-                    <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchAutoLockScreen" x:Name="AutoToggleSwitch" Header="自動於後台刷新壁紙" Margin="0,24,0,0"
-                                  IsOn="{Binding WallpaperUpdateTaskEnabled, Mode=TwoWay, Source={StaticResource YandeSettings}}"/>
-
-                    <CheckBox x:Uid="/BooruSettingPage/CheckBoxMeteredNetwork"  Content="計費網絡下也照更不誤" 
-                              IsChecked="{Binding WallpaperUpdateTaskOnMeteredNetwork, Mode=TwoWay, Source={StaticResource YandeSettings}}" 
-                              Margin="0,24,0,0" IsEnabled="{Binding IsOn, ElementName=AutoToggleSwitch}"/>
-
-
-
+                    
+                    
                     <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
-                    <TextBlock x:Uid="/BooruSettingPage/TextBlockImageQuality" Text="圖片質量:"/>
-                    <ComboBox x:Name="QualityComboBox" SelectedIndex="{Binding WallpaperUpdateTaskQuality, Source={StaticResource YandeSettings}, Mode=TwoWay}">
+
+                    <ComboBox x:Uid="/BooruSettingPage/ComboBoxQuality" x:Name="QualityComboBox" Header="圖片質量" SelectedIndex="{Binding WallpaperUpdateTaskQuality, Source={StaticResource YandeSettings}, Mode=TwoWay}">
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityMedium" Content="中"/>
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemImageQualityHigh"  Content="高"/>
                     </ComboBox>
 
-                    <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
 
 
-                    <TextBlock x:Uid="/BooruSettingPage/TextBlockAutoCrop" Text="自動剪裁:"/>
-                    <ComboBox x:Name="CropMethodComboBox" SelectedIndex="{Binding WallpaperUpdateTaskCropMethodIndex, Mode=TwoWay, Source={StaticResource YandeSettings}}">
+                    <ComboBox x:Uid="/BooruSettingPage/ComboBoxCropMethod" x:Name="CropMethodComboBox" Header="自動剪裁" Margin="0,24,0,0" SelectedIndex="{Binding WallpaperUpdateTaskCropMethodIndex, Mode=TwoWay, Source={StaticResource YandeSettings}}">
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropDisabled" Content="無剪裁" Tag="應用不預先剪裁原圖並由系統決定顯示效果。適合經常旋轉屏幕的平板用戶。也適合同時使用不同長闊比的多屏台式機用戶"/>
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropTopCenter"  Content="頂部置中" Tag="原圖太高時去掉底部；原圖太寬時去掉左右兩側。適用於臉蛋辨識經常認錯東西的場合(例如bikini)"/>
                         <ComboBoxItem x:Uid="/BooruSettingPage/ComboBoxItemCropCenter"  Content="置中" Tag="原圖太高時去掉上下兩側；原圖太寬時去掉左右兩側。適用於純風景圖標籤(例如landscape)"/>
@@ -313,10 +318,26 @@
                     </ComboBox>
                     <TextBlock Text="{Binding SelectedItem.Tag, ElementName=CropMethodComboBox}" TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
 
+                    
+                    
                     <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
 
-                    <Image Source="{Binding WallpaperUpdateTaskCurrentImageFileUri, Mode=TwoWay, Source={StaticResource YandeSettings}}" Margin="0,12"/>
 
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockRecords" Text="紀錄" VerticalAlignment="Center" Margin="0,0,0,12"/>
+
+                    <ListView ItemsSource="{Binding Records}" ItemClick="ListView_ItemClick" IsItemClickEnabled="True" SelectionMode="None"
+                              ScrollViewer.HorizontalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding PostPreviewUrl}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Height="160" Padding="0,0,0,16"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

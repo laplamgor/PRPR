@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PRPR.BooruViewer.Models;
 using PRPR.ExReader.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ namespace PRPR.Common
     {
         public DbSet<ExSearchRecord> ExSearchRecords { get; set; }
 
+        public DbSet<WallpaperRecord> WallpaperRecords { get; set; }
+
+        public DbSet<LockScreenRecord> LockScreenRecords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,6 +25,8 @@ namespace PRPR.Common
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ExSearchRecord>().HasKey(nameof(ExSearchRecord.Id));
+            modelBuilder.Entity<LockScreenRecord>().HasKey(nameof(LockScreenRecord.Id));
+            modelBuilder.Entity<WallpaperRecord>().HasKey(nameof(WallpaperRecord.Id));
         }
     }
 }

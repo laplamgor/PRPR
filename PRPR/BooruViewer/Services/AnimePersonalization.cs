@@ -163,6 +163,11 @@ namespace PRPR.BooruViewer.Services
                     var b = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(imageFile);
                     if (b)
                     {
+                        using (var db = new AppDbContext())
+                        {
+                            db.LockScreenRecords.Add(LockScreenRecord.Create(post));
+                            db.SaveChanges();
+                        }
                         return post.Id.ToString();
                     }
                 }
@@ -171,6 +176,11 @@ namespace PRPR.BooruViewer.Services
                     var b = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(imageFile);
                     if (b)
                     {
+                        using (var db = new AppDbContext())
+                        {
+                            db.WallpaperRecords.Add(WallpaperRecord.Create(post));
+                            db.SaveChanges();
+                        }
                         return post.Id.ToString();
                     }
                 }

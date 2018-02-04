@@ -129,6 +129,9 @@
   <data name="CheckBoxMeteredNetwork.Content" xml:space="preserve">
     <value>在付費網絡下也自動刷新</value>
   </data>
+  <data name="ComboBoxCropMethod.Header" xml:space="preserve">
+    <value>自動剪裁</value>
+  </data>
   <data name="ComboBoxItemCropCenter.Content" xml:space="preserve">
     <value>置中</value>
   </data>
@@ -165,17 +168,14 @@
   <data name="ComboBoxItemImageQualityMedium.Content" xml:space="preserve">
     <value>中</value>
   </data>
+  <data name="ComboBoxQuality.Header" xml:space="preserve">
+    <value>圖片質量</value>
+  </data>
   <data name="ComboBoxTheme.Header" xml:space="preserve">
     <value>應用主題</value>
   </data>
-  <data name="TextBlockAutoCrop.Text" xml:space="preserve">
-    <value>自動剪裁:</value>
-  </data>
   <data name="TextBlockFilter.Text" xml:space="preserve">
     <value>過濾</value>
-  </data>
-  <data name="TextBlockImageQuality.Text" xml:space="preserve">
-    <value>圖片質量:</value>
   </data>
   <data name="TextBlockLiveTileIcons.Text" xml:space="preserve">
     <value>磁貼動態動漫頭像</value>
@@ -187,13 +187,13 @@
     <value>如果您要搜的標籤經常沒有新圖片上傳，您可以選擇隨機洗牌最新的數張圖，這樣不至於長期無法自動更換壁紙</value>
   </data>
   <data name="TextBlockRandomFirst.Text" xml:space="preserve">
-    <value>隨機選取首</value>
+    <value>隨機選取</value>
   </data>
   <data name="TextBlockRandomResults.Text" xml:space="preserve">
     <value>個搜索結果</value>
   </data>
-  <data name="TextBlockSearchTag.Text" xml:space="preserve">
-    <value>搜索標籤：</value>
+  <data name="TextBlockRecords.Text" xml:space="preserve">
+    <value>紀錄</value>
   </data>
   <data name="TextBlockTheme.Text" xml:space="preserve">
     <value>更改主題設置後需要重啟應用才會生效</value>
@@ -208,7 +208,10 @@
     <value>亮</value>
   </data>
   <data name="TextBlockUpdateInterval.Text" xml:space="preserve">
-    <value>換圖間隔：</value>
+    <value>換圖間隔</value>
+  </data>
+  <data name="TextBoxTags.Header" xml:space="preserve">
+    <value>搜索標籤</value>
   </data>
   <data name="ToggleSwitchAutoLiveTile.Header" xml:space="preserve">
     <value>後台定期自動刷新磁貼</value>

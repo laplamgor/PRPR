@@ -2,6 +2,8 @@
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
 using PRPR.BooruViewer.Tasks;
+using PRPR.BooruViewer.ViewModels;
+using PRPR.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,13 +34,55 @@ namespace PRPR.BooruViewer.Views
         public SettingLockscreenPage()
         {
             this.InitializeComponent();
+            this.navigationHelper = new NavigationHelper(this);
+            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
+            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+        }
+
+        #region NavigationHelper
+
+        private NavigationHelper navigationHelper;
+        public NavigationHelper NavigationHelper
+        {
+            get { return this.navigationHelper; }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedFrom(e);
+        }
+
+        #endregion
+
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            await SettingLockscreenViewModel.UpdateRecordsAsync();
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+        }
+
+
+
+        public SettingLockscreenViewModel SettingLockscreenViewModel
+        {
+            get
+            {
+                return this.DataContext as SettingLockscreenViewModel;
+            }
         }
 
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-
             await LockscreenUpdateTask.RunAsync();
+            await SettingLockscreenViewModel.UpdateRecordsAsync();
         }
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
@@ -155,6 +199,22 @@ $"You have 90% chance to get a new image for {Search(0.90, timeSpans)} minutes.\
         {
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterBlacklistFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var record = e.ClickedItem as PersonalizationRecord;
+            try
+            {
+                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ "id%3A" + record.PostId }");
+                ImagePage.PostDataStack.Push(posts);
+                this.Frame.Navigate(typeof(ImagePage), posts.First().ToXml());
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
+            }
         }
     }
 }

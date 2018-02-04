@@ -258,9 +258,9 @@
         <Grid Grid.Row="1">
             <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
                 <StackPanel Padding="12,162,12,0">
-                    <TextBlock x:Uid="/BooruSettingPage/TextBlockLiveTileIcons"  Text="磁貼動態動漫頭像" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                    <TextBlock x:Uid="/BooruSettingPage/TextBlockSearchTag" Text="搜索標籤："/>
-                    <TextBox Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero)"/>
+                    <TextBlock x:Uid="/BooruSettingPage/TextBlockLiveTileIcons"  Text="磁貼動態動漫頭像" Margin="0,12"/>
+
+                    <TextBox x:Uid="/BooruSettingPage/TextBoxTags"  Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero)"/>
 
 
                     <Button FCU:Style="{StaticResource ButtonRevealStyle}" x:Name="FilterButton" Margin="0,8" HorizontalAlignment="Left"  Click="FilterButton_Click" >

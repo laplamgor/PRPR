@@ -1,5 +1,7 @@
-﻿using PRPR.BooruViewer.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
+using PRPR.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,8 +23,7 @@ namespace PRPR.BooruViewer.ViewModels
 
         #endregion
 
-
-
+        
         public PostFilter LockscreenPostFilter
         {
             get
@@ -36,5 +37,30 @@ namespace PRPR.BooruViewer.ViewModels
                 NotifyPropertyChanged(nameof(LockscreenPostFilter));
             }
         }
+        
+        public async Task UpdateRecordsAsync()
+        {
+            using (var db = new AppDbContext())
+            {
+                Records = await db.LockScreenRecords.OrderByDescending(o => o.DateCreated).ToListAsync();
+            }
+        }
+
+        
+
+        public List<LockScreenRecord> Records
+        {
+            get
+            {
+                return _records;
+            }
+            set
+            {
+                _records = value;
+                NotifyPropertyChanged(nameof(Records));
+            }
+        }
+
+        private List<LockScreenRecord> _records;
     }
 }

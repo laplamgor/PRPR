@@ -2,6 +2,8 @@
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
 using PRPR.BooruViewer.Tasks;
+using PRPR.BooruViewer.ViewModels;
+using PRPR.Common;
 using PRPR.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -35,11 +37,54 @@ namespace PRPR.BooruViewer.Views
         public SettingWallpaperPage()
         {
             this.InitializeComponent();
+            this.navigationHelper = new NavigationHelper(this);
+            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
+            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+        }
+
+        #region NavigationHelper
+
+        private NavigationHelper navigationHelper;
+        public NavigationHelper NavigationHelper
+        {
+            get { return this.navigationHelper; }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            this.navigationHelper.OnNavigatedFrom(e);
+        }
+
+        #endregion
+
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            await SettingWallpaperViewModel.UpdateRecordsAsync();
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+        }
+
+
+
+        public SettingWallpaperViewModel SettingWallpaperViewModel
+        {
+            get
+            {
+                return this.DataContext as SettingWallpaperViewModel;
+            }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             await WallpaperUpdateTask.RunAsync();
+            await SettingWallpaperViewModel.UpdateRecordsAsync();
         }
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
@@ -111,9 +156,7 @@ $"You have 90% chance to get a new image for {Search(0.90, timeSpans)} minutes.\
 
             return currentAttempt;
         }
-
-
-
+        
         double CheckChance(uint timeSpan, List<int> timeSpans)
         {
             return 1.0 * (timeSpans.Sum(o => Math.Min(timeSpan, o)) + timeSpan) / (timeSpans.Sum() + timeSpan);
@@ -154,6 +197,21 @@ $"You have 90% chance to get a new image for {Search(0.90, timeSpans)} minutes.\
         {
             Flyout.SetAttachedFlyout(FilterButton, this.Resources["FilterBlacklistFlyout"] as Flyout);
             Flyout.ShowAttachedFlyout(FilterButton);
+        }
+
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var record = e.ClickedItem as PersonalizationRecord;
+            try
+            {
+                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ "id%3A" + record.PostId }");
+                ImagePage.PostDataStack.Push(posts);
+                this.Frame.Navigate(typeof(ImagePage), posts.First().ToXml());
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
+            }
         }
     }
 }

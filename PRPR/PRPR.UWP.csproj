@@ -97,6 +97,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="BooruViewer\Models\PersonalizationRecord.cs" />
     <Compile Include="BooruViewer\ViewModels\PostListViewModel.cs" />
     <Compile Include="BooruViewer\ViewModels\PostViewModel.cs" />
     <Compile Include="Common\AppDbContext.cs" />
@@ -279,6 +280,10 @@
     <Compile Include="Migrations\20180122185839_AddExSearchRecordTable.cs" />
     <Compile Include="Migrations\20180122185839_AddExSearchRecordTable.designer.cs">
       <DependentUpon>20180122185839_AddExSearchRecordTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180204092257_AddPersonalizationRecordTables.cs" />
+    <Compile Include="Migrations\20180204092257_AddPersonalizationRecordTables.designer.cs">
+      <DependentUpon>20180204092257_AddPersonalizationRecordTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
