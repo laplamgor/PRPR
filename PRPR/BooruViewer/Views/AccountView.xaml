@@ -123,21 +123,6 @@
                     </Grid>
                 </ListViewItem>
 
-                <ListViewItem HorizontalContentAlignment="Stretch">
-                    <Grid>
-                        <TextBlock Text="Notification (Coming soon)" VerticalAlignment="Center"/>
-                        <FontIcon HorizontalAlignment="Right"
-                                  Glyph="&#xE0E3;"
-                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                  FontSize="12"
-                                  AutomationProperties.AccessibilityView="Raw"
-                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                                  Margin="36,15,0,17" 
-                                  MirroredWhenRightToLeft="True" />
-                    </Grid>
-                </ListViewItem>
-
-
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="SettingsListViewItem_Tapped">
                     <Grid>
                         <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" VerticalAlignment="Center"/>

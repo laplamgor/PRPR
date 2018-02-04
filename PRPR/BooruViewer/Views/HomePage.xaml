@@ -4,7 +4,6 @@
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:Control="using:PRPR.ExReader.Controls"
     xmlns:CommonControl="using:PRPR.Common.Controls"
-    xmlns:CommonControls="using:PRPR.Common.Views.Controls"
     xmlns:Controls="using:PRPR.BooruViewer.Controls"
     xmlns:CommonConverters="using:PRPR.Common.Converters"
     xmlns:Converters="using:PRPR.BooruViewer.Converters"
@@ -354,7 +353,7 @@
                                 </StackPanel>
 
 
-                                <AppBarButton Width="48" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
+                                <AppBarButton Width="64" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
                             </Grid>
 
                             <local:FeatureView x:Name="FeatureView" />

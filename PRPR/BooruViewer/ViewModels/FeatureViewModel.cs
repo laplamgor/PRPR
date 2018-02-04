@@ -22,29 +22,28 @@ namespace PRPR.BooruViewer.ViewModels
         public async Task Update()
         {
             // Download the last 24 hr tags
-            var p = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=rating:s");
-            var dayBefore = p.First().created_at - 3600 * 24 * 1;
-            while (p.Last().created_at >= dayBefore)
+            var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=rating:s");
+            long dayBefore = posts.First().created_at - 3600 * 24 * 1;
+            while (posts.Last().created_at >= dayBefore)
             {
-                await p.LoadMoreItemsAsync(100);
+                await posts.LoadMoreItemsAsync(100);
             }
-            var x = p.Where(o => o.created_at >= dayBefore);
+            var postsToday = posts.Where(o => o.created_at >= dayBefore);
 
 
             // Hide all blacklisted post using the search page setting
             // To prevent sexually suggestive
             var tagBlacklist = YandeSettings.Current.SearchPostFilter.TagBlacklist.Split(' ').ToList();
-            x = x.Where(o => o.Tags.Split(' ').ToList().FirstOrDefault(tag => tagBlacklist.FirstOrDefault(t => String.Compare(t, tag, true) == 0) != default(string)) == default(string));
+            postsToday = postsToday.Where(o => o.Tags.Split(' ').ToList().FirstOrDefault(tag => tagBlacklist.FirstOrDefault(t => String.Compare(t, tag, true) == 0) != default(string)) == default(string));
 
 
-            UpdateTop3(x);
-
+            UpdateTop3(postsToday);
 
             await TagDataBase.DownloadLatestTagDBAsync();
 
-            var tags = GetAllTags(x);
+            var tags = GetAllTags(postsToday);
 
-            await UpdateFeatureTags(tags);
+            UpdateFeatureTags(tags);
         }
 
         private void UpdateTop3(IEnumerable<Post> posts)
@@ -56,7 +55,7 @@ namespace PRPR.BooruViewer.ViewModels
             }
         }
 
-        private async Task UpdateFeatureTags(IEnumerable<KeyValuePair<string, TagSummary>> tags)
+        private void UpdateFeatureTags(IEnumerable<KeyValuePair<string, TagSummary>> tags)
         {
             var nonCharTags = tags.Where(o => o.Value.Posts.Count >= 2 && 
             (o.Value.Detail.Type == TagType.None || o.Value.Detail.Type == TagType.Copyright));
@@ -71,7 +70,17 @@ namespace PRPR.BooruViewer.ViewModels
                     continue;
                 }
 
-                Tags.Add(new FeaturedTag() {Name = item.Key, TopPost = item.Value.Posts.OrderBy(o => float.Parse(o.Score) / o.TagItems.Count).First() });
+                // Skip if all posts of it are already featured
+                if (item.Value.Posts.Any(p => Tags.Any(o => o.TopPost == p)))
+                {
+                    continue;
+                }
+
+                Tags.Add(new FeaturedTag() {
+                    Name = item.Key,
+                    TopPost = item.Value.Posts.Where(p => !Tags.Any(o => o.TopPost == p))
+                    .OrderBy(o => float.Parse(o.Score) / o.TagItems.Count).First()
+                });
             }
         }
 
