@@ -18,7 +18,9 @@ namespace PRPR.BooruViewer.ViewModels
         public ObservableCollection<Post> TopToday { get; } = new ObservableCollection<Post>();
 
         public ObservableCollection<FeaturedTag> Tags { get; } = new ObservableCollection<FeaturedTag>();
-                
+        
+        public ObservableCollection<FeaturedTag> Characters { get; } = new ObservableCollection<FeaturedTag>();
+
         public async Task Update()
         {
             // Download the last 24 hr tags
@@ -45,7 +47,7 @@ namespace PRPR.BooruViewer.ViewModels
 
             UpdateFeatureTags(tags);
         }
-
+        
         private void UpdateTop3(IEnumerable<Post> posts)
         {
             TopToday.Clear();

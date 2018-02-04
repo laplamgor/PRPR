@@ -118,7 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[31 Jan 2018] v2.2.1
+    <value>@[5 Feb 2018] v2.3.0
+Yandere
+- 加入壁纸/锁屏自动更新的历史记录
+- 防止精选页面显示重复的图片
+- 修复数个闪退情况
+Ex
+- 没有改变
+@[31 Jan 2018] v2.2.1
 - 修復一个增加不必要流量的BUG
 Yandere
 - 加上图片边框以修正亮色主题背景问题

@@ -206,13 +206,6 @@ namespace PRPR.BooruViewer.Controls
                 parent.Rects = s.ToList();
             });
         }
-
-        async Task DetectBitmapInBackgroundAsync(AnimeFaceDetector c, BitmapFrame bf, double factor, int min, int size)
-        {
-            c.LoadCascade();
-            var s = await c.DetectBitmap(bf, factor, min, new Size(size, size));
-            Rects = s.ToList();
-        }
         
         private void InnerImage_Loaded(object sender, RoutedEventArgs e)
         {            

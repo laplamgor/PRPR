@@ -118,7 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[31 Jan 2018] v2.2.1
+    <value>@[5 Feb 2018] v2.3.0
+Yandere
+- Add history for wallpaper/lockscreen auto update
+- Prevent feature page to show repeated images
+- Fix various crashes
+Ex
+- Nothing changed
+@[31 Jan 2018] v2.2.1
 - Fix a bug which increases unnecessary traffic
 Yandere
 - Add border to listed images to fix Light theme
