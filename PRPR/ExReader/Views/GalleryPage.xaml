@@ -463,36 +463,28 @@
 
             <Grid x:Name="MainPanel" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="2">
                 <ScrollViewer>
-                    <CommonControl:JustifiedWrapPanel x:Name="ItemsWrapPanel" ItemsSource="{Binding Gallery}" RowHeight="300" Margin="4">
+                    <CommonControl:JustifiedWrapPanel x:Name="ItemsWrapPanel" ItemsSource="{Binding Gallery}" RowHeight="300" Margin="4" ItemClick="Panel_ItemClick">
                         <CommonControl:JustifiedWrapPanel.ItemTemplate>
                             <DataTemplate x:DataType="model:ExGalleryImageListItem">
-                                <GridViewItem x:Name="gridViewItem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                              HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                                              BorderThickness="0" Tapped="GridViewItem_Tapped" >
-                                    <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" Opacity="1" BorderThickness="1" BorderBrush="#FF333333">
+                                <Grid BorderThickness="0">
+                                    <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="1" BorderThickness="1" BorderBrush="#FF333333">
                                         <Image x:Name="ThumbImage" Stretch="UniformToFill" VerticalAlignment="Stretch">
                                             <Image.Source>
-                                                <BitmapImage UriSource="{x:Bind Thumb}" 
-                                                             DecodePixelHeight="{Binding RowHeight, ElementName=ItemsWrapPanel}" DecodePixelType="Logical"/>
+                                                <BitmapImage UriSource="{x:Bind Thumb}"/>
                                             </Image.Source>
                                         </Image>
                                     </Border>
-                                </GridViewItem>
+                                </Grid>
                             </DataTemplate>
                         </CommonControl:JustifiedWrapPanel.ItemTemplate>
                         <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                            <Style TargetType="ContentControl">
-                                <Setter Property="TabNavigation" Value="Once"/>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                            <Style TargetType="ContentControl">"/>
                                 <Setter Property="Transitions">
                                     <Setter.Value>
                                         <TransitionCollection>
                                             <!--<AddDeleteThemeTransition/>-->
                                             <!--<EntranceThemeTransition/>-->
-                                            <RepositionThemeTransition IsStaggeringEnabled="True"/>
+                                            <RepositionThemeTransition IsStaggeringEnabled="False"/>
                                         </TransitionCollection>
                                     </Setter.Value>
                                 </Setter>

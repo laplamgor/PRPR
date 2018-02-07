@@ -19,8 +19,23 @@ namespace PRPR.Common.Controls
 
         DependencyObject GetContainerForItem()
         {
-            return new ContentControl();
+            var container = new GridViewItem()
+            {
+                UseSystemFocusVisuals = true,
+
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                VerticalContentAlignment = VerticalAlignment.Stretch
+            };
+
+            container.Tapped += Container_Tapped;
+            container.KeyUp += Container_KeyUp;
+
+            return container;
         }
+
+        
 
         void ClearContainerForItem(DependencyObject element, object item)
         {
@@ -84,7 +99,7 @@ namespace PRPR.Common.Controls
             return (container as ContentControl).Content;
         }
 
-        DependencyObject ContainerFromItem(object item)
+        public DependencyObject ContainerFromItem(object item)
         {
             return Containers.FirstOrDefault(o => o.Content == item);
         }

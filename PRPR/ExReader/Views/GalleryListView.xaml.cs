@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PRPR.Common;
+using PRPR.Common.Controls;
 using PRPR.Common.Models;
 using PRPR.ExReader.Models;
 using PRPR.ExReader.Services;
@@ -116,13 +117,6 @@ namespace PRPR.ExReader.Views
             VisualStateManager.GoToState(c, "ImageLoaded", true);
         }
 
-        private void BrowseGridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), ((sender as GridViewItem).DataContext as ExGallery).Link);
-
-        }
-
         private async void SearchKeyTextBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
@@ -150,6 +144,12 @@ namespace PRPR.ExReader.Views
         private async void SearchKeyTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             await UpdateSuggestionsAsync(sender as AutoSuggestBox);
+        }
+
+
+        private void BrowsePanel_ItemClick(object sender, JustifiedWrapPanel.ItemClickEventArgs e)
+        {
+            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), (e.ClickedItem as ExGallery).Link);
         }
     }
 }

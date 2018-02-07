@@ -1,5 +1,6 @@
 ﻿using Microsoft.QueryStringDotNET;
 using PRPR.Common;
+using PRPR.Common.Controls;
 using PRPR.Common.Models;
 using PRPR.Common.Services;
 using PRPR.ExReader.Models;
@@ -329,24 +330,22 @@ namespace PRPR.ExReader.Views
             return stateGroup1.CurrentState;
         }
 
-        private void GridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Panel_ItemClick(object sender, JustifiedWrapPanel.ItemClickEventArgs e)
         {
-            var item = (ExGalleryImageListItem)(sender as FrameworkElement).DataContext;
-
             // Navigate to image page
             App.Current.Resources["Gallery"] = this.GalleryViewModel.Gallery;
 
             var q = new QueryString
             {
                 { "link", this.GalleryViewModel.Gallery.Link },
-                { "page", $"{this.GalleryViewModel.Gallery.IndexOf(item)}" }
+                { "page", $"{this.GalleryViewModel.Gallery.IndexOf(e.ClickedItem as ExGalleryImageListItem)}" }
             };
-            PrepareConnectedAnimation(sender as GridViewItem);
+            PrepareConnectedAnimation((sender as JustifiedWrapPanel).ContainerFromItem(e.ClickedItem) as ContentControl);
 
             this.Frame.Navigate(typeof(ReadingPage), q.ToString(), new SuppressNavigationTransitionInfo());
         }
 
-        private void PrepareConnectedAnimation(GridViewItem item)
+        private void PrepareConnectedAnimation(ContentControl item)
         {
             // Pre-fall creator has different image loading order
             // unable to share same connected animation code without breaking the UI
@@ -354,7 +353,6 @@ namespace PRPR.ExReader.Views
             {
                 return;
             }
-
 
             var container = (item);
             if (container != null)

@@ -12,6 +12,7 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace PRPR.Common.Controls
 {
@@ -80,8 +81,6 @@ namespace PRPR.Common.Controls
             }
         }
         
-
-
         public DataTemplate ItemTemplate
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
@@ -90,10 +89,7 @@ namespace PRPR.Common.Controls
 
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(JustifiedWrapPanel), new PropertyMetadata(null));
-
-
-
-
+        
         public Style ItemContainerStyle
         {
             get { return (Style)GetValue(ItemContainerStyleProperty); }
@@ -102,10 +98,6 @@ namespace PRPR.Common.Controls
 
         public static readonly DependencyProperty ItemContainerStyleProperty =
             DependencyProperty.Register(nameof(ItemContainerStyle), typeof(Style), typeof(JustifiedWrapPanel), new PropertyMetadata(null));
-
-
-
-
         
         public double RowHeight
         {
@@ -129,15 +121,7 @@ namespace PRPR.Common.Controls
                 await p.CheckNeedMoreItemAsync();
             }
         }
-
-
-
-
-
-
-
-
-
+        
         internal class UvMeasure
         {
             internal double X { get; set; }
@@ -491,8 +475,7 @@ namespace PRPR.Common.Controls
             }
             return 0;
         }
-
-
+        
         public DependencyObject ContainerFromIndex (int index)
         {
             if (ItemsSource is IList items)
@@ -504,5 +487,15 @@ namespace PRPR.Common.Controls
                 return null;
             }
         }
+
+
+        public JustifiedWrapPanel()
+        {
+            this.TabFocusNavigation = Windows.UI.Xaml.Input.KeyboardNavigationMode.Once;
+
+
+            this.KeyDown += JustifiedWrapPanel_KeyDown;
+        }
+
     }
 }

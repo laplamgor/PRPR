@@ -415,66 +415,52 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
                 <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" >
-                    <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4" ItemsSource="{Binding SearchGalleryList}">
+                    <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4" ItemsSource="{Binding SearchGalleryList}" ItemClick="BrowsePanel_ItemClick">
                         <CommonControl:JustifiedWrapPanel.ItemTemplate>
                             <DataTemplate x:DataType="model:ExGallery">
-                                <GridViewItem Tapped="BrowseGridViewItem_Tapped" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                                    <Grid BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <Grid BorderThickness="0">
+                                    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+                                        <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="#FF222222">
+                                            <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding Thumb}" ImageOpened="Image_ImageOpened" Margin="0,0,0,0" HorizontalAlignment="Stretch" />
+                                        </Border>
 
-                                        <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
-                                            <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="#FF222222">
-                                                <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding Thumb}" ImageOpened="Image_ImageOpened" Margin="0,0,0,0" HorizontalAlignment="Stretch" />
-                                            </Border>
-
-
-
-
-
-                                            <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MaxHeight="40" Margin="0,0,0,0" >
-                                                <FCU:Rectangle VerticalAlignment="Stretch"  Fill="{ThemeResource SystemControlBaseHighAcrylicElementMediumBrush}"/>
-                                                <CU:Rectangle VerticalAlignment="Stretch">
-                                                    <Rectangle.Fill>
-                                                        <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
-                                                    </Rectangle.Fill>
-                                                </CU:Rectangle>
-                                                <TextBlock Text="{Binding Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
+                                        <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MaxHeight="40" Margin="0,0,0,0" >
+                                            <FCU:Rectangle VerticalAlignment="Stretch"  Fill="{ThemeResource SystemControlBaseHighAcrylicElementMediumBrush}"/>
+                                            <CU:Rectangle VerticalAlignment="Stretch">
+                                                <Rectangle.Fill>
+                                                    <SolidColorBrush Color="{ThemeResource SystemAltMediumHighColor}"/>
+                                                </Rectangle.Fill>
+                                            </CU:Rectangle>
+                                            <TextBlock Text="{Binding Converter={StaticResource ShortTitleConverter}}" HorizontalAlignment="Stretch" Margin="0,0,0,0"
                                                            TextWrapping="Wrap" VerticalAlignment="Bottom" MaxLines="2"  Style="{StaticResource BaseTextBlockStyle}"/>
-                                            </Grid>
-
-
-                                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                                <Border.Background>
-                                                    <SolidColorBrush Color="{Binding Category, Converter={StaticResource CategoryColorConverter}}"/>
-                                                </Border.Background>
-                                                <TextBlock Text="{Binding ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"/>
-                                            </Border>
-
-
-                                            <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                                <Border.Background>
-                                                    <SolidColorBrush Color="{Binding Category, Converter={StaticResource CategoryColorConverter}}"/>
-                                                </Border.Background>
-
-                                                <StackPanel Orientation="Horizontal" Height="20">
-                                                    <TextBlock Text="{Binding FileCount}"  Margin="6,0"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"
-                                   />
-                                                </StackPanel>
-                                            </Border>
                                         </Grid>
 
+                                        <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding Category, Converter={StaticResource CategoryColorConverter}}"/>
+                                            </Border.Background>
+                                            <TextBlock Text="{Binding ParsedLanguage, Converter={StaticResource LanguageConverter1}}"  Margin="0,0,0,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"/>
+                                        </Border>
+
+
+                                        <Border CornerRadius="10"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding Category, Converter={StaticResource CategoryColorConverter}}"/>
+                                            </Border.Background>
+
+                                            <StackPanel Orientation="Horizontal" Height="20">
+                                                <TextBlock Text="{Binding FileCount}"  Margin="6,0"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center" Foreground="White"
+                                   />
+                                            </StackPanel>
+                                        </Border>
                                     </Grid>
-                                </GridViewItem>
+                                </Grid>
                             </DataTemplate>
                         </CommonControl:JustifiedWrapPanel.ItemTemplate>
                         <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
                             <Style TargetType="ContentControl">
-                                <Setter Property="TabNavigation" Value="Once"/>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                                 <Setter Property="Transitions">
                                     <Setter.Value>
                                         <TransitionCollection>

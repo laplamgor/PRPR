@@ -189,6 +189,7 @@
     <Compile Include="BooruViewer\Views\SettingWallpaperPage.xaml.cs">
       <DependentUpon>SettingWallpaperPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\Controls\JustifiedWrapPanel.Interaction.cs" />
     <Compile Include="Common\Controls\JustifiedWrapPanel.UIVirtualization.cs" />
     <Compile Include="Common\Controls\JustifiedWrapPanel.cs" />
     <Compile Include="Common\Controls\RotateContentControl.cs" />
@@ -502,7 +503,6 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Views\" />
     <Folder Include="Database\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

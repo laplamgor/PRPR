@@ -410,25 +410,18 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
-                                <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4" ItemsSource="{Binding SearchPosts}">
+                                <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4" ItemsSource="{Binding SearchPosts}" ItemClick="BrowsePanel_ItemClick">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
-                                            <GridViewItem Tapped="BrowseGridViewItem_Tapped">
-                                                <Grid BorderThickness="0">
-                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
-                                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                                                    </Border>
-                                                </Grid>
-                                            </GridViewItem>
+                                            <Grid BorderThickness="0">
+                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                                                    <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                                </Border>
+                                            </Grid>
                                         </DataTemplate>
                                     </CommonControl:JustifiedWrapPanel.ItemTemplate>
                                     <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
                                         <Style TargetType="ContentControl">
-                                            <Setter Property="TabNavigation" Value="Once"/>
-                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                            <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                                             <Setter Property="Transitions">
                                                 <Setter.Value>
                                                     <TransitionCollection>
@@ -497,20 +490,13 @@
                 </Grid>
             </PivotItem>
 
-
             <!--Favorited Image List-->
             <PivotItem  Margin="0">
                 <Grid HorizontalAlignment="Stretch"  Margin="0,48,0,0">
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-
-
-
-
                     <UserControl Grid.Row="1">
                         <Grid>
                             <VisualStateManager.VisualStateGroups>
@@ -550,25 +536,18 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
-                                <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4,154,4,4" ItemsSource="{Binding FavoritePosts}">
+                                <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4,154,4,4" ItemsSource="{Binding FavoritePosts}" ItemClick="BrowsePanel_ItemClick">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
-                                            <GridViewItem Tapped="FavoriteGridViewItem_Tapped">
-                                                <Grid BorderThickness="0" >
-                                                    <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
-                                                        <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
-                                                    </Border>
-                                                </Grid>
-                                            </GridViewItem>
+                                            <Grid BorderThickness="0" >
+                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                                                    <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
+                                                </Border>
+                                            </Grid>
                                         </DataTemplate>
                                     </CommonControl:JustifiedWrapPanel.ItemTemplate>
                                     <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
                                         <Style TargetType="ContentControl">
-                                            <Setter Property="TabNavigation" Value="Once"/>
-                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                            <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                                             <Setter Property="Transitions">
                                                 <Setter.Value>
                                                     <TransitionCollection>

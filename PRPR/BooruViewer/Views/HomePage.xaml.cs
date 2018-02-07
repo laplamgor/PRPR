@@ -138,64 +138,6 @@ namespace PRPR.BooruViewer.Views
             
         }
 
-
-
-
-
-        private void BrowseGridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            // Clicked a list item from the image wall
-
-            var container = (sender as GridViewItem);
-            if (container != null)
-            {
-                var root = (FrameworkElement)container.ContentTemplateRoot;
-                var image = (UIElement)root.FindName("PreviewImage");
-
-                // Pre-fall creator has different image loading order
-                // unable to share same connected animation code without breaking the UI
-                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
-                {
-                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
-                }
-            }
-            
-            var post = (sender as GridViewItem).DataContext as Post;
-            
-            // Navigate to image page
-            ImagePage.PostDataStack.Push((FilteredCollection<Post, Posts>)HomeViewModel.SearchPosts);
-            this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
-
-        }
-
-
-        private void FavoriteGridViewItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            // Clicked a list item from the image wall
-            
-
-            var container = (sender as GridViewItem);
-            if (container != null)
-            {
-                var root = (FrameworkElement)container.ContentTemplateRoot;
-                var image = (UIElement)root.FindName("PreviewImage");
-
-                // Pre-fall creator has different image loading order
-                // unable to share same connected animation code without breaking the UI
-                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
-                {
-                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
-                }
-            }
-            
-            var post = (sender as GridViewItem).DataContext as Post;
-
-            // Navigate to image page
-            ImagePage.PostDataStack.Push(HomeViewModel.FavoritePosts);
-            this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
-        }
-
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -507,6 +449,32 @@ namespace PRPR.BooruViewer.Views
         private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             await HomeViewModel.UpdateFavoriteListAsync();
+        }
+        
+        private void BrowsePanel_ItemClick(object sender, JustifiedWrapPanel.ItemClickEventArgs e)
+        {
+            // Clicked a list item from the image wall
+
+            var panel = (sender as JustifiedWrapPanel);
+            var container = panel.ContainerFromItem(e.ClickedItem);
+            if (container != null)
+            {
+                var root = (container as ContentControl).ContentTemplateRoot;
+                var image = (UIElement)(root as FrameworkElement).FindName("PreviewImage");
+
+                // Pre-fall creator has different image loading order
+                // unable to share same connected animation code without breaking the UI
+                if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+                {
+                    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+                }
+            }
+
+            var post = e.ClickedItem as Post;
+
+            // Navigate to image page
+            ImagePage.PostDataStack.Push(panel.ItemsSource as ObservableCollection<Post>);
+            this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
     }
 }
