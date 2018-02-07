@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
+    xmlns:Extensions="using:PRPR.Common.Extensions"
     x:Class="PRPR.BooruViewer.Views.SettingWallpaperPage"
     mc:Ignorable="d"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
@@ -254,8 +255,8 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1">
-            <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
-                <StackPanel Padding="12,162,12,0">
+            <ScrollViewer Extensions:ScrollViewerOverflow.OverflowMargin="0,150,0,0">
+                <StackPanel Padding="12,12,12,0">
 
 
                     <ToggleSwitch x:Uid="/BooruSettingPage/ToggleSwitchAutoLockScreen" x:Name="AutoToggleSwitch" Header="自動於後台刷新壁紙" Margin="0,12,0,24"

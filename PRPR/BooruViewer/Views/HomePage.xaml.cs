@@ -476,5 +476,6 @@ namespace PRPR.BooruViewer.Views
             ImagePage.PostDataStack.Push(panel.ItemsSource as ObservableCollection<Post>);
             this.Frame.Navigate(typeof(ImagePage), post.ToXml(), new SuppressNavigationTransitionInfo());
         }
+
     }
 }

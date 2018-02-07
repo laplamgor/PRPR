@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:CommonControl="using:PRPR.Common.Controls" 
+    xmlns:Extensions="using:PRPR.Common.Extensions"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
@@ -25,8 +26,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" Grid.Row="2">
-            <StackPanel Padding="12,162,12,0">
+        <ScrollViewer Extensions:ScrollViewerOverflow.OverflowMargin="0,150,0,0" Grid.Row="2">
+            <StackPanel Padding="12,12,12,0">
                 <TextBlock Text="Author："/>
                 <HyperlinkButton NavigateUri="mailto:laplamgor2@gmail.com">
                     <TextBlock Text="laplamgor"/>

@@ -4,6 +4,7 @@
     xmlns:local="using:PRPR.ExReader.Views"
     xmlns:controls="using:PRPR.ExReader.Controls"
     xmlns:CommonControl="using:PRPR.Common.Controls"
+    xmlns:Extensions="using:PRPR.Common.Extensions"
     xmlns:CommonControls="using:PRPR.Common.Views.Controls"
     xmlns:CommonConverters="using:PRPR.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -414,8 +415,8 @@
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
-                <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0" >
-                    <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,154,4,4" ItemsSource="{Binding SearchGalleryList}" ItemClick="BrowsePanel_ItemClick">
+                <ScrollViewer  Extensions:ScrollViewerOverflow.OverflowMargin="0,150,0,0">
+                    <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4,4,4,4" ItemsSource="{Binding SearchGalleryList}" ItemClick="BrowsePanel_ItemClick">
                         <CommonControl:JustifiedWrapPanel.ItemTemplate>
                             <DataTemplate x:DataType="model:ExGallery">
                                 <Grid BorderThickness="0">

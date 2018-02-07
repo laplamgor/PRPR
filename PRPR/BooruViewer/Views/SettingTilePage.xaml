@@ -10,6 +10,7 @@
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
 
+    xmlns:Extensions="using:PRPR.Common.Extensions"
     NavigationCacheMode="Required">
 
 
@@ -256,8 +257,8 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1">
-            <ScrollViewer Style="{StaticResource ScrollViewerStyleExtended150}" Margin="0,-150,0,0">
-                <StackPanel Padding="12,162,12,0">
+            <ScrollViewer Extensions:ScrollViewerOverflow.OverflowMargin="0,150,0,0">
+                <StackPanel Padding="12,12,12,0">
                     <TextBlock x:Uid="/BooruSettingPage/TextBlockLiveTileIcons"  Text="磁貼動態動漫頭像" Margin="0,12"/>
 
                     <TextBox x:Uid="/BooruSettingPage/TextBoxTags"  Text="{Binding TileUpdateTaskSearchKey, Mode=TwoWay, Source={StaticResource YandeSettings}}" PlaceholderText="e.g. rem_(re_zero)"/>

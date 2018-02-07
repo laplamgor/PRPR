@@ -201,6 +201,7 @@
     <Compile Include="Common\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\TransparentColorConverter.cs" />
     <Compile Include="Common\Converters\ZeroCountToVisibliltyConverter.cs" />
+    <Compile Include="Common\Extensions\ScrollViewerOverflow.cs" />
     <Compile Include="Common\FilteredCollection.cs" />
     <Compile Include="Common\IConfigableFilter.cs" />
     <Compile Include="Common\Models\Global\AppSettings.cs" />
