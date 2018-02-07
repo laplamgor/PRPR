@@ -478,7 +478,7 @@
                             </DataTemplate>
                         </CommonControl:JustifiedWrapPanel.ItemTemplate>
                         <CommonControl:JustifiedWrapPanel.ItemContainerStyle>
-                            <Style TargetType="ContentControl">"/>
+                            <Style TargetType="ContentControl">
                                 <Setter Property="Transitions">
                                     <Setter.Value>
                                         <TransitionCollection>

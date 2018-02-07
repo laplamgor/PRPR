@@ -330,21 +330,6 @@ namespace PRPR.ExReader.Views
             return stateGroup1.CurrentState;
         }
 
-        private void Panel_ItemClick(object sender, JustifiedWrapPanel.ItemClickEventArgs e)
-        {
-            // Navigate to image page
-            App.Current.Resources["Gallery"] = this.GalleryViewModel.Gallery;
-
-            var q = new QueryString
-            {
-                { "link", this.GalleryViewModel.Gallery.Link },
-                { "page", $"{this.GalleryViewModel.Gallery.IndexOf(e.ClickedItem as ExGalleryImageListItem)}" }
-            };
-            PrepareConnectedAnimation((sender as JustifiedWrapPanel).ContainerFromItem(e.ClickedItem) as ContentControl);
-
-            this.Frame.Navigate(typeof(ReadingPage), q.ToString(), new SuppressNavigationTransitionInfo());
-        }
-
         private void PrepareConnectedAnimation(ContentControl item)
         {
             // Pre-fall creator has different image loading order
@@ -486,8 +471,23 @@ namespace PRPR.ExReader.Views
             var d = await BackgroundDownloader.GetCurrentDownloadsForTransferGroupAsync(BackgroundTransferGroup.CreateGroup("Gallery"));
             var downloawwqwds = d.ToList();
         }
+        
+        private void Panel_ItemClick(object sender, JustifiedWrapPanel.ItemClickEventArgs e)
+        {
+            // Navigate to image page
+            App.Current.Resources["Gallery"] = this.GalleryViewModel.Gallery;
+
+            var q = new QueryString
+            {
+                { "link", this.GalleryViewModel.Gallery.Link },
+                { "page", $"{this.GalleryViewModel.Gallery.IndexOf(e.ClickedItem as ExGalleryImageListItem)}" }
+            };
+            PrepareConnectedAnimation((sender as JustifiedWrapPanel).ContainerFromItem(e.ClickedItem) as ContentControl);
+
+            this.Frame.Navigate(typeof(ReadingPage), q.ToString(), new SuppressNavigationTransitionInfo());
+        }
     }
-    
+
 
     public class WrapPanel : Panel
     {
