@@ -421,7 +421,7 @@
                             <DataTemplate x:DataType="model:ExGallery">
                                 <Grid BorderThickness="0">
                                     <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
-                                        <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="#FF222222">
+                                        <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                                             <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding Thumb}" ImageOpened="Image_ImageOpened" Margin="0,0,0,0" HorizontalAlignment="Stretch" />
                                         </Border>
 

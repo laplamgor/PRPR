@@ -5,6 +5,7 @@
     xmlns:local="using:PRPR.ExReader.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkits="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -36,7 +37,7 @@
                        RightTapped="Image_RightTapped" Holding="Image_Holding" 
                        FlyoutBase.AttachedFlyout="{StaticResource MenuFlyout}" Opacity="0.75"/>
 
-                <ProgressBar x:Name="ProcessBar" MaxWidth="300" Height="4" FlowDirection="LeftToRight"/>
+                <toolkits:RadialProgressBar x:Name="ProcessBar" MaxWidth="200" MaxHeight="200" Thickness="6" Foreground="White" FlowDirection="LeftToRight"/>
 
                 <Image Stretch="Uniform" x:Name="mainImage"
                        VerticalAlignment="Center" HorizontalAlignment="Center"

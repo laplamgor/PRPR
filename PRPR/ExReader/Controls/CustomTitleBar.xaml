@@ -13,6 +13,9 @@
     d:DesignHeight="32"
     d:DesignWidth="400" Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded">
     <UserControl.Resources>
+
+
+
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
             <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
             <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
@@ -23,6 +26,7 @@
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
             <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="FocusVisualMargin" Value="-3" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -45,7 +49,6 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource BackButtonForegroundThemeBrush}"/>
                                             </ObjectAnimationUsingKeyFrames>
-                                            <!--<PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>-->
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Pressed">
@@ -59,8 +62,6 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource BackButtonForegroundThemeBrush}"/>
                                             </ObjectAnimationUsingKeyFrames>
-                                            <!--no tilt effect-->
-                                            <!--<PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>-->
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Disabled">
@@ -95,27 +96,23 @@
         </Grid.ColumnDefinitions>
 
 
-        <Rectangle x:Name="BackgroundElement" Grid.ColumnSpan="3">
-            <!--<FCU:Rectangle.Fill>
-                <FCU:AcrylicBrush FallbackColor="Black" TintColor="Black" BackgroundSource="HostBackdrop" TintOpacity="0.75"/>
-            </FCU:Rectangle.Fill>-->
-        </Rectangle>
+        <Rectangle x:Name="BackgroundElement" Grid.ColumnSpan="3"/>
 
         <Button x:Name="BackButton" 
                 VerticalAlignment="Stretch"
                 Width="48"
                 Grid.Column="0"
                 Style="{StaticResource TitleBarButtonStyle}" 
-                Opacity="0" IsHitTestVisible="False"
+                IsHitTestVisible="False"
                 Click="BackButton_Click" 
                 Background="{ThemeResource BackButtonBackgroundThemeBrush}" 
                 Foreground="{ThemeResource SystemControlHighlightChromeAltLowBrush}" 
                 >
-            <SymbolIcon Symbol="Back" RenderTransformOrigin="0.5,0.5" >
+            <!--<SymbolIcon Symbol="Back" RenderTransformOrigin="0.5,0.5" >
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform ScaleX="0.666666" ScaleY="0.666666"/>
                 </SymbolIcon.RenderTransform>
-            </SymbolIcon>
+            </SymbolIcon>-->
         </Button>
 
         <Grid x:Name="TitleGrid" VerticalAlignment="Stretch" Grid.Column="1"  IsHitTestVisible="False">
@@ -125,15 +122,13 @@
                            IsHitTestVisible="False"
                            Foreground="{ThemeResource AppBarItemForegroundThemeBrush}" VerticalAlignment="Center" 
                            Margin="10,0,0,0" FontSize="14" />
-
             </Grid>
         </Grid>
 
         <Rectangle x:Name="ClickArea" Fill="Transparent" Grid.Column="1"/>
 
 
-        <Grid x:Name="FullScreenGrid"   Grid.Column="2" >
-
+        <Grid x:Name="FullScreenGrid" Grid.Column="2" >
             <Button x:Name="FullScreenModeToggle"
                     VerticalAlignment="Stretch"
                     Width="48" 
