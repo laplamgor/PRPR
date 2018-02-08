@@ -129,19 +129,16 @@
 
 
         <Grid x:Name="FullScreenGrid" Grid.Column="2" >
-            <Button x:Name="FullScreenModeToggle"
+            <Button x:Uid="ButtonFullScreen"
+                    x:Name="FullScreenModeToggle"
                     VerticalAlignment="Stretch"
                     Width="48" 
                     Background="{ThemeResource BackButtonBackgroundThemeBrush}" 
                     Foreground="{ThemeResource SystemControlHighlightChromeAltLowBrush}" 
                     Click="FullScreenModeToggle_Click" 
-                    Style="{StaticResource TitleBarButtonStyle}" 
+                    Style="{StaticResource TitleBarButtonStyle}"
                     >
-                <SymbolIcon Symbol="FullScreen" RenderTransformOrigin="0.5,0.5" >
-                    <SymbolIcon.RenderTransform>
-                        <CompositeTransform ScaleX="0.75" ScaleY="0.75"/>
-                    </SymbolIcon.RenderTransform>
-                </SymbolIcon>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE740;" FontWeight="ExtraLight" FontStyle="Normal" FontSize="16"/>
             </Button>
         </Grid>
     </Grid>
