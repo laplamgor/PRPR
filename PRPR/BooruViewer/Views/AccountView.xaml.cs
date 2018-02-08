@@ -64,36 +64,39 @@ namespace PRPR.BooruViewer.Views
             // Search tags
             (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(HomePage), $"user:{YandeSettings.Current.UserName}");
         }
-
-        private void TileSettingButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(SettingTilePage));
-        }
-
-        private void WallpaperSettingButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(SettingWallpaperPage));
-        }
-
-        private void LockscreenSettingButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(SettingLockscreenPage));
-        }
-
-        private void ListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(AboutPage));
-        }
+        
 
         private void ListViewItem_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(ExReader.Views.HomePage));
         }
-
-        private void SettingsListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(SettingPage));
+            var frame = (Window.Current.Content as AppShell).AppFrame;
+            
+            var index = (sender as ListView).Items.IndexOf(e.ClickedItem);
+            switch (index)
+            {
+                case 0:
+                    frame.Navigate(typeof(SettingWallpaperPage));
+                    break;
+                case 1:
+                    frame.Navigate(typeof(SettingLockscreenPage));
+                    break;
+                case 2:
+                    frame.Navigate(typeof(SettingTilePage));
+                    break;
+                case 3:
+                    frame.Navigate(typeof(SettingPage));
+                    break;
+                case 4:
+                    frame.Navigate(typeof(AboutPage));
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }

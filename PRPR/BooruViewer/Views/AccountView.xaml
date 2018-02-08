@@ -79,77 +79,67 @@
 
         <Grid Grid.Row="1">
             <StackPanel>
-
-                <ListViewItem HorizontalContentAlignment="Stretch"  x:Name="WallpaperSettingButton" Tapped="WallpaperSettingButton_Tapped">
+                <ListView IsItemClickEnabled="True" SelectionMode="None" ItemClick="ListView_ItemClick">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <Grid>
-                        <TextBlock x:Uid="/BooruAccountView/TextBlockWallPaper" VerticalAlignment="Center"/>
+                        <FontIcon Glyph="&#xE8FC;" HorizontalAlignment="Left" Width="24"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockWallPaper" VerticalAlignment="Center" Margin="36,0,0,0"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                   FontSize="12"
-                                  AutomationProperties.AccessibilityView="Raw"
-                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                                  Margin="36,15,0,17" 
-                                  MirroredWhenRightToLeft="True" />
+                                  Margin="36,15,0,17"/>
                     </Grid>
-                </ListViewItem>
 
-
-                <ListViewItem HorizontalContentAlignment="Stretch"  x:Name="LockscreenSettingButton" Tapped="LockscreenSettingButton_Tapped">
                     <Grid>
-                        <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" VerticalAlignment="Center"/>
+                        <FontIcon Glyph="&#xEE3F;" HorizontalAlignment="Left" Width="24"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockLockScreen" VerticalAlignment="Center" Margin="36,0,0,0"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                   FontSize="12"
-                                  AutomationProperties.AccessibilityView="Raw"
-                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                                  Margin="36,15,0,17" 
-                                  MirroredWhenRightToLeft="True" />
+                                  Margin="36,15,0,17"/>
                     </Grid>
-                </ListViewItem>
 
-                <ListViewItem HorizontalContentAlignment="Stretch" x:Name="TileSettingButton" Tapped="TileSettingButton_Tapped">
                     <Grid>
-                        <TextBlock x:Uid="/BooruAccountView/TextBlockLiveTile" VerticalAlignment="Center"/>
+                        <FontIcon Glyph="&#xECA5;" HorizontalAlignment="Left" Width="24"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockLiveTile" VerticalAlignment="Center" Margin="36,0,0,0"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                   FontSize="12"
-                                  AutomationProperties.AccessibilityView="Raw"
-                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                                  Margin="36,15,0,17" 
-                                  MirroredWhenRightToLeft="True" />
+                                  Margin="36,15,0,17"/>
                     </Grid>
-                </ListViewItem>
 
-                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="SettingsListViewItem_Tapped">
                     <Grid>
-                        <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" VerticalAlignment="Center"/>
+                        <FontIcon Glyph="&#xF259;" HorizontalAlignment="Left" Width="24"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" VerticalAlignment="Center" Margin="36,0,0,0"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                   FontSize="12"
-                                  AutomationProperties.AccessibilityView="Raw"
-                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                                  Margin="36,15,0,17" 
-                                  MirroredWhenRightToLeft="True" />
+                                  Margin="36,15,0,17"/>
                     </Grid>
-                </ListViewItem>
 
-                <ListViewItem HorizontalContentAlignment="Stretch" Tapped="ListViewItem_Tapped" RightTapped="ListViewItem_RightTapped">
-                    <Grid>
-                        <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" VerticalAlignment="Center"/>
+                    <Grid RightTapped="ListViewItem_RightTapped">
+                        <FontIcon Glyph="&#xE946;" HorizontalAlignment="Left" Width="24"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" VerticalAlignment="Center" Margin="36,0,0,0"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                   FontSize="12"
-                                  AutomationProperties.AccessibilityView="Raw"
-                                  Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                                  Margin="36,15,0,17" 
-                                  MirroredWhenRightToLeft="True" />
+                                  Margin="36,15,0,17"/>
                     </Grid>
-                </ListViewItem>
+                </ListView>
             </StackPanel>
         </Grid>
     </Grid>

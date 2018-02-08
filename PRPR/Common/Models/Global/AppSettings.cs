@@ -62,7 +62,6 @@ namespace PRPR.Common.Models.Global
             set
             {
                 AddOrUpdateValue(GetCallerName(), value, false);
-                NotifyPropertyChanged(nameof(ThemeSelectedIndex));
             }
         }
     }

@@ -434,7 +434,7 @@
                         <wp:DropShadowPanel BlurRadius="20.0" ShadowOpacity="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                             OffsetX="0.0" OffsetY="0.0"
                                                             Color="Black">
-                            <TextBlock Text="&#xE7B5;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
+                            <TextBlock Text="&#xEE3F;" FontSize="20" FontFamily="Segoe MDL2 Assets"/>
                         </wp:DropShadowPanel>
                     </UserControl>
                 </Button>
