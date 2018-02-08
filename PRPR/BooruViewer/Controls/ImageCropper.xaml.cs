@@ -90,7 +90,7 @@ namespace PRPR.BooruViewer.Controls
                 var s = Resizer.ChangeView(cropRect.Left * targetSize.Width / cropRect.Width,
                     cropRect.Top * targetSize.Width / cropRect.Width,
                     Convert.ToSingle(targetSize.Width / cropRect.Width),
-                    true
+                    false
                     );
             }
             catch (Exception ex)
@@ -214,6 +214,7 @@ namespace PRPR.BooruViewer.Controls
 
         private void ProxyImage_Loaded(object sender, RoutedEventArgs e)
         {
+            var s = Resizer.ChangeView(0,0,0.1f,true);
             UpdatePosition();
         }
 

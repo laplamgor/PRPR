@@ -1,13 +1,14 @@
 ﻿<UserControl
-    x:Class="PRPR.BooruViewer.Views.AccountView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.BooruViewer.Views"
     xmlns:controls="using:PRPR.BooruViewer.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+    x:Class="PRPR.BooruViewer.Views.AccountView"
 
     mc:Ignorable="d"
     d:DesignHeight="800"
@@ -25,7 +26,7 @@
                 <TextBox x:Name="YandeUserNameTextBox" PlaceholderText="User Name" Margin="0,24,0,4" Width="300"/>
                 <PasswordBox x:Name="YandePasswordBox" PlaceholderText="Password" Margin="0,4" Width="300"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="Login" Click="LoginButton_Click" FCU:Style="{StaticResource ButtonRevealStyle}" Margin="4,4" HorizontalAlignment="Center"/>
+                    <Button Content="Login" Click="LoginButton_Click" Style="{StaticResource ButtonRevealStyle}" Margin="4,4" HorizontalAlignment="Center"/>
                     <HyperlinkButton Content="Register" Margin="4,4" NavigateUri="https://yande.re/user/signup"/>
                 </StackPanel>
             </StackPanel>
@@ -33,6 +34,15 @@
 
             <StackPanel x:Name="LoggedInBlock" Margin="12,0" Grid.Row="1"  Visibility="{Binding Current.IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}, Source={StaticResource YandeSettings}}">
                 <Button Style="{StaticResource ButtonStyleNoColor}" HorizontalAlignment="Center" Margin="0,12">
+
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="ChangePasswordMenuFlyoutItem" Text="Change Password" Click="ChangePasswordMenuFlyoutItem_Click"/>
+                            <MenuFlyoutItem x:Name="UserPostMenuFlyoutItem" Text="My Posts" Click="UserPostMenuFlyoutItem_Click"/>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem Text="Logout" Click="LogoutButton_Click"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
 
                     <Grid>
                         <Ellipse Height="120"  Width="120" Fill="#FF4C4C4C"/>
@@ -55,25 +65,16 @@
                         </Ellipse>
                     </Grid>
 
-                    <Button.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Name="ChangePasswordMenuFlyoutItem" Text="Change Password" Click="ChangePasswordMenuFlyoutItem_Click"/>
-                            <MenuFlyoutItem x:Name="UserPostMenuFlyoutItem" Text="My Posts" Click="UserPostMenuFlyoutItem_Click"/>
-                            <MenuFlyoutSeparator/>
-                            <MenuFlyoutItem Text="Logout" Click="LogoutButton_Click"/>
-                        </MenuFlyout>
-                    </Button.Flyout>
                 </Button>
-                
+
                 <TextBlock x:Name="YandeUserNameTextBlock" HorizontalAlignment="Center"
-                           Text="{Binding UserName,Source={StaticResource YandeSettings}}" Margin="0,0,0,4"/>
+                           Text="{Binding UserName, Source={StaticResource YandeSettings}}" Margin="0,0,0,4"/>
             </StackPanel>
         </StackPanel>
 
         <!--Personalizations-->
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Padding="6,0" Visibility="Collapsed">
-            <ScrollViewer>
-            </ScrollViewer>
+            <ScrollViewer/>
         </Grid>
 
 
@@ -85,6 +86,11 @@
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListView.ItemContainerStyle>
+                    <ListView.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                        </TransitionCollection>
+                    </ListView.ItemContainerTransitions>
                     <Grid>
                         <FontIcon Glyph="&#xE8FC;" HorizontalAlignment="Left" Width="24"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
