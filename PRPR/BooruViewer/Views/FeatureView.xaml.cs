@@ -1,4 +1,5 @@
-﻿using PRPR.BooruViewer.Models;
+﻿using PRPR.BooruViewer.Controls;
+using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.ViewModels;
 using PRPR.ExReader.Views;
 using System;
@@ -63,9 +64,9 @@ namespace PRPR.BooruViewer.Views
             if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
             {
                 var root = (Button)sender;
-                var image = ((UIElement)((Border)root.Content).Child);
+                var image = ((UIElement)((Border)root.Content).Child) as ImageCropper;
 
-                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image);
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("PreviewImage", image.ImageInside);
             }
 
 

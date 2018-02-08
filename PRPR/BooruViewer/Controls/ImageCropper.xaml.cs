@@ -214,7 +214,10 @@ namespace PRPR.BooruViewer.Controls
 
         private void ProxyImage_Loaded(object sender, RoutedEventArgs e)
         {
-            var s = Resizer.ChangeView(0,0,0.1f,true);
+            if (InnerImage.RenderSize.Height == 0 || InnerImage.RenderSize.Width == 0)
+            {
+                var s = Resizer.ChangeView(0, 0, 0.1f, true);
+            }
             UpdatePosition();
         }
 
@@ -226,6 +229,15 @@ namespace PRPR.BooruViewer.Controls
         private void ProxyImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             UpdatePosition();
+        }
+
+
+        public Image ImageInside
+        {
+            get
+            {
+                return InnerImage;
+            }
         }
     }
 }

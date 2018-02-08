@@ -190,7 +190,9 @@ namespace PRPR.BooruViewer.Views
                                     if (animation != null)
                                     {
                                         FeatureView.UpdateLayout();
-                                        animation.TryStart(this.FeatureView.GetTopTodayButton(FeatureView.FeatureViewModel.TopToday.IndexOf(post)));
+                                        var button = this.FeatureView.GetTopTodayButton(FeatureView.FeatureViewModel.TopToday.IndexOf(post)) as Button;
+                                        var image = ((UIElement)((Border)button.Content).Child) as ImageCropper;
+                                        animation.TryStart(image.ImageInside);
                                     }
                                 }
 
