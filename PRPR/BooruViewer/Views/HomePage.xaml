@@ -414,8 +414,8 @@
                                 <CommonControl:JustifiedWrapPanel x:Name="BrowsePanel" Margin="4" ItemsSource="{Binding SearchPosts}" ItemClick="BrowsePanel_ItemClick">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
-                                            <Grid BorderThickness="0">
-                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                                            <Grid BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                                                     <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
                                                 </Border>
                                             </Grid>
@@ -540,8 +540,8 @@
                                 <CommonControl:JustifiedWrapPanel x:Name="FavoritePanel" Margin="4" ItemsSource="{Binding FavoritePosts}" ItemClick="BrowsePanel_ItemClick">
                                     <CommonControl:JustifiedWrapPanel.ItemTemplate>
                                         <DataTemplate x:DataType="m:Post">
-                                            <Grid BorderThickness="0" >
-                                                <Border x:Name="Image" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                                            <Grid BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                <Border x:Name="Image" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="1" BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                                                     <Image x:Name="PreviewImage" Stretch="UniformToFill" Source="{Binding PreviewUrl}" ImageOpened="Image_ImageOpened" HorizontalAlignment="Center" />
                                                 </Border>
                                             </Grid>
