@@ -73,7 +73,7 @@
 
                 <ListViewItem HorizontalContentAlignment="Stretch" Tapped="LanguageFlyoutItem_Tapped">
                     <Grid>
-                        <TextBlock Text="排除語言" VerticalAlignment="Center"/>
+                        <TextBlock Text="排除語言(暫時失效)" VerticalAlignment="Center"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"

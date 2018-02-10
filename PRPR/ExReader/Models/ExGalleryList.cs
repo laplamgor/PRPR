@@ -32,7 +32,7 @@ namespace PRPR.ExReader.Models
             try
             {
                 // Get page html
-                var htmlStr = await ExClient.GetStringWithExCookie($"{uri}&page={pagenumber}", "dm_t-" + $"xl_{ExSettings.Current.xl}");
+                var htmlStr = await ExClient.GetStringWithExCookie($"{uri}&page={pagenumber}&inline_set=dm_t", $"xl_{ExSettings.Current.xl}");
                 
                 var e = ExGalleryList.GetExGalleryListFromHtml(htmlStr);
                 e.uri = uri;

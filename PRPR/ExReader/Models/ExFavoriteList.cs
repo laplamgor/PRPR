@@ -63,12 +63,12 @@ namespace PRPR.ExReader.Models
                 // Get page html
                 if (pagenumber == 1)
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php", $"dm_l-{SORTING_STRING[(int)sortingMode]}");
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?inline_set={SORTING_STRING[(int)sortingMode]}-https://exhentai.org/favorites.php?inline_set-dm_l", $"");
                     return ExFavoriteList.FromHtml(htmlStr, sortingMode);
                 }
                 else
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?page={pagenumber - 1}", $"{SORTING_STRING[(int)sortingMode]}");
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?page={pagenumber - 1}&inline_set={SORTING_STRING[(int)sortingMode]}-dm_l", $"");
                     return ExFavoriteList.FromHtml(htmlStr, sortingMode);
                 }
             }
