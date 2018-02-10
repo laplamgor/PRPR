@@ -1,4 +1,5 @@
-﻿using PRPR.BooruViewer.Models.Global;
+﻿using HtmlAgilityPack;
+using PRPR.BooruViewer.Models.Global;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -16,9 +17,35 @@ namespace PRPR.BooruViewer.Services
 {
     public class YandeClient
     {
-        public static string HOST = "https://yande.re";
-        public static string PASSWORD_HASH_SALT = "choujin-steiner--your-password--";
+        public static string PASSWORD_HASH_SALT
+        {
+            get
+            {
+                try
+                {
+                    return YandeSettings.Current.PasswordHashSalt;
+                }
+                catch (Exception ex)
+                {
+                    return "choujin-steiner--your-password--";
+                }
+            }
+        }
 
+        public static string HOST
+        {
+            get
+            {
+                try
+                {
+                    return YandeSettings.Current.Host;
+                }
+                catch (Exception ex)
+                {
+                    return "https://yande.re";
+                }
+            }
+        }
 
         private static string HashPassword(string password)
         {
@@ -58,10 +85,16 @@ namespace PRPR.BooruViewer.Services
                 filter.AllowUI = false;
                 var hc = new HttpClient(filter);
                 var str = await hc.GetStringAsync(new Uri($"{YandeClient.HOST}/user/login"));
-                var start = str.IndexOf("<meta name=\"csrf-token\" content=\"") + "<meta name=\"csrf-token\" content=\"".Length;
-                var end = str.IndexOf("\" />", start);
-                str = str.Substring(start, end - start);
-                return WebUtility.UrlEncode(str);
+
+                
+                HtmlDocument htmlDocument = new HtmlDocument();
+                htmlDocument.OptionFixNestedTags = true;
+                htmlDocument.LoadHtml(str);
+                var metaNode = htmlDocument.DocumentNode.SelectSingleNode("//meta[@name='csrf-token']");
+
+                var token = metaNode.GetAttributeValue("content", "");
+                
+                return WebUtility.UrlEncode(token);
             }
             catch (Exception ex)
             {
@@ -73,21 +106,13 @@ namespace PRPR.BooruViewer.Services
         {
             try
             {
-                HttpWebRequest loginRequest = WebRequest.CreateHttp($"{YandeClient.HOST}/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}");
-                loginRequest.Method = "POST";
-                loginRequest.ContentType = "application/x-www-form-urlencoded";
-                loginRequest.Headers["Accept-Encoding"] = "gzip, deflate";
-
-
-                using (HttpWebResponse logResponse = (HttpWebResponse)(await loginRequest.GetResponseAsync()))
+                Uri uri = new Uri($"{YandeClient.HOST}/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}");
+                using (var httpClient = new HttpClient())
                 {
-                    using (Stream stream = logResponse.GetResponseStream())
-                    {
-                        StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-                        string responseString = reader.ReadToEnd();
+                    var response = await httpClient.PostAsync(uri, new HttpStringContent(""));
 
-                        return responseString.Contains("3") ? VoteType.Favorite : VoteType.None;
-                    }
+                    var str = await response.Content.ReadAsStringAsync();
+                    return str.Contains("3") ? VoteType.Favorite : VoteType.None;
                 }
             }
             catch (Exception ex)

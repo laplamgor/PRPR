@@ -1,9 +1,14 @@
-﻿using PRPR.BooruViewer.Models.Global;
+﻿using Microsoft.EntityFrameworkCore;
+using PRPR.BooruViewer.Models.Global;
+using PRPR.BooruViewer.Services;
+using PRPR.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.AccessCache;
@@ -43,6 +48,40 @@ namespace PRPR.BooruViewer.Views
                 YandeSettings.Current.DefaultDownloadPath = newDefaultFolder.Path;
                 StorageApplicationPermissions.FutureAccessList.AddOrReplace("DefaultDownloadFolder", newDefaultFolder);
             }
+        }
+
+        private async void YandereButton_Click(object sender, RoutedEventArgs e)
+        {
+            var host = "https://yande.re";
+            var passwordHashSalt = "choujin-steiner--your-password--";
+            await ChangeHostAsync(host, passwordHashSalt);
+        }
+
+        private async void KonachanButton_Click(object sender, RoutedEventArgs e)
+        {
+            var host = "https://konachan.com";
+            var passwordHashSalt = "So-I-Heard-You-Like-Mupkids-?--your-password--";
+            await ChangeHostAsync(host, passwordHashSalt);
+        }
+
+        private static async Task ChangeHostAsync(string host, string passwordHashSalt)
+        {
+
+            // Log out the user account from the current moebooru site
+            YandeClient.SignOut();
+
+            // Clear all wallpaper/lockscreen records as they are only identified with postId
+            using (var db = new AppDbContext())
+            {
+                db.Database.ExecuteSqlCommand($"delete from {nameof(AppDbContext.WallpaperRecords)}; delete from {nameof(AppDbContext.LockScreenRecords)}");
+            }
+
+            // Change the site settings
+            YandeSettings.Current.Host = host;
+            YandeSettings.Current.PasswordHashSalt = passwordHashSalt;
+
+            // Close the app
+            AppRestartFailureReason result = await CoreApplication.RequestRestartAsync("");
         }
     }
 }

@@ -31,6 +31,37 @@ namespace PRPR.BooruViewer.Models.Global
             }
         }
 
+        #region Site info
+
+        public string Host
+        {
+            get
+            {
+                return GetValueOrDefault<string>(GetCallerName(), "https://yande.re", false);
+            }
+            set
+            {
+                AddOrUpdateValue(GetCallerName(), value, false);
+            }
+        }
+
+        public string PasswordHashSalt
+        {
+            get
+            {
+                return GetValueOrDefault<string>(GetCallerName(), "choujin-steiner--your-password--", false);
+            }
+            set
+            {
+                AddOrUpdateValue(GetCallerName(), value, false);
+            }
+        }
+
+        #endregion
+
+
+
+
         #region Login info
 
         public bool IsLoggedIn
