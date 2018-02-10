@@ -32,10 +32,5 @@ namespace PRPR.BooruViewer.ViewModels
                 NotifyPropertyChanged(nameof(TestPosts));
             }
         }
-
-        public async Task LoadTestDataAsync()
-        {
-            TestPosts = await Posts.DownloadPostsAsync(1, $"https:{""}//yande.re/post.xml?tags=rating:s");
-        }
     }
 }

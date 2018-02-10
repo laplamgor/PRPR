@@ -26,7 +26,7 @@
                 <PasswordBox x:Name="YandePasswordBox" PlaceholderText="Password" Margin="0,4" Width="300"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Login" Click="LoginButton_Click" FCU:Style="{StaticResource ButtonRevealStyle}" Margin="4,4" HorizontalAlignment="Center"/>
-                    <HyperlinkButton Content="Register" Margin="4,4" NavigateUri="https://yande.re/user/signup"/>
+                    <HyperlinkButton Content="Register" Margin="4,4" NavigateUri="{x:Bind SignUpUrl}"/>
                 </StackPanel>
             </StackPanel>
 

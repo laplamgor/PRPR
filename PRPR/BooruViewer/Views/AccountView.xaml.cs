@@ -38,6 +38,14 @@ namespace PRPR.BooruViewer.Views
             this.InitializeComponent();
         }
 
+        public string SignUpUrl
+        {
+            get
+            {
+                return $"{YandeClient.HOST}/user/signup";
+            }
+        }
+
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             if (YandeUserNameTextBox.Text != "" && YandePasswordBox.Password != "")
@@ -56,7 +64,7 @@ namespace PRPR.BooruViewer.Views
         {
             // Laungh the webpage
 
-            await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/user/change_password"));
+            await Windows.System.Launcher.LaunchUriAsync(new Uri($"{YandeClient.HOST}/user/change_password"));
         }
 
         private void UserPostMenuFlyoutItem_Click(object sender, RoutedEventArgs e)

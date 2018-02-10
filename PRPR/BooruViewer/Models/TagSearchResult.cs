@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRPR.BooruViewer.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -20,7 +21,7 @@ namespace PRPR.BooruViewer.Models
         public static async Task<TagSearchResult> DownloadTagsAsync(string key)
         {
             HttpClient httpClient = new HttpClient();
-            var xml = await httpClient.GetStringAsync(new Uri($"https://yande.re/tag.xml?order=count&limit=10&name={key}"));
+            var xml = await httpClient.GetStringAsync(new Uri($"{YandeClient.HOST}/tag.xml?order=count&limit=10&name={key}"));
             var p = ReadFromXml(xml);
             p.Key = key;
             return p;

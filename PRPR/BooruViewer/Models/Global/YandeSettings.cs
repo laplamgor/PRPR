@@ -83,7 +83,7 @@ namespace PRPR.BooruViewer.Models.Global
         {
             get
             {
-                return $"https://yande.re/data/avatars/{UserID}.jpg";
+                return $"{YandeClient.HOST}/data/avatars/{UserID}.jpg";
             }
         }
 

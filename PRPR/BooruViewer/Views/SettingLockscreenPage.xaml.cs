@@ -88,7 +88,7 @@ namespace PRPR.BooruViewer.Views
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             // Check the best time span to the users
-            var p = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(YandeSettings.Current.LockscreenUpdateTaskSearchKey) }");
+            var p = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags={ WebUtility.UrlEncode(YandeSettings.Current.LockscreenUpdateTaskSearchKey) }");
 
             while (p.Count < 50 && p.HasMoreItems)
             {
@@ -207,7 +207,7 @@ $"You have 90% chance to get a new image for {Search(0.90, timeSpans)} minutes.\
             var record = e.ClickedItem as PersonalizationRecord;
             try
             {
-                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ "id%3A" + record.PostId }");
+                var posts = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags={ "id%3A" + record.PostId }");
                 ImagePage.PostDataStack.Push(posts);
                 this.Frame.Navigate(typeof(ImagePage), posts.First().ToXml());
             }

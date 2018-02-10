@@ -237,7 +237,7 @@ namespace PRPR
 
                     if (int.TryParse(idString, out postId))
                     {
-                        var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ "id%3A" + postId }");
+                        var posts = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags={ "id%3A" + postId }");
 
                         ImagePage.PostDataStack.Push(posts);
                         shell.AppFrame.Navigate(typeof(ImagePage), posts.First().ToXml());

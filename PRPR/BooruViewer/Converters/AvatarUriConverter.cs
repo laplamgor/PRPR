@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRPR.BooruViewer.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace PRPR.BooruViewer.Converters
         {
             if (value is string || value is int)
             {
-                return $"https://yande.re/data/avatars/{value}.jpg?{DateTime.Now.Ticks}";
+                return $"{YandeClient.HOST}/data/avatars/{value}.jpg?{DateTime.Now.Ticks}";
             }
             else
             {

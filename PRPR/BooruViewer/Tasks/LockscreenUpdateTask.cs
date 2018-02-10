@@ -37,7 +37,7 @@ namespace PRPR.BooruViewer.Tasks
             try
             {
                 // Search for posts
-                var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={ WebUtility.UrlEncode(key) }");
+                var posts = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags={ WebUtility.UrlEncode(key) }");
 
                 var filteredPosts = new FilteredCollection<Post, Posts>(posts, filter);
                 

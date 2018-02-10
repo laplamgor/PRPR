@@ -24,7 +24,7 @@ namespace PRPR.BooruViewer.ViewModels
         public async Task Update()
         {
             // Download the last 24 hr tags
-            var posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=rating:s");
+            var posts = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags=rating:s");
             long dayBefore = posts.First().created_at - 3600 * 24 * 1;
             while (posts.Last().created_at >= dayBefore)
             {

@@ -1,5 +1,6 @@
 ﻿using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
+using PRPR.BooruViewer.Services;
 using PRPR.Common;
 using PRPR.Common.Models;
 using System;
@@ -136,7 +137,7 @@ namespace PRPR.BooruViewer.ViewModels
             Posts posts;
             try
             {
-                posts = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags={WebUtility.UrlEncode(keyword)}");
+                posts = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags={WebUtility.UrlEncode(keyword)}");
             }
             catch (Exception ex)
             {
@@ -192,7 +193,7 @@ namespace PRPR.BooruViewer.ViewModels
                         sortString = FavoriteSortingMode[FavoriteSortingModeSelectedIndex];
                     }
 
-                    favoritePost = await Posts.DownloadPostsAsync(1, $"https://yande.re/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+{sortString}");
+                    favoritePost = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags=vote:3:{YandeSettings.Current.UserName}+{sortString}");
                 }
                 catch (Exception ex)
                 {

@@ -446,7 +446,7 @@ namespace PRPR.BooruViewer.Views
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            await Windows.System.Launcher.LaunchUriAsync(new Uri($"https://yande.re/post/show/{ImagesViewModel.SelectedImageViewModel.Post.Id}"));
+            await Windows.System.Launcher.LaunchUriAsync(new Uri($"{YandeClient.HOST}/post/show/{ImagesViewModel.SelectedImageViewModel.Post.Id}"));
         }
 
 

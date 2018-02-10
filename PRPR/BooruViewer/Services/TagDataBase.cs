@@ -12,9 +12,6 @@ namespace PRPR.BooruViewer.Services
 {
     public static class TagDataBase
     {
-
-        const string SUMMARY_URI = "https://yande.re/tag/summary.json";
-
         public static int CurrentVersion = 0;
 
         /// <summary>
@@ -33,7 +30,7 @@ namespace PRPR.BooruViewer.Services
         public static async Task DownloadLatestTagDBAsync()
         {
             Windows.Web.Http.HttpClient httpClient2 = new Windows.Web.Http.HttpClient();
-            var json = await httpClient2.GetStringAsync(new Uri(SUMMARY_URI));
+            var json = await httpClient2.GetStringAsync(new Uri($"{YandeClient.HOST}/tag/summary.json"));
             
             
             JsonObject root = JsonValue.Parse(json).GetObject();

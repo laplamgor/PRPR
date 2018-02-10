@@ -16,13 +16,16 @@ namespace PRPR.BooruViewer.Services
 {
     public class YandeClient
     {
+        public static string HOST = "https://yande.re";
+        public static string PASSWORD_HASH_SALT = "choujin-steiner--your-password--";
+
+
         private static string HashPassword(string password)
         {
+            var passwordBuffer = CryptographicBuffer.ConvertStringToBinary(PASSWORD_HASH_SALT.Replace("your-password", password), BinaryStringEncoding.Utf8);
+
             var hashAlgorithmProvider = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha1);
-
-            var passwordBuffer = CryptographicBuffer.ConvertStringToBinary($"choujin-steiner--{password}--", BinaryStringEncoding.Utf8);
             var bufferHash = hashAlgorithmProvider.HashData(passwordBuffer);
-
             return CryptographicBuffer.EncodeToHexString(bufferHash);
         }
 
@@ -31,7 +34,7 @@ namespace PRPR.BooruViewer.Services
             try
             {
                 // Log out
-                HttpWebRequest logoutRequest = WebRequest.CreateHttp($"https://yande.re/user/logout");
+                HttpWebRequest logoutRequest = WebRequest.CreateHttp($"{YandeClient.HOST}/user/logout");
                 logoutRequest.CookieContainer = new CookieContainer();
                 using (HttpWebResponse logResponse = (HttpWebResponse)(await logoutRequest.GetResponseAsync()))
                 {
@@ -53,8 +56,8 @@ namespace PRPR.BooruViewer.Services
                 filter.CacheControl.WriteBehavior = HttpCacheWriteBehavior.NoCache;
                 filter.CacheControl.ReadBehavior = HttpCacheReadBehavior.MostRecent;
                 filter.AllowUI = false;
-                var hc = new Windows.Web.Http.HttpClient(filter);
-                var str = await hc.GetStringAsync(new Uri($"https://yande.re/user/login"));
+                var hc = new HttpClient(filter);
+                var str = await hc.GetStringAsync(new Uri($"{YandeClient.HOST}/user/login"));
                 var start = str.IndexOf("<meta name=\"csrf-token\" content=\"") + "<meta name=\"csrf-token\" content=\"".Length;
                 var end = str.IndexOf("\" />", start);
                 str = str.Substring(start, end - start);
@@ -70,7 +73,7 @@ namespace PRPR.BooruViewer.Services
         {
             try
             {
-                HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://yande.re/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}");
+                HttpWebRequest loginRequest = WebRequest.CreateHttp($"{YandeClient.HOST}/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}");
                 loginRequest.Method = "POST";
                 loginRequest.ContentType = "application/x-www-form-urlencoded";
                 loginRequest.Headers["Accept-Encoding"] = "gzip, deflate";
@@ -95,7 +98,7 @@ namespace PRPR.BooruViewer.Services
 
         public static async Task VoteAsync(int postId, string userName, string passwordHash, VoteType score)
         {
-            HttpWebRequest loginRequest = WebRequest.CreateHttp($"https://yande.re/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}&score={(int)score}");
+            HttpWebRequest loginRequest = WebRequest.CreateHttp($"{YandeClient.HOST}/post/vote.xml?login={userName}&password_hash={passwordHash}&id={postId}&score={(int)score}");
             loginRequest.Method = "POST";
             loginRequest.ContentType = "application/x-www-form-urlencoded";
             loginRequest.Headers["Accept-Encoding"] = "gzip, deflate";
@@ -127,7 +130,7 @@ namespace PRPR.BooruViewer.Services
             var rect = Normalize(imageSize, cropRect);
             var s = $"authenticity_token={token}post_id={postId}&left={rect.Left}&right={rect.Right}&top={rect.Top}&bottom={rect.Bottom}&commit=Set+avatar";
 
-            var uri = $"https://yande.re/user/set_avatar/{postId}";
+            var uri = $"{YandeClient.HOST}/user/set_avatar/{postId}";
 
             // TODO: implement setting avatar
             throw new NotImplementedException();
@@ -145,7 +148,7 @@ namespace PRPR.BooruViewer.Services
                 
                 
                 var httpClient = new HttpClient(new HttpBaseProtocolFilter());
-                var message = new HttpRequestMessage(new HttpMethod("POST"), new Uri($"https://yande.re/user/authenticate"))
+                var message = new HttpRequestMessage(new HttpMethod("POST"), new Uri($"{YandeClient.HOST}/user/authenticate"))
                 {
                     Content = new HttpStringContent(requestBody)
                 };

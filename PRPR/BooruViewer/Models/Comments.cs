@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRPR.BooruViewer.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -19,7 +20,7 @@ namespace PRPR.BooruViewer.Models
         public static async Task<Comments> GetComments(int postId)
         {
             HttpClient httpClient = new HttpClient();
-            var xml = await httpClient.GetStringAsync(new Uri($"https://yande.re/comment.xml?post_id={postId}"));
+            var xml = await httpClient.GetStringAsync(new Uri($"{YandeClient.HOST}/comment.xml?post_id={postId}"));
             var p = Comments.ReadFromXml(xml);
             return p;
         }
