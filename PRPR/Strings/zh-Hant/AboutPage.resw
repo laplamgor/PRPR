@@ -117,22 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TextBlockAbout.Text" xml:space="preserve">
-    <value>关于</value>
+  <data name="StackPanelQQ.Visibility" xml:space="preserve">
+    <value>Collapsed</value>
   </data>
-  <data name="TextBlockLiveTile.Text" xml:space="preserve">
-    <value>磁贴</value>
+  <data name="TextBlockAuthor.Text" xml:space="preserve">
+    <value>作者：</value>
   </data>
-  <data name="TextBlockLockScreen.Text" xml:space="preserve">
-    <value>锁屏</value>
+  <data name="TextBlockFeedback.Text" xml:space="preserve">
+    <value>歡迎以電郵回報問題和提供改善建議。</value>
   </data>
-  <data name="TextBlockOtherSettings.Text" xml:space="preserve">
-    <value>常规设置</value>
+  <data name="TextBlockPatchNotes.Text" xml:space="preserve">
+    <value>查看更新日誌</value>
   </data>
-  <data name="TextBlockUpdated.Text" xml:space="preserve">
-    <value>（应用已更新！）</value>
+  <data name="TextBlockSourceCode.Text" xml:space="preserve">
+    <value>源碼：</value>
   </data>
-  <data name="TextBlockWallPaper.Text" xml:space="preserve">
-    <value>壁纸</value>
+  <data name="TextBlockTip.Text" xml:space="preserve">
+    <value>應用值得多少，由您的打賞決定：</value>
+  </data>
+  <data name="TextBlockVersion.Text" xml:space="preserve">
+    <value>當前版本：</value>
   </data>
 </root>

@@ -6,6 +6,7 @@
     xmlns:Extensions="using:PRPR.Common.Extensions"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wp="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:ViewModels="using:PRPR.BooruViewer.ViewModels"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
@@ -15,9 +16,6 @@
     
     NavigationCacheMode="Required">
 
-    <Page.DataContext>
-        <ViewModels:AboutViewModel/>
-    </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -28,55 +26,101 @@
 
         <ScrollViewer Extensions:ScrollViewerOverflow.OverflowMargin="0,150,0,0" Grid.Row="2">
             <StackPanel Padding="12,12,12,0">
-                <TextBlock Text="Author："/>
-                <HyperlinkButton NavigateUri="mailto:laplamgor2@gmail.com">
-                    <TextBlock Text="laplamgor"/>
-                </HyperlinkButton>
+
+                <TextBlock x:Uid="/AboutPage/TextBlockVersion" Text="Version:"/>
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Text="{x:Bind AppVersion}" Margin="0,8"/>
+                    <Button Padding="12,0" Margin="12,0" VerticalAlignment="Stretch" Height="32" FCU:Style="{StaticResource ButtonRevealStyle}">
+                        <StackPanel >
+                            <TextBlock x:Uid="/AboutPage/TextBlockPatchNotes"/>
+                        </StackPanel>
+
+                        <Button.Flyout>
+                            <Flyout>
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
+
+                                <ListView x:Name="DevLogsListView" SelectionMode="None" ItemsSource="{x:Bind UpdateNotes}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Margin="0,12" Text="{Binding}" />
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+
+
                 <TextBlock Text=""/>
 
 
-                <TextBlock Text="Github："/>
+
+                <TextBlock x:Uid="/AboutPage/TextBlockAuthor" Text="Author："/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="laplamgor" VerticalAlignment="Center"/>
+                    <HyperlinkButton NavigateUri="mailto:laplamgor2@gmail.com">
+                        <TextBlock Text=" (Gmail)"/>
+                    </HyperlinkButton>
+                </StackPanel>
+                <TextBlock Text=""/>
+
+
+                <TextBlock x:Uid="/AboutPage/TextBlockSourceCode" Text="Source Code:"/>
                 <HyperlinkButton NavigateUri="https://github.com/laplamgor/PRPR">
                     <TextBlock Text="GitHub"/>
                 </HyperlinkButton>
                 <TextBlock Text=""/>
 
-                <TextBlock Text="QQ："/>
-                <RichTextBlock IsTextSelectionEnabled="True">
-                    <Paragraph>
-                        <Run Text="387526263"/>
-                    </Paragraph>
-                </RichTextBlock>
-                <TextBlock Text=""/>
+                <StackPanel x:Uid="/AboutPage/StackPanelQQ">
+                    <TextBlock Text="老司機福利Q群："/>
+                    <RichTextBlock IsTextSelectionEnabled="True">
+                        <Paragraph>
+                            <Run Text="387526263"/>
+                        </Paragraph>
+                    </RichTextBlock>
+                    <TextBlock Text=""/>
+                </StackPanel>
 
-                <TextBlock Text="Tip me via PayPal："/>
-                <HyperlinkButton NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RZJWCKCL9N6RU">
-                    <Image Width="200" HorizontalAlignment="Left" Stretch="Uniform">
-                        <Image.Source>
-                            <SvgImageSource UriSource="/Assets/PayPal_logo.svg" RasterizePixelHeight="271" RasterizePixelWidth="1024" />
-                        </Image.Source>
-                    </Image>
-                </HyperlinkButton>
-                <TextBlock Text=""/>
+                <TextBlock x:Uid="/AboutPage/TextBlockTip" Text="Tip Me:"/>
+                <wp:WrapPanel>
+                    <HyperlinkButton NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RZJWCKCL9N6RU">
+                        <Image Width="160" HorizontalAlignment="Left" Stretch="Uniform">
+                            <Image.Source>
+                                <SvgImageSource UriSource="/Assets/PayPal_logo.svg" RasterizePixelHeight="271" RasterizePixelWidth="1024" />
+                            </Image.Source>
+                        </Image>
+                    </HyperlinkButton>
 
-
-                <TextBlock Text="Tip me via Alipay："/>
-                <Image Width="200" HorizontalAlignment="Left" Stretch="Uniform">
-                    <Image.Source>
-                        <SvgImageSource UriSource="/Assets/AliPay_logo.svg" RasterizePixelHeight="341" RasterizePixelWidth="1024" />
-                    </Image.Source>
-                </Image>
-                <Image Height="200" Width="200" HorizontalAlignment="Left">
-                    <Image.Source>
-                        <SvgImageSource UriSource="/Assets/AliPay_QR.svg"  RasterizePixelHeight="296"
+                    <Button Background="Transparent" BorderThickness="0">
+                        <Button.Flyout>
+                            <Flyout>
+                                <Image Height="200" Width="200" HorizontalAlignment="Left">
+                                    <Image.Source>
+                                        <SvgImageSource UriSource="/Assets/AliPay_QR.svg"  RasterizePixelHeight="296"
                     RasterizePixelWidth="296" />
-                    </Image.Source>
-                </Image>
+                                    </Image.Source>
+                                </Image>
+                            </Flyout>
+                        </Button.Flyout>
+                        <Image Width="160" HorizontalAlignment="Left" Stretch="Uniform">
+                            <Image.Source>
+                                <SvgImageSource UriSource="/Assets/AliPay_logo.svg" RasterizePixelHeight="341" RasterizePixelWidth="1024" />
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </wp:WrapPanel>
                 <TextBlock Text=""/>
 
-                <TextBlock Text="歡迎回報BUG或提出改善建議"/>
-                <TextBlock Text="Feel free to give feedbacks and report bugs"/>
 
+                <TextBlock x:Uid="/AboutPage/TextBlockFeedback" Text="歡迎回報BUG或提出改善建議"/>
                 <TextBlock Text=""/>
             </StackPanel>
         </ScrollViewer>

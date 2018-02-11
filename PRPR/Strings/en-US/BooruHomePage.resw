@@ -207,9 +207,6 @@
   <data name="TextBlockHeaderMore.Text" xml:space="preserve">
     <value>More</value>
   </data>
-  <data name="TextBlockPatchNotes.Text" xml:space="preserve">
-    <value>Patch Notes</value>
-  </data>
   <data name="TextBlockRating.Text" xml:space="preserve">
     <value>This setting is not available due to the Windows Store policy.</value>
   </data>

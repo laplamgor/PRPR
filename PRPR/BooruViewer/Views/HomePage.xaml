@@ -324,36 +324,6 @@
                     <ScrollViewer Grid.Row="1" Extensions:ScrollViewerOverflow.OverflowMargin="0,150,0,0">
                         <StackPanel>
                             <Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch">
-                                    <Button  Padding="12,0" VerticalAlignment="Stretch" FCU:Style="{StaticResource ButtonRevealStyle}">
-                                        <StackPanel >
-                                            <TextBlock Text="{x:Bind AppVersion}"/>
-                                            <TextBlock x:Uid="/BooruHomePage/TextBlockPatchNotes" Text="更新日誌"/>
-                                        </StackPanel>
-
-                                        <Button.Flyout>
-                                            <Flyout>
-                                                <Flyout.FlyoutPresenterStyle>
-                                                    <Style TargetType="FlyoutPresenter">
-                                                        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-                                                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-                                                        <Setter Property="Padding" Value="0"/>
-                                                    </Style>
-                                                </Flyout.FlyoutPresenterStyle>
-
-                                                <ListView x:Name="DevLogsListView" SelectionMode="None" ItemsSource="{x:Bind UpdateNotes}">
-                                                    <ListView.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock TextWrapping="Wrap" Margin="0,12" Text="{Binding}" />
-                                                        </DataTemplate>
-                                                    </ListView.ItemTemplate>
-                                                </ListView>
-                                            </Flyout>
-                                        </Button.Flyout>
-                                    </Button>
-                                </StackPanel>
-
-
                                 <AppBarButton Width="64" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
                             </Grid>
 
@@ -664,10 +634,13 @@
                     <SymbolIcon Symbol="OutlineStar" Width="48" />
                     <TextBlock x:Uid="/BooruHomePage/TextBlockHeaderFavorite" x:Name="FavoriteTextBlock" Margin="0,0,16,0"/>
                 </StackPanel>
-                <StackPanel x:Uid="/BooruHomePage/StackPanelHeaderMore" Tag="更多" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Setting" Width="48" />
-                    <TextBlock x:Name="MoreTextBlock" Margin="0,0,0,0"/>
-                </StackPanel>
+                <Grid>
+                    <StackPanel x:Uid="/BooruHomePage/StackPanelHeaderMore" Tag="更多" Orientation="Horizontal">
+                        <SymbolIcon Symbol="Setting" Width="48" />
+                        <TextBlock x:Name="MoreTextBlock" Margin="0,0,0,0"/>
+                    </StackPanel>
+                    <Ellipse Height="8" Width="8" Margin="24,0,0,24" Fill="Red" Visibility="{Binding HasUpdate, Source={StaticResource AppSettings}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
             </ListView>
         </Grid>
     </Grid>

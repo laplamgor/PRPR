@@ -207,9 +207,6 @@
   <data name="TextBlockHeaderMore.Text" xml:space="preserve">
     <value>更多</value>
   </data>
-  <data name="TextBlockPatchNotes.Text" xml:space="preserve">
-    <value>更新日誌</value>
-  </data>
   <data name="TextBlockRating.Text" xml:space="preserve">
     <value>基於應用商店政策，此設定目前不可用。</value>
   </data>

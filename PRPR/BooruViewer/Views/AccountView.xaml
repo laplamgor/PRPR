@@ -138,7 +138,10 @@
                     <Grid RightTapped="ListViewItem_RightTapped">
                         <FontIcon Glyph="&#xE946;" HorizontalAlignment="Left" Width="24"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
-                        <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" VerticalAlignment="Center" Margin="36,0,0,0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Uid="/BooruAccountView/TextBlockAbout" VerticalAlignment="Center" Margin="36,0,0,0"/>
+                            <TextBlock x:Uid="/BooruAccountView/TextBlockUpdated" VerticalAlignment="Center"  Foreground="Red" Visibility="{Binding HasUpdate, Source={StaticResource AppSettings}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </StackPanel>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"

@@ -83,16 +83,6 @@ namespace PRPR.BooruViewer.Views
 
 
         
-        public string AppVersion
-        {
-            get
-            {
-                var v = Package.Current.Id.Version;
-                return string.Format("{0}.{1}.{2}.{3}", v.Major, v.Minor, v.Build, v.Revision);
-            }
-        }
-        
-        
 
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -132,11 +122,7 @@ namespace PRPR.BooruViewer.Views
             e.PageState["Tags"] = SearchBox.Text;
             e.PageState["Tab"] = MainPivot.SelectedIndex;
         }
-
-        private void ScrollingHost_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            
-        }
+        
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -396,7 +382,6 @@ namespace PRPR.BooruViewer.Views
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
-                //await Task.Delay(200);
                 if (args.CheckCurrent())
                 {
                     UpdateSuggestions(sender);
@@ -436,17 +421,6 @@ namespace PRPR.BooruViewer.Views
 
 
 
-
-        public ObservableCollection<string> UpdateNotes
-        {
-            get
-            {
-                var loader = ResourceLoader.GetForCurrentView();
-                var notes = loader.GetString("/PatchNotes/Notes").Split('@').Where(o => !String.IsNullOrEmpty(o));
-
-                return new ObservableCollection<string>(notes);
-            }
-        }
 
         private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

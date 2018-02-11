@@ -106,6 +106,9 @@
     <Compile Include="Common\Controls\JustifiedWrapPanel.DataVirtualization.cs" />
     <None Include="PRPR.UWP_StoreKey.pfx" />
     <None Include="PRPR.UWP_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\zh-Hans\AboutPage.resw" />
+    <PRIResource Include="Strings\zh-Hant\AboutPage.resw" />
+    <PRIResource Include="Strings\en-US\AboutPage.resw" />
     <PRIResource Include="Strings\zh-Hans\ExGalleryListView.resw" />
     <PRIResource Include="Strings\zh-Hant\ExGalleryListView.resw" />
     <PRIResource Include="Strings\en-US\ExGalleryListView.resw" />
@@ -163,7 +166,6 @@
     <Compile Include="BooruViewer\Tasks\LockscreenUndoTask.cs" />
     <Compile Include="BooruViewer\Tasks\WallpaperUndoTask.cs" />
     <Compile Include="BooruViewer\Tasks\WallpaperUpdateTask.cs" />
-    <Compile Include="BooruViewer\ViewModels\AboutViewModel.cs" />
     <Compile Include="BooruViewer\ViewModels\FeatureViewModel.cs" />
     <Compile Include="BooruViewer\ViewModels\SettingLockscreenViewModel.cs" />
     <Compile Include="BooruViewer\ViewModels\SettingTileViewModel.cs" />

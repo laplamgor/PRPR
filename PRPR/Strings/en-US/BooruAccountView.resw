@@ -129,6 +129,9 @@
   <data name="TextBlockOtherSettings.Text" xml:space="preserve">
     <value>General Settings</value>
   </data>
+  <data name="TextBlockUpdated.Text" xml:space="preserve">
+    <value> (App Updated!)</value>
+  </data>
   <data name="TextBlockWallPaper.Text" xml:space="preserve">
     <value>Wallpaper</value>
   </data>

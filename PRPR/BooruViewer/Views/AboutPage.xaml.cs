@@ -2,12 +2,15 @@
 using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.ViewModels;
 using PRPR.Common;
+using PRPR.Common.Models.Global;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
@@ -57,71 +60,36 @@ namespace PRPR.BooruViewer.Views
         }
 
         #endregion
+        
 
 
-        AboutViewModel AboutViewModel
+        public string AppVersion
         {
             get
             {
-                return this.DataContext as AboutViewModel;
+                return AppSettings.Current.CurrentAppVersion;
+            }
+        }
+        
+        public ObservableCollection<string> UpdateNotes
+        {
+            get
+            {
+                var loader = ResourceLoader.GetForCurrentView();
+                var notes = loader.GetString("/PatchNotes/Notes").Split('@').Where(o => !String.IsNullOrEmpty(o));
+
+                return new ObservableCollection<string>(notes);
             }
         }
 
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-
+            AppSettings.Current.UpdateNoticed();
         }
-
-        static byte[] ReadFully(Stream input)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                input.CopyTo(ms);
-                return ms.ToArray();
-            }
-        }
-
-
+        
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-
-        }
-
-        private async void TestImage_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            //var inpainter = new Inpainter();
-            //try
-            //{
-
-            //    InMemoryRandomAccessStream inMemoryRandomAccessStream = await inpainter.InpaintMS();
-
-
-            //    Stream stream = WindowsRuntimeStreamExtensions.AsStreamForRead(inMemoryRandomAccessStream.GetInputStreamAt(0));
-            //    MemoryStream memoryStream = new MemoryStream();
-            //    if (stream != null)
-            //    {
-            //        byte[] bytes = ReadFully(stream);
-            //        if (bytes != null)
-            //        {
-            //            var binaryWriter = new BinaryWriter(memoryStream);
-            //            binaryWriter.Write(bytes);
-            //        }
-            //    }
-            //    IBuffer buffer = WindowsRuntimeBufferExtensions.GetWindowsRuntimeBuffer(memoryStream, 0, (int)memoryStream.Length);
-
-
-            //    var s = SoftwareBitmap.CreateCopyFromBuffer(buffer, BitmapPixelFormat.Bgra8, 1007, 1479);
-            //    SoftwareBitmap s2 = SoftwareBitmap.Convert(s, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
-            //    var ss = new SoftwareBitmapSource();
-            //    await ss.SetBitmapAsync(s2);
-
-            //    TestImage.Source = ss;
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
 
         }
     }
