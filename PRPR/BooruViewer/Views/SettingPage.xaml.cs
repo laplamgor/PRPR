@@ -50,6 +50,23 @@ namespace PRPR.BooruViewer.Views
             }
         }
 
+        bool IsYandereButtonEnabled
+        {
+            get
+            {
+                return YandeSettings.Current.Host != "https://yande.re";
+            }
+        }
+
+        bool IsKonachanButtonEnabled
+        {
+            get
+            {
+                return YandeSettings.Current.Host != "https://konachan.com";
+            }
+        }
+
+
         private async void YandereButton_Click(object sender, RoutedEventArgs e)
         {
             var host = "https://yande.re";

@@ -127,7 +127,7 @@
     <value>鎖屏</value>
   </data>
   <data name="TextBlockOtherSettings.Text" xml:space="preserve">
-    <value>其他設置</value>
+    <value>一般設定</value>
   </data>
   <data name="TextBlockWallPaper.Text" xml:space="preserve">
     <value>壁紙</value>

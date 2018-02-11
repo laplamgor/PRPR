@@ -87,16 +87,16 @@ namespace PRPR.BooruViewer.Views
             switch (index)
             {
                 case 0:
-                    frame.Navigate(typeof(SettingWallpaperPage));
+                    frame.Navigate(typeof(SettingPage));
                     break;
                 case 1:
-                    frame.Navigate(typeof(SettingLockscreenPage));
+                    frame.Navigate(typeof(SettingWallpaperPage));
                     break;
                 case 2:
-                    frame.Navigate(typeof(SettingTilePage));
+                    frame.Navigate(typeof(SettingLockscreenPage));
                     break;
                 case 3:
-                    frame.Navigate(typeof(SettingPage));
+                    frame.Navigate(typeof(SettingTilePage));
                     break;
                 case 4:
                     frame.Navigate(typeof(AboutPage));

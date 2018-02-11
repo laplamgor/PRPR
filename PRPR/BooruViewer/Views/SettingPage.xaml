@@ -43,14 +43,14 @@
 
 
                 <Border BorderThickness="0,1,0,0" Margin="0,12" BorderBrush="Gray"/>
+                <TextBlock x:Uid="/BooruSettingPage/TextBlockSite" TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button FCU:Style="{StaticResource ButtonRevealStyle}" IsEnabled="{x:Bind IsYandereButtonEnabled}" Content="yande.re" Click="YandereButton_Click" Margin="0,12"/>
+                    <SymbolIcon Symbol="Switch" Margin="12"/>
+                    <Button FCU:Style="{StaticResource ButtonRevealStyle}" IsEnabled="{x:Bind IsKonachanButtonEnabled}" Content="konachan.com" Click="KonachanButton_Click" Margin="0,12"/>
+                </StackPanel>
+                <TextBlock x:Uid="/BooruSettingPage/TextBlockExperimental" Foreground="Red" TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
 
-                <TextBlock x:Uid="/BooruSettingPage/TextBlockExperimental" Text="The following settings are still in beta state. They are untested and subject to change without notice. Using these experimental functionality may cause unexpected behaviors or crashes of the app. In the worst situation, you may have to reinstall this app to recover." Foreground="Red" TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
-                
-                <Button FCU:Style="{StaticResource ButtonRevealStyle}" Content="yande.re" Click="YandereButton_Click" Margin="0,12"/>
-
-                <Button FCU:Style="{StaticResource ButtonRevealStyle}" Content="konachan.com" Click="KonachanButton_Click" Margin="0,12"/>
-
-                <TextBlock x:Uid="/BooruSettingPage/TextBlockSite" Text="Change to a different site requires restarting the app. It will log you out, and clear your wallpaper/lockscreen records. Also, be aware that konachan only has horizontal images, DO NOT try to use the respect ratio local filter to find vertical images." TextWrapping="Wrap" MaxWidth="500" HorizontalAlignment="Left"/>
 
             </StackPanel>
 

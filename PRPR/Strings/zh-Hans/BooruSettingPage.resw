@@ -174,6 +174,9 @@
   <data name="ComboBoxTheme.Header" xml:space="preserve">
     <value>应用主题</value>
   </data>
+  <data name="TextBlockExperimental.Text" xml:space="preserve">
+    <value>此設置仍處於測驗階段。 它可能未經完整測試。如有更改，恕不另行通知。 使用此實驗性功能可能會導致應用程序意外行為和閃退。 最壞情況下可能需要重新安裝應用。</value>
+  </data>
   <data name="TextBlockFilter.Text" xml:space="preserve">
     <value>过滤</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="TextBlockRecords.Text" xml:space="preserve">
     <value>纪录</value>
+  </data>
+  <data name="TextBlockSite.Text" xml:space="preserve">
+    <value>更改主站：它會把你登出目前的主站、清除你的牆紙/鎖屏記錄，然後自動重啟應用並套用新的圖源網站。請注意，konachan只有橫向貼圖，請勿使用本地長寬比過濾器來查找直向貼圖。</value>
   </data>
   <data name="TextBlockTheme.Text" xml:space="preserve">
     <value>更改主题设置后需要重启应用才会生效</value>

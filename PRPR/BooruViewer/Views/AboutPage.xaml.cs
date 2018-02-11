@@ -70,42 +70,6 @@ namespace PRPR.BooruViewer.Views
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            //var inpainter = new Inpainter();
-
-            //try
-            //{
-
-            //    InMemoryRandomAccessStream inMemoryRandomAccessStream = await inpainter.InpaintMS();
-
-            //    Stream stream = WindowsRuntimeStreamExtensions.AsStreamForRead(inMemoryRandomAccessStream.GetInputStreamAt(0));
-            //    MemoryStream memoryStream = new MemoryStream();
-            //    if (stream != null)
-            //    {
-            //        byte[] bytes = ReadFully(stream);
-            //        if (bytes != null)
-            //        {
-            //            var binaryWriter = new BinaryWriter(memoryStream);
-            //            binaryWriter.Write(bytes);
-            //        }
-            //    }
-            //    IBuffer buffer = WindowsRuntimeBufferExtensions.GetWindowsRuntimeBuffer(memoryStream, 0, (int)memoryStream.Length);
-
-
-
-
-
-            //    var s = SoftwareBitmap.CreateCopyFromBuffer(buffer, BitmapPixelFormat.Bgra8, 1007, 1479);
-            //    //var s = SoftwareBitmap.CreateCopyFromBuffer(buffer, BitmapPixelFormat.Bgra8, 1007, 1479);
-            //    SoftwareBitmap s2 = SoftwareBitmap.Convert(s, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
-            //    var ss = new SoftwareBitmapSource();
-            //    await ss.SetBitmapAsync(s2);
-
-            //    TestImage.Source = ss;
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
 
         }
 

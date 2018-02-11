@@ -127,7 +127,7 @@
     <value>Lock Screen</value>
   </data>
   <data name="TextBlockOtherSettings.Text" xml:space="preserve">
-    <value>Other Settings</value>
+    <value>General Settings</value>
   </data>
   <data name="TextBlockWallPaper.Text" xml:space="preserve">
     <value>Wallpaper</value>

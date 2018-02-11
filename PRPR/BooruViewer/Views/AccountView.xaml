@@ -90,6 +90,17 @@
                             <EntranceThemeTransition IsStaggeringEnabled="True"/>
                         </TransitionCollection>
                     </ListView.ItemContainerTransitions>
+
+                    <Grid>
+                        <FontIcon Glyph="&#xF259;" HorizontalAlignment="Left" Width="24"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
+                        <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" VerticalAlignment="Center" Margin="36,0,0,0"/>
+                        <FontIcon HorizontalAlignment="Right"
+                                  Glyph="&#xE0E3;"
+                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                  FontSize="12"
+                                  Margin="36,15,0,17"/>
+                    </Grid>
                     
                     <Grid>
                         <FontIcon Glyph="&#xE8FC;" HorizontalAlignment="Left" Width="24"
@@ -117,17 +128,6 @@
                         <FontIcon Glyph="&#xECA5;" HorizontalAlignment="Left" Width="24"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
                         <TextBlock x:Uid="/BooruAccountView/TextBlockLiveTile" VerticalAlignment="Center" Margin="36,0,0,0"/>
-                        <FontIcon HorizontalAlignment="Right"
-                                  Glyph="&#xE0E3;"
-                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                  FontSize="12"
-                                  Margin="36,15,0,17"/>
-                    </Grid>
-
-                    <Grid>
-                        <FontIcon Glyph="&#xF259;" HorizontalAlignment="Left" Width="24"
-                                  FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
-                        <TextBlock x:Uid="/BooruAccountView/TextBlockOtherSettings" VerticalAlignment="Center" Margin="36,0,0,0"/>
                         <FontIcon HorizontalAlignment="Right"
                                   Glyph="&#xE0E3;"
                                   FontFamily="{ThemeResource SymbolThemeFontFamily}"
