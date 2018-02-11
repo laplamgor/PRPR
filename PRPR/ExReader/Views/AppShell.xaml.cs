@@ -114,45 +114,17 @@ namespace PRPR.ExReader.Views
         /// <param name="e"></param>
         private void AppShell_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            FocusNavigationDirection direction = FocusNavigationDirection.None;
             switch (e.Key)
             {
                 case Windows.System.VirtualKey.Left:
                 case Windows.System.VirtualKey.GamepadDPadLeft:
                 case Windows.System.VirtualKey.GamepadLeftThumbstickLeft:
                 case Windows.System.VirtualKey.NavigationLeft:
-                    direction = FocusNavigationDirection.Left;
+                    if (e.KeyStatus.IsMenuKeyDown && AppFrame.CanGoBack)
+                    {
+                        AppFrame.GoBack();
+                    }
                     break;
-                case Windows.System.VirtualKey.Right:
-                case Windows.System.VirtualKey.GamepadDPadRight:
-                case Windows.System.VirtualKey.GamepadLeftThumbstickRight:
-                case Windows.System.VirtualKey.NavigationRight:
-                    direction = FocusNavigationDirection.Right;
-                    break;
-
-                case Windows.System.VirtualKey.Up:
-                case Windows.System.VirtualKey.GamepadDPadUp:
-                case Windows.System.VirtualKey.GamepadLeftThumbstickUp:
-                case Windows.System.VirtualKey.NavigationUp:
-                    direction = FocusNavigationDirection.Up;
-                    break;
-
-                case Windows.System.VirtualKey.Down:
-                case Windows.System.VirtualKey.GamepadDPadDown:
-                case Windows.System.VirtualKey.GamepadLeftThumbstickDown:
-                case Windows.System.VirtualKey.NavigationDown:
-                    direction = FocusNavigationDirection.Down;
-                    break;
-            }
-
-            if (direction != FocusNavigationDirection.None)
-            {
-                var control = FocusManager.FindNextFocusableElement(direction) as Control;
-                if (control != null)
-                {
-                    control.Focus(FocusState.Programmatic);
-                    e.Handled = true;
-                }
             }
         }
 
