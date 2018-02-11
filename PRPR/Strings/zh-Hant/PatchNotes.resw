@@ -118,7 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[5 Feb 2018] v2.3.0
+    <value>@[11 Feb 2018] v2.4.0
+- 應用更名為舔圖貓
+- 加入試驗性主站選項, 支持Konachan!
+Moebooru
+- 改善鍵盤操作
+- 改善過渡動畫
+- 調整界面
+Ex
+- 適應主站不再使用cookie設置
+- 改善鍵盤操作
+@[5 Feb 2018] v2.3.0
 Yandere
 - 加入壁紙/鎖屏自動更新的歷史記錄
 - 防止精選頁面顯示重覆的圖片
