@@ -98,10 +98,8 @@ namespace PRPR.BooruViewer.Views
                 case 3:
                     frame.Navigate(typeof(SettingTilePage));
                     break;
-                case 4:
-                    frame.Navigate(typeof(AboutPage));
-                    break;
                 default:
+                    frame.Navigate(typeof(AboutPage));
                     break;
             }
 
