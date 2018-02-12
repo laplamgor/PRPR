@@ -239,7 +239,7 @@
         <!--Image viewport-->
         <FlipView x:Name="FlipView" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Images}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectionChanged="FlipView_SelectionChanged" Loaded="FlipView_Loaded">
             <FlipView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="ViewModels:ImageViewModel">
                     <Grid x:Name="MainPreview">
                         <Grid.Resources>
                             <MenuFlyout x:Name="MenuFlyout">
@@ -260,6 +260,7 @@
                                       HorizontalContentAlignment="Center"
                                       HorizontalAlignment="Stretch" 
                                       ZoomMode="Enabled" MinZoomFactor="1" 
+                                      ViewChanged="ImageScrollViewer_ViewChanged"
                                       HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled"
                                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
                                       DoubleTapped="ImageScrollViewer_DoubleTapped"  Tapped="MainPreview_Tapped"
@@ -276,16 +277,13 @@
 
                                 <Image x:Name="SampleImage" Stretch="Uniform"
                                        VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                       Source="{Binding Post.SampleUrl}"
-                                       ImageOpened="SampleImage_ImageOpened"/>
+                                       ImageOpened="SampleImage_ImageOpened"
+                                       DataContextChanged="SampleUrl_DataContextChanged"/>
 
-                                <Image x:Name="JpegImage" Stretch="Uniform"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                       Source="{Binding Post.JpegUrl}"
-                                       ImageOpened="JpegImage_ImageOpened"/>
-
-
-
+                                <Image x:Name="JpegImage" Stretch="Uniform" x:Load="{x:Bind Mode=OneWay, Path=JpegDisplayNeeded}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       ImageOpened="JpegImage_ImageOpened"
+                                       DataContextChanged="JpegImage_DataContextChanged"/>
                             </Grid>
                         </ScrollViewer>
                     </Grid>
@@ -295,7 +293,6 @@
 
         <Grid x:Name="dummyGrid"  Grid.Row="1" Grid.Column="1"  Margin="0" HorizontalAlignment="Left"/>
 
-        <!--Buttons-->
         <Grid x:Name="Buttons" Grid.Row="1" Grid.Column="1"
               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0">
 
@@ -314,6 +311,31 @@
                 </Grid.Background>
             </Grid>
 
+
+            <wp:DropShadowPanel BlurRadius="50.0" ShadowOpacity="0.5" Margin="12"
+                                HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                                OffsetX="0.0" OffsetY="0.0" Color="Black">
+                <Ellipse Width="40" Height="40"/>
+            </wp:DropShadowPanel>
+
+            <Grid Margin="12" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Height="40" Width="40" >
+                <TextBlock Text="M" FontWeight="Bold" Foreground="Yellow" HorizontalAlignment="Center" VerticalAlignment="Center" LineStackingStrategy="MaxHeight"   
+                Visibility="{Binding SelectedImageViewModel.JpegDisplayNeeded, Converter={StaticResource BooleanToInvisibilityConverter}}"/>
+
+                <TextBlock Text="L" FontWeight="Bold" Foreground="LimeGreen" HorizontalAlignment="Center" VerticalAlignment="Center" LineStackingStrategy="MaxHeight"   
+                Visibility="{Binding SelectedImageViewModel.JpegDisplayNeeded, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+            <wp:RadialProgressBar Width="40" Height="40" Margin="12"  Value="{Binding SelectedImageViewModel.SampleLoadProgress}"
+                                        HorizontalAlignment="Right" VerticalAlignment="Bottom"  Thickness="6" 
+                                        Foreground="Yellow" FlowDirection="LeftToRight" Background="Transparent" Maximum="100"
+                                        ToolTipService.ToolTip="Sample Quality"/>
+
+            <wp:RadialProgressBar Width="40" Height="40" Margin="12"  Value="{Binding SelectedImageViewModel.JpegLoadProgress}"
+                                        HorizontalAlignment="Right" VerticalAlignment="Bottom"  Thickness="6" 
+                                        Foreground="LimeGreen" FlowDirection="LeftToRight" Background="Transparent" Maximum="100"
+                                        Visibility="{Binding SelectedImageViewModel.JpegDisplayNeeded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        ToolTipService.ToolTip="Full Size Jpeg Quality"/>
+            
 
             <StackPanel x:Name="MainButtons" Orientation="Horizontal" HorizontalAlignment="Center" Margin="4,80,4,4">
 
@@ -485,7 +507,7 @@
 
                                         <Ellipse  Width="80" Height="80" Stroke="Gray" StrokeThickness="2" >
                                             <Ellipse.Fill>
-                                                
+
                                                 <ImageBrush ImageSource="{Binding SelectedImageViewModel.Post.CreatorId, Converter={StaticResource AvatarUriConverter}}"/>
 
                                             </Ellipse.Fill>
@@ -520,7 +542,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding SelectedImageViewModel.Post.Rating}"/>
                             </StackPanel>
-                            
+
                             <StackPanel Visibility="{Binding SelectedImageViewModel.ImageSourceLinkUri, Converter={StaticResource StringToVisibilityConverter}}">
                                 <TextBlock x:Uid="/BooruImagePage/TextBlockSource" Text="Source" Foreground="Gray" Margin="0,24,0,0"/>
                                 <HyperlinkButton NavigateUri="{Binding SelectedImageViewModel.ImageSourceLinkUri}" ToolTipService.ToolTip="{Binding SelectedImageViewModel.Post.Source}">
@@ -532,7 +554,7 @@
                                              Visibility="{Binding SelectedImageViewModel.Post.HasChildren, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock x:Uid="/BooruImagePage/TextBlockChildren" Text="Search for children post"/>
                             </HyperlinkButton>
-                            
+
                             <HyperlinkButton Click="ParentButton_Click" Margin="0,24,0,0" 
                                              Visibility="{Binding SelectedImageViewModel.Post.ParentId, Converter={StaticResource StringToVisibilityConverter}}">
                                 <TextBlock x:Uid="/BooruImagePage/TextBlockParent" Text="Search for parent post"/>

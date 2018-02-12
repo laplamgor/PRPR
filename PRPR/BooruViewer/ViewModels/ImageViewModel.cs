@@ -364,5 +364,42 @@ namespace PRPR.BooruViewer.ViewModels
         }
 
 
+        private int _sampleLoadProgress = 0;
+
+        public int SampleLoadProgress
+        {
+            get => _sampleLoadProgress;
+            set
+            {
+                _sampleLoadProgress = value;
+                NotifyPropertyChanged(nameof(SampleLoadProgress));
+            }
+        }
+
+
+        private int _jpegLoadProgress = 0;
+
+        public int JpegLoadProgress
+        {
+            get => _jpegLoadProgress;
+            set
+            {
+                _jpegLoadProgress = value;
+                NotifyPropertyChanged(nameof(JpegLoadProgress));
+            }
+        }
+
+
+        private bool _jpegDisplayNeeded = false;
+
+        public bool JpegDisplayNeeded
+        {
+            get => _jpegDisplayNeeded;
+            set
+            {
+                _jpegDisplayNeeded = value;
+                NotifyPropertyChanged(nameof(JpegDisplayNeeded));
+            }
+        }
     }
 }

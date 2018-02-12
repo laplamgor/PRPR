@@ -30,6 +30,7 @@ using System.Net;
 using Windows.UI.Xaml.Media.Animation;
 using Microsoft.QueryStringDotNET;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -405,16 +406,18 @@ namespace PRPR.BooruViewer.Views
 
 
             // Toggle the buttons display
-            if (!ButtonsOverlaying)
+            ToggleButtonDisplay();
+
+            e.Handled = true;
+        }
+
+        private void ToggleButtonDisplay()
+        {
+            if (!DetailsOverlaying)
             {
-                ButtonsOverlaying = true;
-                var b = VisualStateManager.GoToState(CurrentImagePage, "ButtonsOnly", true);
-            }
-            else
-            {
-                if (DetailsOverlaying)
+                if (!ButtonsOverlaying)
                 {
-                    DetailsOverlaying = false;
+                    ButtonsOverlaying = true;
                     var b = VisualStateManager.GoToState(CurrentImagePage, "ButtonsOnly", true);
                 }
                 else
@@ -423,11 +426,7 @@ namespace PRPR.BooruViewer.Views
                     var b = VisualStateManager.GoToState(CurrentImagePage, "NoOverlay", true);
                 }
             }
-
-
-            e.Handled = true;
         }
-
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -508,6 +507,11 @@ namespace PRPR.BooruViewer.Views
         {
             Debug.WriteLine("ImageScrollViewer_DoubleTapped");
 
+
+            // Toggle the buttons display again to undo the first tap action
+            ToggleButtonDisplay();
+
+            // Zoom//unzoom the viewer
             var scrollViewer = sender as ScrollViewer;
             if (scrollViewer.ZoomFactor != 1)
             {
@@ -682,6 +686,71 @@ namespace PRPR.BooruViewer.Views
             // Indeed there will be at most one parent and not worth a search
             // But going to a search list will make the navigation much cleaner and more consistent
             this.Frame.Navigate(typeof(HomePage), $"id:{ImagesViewModel.SelectedImageViewModel.Post.ParentId}");
+        }
+        
+
+        private void SampleImage_DownloadProgress(object sender, Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs e)
+        {
+            var bitmap = sender as BitmapImage;
+            var image = ImagesViewModel.Images.FirstOrDefault(o => o.Post.SampleUrl == bitmap.UriSource.OriginalString);
+            if (image != null)
+            {
+                image.SampleLoadProgress = e.Progress;
+            }
+        }
+
+        private void JpegImage_DownloadProgress(object sender, DownloadProgressEventArgs e)
+        {
+            var bitmap = sender as BitmapImage;
+            var image = ImagesViewModel.Images.FirstOrDefault(o => o.Post.JpegUrl == bitmap.UriSource.OriginalString);
+            if (image != null)
+            {
+                image.JpegLoadProgress = e.Progress;
+            }
+        }
+
+        private void JpegImage_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            if (args.NewValue as ImageViewModel != null)
+            {
+                var bitmap = new BitmapImage(new Uri((args.NewValue as ImageViewModel).Post.JpegUrl));
+                bitmap.DownloadProgress += JpegImage_DownloadProgress;
+                (sender as Image).Source = bitmap;
+            }
+        }
+
+        private void SampleUrl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            if (args.NewValue as ImageViewModel != null)
+            {
+                var bitmap = new BitmapImage(new Uri((args.NewValue as ImageViewModel).Post.SampleUrl));
+                bitmap.DownloadProgress += SampleImage_DownloadProgress;
+                (sender as Image).Source = bitmap;
+            }
+        }
+
+        private void ImageScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (!e.IsIntermediate)
+            {
+                var scrollViewer = sender as ScrollViewer;
+                if (scrollViewer.ZoomFactor > 1.01)
+                {
+                    var image = (scrollViewer.DataContext as ImageViewModel);
+                    if (image != null)
+                    {
+                        image.JpegDisplayNeeded = true;
+                    }
+                }
+                else
+                {
+                    var image = (scrollViewer.DataContext as ImageViewModel);
+                    if (image != null)
+                    {
+                        image.JpegDisplayNeeded = false;
+                    }
+                }
+            }
         }
     }
 }
