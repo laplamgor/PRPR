@@ -118,7 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[11 Feb 2018] v2.4.0
+    <value>@[14 Feb 2018] v2.5.0
+- 情人节快乐 T_T
+Moebooru
+- 加入当前看图画质提示
+- 加入当前看图载入进度条
+- 改善加载图片速度
+- 只在放大时加载全尺寸图片
+Ex
+- 修正个别按钮很难接到
+@[11 Feb 2018] v2.4.0
 - 应用更名为舔图猫
 - 加入试验性主站选项, 支持Konachan!
 Moebooru

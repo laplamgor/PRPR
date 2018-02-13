@@ -118,7 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[11 Feb 2018] v2.4.0
+    <value>@[14 Feb 2018] v2.5.0
+- Happy Valentine's Day T_T
+Moebooru
+- Add progress bar for loading image view
+- Add indicator for current image view quality
+- Improve the image loading speed, 
+- Full size image is only loaded when zoomed in
+Ex
+- Fix some buttons being too hard to click
+@[11 Feb 2018] v2.4.0
 - This app is now renamed to MoeCatnip!
 - Add an experimental option to access Konachan!
 Moebooru

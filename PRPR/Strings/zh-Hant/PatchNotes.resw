@@ -118,7 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[11 Feb 2018] v2.4.0
+    <value>@[14 Feb 2018] v2.5.0
+- 情人節快樂 T_T
+Moebooru
+- 加入當前看圖畫質提示
+- 加入當前看圖載入進度條
+- 改善加載圖片速度
+- 只在放大時加載全尺寸圖片
+Ex
+- 修正個別按鈕很難接到
+@[11 Feb 2018] v2.4.0
 - 應用更名為舔圖貓
 - 加入試驗性主站選項, 支持Konachan!
 Moebooru
