@@ -256,7 +256,7 @@ namespace PRPR.ExReader.Models
                 try
                 {
                     // Get page html
-                    htmlString = await ExClient.GetStringWithExCookie($"{link}?p={pagenumber - 1}", "dm_t-ts_l");
+                    htmlString = await ExClient.GetStringWithExCookie($"{link}?p={pagenumber - 1}&inline_set=ts_l", "dm_t");
                 }
                 catch (HttpRequestException ex)
                 {
