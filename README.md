@@ -1,5 +1,7 @@
-# PRPR
-A UWP client for both Yandere and ExHentai
+# MoeCatnip
+A UWP client for Moebooru. 
+Both Yandere and Konachan are supported.
+The app also includes a client for ExHentai.
 
 
 
