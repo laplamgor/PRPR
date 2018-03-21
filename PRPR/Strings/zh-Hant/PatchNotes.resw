@@ -118,7 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[14 Feb 2018] v2.5.0
+    <value>@[22 Mar 2018] v2.6.0
+- 修正商名顯示名稱
+Moebooru
+- 加入未經測試的返回鍵支持
+Ex
+- 修正搜索框回車時錯誤跳轉
+@[14 Feb 2018] v2.5.0
 - 情人節快樂 T_T
 Moebooru
 - 加入當前看圖畫質提示
