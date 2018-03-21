@@ -55,7 +55,7 @@ namespace PRPR.ExReader.Views
         
         private async void SearchKeyTextBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            this.Focus(FocusState.Pointer);
+            sender.Focus(FocusState.Pointer);
             await GalleryListViewModel.Load();
         }
 
