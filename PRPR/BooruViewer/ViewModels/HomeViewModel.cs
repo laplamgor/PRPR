@@ -1,4 +1,4 @@
-﻿using PRPR.BooruViewer.Models;
+using PRPR.BooruViewer.Models;
 using PRPR.BooruViewer.Models.Global;
 using PRPR.BooruViewer.Services;
 using PRPR.Common;
@@ -99,14 +99,6 @@ namespace PRPR.BooruViewer.ViewModels
 
         public async Task SearchAsync(string keyword)
         {
-            // Validate the keyword
-
-
-
-
-
-
-
             // Dont search if there is more than 6 tags
             if (keyword.Split(' ').Where( o=> !String.IsNullOrWhiteSpace(o)).Count() > 6)
             {
@@ -130,22 +122,65 @@ namespace PRPR.BooruViewer.ViewModels
                 return;
             }
 
-
-
-
             // Updated the search results
             Posts posts;
             try
             {
-                posts = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags={WebUtility.UrlEncode(keyword)}");
+                #region Popular search
+
+                string key;
+
+                if (keyword.Contains("popular_by_week"))
+                {
+                    if (keyword.Contains("?"))
+                    {
+                        key = keyword.Remove(0,keyword.IndexOf('?')+1);
+                        posts = await Posts.DownloadPopularPostsAsync($"{YandeClient.HOST}/post/popular_by_week.xml?{key}");
+                    }
+                    else
+                    {
+                        posts = await Posts.DownloadPopularPostsAsync($"{YandeClient.HOST}/post/popular_by_week.xml");
+                    }
+                }
+                else if (keyword.Contains("popular_by_day"))
+                {
+                    if (keyword.Contains("?"))
+                    {
+                        key = keyword.Remove(keyword.IndexOf('?')+1);
+                        posts = await Posts.DownloadPopularPostsAsync($"{YandeClient.HOST}/post/popular_by_day.xml?{key}");
+                    }
+                    else
+                    {
+                        posts = await Posts.DownloadPopularPostsAsync($"{YandeClient.HOST}/post/popular_by_day.xml");
+                    }
+                }
+                else if (keyword.Contains("popular_by_month"))
+                {
+                    if (keyword.Contains("?"))
+                    {
+                        key = keyword.Remove(keyword.IndexOf('?')+1);
+                        posts = await Posts.DownloadPopularPostsAsync($"{YandeClient.HOST}/post/popular_by_month.xml?{key}");
+                    }
+                    else
+                    {
+                        posts = await Posts.DownloadPopularPostsAsync($"{YandeClient.HOST}/post/popular_by_month.xml");
+                    }
+                }
+
+                #endregion
+
+                else
+                {
+                    posts = await Posts.DownloadPostsAsync(1, $"{YandeClient.HOST}/post.xml?tags={WebUtility.UrlEncode(keyword)}");
+                }
             }
             catch (Exception ex)
             {
                 posts = new Posts();
             }
             SearchPosts = new FilteredCollection<Post, Posts>(posts, SearchPostFilter);
+            //SearchPosts = new FilteredCollection<Post, Posts>(posts);
         }
-        
 
         public HomeViewModel()
         {
