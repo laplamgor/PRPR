@@ -47,6 +47,7 @@ namespace PRPR.BooruViewer.Services
             }
 
             // Download the file into local storage
+            // And delete other existing old file
             var imageSaved = await DownloadImageFromUri(urlToDownload, BackgroundTaskType.LockScreen);
 
 
@@ -58,8 +59,6 @@ namespace PRPR.BooruViewer.Services
 
             // Set the lockScreen
             await ChangeLockScreenBackground(imageSaved);
-
-            // Delete the local file
         }
 
 
@@ -92,18 +91,13 @@ namespace PRPR.BooruViewer.Services
             }
 
             // Download the file into local storage
+            // And delete other existing old file
             var imageSaved = await DownloadImageFromUri(urlToDownload, BackgroundTaskType.WallPaper);
-
-
-
-
+            
             // Set the lockScreen
             await ChangeWallPaper(imageSaved);
-
-            // Delete the local file
         }
-
-
+        
         public static async Task<StorageFile> DownloadImageFromUri(Uri uri, BackgroundTaskType type)
         {
             // Save the image to storage

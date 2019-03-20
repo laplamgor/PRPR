@@ -141,21 +141,37 @@ namespace PRPR.BooruViewer.Services
                     largeHeight = post.SampleHeight;
                     break;
             }
-            var largeBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(largeBufferUrl));
 
-
+            // Try to delete all files of previous images
             var imageFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
+            var imageFiles = await imageFolder.GetFilesAsync();
+            foreach (var oldImageFile in imageFiles)
+            {
+                try
+                {
+                    await oldImageFile.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+
+            // Downlaod the image and create a copy ready to crop
+            var largeBuffer = await (new Windows.Web.Http.HttpClient()).GetBufferAsync(new Uri(largeBufferUrl));
             var imageFile = await imageFolder.CreateFileAsync($"{post.Id}.jpg", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteBufferAsync(imageFile, largeBuffer);
             var jpegFile = await imageFolder.CreateFileAsync($"{post.Id}-original.jpg", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteBufferAsync(jpegFile, largeBuffer);
 
-
-
+            
             // Crop the image
             var imageSize = new Size(largeWidth, largeHeight);
             await CropImageFile(imageFile, imageSize, method, screenSize, previewBuffer);
 
+
+            var id = "";
             if (UserProfilePersonalizationSettings.IsSupported())
             {
                 if (isLockscreen)
@@ -168,7 +184,7 @@ namespace PRPR.BooruViewer.Services
                             db.LockScreenRecords.Add(LockScreenRecord.Create(post));
                             db.SaveChanges();
                         }
-                        return post.Id.ToString();
+                        id = post.Id.ToString();
                     }
                 }
                 else
@@ -181,12 +197,14 @@ namespace PRPR.BooruViewer.Services
                             db.WallpaperRecords.Add(WallpaperRecord.Create(post));
                             db.SaveChanges();
                         }
-                        return post.Id.ToString();
+                        id = post.Id.ToString();
                     }
                 }
-
             }
-            return "";
+
+
+            // Return the latest ID if there is an update
+            return id;
         }
 
         private static async Task CropImageFile(StorageFile imageFile, Size imageSize, CropMethod method, Size screenSize, IBuffer previewBuffer)
@@ -294,7 +312,6 @@ namespace PRPR.BooruViewer.Services
 
                 await CropBitmap.GetCroppedBitmapAsync(imageFile, face, 1);
             }
-            
         }
 
         private static async Task<Post> GetPostAtAsync(FilteredCollection<Post, Posts> posts, int postPointer)
@@ -323,7 +340,6 @@ namespace PRPR.BooruViewer.Services
 
             return new DetechResult() {Faces = rects, FrameSize = new Size(bf.PixelWidth, bf.PixelHeight) };
         }
-        
     }
 
     public class DetechResult

@@ -118,8 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[22 Mar 2018] v2.6.0
+    <value>@[1 Nov 2018] v2.6.3
 - Fix name displayed in store
+- Retarget to new Windows update
+Moebooru
+- Clean all cache for every background update
+Ex
+- Nothing
+@[22 Mar 2018] v2.6.0
 Moebooru
 - Add untested back key support
 Ex

@@ -329,14 +329,7 @@ namespace PRPR.BooruViewer.Views
             }
         }
 
-
-
-
-
-
-
-
-
+        
 
         private async void SetWallPaperButton_Click(object sender, RoutedEventArgs e)
         {

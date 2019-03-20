@@ -118,8 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[22 Mar 2018] v2.6.0
+    <value>@[1 Nov 2018] v2.6.3
 - 修正商名顯示名稱
+- 重新指向新版本Windows
+Moebooru
+- 後台更新圖片時自動清理緩存
+Ex
+- 沒有
+@[22 Mar 2018] v2.6.0
 Moebooru
 - 加入未經測試的返回鍵支持
 Ex
