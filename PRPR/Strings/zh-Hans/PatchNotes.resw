@@ -118,7 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[1 Nov 2018] v2.6.3
+    <value>@[21 Mar 2019] v2.7.0
+- 重新指向新版本RS5 1809
+- 调整界面
+Moebooru
+- 没有
+Ex
+- 修复应对主站更新
+@[1 Nov 2018] v2.6.3
 - 修正商名显示名称
 - 重新指向新版本Windows
 Moebooru

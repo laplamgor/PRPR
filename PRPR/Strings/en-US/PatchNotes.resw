@@ -118,7 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[1 Nov 2018] v2.6.3
+    <value>@[21 Mar 2019] v2.7.0
+- Retarget to Windows RS5 1809
+- Minor UI update
+Moebooru
+- Nothing
+Ex
+- Quick fix for recent website update
+@[1 Nov 2018] v2.6.3
 - Fix name displayed in store
 - Retarget to new Windows update
 Moebooru
