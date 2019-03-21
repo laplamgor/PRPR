@@ -409,16 +409,15 @@
                         </Grid>
                     </UserControl>
 
-                    <CommandBar Grid.RowSpan="1" 
+                    <CommandBar Grid.RowSpan="1"
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
                                 IsDynamicOverflowEnabled="False"
-                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
                                 FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
-                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
+                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}" DefaultLabelPosition="Right" 
                                 >
                         <CommandBar.Content>
-                            <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
+                            <Grid HorizontalAlignment="Stretch" Padding="4">
                                 <AutoSuggestBox x:Uid="/BooruHomePage/AutoSuggestBoxSearch" x:Name="SearchBox" HorizontalAlignment="Stretch"
                                                 QuerySubmitted="SearchBox_QuerySubmitted" 
                                                 QueryIcon="Find" 
@@ -450,7 +449,7 @@
 
                         <AppBarButton x:Uid="/BooruHomePage/AppBarButtonFilter" x:Name="FilterButton" Icon="Filter" Label="Filter" 
                                       AllowFocusOnInteraction ="True"
-                                      Click="FilterButton_Click"  FCU:Style="{ThemeResource AppBarButtonRevealStyle}"/>
+                                      Click="FilterButton_Click"/>
 
                         <CommandBar.SecondaryCommands>
                             <AppBarButton  Label="{Binding SearchPosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
@@ -539,13 +538,12 @@
                     <CommandBar Grid.RowSpan="1" 
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
-                                IsDynamicOverflowEnabled="False"
-                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
+                                IsDynamicOverflowEnabled="False" DefaultLabelPosition="Right" 
                                 FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
                                 CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
                                 >
                         <CommandBar.Content>
-                            <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
+                            <Grid HorizontalAlignment="Stretch" Height="40" Padding="4">
                                 <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="4,0">
                                     <TextBlock x:Uid="/BooruHomePage/TextBlockFavoriteSorting" Text="Sorting:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <ComboBox VerticalAlignment="Center" Background="Transparent" 

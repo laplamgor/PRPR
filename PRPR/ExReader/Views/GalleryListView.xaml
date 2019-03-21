@@ -484,12 +484,12 @@
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
                                 IsDynamicOverflowEnabled="False"
-                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
+                                DefaultLabelPosition="Right" 
                                 FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
                                 CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
                                 >
             <CommandBar.Content>
-                <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
+                <Grid HorizontalAlignment="Stretch" Height="40" Padding="4">
 
 
                     <AutoSuggestBox x:Name="SearchKeyTextBox" HorizontalAlignment="Stretch"

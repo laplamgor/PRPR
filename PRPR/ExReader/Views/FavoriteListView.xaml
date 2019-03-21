@@ -105,13 +105,13 @@
                                 HorizontalContentAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
                                 IsDynamicOverflowEnabled="False"
-                                CommandBarOverflowPresenterStyle="{ThemeResource CommandBarOverflowPresenterStyleAcrylic}"
+                                DefaultLabelPosition="Right" 
                                 FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
                                 CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}"
                                 >
 
             <CommandBar.Content>
-                <Grid HorizontalAlignment="Stretch" Height="48" Padding="8">
+                <Grid HorizontalAlignment="Stretch" Height="40" Padding="4">
                     <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="4,0">
                         <TextBlock x:Uid="/ExFavoriteListView/TextBlockFavoriteSorting" Text="Sorting:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <ComboBox VerticalAlignment="Center" Background="Transparent" 
