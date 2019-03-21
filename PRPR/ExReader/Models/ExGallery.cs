@@ -33,6 +33,7 @@ namespace PRPR.ExReader.Models
             g.Category = node.SelectSingleNode(".//td[2]/div/div[1]/div[1]").InnerText;
             g.Thumb = node.SelectSingleNode(".//td/div/a/img").GetAttributeValue("src", null);
             g.Rating = GetRatingFromStars(node);
+            g.Published = ReadPublished(node);
             return g;
         }
 
@@ -70,6 +71,8 @@ namespace PRPR.ExReader.Models
         public double Rating { get; set; }
 
         public int TorrentCount { get; set; }
+
+
 
         // Details
         public int FileCount { get; set; }
@@ -194,7 +197,22 @@ namespace PRPR.ExReader.Models
 
 
 
-        public DateTime Published { get; set; }
+        public string Published { get; set; }
+
+        private static string ReadPublished(HtmlNode node)
+        {
+            var c = node.SelectSingleNode(".//div[@class='gl3e']/div[2]/text()");
+            if (c != null)
+            {
+                return WebUtility.HtmlDecode(c.InnerHtml).Trim();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
 
         public double PreferredWidth
         {

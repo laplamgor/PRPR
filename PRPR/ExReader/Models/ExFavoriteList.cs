@@ -13,49 +13,8 @@ using Windows.UI.Xaml.Data;
 
 namespace PRPR.ExReader.Models
 {
-    public class ExFavoriteList : ObservableCollection<ExFavorite>, ISupportIncrementalLoading
+    public class ExFavoriteList : ExGalleryList
     {
-        public int PageCount { get; set; } = 0;
-
-        public int CurrentPageNumber { get; set; } = 0;
-        
-
-        public bool HasMoreItems
-        {
-            get
-            {
-                return this.CurrentPageNumber < PageCount;
-            }
-        }
-
-        public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
-        {
-            return AsyncInfo.Run((c) => LoadMoreItemsAsync(c, count));
-        }
-
-        
-
-        async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
-        {
-            try
-            {
-                var nextPageList = await DownloadFavoritesAsync(this.CurrentPageNumber + 1, SortingMode);
-                foreach (var item in nextPageList)
-                {
-                    this.Add(item);
-                }
-
-                this.CurrentPageNumber = nextPageList.CurrentPageNumber;
-                this.PageCount = nextPageList.PageCount;
-
-                return new LoadMoreItemsResult { Count = (uint)nextPageList.Count };
-            }
-            finally
-            {
-                //;
-            }
-        }
-
         public static async Task<ExFavoriteList> DownloadFavoritesAsync(int pagenumber, ExFavoriteSortingMode sortingMode)
         {
             try
@@ -63,12 +22,12 @@ namespace PRPR.ExReader.Models
                 // Get page html
                 if (pagenumber == 1)
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?inline_set={SORTING_STRING[(int)sortingMode]}-https://exhentai.org/favorites.php?inline_set-dm_l", $"");
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?inline_set={SORTING_STRING[(int)sortingMode]}-https://exhentai.org/favorites.php?inline_set-dm_e", $"");
                     return ExFavoriteList.FromHtml(htmlStr, sortingMode);
                 }
                 else
                 {
-                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?page={pagenumber - 1}&inline_set={SORTING_STRING[(int)sortingMode]}-dm_l", $"");
+                    var htmlStr = await ExClient.GetStringWithExCookie($"https://exhentai.org/favorites.php?page={pagenumber - 1}&inline_set={SORTING_STRING[(int)sortingMode]}-dm_e", $"");
                     return ExFavoriteList.FromHtml(htmlStr, sortingMode);
                 }
             }
@@ -90,12 +49,15 @@ namespace PRPR.ExReader.Models
             htmlDocument.OptionFixNestedTags = true;
             htmlDocument.LoadHtml(htmlSource);
 
+
+            HtmlNodeCollection galleryNodes;
             try
             {
-                HtmlNodeCollection favoriteItemNodes = htmlDocument.DocumentNode.SelectNodes("//tr[@class]");
-                foreach (var node in favoriteItemNodes)
+                var tableNode = htmlDocument.DocumentNode.SelectSingleNode("//*[@class='itg glt']");
+                galleryNodes = tableNode.SelectNodes("//tr[./td/@class='gl1e']");
+                foreach (var node in galleryNodes)
                 {
-                    l.Add(ExFavorite.FromHtmlNode(node));
+                    l.Add(ExGallery.GetGalleryListItemFromNode(node));
                 }
 
                 l.PageCount = ReadPageCount(htmlDocument);
@@ -103,10 +65,9 @@ namespace PRPR.ExReader.Models
             }
             catch (Exception ex)
             {
-                throw new Exception("Cannot load favorite list html");
+
             }
 
-            l.SortingMode = sortingMode;
             return l;
         }
 

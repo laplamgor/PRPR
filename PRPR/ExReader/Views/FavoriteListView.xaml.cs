@@ -49,7 +49,7 @@ namespace PRPR.ExReader.Views
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
 
-            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), (e.ClickedItem as ExFavorite).Link);
+            (Window.Current.Content as AppShell).AppFrame.Navigate(typeof(GalleryPage), (e.ClickedItem as ExGallery).Link);
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)

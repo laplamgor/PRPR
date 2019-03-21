@@ -34,7 +34,7 @@ namespace PRPR.ExReader.Models
                 // Get page html
                 var htmlStr = await ExClient.GetStringWithExCookie($"{uri}&page={pagenumber}&inline_set=dm_e", $"xl_{ExSettings.Current.xl}");
                 
-                var e = ExGalleryList.GetExGalleryListFromHtml(htmlStr);
+                var e = GetExGalleryListFromHtml(htmlStr);
                 e.uri = uri;
                 return e;
             }
