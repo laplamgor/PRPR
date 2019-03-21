@@ -32,7 +32,7 @@ namespace PRPR.ExReader.Models
             try
             {
                 // Get page html
-                var htmlStr = await ExClient.GetStringWithExCookie($"{uri}&page={pagenumber}&inline_set=dm_t", $"xl_{ExSettings.Current.xl}");
+                var htmlStr = await ExClient.GetStringWithExCookie($"{uri}&page={pagenumber}&inline_set=dm_e", $"xl_{ExSettings.Current.xl}");
                 
                 var e = ExGalleryList.GetExGalleryListFromHtml(htmlStr);
                 e.uri = uri;
@@ -139,7 +139,8 @@ namespace PRPR.ExReader.Models
             HtmlNodeCollection galleryNodes;
             try
             {
-                galleryNodes = htmlDocument.DocumentNode.SelectNodes("//div[@class='id1']");
+                var tableNode = htmlDocument.DocumentNode.SelectSingleNode("//*[@class='itg glt']");
+                galleryNodes = tableNode.SelectNodes("//tr[./td/@class='gl1e']");
                 foreach (var node in galleryNodes)
                 {
                     l.Add(ExGallery.GetGalleryListItemFromNode(node));

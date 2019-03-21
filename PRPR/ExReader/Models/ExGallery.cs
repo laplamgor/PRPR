@@ -26,15 +26,13 @@ namespace PRPR.ExReader.Models
         public static ExGallery GetGalleryListItemFromNode(HtmlNode node)
         {
 
-            var g = new ExGallery()
-            {
-                Title = WebUtility.HtmlDecode(node.SelectSingleNode(".//div[@class='id2']/a").InnerText),
-                Link = node.SelectSingleNode(".//div[@class='id2']/a").GetAttributeValue("href", null),
-                FileCount = int.Parse(node.SelectSingleNode(".//div[@class='id42']").InnerText.Replace(" files", "")),
-                Category = node.SelectSingleNode(".//div[@class='id41']").GetAttributeValue("title", ""),
-                Thumb = node.SelectSingleNode(".//div[@class='id3']//img").GetAttributeValue("src", null),
-                Rating = GetRatingFromStars(node)
-            };
+            var g = new ExGallery();
+            g.Title = WebUtility.HtmlDecode(node.SelectSingleNode(".//div[@class='gl4e glname']/div/a").InnerText);
+            g.Link = node.SelectSingleNode(".//div[@class='gl4e glname']/div/a").GetAttributeValue("href", null);
+            g.FileCount = int.Parse(node.SelectSingleNode(".//td[2]/div/div[1]/div[5]").InnerText.Replace(" pages", ""));
+            g.Category = node.SelectSingleNode(".//td[2]/div/div[1]/div[1]").InnerText;
+            g.Thumb = node.SelectSingleNode(".//td/div/a/img").GetAttributeValue("src", null);
+            g.Rating = GetRatingFromStars(node);
             return g;
         }
 
@@ -490,7 +488,7 @@ namespace PRPR.ExReader.Models
         private static double GetRatingFromStars(HtmlNode node)
         {
             // background-position:-16px -21px; opacity:1; margin-top:2px
-            var style = node.SelectSingleNode(".//div[starts-with(@class,'id43')]").GetAttributeValue("style", null);
+            var style = node.SelectSingleNode(".//div[@class='ir']").GetAttributeValue("style", null);
             var splited = style.Split(';');
             var numbers = splited[0].Replace("background-position:", "").Replace("px", ",").Split(',');
 
