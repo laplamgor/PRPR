@@ -110,10 +110,10 @@ namespace PRPR.BooruViewer.Views
                     this.HomeViewModel.SelectedViewIndex = 1;
                 }
 
-                SearchBox.Text = e.NavigationParameter as string;
+                var searchString = (e.NavigationParameter as string);
+                SearchBox.Text = searchString == null ? "" : searchString;
 
                 await HomeViewModel.SearchAsync(SearchBox.Text);
-                
             }
         }
         
