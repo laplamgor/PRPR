@@ -304,7 +304,9 @@ namespace PRPR
 
             if (shell.AppFrame.Content == null)
             {
-                shell.AppFrame.Navigate(typeof(BooruViewer.Views.HomePage), e.Arguments);
+                //shell.AppFrame.Navigate(typeof(BooruViewer.Views.HomePage), e.Arguments);
+
+                shell.AppFrame.Navigate(typeof(Common.Views.NavigationPage), e.Arguments);
             }
 
 

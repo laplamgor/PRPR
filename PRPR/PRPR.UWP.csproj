@@ -217,6 +217,9 @@
     <Compile Include="Common\Services\SerializationService.cs" />
     <Compile Include="Common\Services\ToastService.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\Views\NavigationPage.xaml.cs">
+      <DependentUpon>NavigationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExReader\Converters\BoolToFlowDirection.cs" />
     <Compile Include="ExReader\Converters\LanguageConverter.cs" />
     <Compile Include="ExReader\Converters\CategoryColorConverter.cs" />
@@ -380,6 +383,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BooruViewer\Views\SettingWallpaperPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\Views\NavigationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
