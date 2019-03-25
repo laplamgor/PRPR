@@ -46,11 +46,11 @@ namespace PRPR.Common.Views
                 Type pageType;
                 if (args.InvokedItemContainer == SamplePage1Item)
                 {
-                    pageType = typeof(BooruViewer.Views.HomePage);
+                    pageType = typeof(BooruViewer.Views.TabPage);
                 }
                 else if (args.InvokedItemContainer == SamplePage2Item)
                 {
-                    pageType = typeof(ExReader.Views.HomePage);
+                    pageType = typeof(BooruViewer.Views.HomePage);
                 }
                 else
                 {

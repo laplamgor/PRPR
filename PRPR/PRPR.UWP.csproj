@@ -103,6 +103,11 @@
     <Compile Include="BooruViewer\Models\PersonalizationRecord.cs" />
     <Compile Include="BooruViewer\ViewModels\PostListViewModel.cs" />
     <Compile Include="BooruViewer\ViewModels\PostViewModel.cs" />
+    <Compile Include="BooruViewer\ViewModels\TabPostListViewModel.cs" />
+    <Compile Include="BooruViewer\ViewModels\TabViewModel.cs" />
+    <Compile Include="BooruViewer\Views\TabPage.xaml.cs">
+      <DependentUpon>TabPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\AppDbContext.cs" />
     <Compile Include="Common\Controls\FaceDetectedImage.cs" />
     <Compile Include="Common\Controls\IJustifiedWrapPanelItem.cs" />
@@ -386,6 +391,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BooruViewer\Views\TabPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\Views\NavigationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -492,16 +501,19 @@
       <Version>1.1.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.2</Version>
+      <Version>6.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit">
+      <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>2.1.1</Version>
+      <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>2.1.1</Version>
+      <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>2.1.1</Version>
+      <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>

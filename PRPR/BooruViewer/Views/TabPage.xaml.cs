@@ -26,5 +26,7 @@ namespace PRPR.BooruViewer.Views
         {
             this.InitializeComponent();
         }
+
+
     }
 }
