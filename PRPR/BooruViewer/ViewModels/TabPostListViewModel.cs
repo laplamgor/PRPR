@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRPR.BooruViewer.ViewModels
 {
-    public class TabPostListViewModel : TabViewModel
+    public class TabPostListViewModel
     {
         // Your search options
 

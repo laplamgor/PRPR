@@ -284,7 +284,6 @@ namespace PRPR.BooruViewer.Views
             {
                 
             }
-
         }
 
         private void ListViewItem_Tapped(object sender, TappedRoutedEventArgs e)

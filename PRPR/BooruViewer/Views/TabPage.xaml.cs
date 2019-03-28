@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using PRPR.BooruViewer.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,6 +29,47 @@ namespace PRPR.BooruViewer.Views
             this.InitializeComponent();
         }
 
+        private void Tabs_Loaded(object sender, RoutedEventArgs e)
+        {
 
+
+            (sender as TabView).Items.Add(CreateTabViewItem(new TabSummary()));
+        }
+
+
+        private TabViewItem CreateTabViewItem(Tab content)
+        {
+            ContentControl container = new ContentControl();
+            {
+                container.Content = content;
+                container.Style = Tabs.ItemContainerStyle;
+                container.ContentTemplate = (DataTemplate)this.Resources[content.GetType().Name]; ;
+            }
+
+
+            var item = new TabViewItem()
+            {
+                Content = container
+            };
+
+            if (content is TabSummary)
+            {
+                item.Header = "Home";
+                item.Icon = new SymbolIcon() { Symbol = Symbol.Home };
+                item.IsClosable = false;
+            } else if (content is TabPostList)
+            {
+                item.Header = "Search";
+                item.Icon = new SymbolIcon() { Symbol = Symbol.Find };
+            }
+            else if (content is TabPostDetail)
+            {
+                item.Header = "Image";
+                item.Icon = new SymbolIcon() { Symbol = Symbol.BrowsePhotos };
+            }
+
+
+            return item;
+        }
     }
 }
