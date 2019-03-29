@@ -34,6 +34,7 @@ namespace PRPR.BooruViewer.Views
 
 
             (sender as TabView).Items.Add(CreateTabViewItem(new TabSummary()));
+            (sender as TabView).Items.Add(CreateTabViewItem(new TabSummary()));
         }
 
 

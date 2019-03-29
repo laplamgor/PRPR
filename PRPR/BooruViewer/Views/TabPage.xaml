@@ -57,39 +57,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <ControlTemplate x:Key="TabViewTemplate1" TargetType="cc:TabView">
-            <Grid x:Name="TabViewContainer">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition cc:TabView.ConstrainColumn="True" cc:TabView.IgnoreColumn="True" Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition cc:TabView.IgnoreColumn="True" Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-
-                <ContentPresenter x:Name="TabContentPresenter" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Grid.ColumnSpan="6" Grid.Row="2"/>
-                
-                <!--Acrylic-->
-                <Rectangle Grid.ColumnSpan="6" Grid.RowSpan="2" Fill="{ThemeResource SystemControlAltLowAcrylicElementBrush}" Margin="0,-40,0,0"/>
-
-                <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.ColumnSpan="6" Grid.Row="0"/>
-                <ContentPresenter ContentTemplate="{TemplateBinding TabStartHeaderTemplate}" Content="{TemplateBinding TabStartHeader}" Grid.Column="0" Grid.Row="1"/>
-                <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" Grid.Column="1" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" Grid.Row="1" Style="{StaticResource TabViewScrollViewer}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                    <ItemsPresenter x:Name="TabsItemsPresenter" Padding="{TemplateBinding Padding}"/>
-                </ScrollViewer>
-                <ContentPresenter ContentTemplate="{TemplateBinding TabActionHeaderTemplate}" Content="{TemplateBinding TabActionHeader}" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="1"/>
-                <ContentPresenter ContentTemplate="{TemplateBinding TabEndHeaderTemplate}" Content="{TemplateBinding TabEndHeader}" Grid.Column="5" Grid.Row="1"/>
-                <ContentPresenter ContentTemplate="{TemplateBinding FooterTemplate}" Content="{TemplateBinding Footer}" Grid.ColumnSpan="6" Grid.Row="3"/>
-            </Grid>
-        </ControlTemplate>
+        
 
 
 
@@ -106,7 +74,7 @@
     </Page.DataContext>
     
     <Grid>
-        <cc:TabView Template="{StaticResource TabViewTemplate1}" x:Name="Tabs"
+        <cc:TabView x:Name="Tabs"
                     TabWidthBehavior="Equal"
                     CanCloseTabs="True"
                     IsCloseButtonOverlay="False"
@@ -118,11 +86,56 @@
                     
                     >
 
+            <cc:TabView.Template>
+                <ControlTemplate TargetType="cc:TabView">
+                    <Grid x:Name="TabViewContainer">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition cc:TabView.ConstrainColumn="True" cc:TabView.IgnoreColumn="True" Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition cc:TabView.IgnoreColumn="True" Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+
+                        <!--BG-->
+                        <Rectangle Grid.ColumnSpan="6" Grid.RowSpan="2" Fill="{ThemeResource SystemBaseMediumLowColor}" Margin="0,-40,0,0"/>
+
+
+                        <ContentPresenter x:Name="TabContentPresenter" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Grid.ColumnSpan="6" Grid.Row="2"/>
+
+                        <!--Acrylic-->
+
+                        <Rectangle Grid.ColumnSpan="6" Grid.RowSpan="2" Fill="{ThemeResource SystemControlBaseHighAcrylicElementMediumHighBrush}" Margin="0,-40,0,0"/>
+
+                        <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.ColumnSpan="6" Grid.Row="0"/>
+                        <ContentPresenter ContentTemplate="{TemplateBinding TabStartHeaderTemplate}" Content="{TemplateBinding TabStartHeader}" Grid.Column="0" Grid.Row="1"/>
+                        <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" Grid.Column="1" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" Grid.Row="1" Style="{StaticResource TabViewScrollViewer}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                            <ItemsPresenter x:Name="TabsItemsPresenter" Padding="{TemplateBinding Padding}"/>
+                        </ScrollViewer>
+                        <ContentPresenter ContentTemplate="{TemplateBinding TabActionHeaderTemplate}" Content="{TemplateBinding TabActionHeader}" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <ContentPresenter ContentTemplate="{TemplateBinding TabEndHeaderTemplate}" Content="{TemplateBinding TabEndHeader}" Grid.Column="5" Grid.Row="1"/>
+                        <ContentPresenter ContentTemplate="{TemplateBinding FooterTemplate}" Content="{TemplateBinding Footer}" Grid.ColumnSpan="6" Grid.Row="3"/>
+                    </Grid>
+                </ControlTemplate>
+            </cc:TabView.Template>
 
             <cc:TabView.Resources>
                 <x:Double x:Key="TabViewItemHeaderMinHeight">40</x:Double>
                 <x:Double x:Key="TabViewItemHeaderMinWidth">48</x:Double>
                 <x:Double x:Key="TabViewItemHeaderMaxWidth">200</x:Double>
+
+                <SolidColorBrush x:Key="TabViewBackground"
+                             Color="{StaticResource SystemChromeWhiteColor}" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected"
+                             Color="{StaticResource SystemChromeLowColor}" />
             </cc:TabView.Resources>
             <cc:TabView.Header>
                 <TextBlock Padding="96,8,0,8" Height="40" FontSize="16" FontWeight="Bold" Text="Yandere"/>
@@ -142,24 +155,6 @@
                 </Button>
             </cc:TabView.TabStartHeader>
 
-            <!-- Tabs -->
-            <!--<cc:TabViewItem Header="Home" Icon="Home">
-                
-                
-                
-                
-                
-            </cc:TabViewItem>
-            <cc:TabViewItem Header="Tab 2 Has Longer Text" Icon="Audio">
-
-
-            </cc:TabViewItem>
-            <cc:TabViewItem Header="Tab 3" Icon="Video">
-                <TextBlock Padding="16">You can enable drag-and-drop and reorder the tabs too.</TextBlock>
-            </cc:TabViewItem>
-            <cc:TabViewItem Header="Not Closable" Icon="Calendar" IsClosable="False">
-                <TextBlock Padding="16">This tab isn't closable because its IsClosable property is set to False, even when CanCloseTabs is True.</TextBlock>
-            </cc:TabViewItem>-->
 
             <cc:TabView.TabActionHeader>
                 <Button x:Name="AddTabButtonUpper"
@@ -191,12 +186,6 @@
                 </Button>
             </cc:TabView.TabEndHeader>
 
-            <cc:TabView.Footer>
-                <TextBlock Padding="16,8,16,8"
-                       HorizontalAlignment="Right"
-                       FontSize="16" FontWeight="Bold"
-                       Text="TabView Control Footer" />
-            </cc:TabView.Footer>
         </cc:TabView>
     </Grid>
 </Page>

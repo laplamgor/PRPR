@@ -4,6 +4,8 @@
     xmlns:Extensions="using:PRPR.Common.Extensions"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PRPR.BooruViewer.Views"
+        xmlns:cc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -22,13 +24,35 @@
 
             <ScrollViewer Grid.Row="1" Extensions:ScrollViewerOverflow.OverflowMargin="0,150,0,0">
                 <StackPanel>
-                    <Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
+                    <!--<Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
                         <AppBarButton Width="64" HorizontalAlignment="Right" Icon="Refresh" Click="AppBarButton_Click"/>
-                    </Grid>
+                    </Grid>-->
 
                     <local:FeatureView x:Name="FeatureView" />
                 </StackPanel>
             </ScrollViewer>
+
+
+            <cc:DropShadowPanel BlurRadius="20" Grid.RowSpan="1"
+                                HorizontalAlignment="Stretch"  HorizontalContentAlignment="Stretch"
+                                  ShadowOpacity="1"
+                                  OffsetX="0"
+                                  OffsetY="0"
+                                  Color="Black">
+
+
+                <CommandBar
+                                HorizontalContentAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                IsDynamicOverflowEnabled="False"
+                                DefaultLabelPosition="Right" Background="{ThemeResource SystemChromeLowColor}" 
+                                >
+
+                    <AppBarButton x:Uid="/BooruHomePage/AppBarButtonFilter" x:Name="RefreshButton" Icon="Refresh" Label="Refresh" 
+                                      AllowFocusOnInteraction ="True"
+                                      Click="RefreshButton_Click"/>
+                </CommandBar>
+            </cc:DropShadowPanel>
 
         </Grid>
     </UserControl.Content>
