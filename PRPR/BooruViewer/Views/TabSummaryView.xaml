@@ -38,7 +38,7 @@
                                   ShadowOpacity="1"
                                   OffsetX="0"
                                   OffsetY="0"
-                                  Color="Black">
+                                  Color="{ThemeResource SystemBaseMediumHighColor}">
 
 
                 <CommandBar
