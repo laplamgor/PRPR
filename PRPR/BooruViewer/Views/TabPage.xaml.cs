@@ -206,6 +206,7 @@ namespace PRPR.BooruViewer.Views
         private void Tabs_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
         {
             spriteVisual.IsVisible = true;
+            UpdateShadowSizeAndPosition();
         }
 
         private void ScrollContentPresenter_SizeChanged(object sender, SizeChangedEventArgs e)
