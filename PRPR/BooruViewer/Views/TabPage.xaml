@@ -66,6 +66,13 @@
                 <v:TabSummaryView/>
             </Grid>
         </DataTemplate>
+
+
+        <DataTemplate x:Key="TabPostList">
+            <Grid>
+                <v:TabPostListView/>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
 
@@ -86,8 +93,6 @@
                     CanReorderItems="True"
                     AllowDrop="True"
                     SelectedTabWidth="400" Loaded="Tabs_Loaded" SelectionChanged="Tabs_SelectionChanged" Grid.ColumnSpan="2" DragItemsStarting="Tabs_DragItemsStarting" DragItemsCompleted="Tabs_DragItemsCompleted"
-                    
-                    
                     >
 
             <cc:TabView.Template>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls;
 using PRPR.BooruViewer.Models;
+using PRPR.BooruViewer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,7 +46,7 @@ namespace PRPR.BooruViewer.Views
             (sender as TabView).Items.Add(CreateTabViewItem(new TabSummary()));
             (sender as TabView).Items.Add(CreateTabViewItem(new TabSummary()));
             (sender as TabView).Items.Add(CreateTabViewItem(new TabSummary()));
-            (sender as TabView).Items.Add(CreateTabViewItem(new TabSummary()));
+            (sender as TabView).Items.Add(CreateTabViewItem(new TabPostList()));
 
 
             // Find the acrylic rect
@@ -97,7 +98,6 @@ namespace PRPR.BooruViewer.Views
         {
             ContentControl container = new ContentControl();
             {
-                container.Content = content;
                 container.Style = Tabs.ItemContainerStyle;
                 container.ContentTemplate = (DataTemplate)this.Resources[content.GetType().Name]; ;
             }
@@ -110,11 +110,13 @@ namespace PRPR.BooruViewer.Views
 
             if (content is TabSummary)
             {
+                container.Content = content;
                 item.Header = "Home";
                 item.Icon = new SymbolIcon() { Symbol = Symbol.Home };
                 item.IsClosable = false;
             } else if (content is TabPostList)
             {
+                container.Content = new TabPostListViewModel();
                 item.Header = "Search";
                 item.Icon = new SymbolIcon() { Symbol = Symbol.Find };
             }
