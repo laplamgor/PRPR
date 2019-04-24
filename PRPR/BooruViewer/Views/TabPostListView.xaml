@@ -15,6 +15,167 @@
 
 
     <UserControl.Resources>
+        <Style x:Key="FlyoutFlyoutPresenterStyle1" TargetType="FlyoutPresenter">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Background" Value="{ThemeResource FlyoutPresenterBackground}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource FlyoutBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="{ThemeResource FlyoutContentThemePadding}"/>
+            <Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}"/>
+            <Setter Property="MaxWidth" Value="{ThemeResource FlyoutThemeMaxWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}"/>
+            <Setter Property="MaxHeight" Value="{ThemeResource FlyoutThemeMaxHeight}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="FlyoutPresenter">
+                        <Border BackgroundSizing="OuterBorderEdge" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding CornerRadius}" Padding="{ThemeResource FlyoutBorderThemePadding}" Margin="32,40,32,0">
+                            
+                            <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
+            <Setter Property="TextLineBounds" Value="Full"/>
+        </Style>
+        <Style x:Key="CaptionTextBlockStyle" BasedOn="{StaticResource BaseTextBlockStyle}" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style x:Key="ToggleMenuFlyoutItemStyle1" TargetType="ToggleMenuFlyoutItem">
+            <Setter Property="Background" Value="{ThemeResource ToggleMenuFlyoutItemRevealBackground}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource ToggleMenuFlyoutItemRevealBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ToggleMenuFlyoutItemRevealBorderThickness}"/>
+            <Setter Property="Foreground" Value="{ThemeResource ToggleMenuFlyoutItemForeground}"/>
+            <Setter Property="Padding" Value="{ThemeResource MenuFlyoutItemThemePadding}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleMenuFlyoutItem">
+                        <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="AnimationRoot"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Target="LayoutRoot.(RevealBrush.State)" Value="PointerOver"/>
+                                            <Setter Target="LayoutRoot.Background" Value="{ThemeResource ToggleMenuFlyoutItemRevealBackgroundPointerOver}"/>
+                                            <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ToggleMenuFlyoutItemRevealBorderBrushPointerOver}"/>
+                                            <Setter Target="IconContent.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemForegroundPointerOver}"/>
+                                            <Setter Target="TextBlock.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemForegroundPointerOver}"/>
+                                            <Setter Target="CheckGlyph.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemCheckGlyphForegroundPointerOver}"/>
+                                            <Setter Target="KeyboardAcceleratorTextBlock.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemKeyboardAcceleratorTextForegroundPointerOver}"/>
+                                        </VisualState.Setters>
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="AnimationRoot"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Target="LayoutRoot.(RevealBrush.State)" Value="Pressed"/>
+                                            <Setter Target="LayoutRoot.Background" Value="{ThemeResource ToggleMenuFlyoutItemRevealBackgroundPressed}"/>
+                                            <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ToggleMenuFlyoutItemRevealBorderBrushPressed}"/>
+                                            <Setter Target="IconContent.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemForegroundPressed}"/>
+                                            <Setter Target="TextBlock.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemForegroundPressed}"/>
+                                            <Setter Target="CheckGlyph.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemCheckGlyphForegroundPressed}"/>
+                                            <Setter Target="KeyboardAcceleratorTextBlock.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemKeyboardAcceleratorTextForegroundPressed}"/>
+                                        </VisualState.Setters>
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="AnimationRoot"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Target="LayoutRoot.Background" Value="{ThemeResource ToggleMenuFlyoutItemRevealBackgroundDisabled}"/>
+                                            <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ToggleMenuFlyoutItemRevealBorderBrushDisabled}"/>
+                                            <Setter Target="IconContent.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemForegroundDisabled}"/>
+                                            <Setter Target="TextBlock.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemForegroundDisabled}"/>
+                                            <Setter Target="CheckGlyph.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemCheckGlyphForegroundDisabled}"/>
+                                            <Setter Target="KeyboardAcceleratorTextBlock.Foreground" Value="{ThemeResource ToggleMenuFlyoutItemKeyboardAcceleratorTextForegroundDisabled}"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Unchecked"/>
+                                    <VisualState x:Name="Checked">
+                                        <VisualState.Setters>
+                                            <Setter Target="CheckGlyph.Opacity" Value="1"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="UncheckedWithIcon">
+                                        <VisualState.Setters>
+                                            <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}"/>
+                                            <Setter Target="IconRoot.Visibility" Value="Visible"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedWithIcon">
+                                        <VisualState.Setters>
+                                            <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}"/>
+                                            <Setter Target="IconRoot.Visibility" Value="Visible"/>
+                                            <Setter Target="CheckGlyph.Opacity" Value="1"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="PaddingSizeStates">
+                                    <VisualState x:Name="DefaultPadding"/>
+                                    <VisualState x:Name="NarrowPadding">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Padding">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MenuFlyoutItemThemePaddingNarrow}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="KeyboardAcceleratorTextVisibility">
+                                    <VisualState x:Name="KeyboardAcceleratorTextCollapsed"/>
+                                    <VisualState x:Name="KeyboardAcceleratorTextVisible">
+                                        <VisualState.Setters>
+                                            <Setter Target="KeyboardAcceleratorTextBlock.Visibility" Value="Visible"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="AnimationRoot">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <FontIcon x:Name="CheckGlyph" FontFamily="{ThemeResource SymbolThemeFontFamily}" Foreground="{ThemeResource ToggleMenuFlyoutItemCheckGlyphForeground}" FontSize="16" Glyph="&#xE001;" Margin="0,0,12,0" Opacity="0" Width="16"/>
+                                <Viewbox x:Name="IconRoot" Grid.Column="1" HorizontalAlignment="Left" Height="16" VerticalAlignment="Center" Visibility="Collapsed" Width="16">
+                                    <ContentPresenter x:Name="IconContent" Content="{TemplateBinding Icon}"/>
+                                </Viewbox>
+                                <TextBlock x:Name="TextBlock" Grid.Column="1" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{TemplateBinding Text}" TextTrimming="Clip" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <TextBlock x:Name="KeyboardAcceleratorTextBlock" Grid.Column="2" Foreground="{ThemeResource ToggleMenuFlyoutItemKeyboardAcceleratorTextForeground}" HorizontalAlignment="Right" MinWidth="{Binding TemplateSettings.KeyboardAcceleratorTextMinWidth, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="24,0,0,0" Style="{ThemeResource CaptionTextBlockStyle}" Text="{TemplateBinding KeyboardAcceleratorTextOverride}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
 
@@ -130,6 +291,9 @@
                                 </DataTemplate>
                             </AutoSuggestBox.ItemTemplate>
                         </AutoSuggestBox>
+                        <Popup x:Name="ParentedPopup" HorizontalOffset="200" VerticalOffset="200" IsOpen="True">
+                            <TextBlock Text="123"/>
+                        </Popup>
                     </Grid>
                 </CommandBar.Content>
 
@@ -140,19 +304,18 @@
                 </AppBarButton>
 
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton  Label="{Binding SearchPosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
-                    <AppBarButton  Label="{Binding SearchPosts.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
-                    <AppBarButton  Label="{Binding SearchPosts.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Filtered: {0}'}" IsEnabled="False"/>
-                    
-                    
-                    
-                    
-                    <AppBarButton Label="Rating" IsTapEnabled="False">
+
+
+
+
+
+                  
+                    <AppBarButton x:Name="RatingAppBarButton" Label="Rating" IsTapEnabled="False" AllowFocusOnInteraction="True">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE83D;"/>
                         </AppBarButton.Icon>
                         <AppBarButton.Flyout>
-                            <Flyout Placement="Left">
+                            <Flyout FlyoutPresenterStyle="{StaticResource FlyoutFlyoutPresenterStyle1}" AllowFocusOnInteraction="True" >
                                 <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding SearchPostFilter}">
                                     <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchRatingSafe" Header="Safe" IsOn="{Binding IsFilterSafe, Mode=TwoWay}" 
                           IsEnabled="{Binding IsFilterSafeUnlocked}"/>
@@ -169,13 +332,13 @@
                     </AppBarButton>
 
 
-                    <AppBarButton Label="Aspect Ratio" IsTapEnabled="False">
+                    <AppBarButton Label="Aspect Ratio" IsTapEnabled="False" AllowFocusOnInteraction="True">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE799;"/>
                         </AppBarButton.Icon>
 
                         <AppBarButton.Flyout>
-                            <Flyout Placement="Left">
+                            <Flyout FlyoutPresenterStyle="{StaticResource FlyoutFlyoutPresenterStyle1}" AllowFocusOnInteraction="True" >
                                 <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding SearchPostFilter}">
                                     <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchRatioHorizontal" Header="Horizontal" IsOn="{Binding IsFilterHorizontal, Mode=TwoWay}" 
                           IsEnabled="{Binding IsFilterHorizontalUnlocked}"/>
@@ -188,12 +351,12 @@
                     </AppBarButton>
 
 
-                    <AppBarButton Label="Hidden Images" IsTapEnabled="False">
+                    <AppBarButton Label="Hidden Images" IsTapEnabled="False" AllowFocusOnInteraction="True">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE8FF;"/>
                         </AppBarButton.Icon>
                         <AppBarButton.Flyout>
-                            <Flyout Placement="Left">
+                            <Flyout FlyoutPresenterStyle="{StaticResource FlyoutFlyoutPresenterStyle1}" AllowFocusOnInteraction="True" >
                                 <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding SearchPostFilter}">
                                     <ToggleSwitch x:Uid="/BooruHomePage/ToggleSwitchAllowHidden" Header="顯示被隱藏的圖片" IsOn="{Binding IsFilterAllowHidden, Mode=TwoWay}"/>
                                     <TextBlock x:Uid="/BooruHomePage/TextBlockAllowHidden" Text="一般以文字為主的圖片都會被預設隱藏。" TextWrapping="Wrap"/>
@@ -207,12 +370,12 @@
 
 
 
-                    <AppBarButton Label="Blacklist" IsTapEnabled="False">
+                    <AppBarButton Label="Blacklist" IsTapEnabled="False" AllowFocusOnInteraction="True">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xF140;"/>
                         </AppBarButton.Icon>
                         <AppBarButton.Flyout>
-                            <Flyout Placement="Left">
+                            <Flyout FlyoutPresenterStyle="{StaticResource FlyoutFlyoutPresenterStyle1}" AllowFocusOnInteraction="True" >
                                 <StackPanel Width="300" Padding="12,0,12,12" DataContext="{Binding SearchPostFilter}">
                                     <TextBox x:Uid="/BooruHomePage/TextBoxBlacklist" Header="黑名單標籤" Height="200" TextWrapping="Wrap" Text="{Binding TagBlacklist, Mode=TwoWay}"/>
                                     <TextBlock x:Uid="/BooruHomePage/TextBlockBlacklist" Text="所有包含黑名單標籤的貼圖將被隱藏，用空格分隔標籤。注意此黑名單不會與您yandere帳號的網頁版設置同步。" TextWrapping="Wrap"/>
@@ -221,6 +384,12 @@
                         </AppBarButton.Flyout>
                     </AppBarButton>
 
+                    <AppBarButton  Label="{Binding SearchPosts.Source.TotalCount, Converter={StaticResource StringFormatConverter}, ConverterParameter='Total: {0}'}" IsEnabled="False"/>
+                    <AppBarButton  Label="{Binding SearchPosts.Source.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Loaded: {0}'}" IsEnabled="False"/>
+                    <AppBarButton  Label="{Binding SearchPosts.Count, Converter={StaticResource StringFormatConverter}, ConverterParameter='Filtered: {0}'}" IsEnabled="False"/>
+
+
+                    
                     <AppBarSeparator/>
                     <AppBarElementContainer>
                         <AppBarElementContainer.Resources>
