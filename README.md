@@ -1,7 +1,7 @@
 # MoeCatnip
 A UWP client for Moebooru. 
 Both Yandere and Konachan are supported.
-The app also includes a client for ExHentai.
+~~The app also includes a client for ExHentai.~~
 
 
 
