@@ -1,11 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -40,9 +37,6 @@ namespace PRPR.BooruViewer.Models
             return AsyncInfo.Run((c) => LoadMoreItemsAsync(c, count));
         }
 
-
-
-
         private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
             try
@@ -53,7 +47,6 @@ namespace PRPR.BooruViewer.Models
                 bool isListUnchanged = currentPageNum == (this.Offset + this.Count) / limit;
                 if (isListUnchanged)
                 {
-
                     foreach (var item in nextPagePosts)
                     {
                         this.Add(item);
@@ -75,9 +68,6 @@ namespace PRPR.BooruViewer.Models
             }
         }
 
-
-        
-
         public static async Task<Posts> DownloadPostsAsync(int page, string uri)
         {
             using (HttpClient httpClient = new HttpClient())
@@ -88,6 +78,26 @@ namespace PRPR.BooruViewer.Models
                 return p;
             }
         }
+
+        #region Added method for download popular posts
+
+        /// <summary>
+        /// For getting the popular page
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static async Task<Posts> DownloadPopularPostsAsync(string uri)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var xml = await httpClient.GetStringAsync(new Uri($"{uri}"));
+                var p = Posts.ReadFromXml(xml);
+                p.Uri = uri;
+                return p;
+            }
+        }
+
+        #endregion
 
         private static Posts ReadFromXml(string xml)
         {
@@ -105,8 +115,6 @@ namespace PRPR.BooruViewer.Models
         }
     }
 
-
-
     [XmlType("posts")]
 
     public class SerializablePosts
@@ -118,10 +126,8 @@ namespace PRPR.BooruViewer.Models
             get; set;
         }
 
-
         [XmlAttribute("count")]
         public int TotalCount { get; set; }
-
 
         [XmlAttribute("offset")]
         public int Offset { get; set; } = 0;
