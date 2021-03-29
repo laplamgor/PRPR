@@ -37,7 +37,7 @@ namespace PRPR.BooruViewer.Models.Global
         {
             get
             {
-                return GetValueOrDefault<string>(GetCallerName(), "https://yande.re", false);
+                return GetValueOrDefault<string>(GetCallerName(), "https://konachan.com", false);
             }
             set
             {
@@ -49,7 +49,7 @@ namespace PRPR.BooruViewer.Models.Global
         {
             get
             {
-                return GetValueOrDefault<string>(GetCallerName(), "choujin-steiner--your-password--", false);
+                return GetValueOrDefault<string>(GetCallerName(), "So-I-Heard-You-Like-Mupkids-?--your-password--", false);
             }
             set
             {
