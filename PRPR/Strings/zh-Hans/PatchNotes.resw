@@ -118,7 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Notes" xml:space="preserve">
-    <value>@[21 Mar 2019] v2.7.0
+    <value>@[30 Mar 2021] v2.8.0
+Moebooru
+- 图片更安全
+- 默认使用Konachan站点
+@[21 Mar 2019] v2.7.0
 - 重新指向新版本RS5 1809
 - 调整界面
 Moebooru
