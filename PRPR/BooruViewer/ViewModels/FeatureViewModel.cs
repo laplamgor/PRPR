@@ -64,10 +64,13 @@ namespace PRPR.BooruViewer.ViewModels
 
             var shuffled = nonCharTags.OrderBy(a => Guid.NewGuid());
             Tags.Clear();
+
+            var tagBlacklist = YandeSettings.Current.SearchPostFilter.TagBlacklist.Split(' ').ToList();
+
             foreach (var item in shuffled)
             {
                 // Skip unless tags
-                if (item.Key == "male" || item.Key == "tagme" || item.Key == "text")
+                if (item.Key == "male" || item.Key == "tagme" || item.Key == "text" || tagBlacklist.Contains(item.Key))
                 {
                     continue;
                 }

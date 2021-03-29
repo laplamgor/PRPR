@@ -254,7 +254,7 @@
                     </Grid>
                 </ListViewItem>
 
-                <TextBox x:Uid="/BooruHomePage/TextBoxBlacklist" Header="黑名單標籤" Height="200" TextWrapping="Wrap" Text="{Binding TagBlacklist, Mode=TwoWay}"/>
+                <TextBox x:Uid="/BooruHomePage/TextBoxBlacklist" Header="黑名單標籤" Height="200" TextWrapping="Wrap" Text="{Binding TagBlacklist, Mode=TwoWay}" IsReadOnly="{Binding IsFilterSafe}"/>
                 <TextBlock x:Uid="/BooruHomePage/TextBlockBlacklist" Text="所有包含黑名單標籤的貼圖將被隱藏，用空格分隔標籤。注意此黑名單不會與您yandere帳號的網頁版設置同步。" TextWrapping="Wrap"/>
             </StackPanel>
         </Flyout>
