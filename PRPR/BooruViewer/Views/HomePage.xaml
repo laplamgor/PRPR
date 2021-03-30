@@ -414,10 +414,10 @@
                                 HorizontalAlignment="Stretch"
                                 IsDynamicOverflowEnabled="False"
                                 FCU:Background="{ThemeResource CommandBarAcrylicBackgroundBrush}"
-                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}" DefaultLabelPosition="Right" 
+                                CU:Background="{ThemeResource ScrollBarButtonForegroundThemeBrush}" DefaultLabelPosition="Right" VerticalAlignment="Stretch" 
                                 >
                         <CommandBar.Content>
-                            <Grid HorizontalAlignment="Stretch" Padding="4">
+                            <Grid HorizontalAlignment="Stretch" Padding="4" Height="40">
                                 <AutoSuggestBox x:Uid="/BooruHomePage/AutoSuggestBoxSearch" x:Name="SearchBox" HorizontalAlignment="Stretch"
                                                 QuerySubmitted="SearchBox_QuerySubmitted" 
                                                 QueryIcon="Find" 
